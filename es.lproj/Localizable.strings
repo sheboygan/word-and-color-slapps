@@ -1,0 +1,78 @@
+/* 
+  Localizable.strings
+  Game
+
+  Created by Sunny on 2/25/12.
+  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+*/
+
+"Animals" = "Animales";
+"Colors" = "Colores";
+"Colors and Animals" = "Colores Y Animales ";
+"Empty" = "Vacío";
+"Select one" = "Seleccionar un";
+"Choose Category" = "Elija la categoría";
+"Choose Images" = "Seleccionar las imágenes";
+
+"Words missed" = "Incorrecto";
+"Number of Turns" = "Numero de Turnos";
+"Practice Mode" = "Modo Práctica";
+"Question Prompt" = "Sistema de Pregunta";
+"Incorrect Response" = "Respuesta Incorrecta";
+"Correct Response" = "Respuesta Correcta";
+"Sounds" = "Sonidos";
+"Visuals" = "Imágenes";
+"Choose Theme/Visuals" = "Escoger Tema/Imágenes";
+"Basic" = "Básico";
+"Farm" = "Granja";
+"Vehicles" = "Vehículos";
+"Your Folders" = "Sus Carpetas";
+"Add a folder" = "Añadir Carpeta";
+"Input Folder name here" = "Entrada de la carpeta";
+"Add Category" = "Añadir una Categoría";
+"Input Category name here" = "Entrada Categoría";
+"Add an image and audio" = "Añadir imagen y sonido";
+"Add an image" = "Añadir imagery sonido";
+"Image name" = "Nombre de Imagen";
+"Audio File" = "Archivo de Sonido ";
+"Play" = "Jugar";
+"Record" = "Récord";
+"Stop" = "Parar";
+"Use Camera" = "Usar Cámara";
+"Choose from Library" = "Escoger de Librería";
+"Find the" = "Encontrar el";
+"Find" = "Encontrar";
+
+"Black" = "Negro";
+"Blue" = "Azul";
+"Brown" = "Marrón";
+"Green" = "Verde";
+"Grey" = "Gris";
+"Oranage" = "Naranja";
+"Pink" = "Rosa";
+"Purple" = "Púrpura";
+"Red" = "Rojo";
+"White" = "Blanco";
+"Yellow" = "Amarillo";
+"Ape" = "Mono";
+"Parrot" = "Loro";
+"Cat" = "Gato";
+"Chicken" = "Pollo";
+"Cow" = "Vaca";
+"Dog" = "Perro";
+"Donkey" = "Burro";
+"Tiger" = "Tigre";
+"Rhino" = "Rinoceronte";
+"Squirrel" = "Ardilla";
+"Turtle" = "Tortuga";
+"Peach" = "Peach";
+"Zebra" = "Cebra";
+
+"Add a category" = "Añadir un Categoría";
+"Save category" = "¿Salir sin Guardar?";
+"Save folder" = "¿Salir sin Guardar?";
+"Save changes" = "¿Salir sin Guardar?";
+"Please add a category name" = "¿Categoría?";
+"Please add a name for the image" = "Guardar un nombre";
+"Please select an image from your photo library" = "Añadir imagen!";
+"Please add a folder name" = "Entrada de nombre de la carpeta";

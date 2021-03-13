@@ -1,0 +1,77 @@
+/* 
+  Localizable.strings
+  Game
+
+  Created by Sunny on 2/25/12.
+  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+*/
+
+"Animals" = "Animaux";
+"Colors" = "Couleurs";
+"Colors and Animals" = "Couleurs Et Animaux";
+"Empty" = "Vide";
+"Select one" = "Choisissez-En Un";
+"Choose Category" = "Choisissez Une Catégorie";
+"Choose Images" = "Choisissez des Images";
+
+"Words missed" = "Incorrect";
+"Number of Turns" = "Nombre De Tours";
+"Practice Mode" = "Mode Entraînement";
+"Question Prompt" = "Question Rapide";
+"Incorrect Response" = "Réponse Incorrecte";
+"Correct Response" = "Réponse Correcte";
+"Sounds" = "Sons";
+"Visuals" = "Visuels";
+"Choose Theme/Visuals" = "Sélectionner Un Thème/Visuels";
+"Basic" = "Basique";
+"Farm" = "Ferme";
+"Vehicles" = "Véhicules";
+"Your Folders" = "Vos Dossiers";
+"Add a folder" = "Ajouter un dossier";
+"Input Folder name here" = "Le nom du dossier d'entrée";
+"Add Category" = "Ajouter Une Catégorie";
+"Input Category name here" = "Nom de la catégorie d'entrée";
+"Add an image and audio" = "Ajouter Une Image Et L'audio";
+"Add an image" = "Ajouter Une image et l'audio";
+"Image name" = "Nom De L'image";
+"Audio File" = "Fichier Audio";
+"Play" = "Lire";
+"Record" = "Enregistrer";
+"Stop" = "Arrêter";
+"Use Camera" = "Utiliser l’Appareil Photo";
+"Choose from Library" = "Choisir depuis la Bibliothèque";
+"Find the" = "Trouver Le";
+"Find" = "Trouver";
+
+"Black" = "Noir";
+"Blue" = "Bleu";
+"Brown" = "Marron";
+"Green" = "Vert";
+"Grey" = "Gris";
+"Oranage" = "Orange";
+"Pink" = "Rose";
+"Purple" = "Violet";
+"Red" = "Rouge";
+"White" = "Blanc";
+"Yellow" = "Jaune";
+"Ape" = "Singe";
+"Parrot" = "Perroquet";
+"Cat" = "Chat";
+"Chicken" = "Poulet";
+"Cow" = "Vache";
+"Dog" = "Chien";
+"Donkey" = "âne";
+"Tiger" = "Tiger";
+"Rhino" = "Rhino";
+"Squirrel" = "Écureuil";
+"Turtle" = "Tortue";
+"Peach" = "Pêche";
+"Zebra" = "Zèbre";
+
+"Save category" = "Quitter sans Enregistrerr?";
+"Save folder" = "Quitter sans Enregistrer?";
+"Save changes" = "Quitter sans Enregistrer?";
+"Please add a category name" = "Catégorie";
+"Please add a name for the image" = "Ajouter un nom";
+"Please select an image from your photo library" = "Ajouter une image!";
+"Please add a folder name" = "Ajouter un nom de dossier";

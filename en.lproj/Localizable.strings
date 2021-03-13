@@ -1,0 +1,79 @@
+/* 
+  Localizable.strings
+  Game
+
+  Created by Sunny on 2/25/12.
+  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+*/
+
+"Animals" = "Animals";
+"Colors" = "Colors";
+"Colors and Animals" = "Colors and Animals";
+"Empty" = "empty";
+"Select one" = "Select one";
+"Choose Category" = "Choose one Category";
+"Choose Images" = "Choose Images";
+
+"Words missed" = "Words missed";
+"Number of Turns" = "Number of Turns";
+"Practice Mode" = "Practice Mode";
+"Question Prompt" = "Question Prompt";
+"Incorrect Response" = "Incorrect Response";
+"Correct Response" = "Correct Response";
+"Sounds" = "Sounds";
+"Visuals" = "Visuals";
+"Choose Theme/Visuals" = "Choose Theme/Visuals";
+"Basic" = "Basic";
+"Farm" = "Farm";
+"Vehicles" = "Vehicles";
+"Your Folders" = "Your Folders";
+"Add a folder" = "Add a folder";
+"Input Folder name here" = "Input Folder name here";
+"Add Category" = "Add Category";
+"Input Category name here" = "Input Category name here";
+"Add an image and audio" = "Add an image and audio";
+"Add an image" = "Add an image";
+
+"Image name" = "Image name";
+"Audio File" = "Audio File";
+"Play" = "Play";
+"Record" = "Record";
+"Stop" = "Stop";
+"Use Camera" = "Use Camera";
+"Choose from Library" = "Choose from Library";
+"Find the" = "Find the";
+"Find" = "Find";
+
+"Black" = "Black";
+"Blue" = "Blue";
+"Brown" = "Brown";
+"Green" = "Green";
+"Grey" = "Grey";
+"Oranage" = "Orange";
+"Pink" = "Pink";
+"Purple" = "Purple";
+"Red" = "Red";
+"White" = "White";
+"Yellow" = "Yellow";
+"Ape" = "Ape";
+"Parrot" = "Parrot";
+"Cat" = "Cat";
+"Chicken" = "Chicken";
+"Cow" = "Cow";
+"Dog" = "Dog";
+"Donkey" = "Donkey";
+"Tiger" = "Tiger";
+"Rhino" = "Rhino";
+"Squirrel" = "Squirrel";
+"Turtle" = "Turtle";
+"Peach" = "Peach";
+"Zebra" = "Zebra";
+
+"Add a category" = "Add a category";
+"Save category" = "Press 'Save' to store this category. Do you really want to exit without saving?";
+"Save folder" = "Press 'Save' to store this folder. Do you really want to exit without saving?";
+"Save changes" = "Press 'Save' to store all changes. Do you really want to exit without saving?";
+"Please add a category name" = "Please add a category name";
+"Please add a name for the image" = "Please add a name for the image";
+"Please select an image from your photo library" = "Please select an image from your photo library!";
+"Please add a folder name" = "Please add a folder name";
