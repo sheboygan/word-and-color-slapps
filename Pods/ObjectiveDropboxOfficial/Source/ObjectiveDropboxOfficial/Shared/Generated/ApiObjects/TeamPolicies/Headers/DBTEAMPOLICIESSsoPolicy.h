@@ -27,7 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// The `DBTEAMPOLICIESSsoPolicyTag` enum type represents the possible tag
 /// states with which the `DBTEAMPOLICIESSsoPolicy` union can exist.
-typedef NS_ENUM(NSInteger, DBTEAMPOLICIESSsoPolicyTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBTEAMPOLICIESSsoPolicyTag) {
   /// Users will be able to sign in with their Dropbox credentials.
   DBTEAMPOLICIESSsoPolicyDisabled,
 
@@ -141,7 +141,7 @@ typedef NS_ENUM(NSInteger, DBTEAMPOLICIESSsoPolicyTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBTEAMPOLICIESSsoPolicy` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBTEAMPOLICIESSsoPolicy *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBTEAMPOLICIESSsoPolicy *)instance;
 
 ///
 /// Deserializes `DBTEAMPOLICIESSsoPolicy` instances.
@@ -151,7 +151,7 @@ typedef NS_ENUM(NSInteger, DBTEAMPOLICIESSsoPolicyTag) {
 ///
 /// @return An instantiation of the `DBTEAMPOLICIESSsoPolicy` object.
 ///
-+ (DBTEAMPOLICIESSsoPolicy *)deserialize:(NSDictionary *)dict;
++ (DBTEAMPOLICIESSsoPolicy *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

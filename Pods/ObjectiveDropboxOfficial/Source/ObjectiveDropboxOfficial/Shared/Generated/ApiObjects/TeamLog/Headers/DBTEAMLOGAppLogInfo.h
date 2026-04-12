@@ -27,10 +27,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Instance fields
 
-/// App unique ID. Might be missing due to historical data gap.
+/// App unique ID.
 @property (nonatomic, readonly, copy, nullable) NSString *appId;
 
-/// App display name. Might be missing due to historical data gap.
+/// App display name.
 @property (nonatomic, readonly, copy, nullable) NSString *displayName;
 
 #pragma mark - Constructors
@@ -38,9 +38,8 @@ NS_ASSUME_NONNULL_BEGIN
 ///
 /// Full constructor for the struct (exposes all instance variables).
 ///
-/// @param appId App unique ID. Might be missing due to historical data gap.
-/// @param displayName App display name. Might be missing due to historical data
-/// gap.
+/// @param appId App unique ID.
+/// @param displayName App display name.
 ///
 /// @return An initialized instance.
 ///
@@ -74,7 +73,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// @return A json-compatible dictionary representation of the
 /// `DBTEAMLOGAppLogInfo` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBTEAMLOGAppLogInfo *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBTEAMLOGAppLogInfo *)instance;
 
 ///
 /// Deserializes `DBTEAMLOGAppLogInfo` instances.
@@ -84,7 +83,7 @@ NS_ASSUME_NONNULL_BEGIN
 ///
 /// @return An instantiation of the `DBTEAMLOGAppLogInfo` object.
 ///
-+ (DBTEAMLOGAppLogInfo *)deserialize:(NSDictionary *)dict;
++ (DBTEAMLOGAppLogInfo *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

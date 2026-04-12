@@ -29,7 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// The `DBPAPERFolderSubscriptionLevelTag` enum type represents the possible
 /// tag states with which the `DBPAPERFolderSubscriptionLevel` union can exist.
-typedef NS_ENUM(NSInteger, DBPAPERFolderSubscriptionLevelTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBPAPERFolderSubscriptionLevelTag) {
   /// Not shown in activity, no email messages.
   DBPAPERFolderSubscriptionLevelNone,
 
@@ -146,7 +146,7 @@ typedef NS_ENUM(NSInteger, DBPAPERFolderSubscriptionLevelTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBPAPERFolderSubscriptionLevel` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBPAPERFolderSubscriptionLevel *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBPAPERFolderSubscriptionLevel *)instance;
 
 ///
 /// Deserializes `DBPAPERFolderSubscriptionLevel` instances.
@@ -156,7 +156,7 @@ typedef NS_ENUM(NSInteger, DBPAPERFolderSubscriptionLevelTag) {
 ///
 /// @return An instantiation of the `DBPAPERFolderSubscriptionLevel` object.
 ///
-+ (DBPAPERFolderSubscriptionLevel *)deserialize:(NSDictionary *)dict;
++ (DBPAPERFolderSubscriptionLevel *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

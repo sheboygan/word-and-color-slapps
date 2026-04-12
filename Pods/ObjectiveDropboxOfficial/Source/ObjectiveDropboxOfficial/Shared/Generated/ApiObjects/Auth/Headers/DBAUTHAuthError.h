@@ -9,6 +9,7 @@
 #import "DBSerializableProtocol.h"
 
 @class DBAUTHAuthError;
+@class DBAUTHTokenScopeError;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -29,7 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// The `DBAUTHAuthErrorTag` enum type represents the possible tag states with
 /// which the `DBAUTHAuthError` union can exist.
-typedef NS_ENUM(NSInteger, DBAUTHAuthErrorTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBAUTHAuthErrorTag) {
   /// The access token is invalid.
   DBAUTHAuthErrorInvalidAccessToken,
 
@@ -44,6 +45,15 @@ typedef NS_ENUM(NSInteger, DBAUTHAuthErrorTag) {
   /// The user has been suspended.
   DBAUTHAuthErrorUserSuspended,
 
+  /// The access token has expired.
+  DBAUTHAuthErrorExpiredAccessToken,
+
+  /// The access token does not have the required scope to access the route.
+  DBAUTHAuthErrorMissingScope,
+
+  /// The route is not available to public.
+  DBAUTHAuthErrorRouteAccessDenied,
+
   /// (no description).
   DBAUTHAuthErrorOther,
 
@@ -51,6 +61,11 @@ typedef NS_ENUM(NSInteger, DBAUTHAuthErrorTag) {
 
 /// Represents the union's current tag state.
 @property (nonatomic, readonly) DBAUTHAuthErrorTag tag;
+
+/// The access token does not have the required scope to access the route. @note
+/// Ensure the `isMissingScope` method returns true before accessing, otherwise
+/// a runtime exception will be raised.
+@property (nonatomic, readonly) DBAUTHTokenScopeError *missingScope;
 
 #pragma mark - Constructors
 
@@ -92,6 +107,39 @@ typedef NS_ENUM(NSInteger, DBAUTHAuthErrorTag) {
 /// @return An initialized instance.
 ///
 - (instancetype)initWithUserSuspended;
+
+///
+/// Initializes union class with tag state of "expired_access_token".
+///
+/// Description of the "expired_access_token" tag state: The access token has
+/// expired.
+///
+/// @return An initialized instance.
+///
+- (instancetype)initWithExpiredAccessToken;
+
+///
+/// Initializes union class with tag state of "missing_scope".
+///
+/// Description of the "missing_scope" tag state: The access token does not have
+/// the required scope to access the route.
+///
+/// @param missingScope The access token does not have the required scope to
+/// access the route.
+///
+/// @return An initialized instance.
+///
+- (instancetype)initWithMissingScope:(DBAUTHTokenScopeError *)missingScope;
+
+///
+/// Initializes union class with tag state of "route_access_denied".
+///
+/// Description of the "route_access_denied" tag state: The route is not
+/// available to public.
+///
+/// @return An initialized instance.
+///
+- (instancetype)initWithRouteAccessDenied;
 
 ///
 /// Initializes union class with tag state of "other".
@@ -139,6 +187,34 @@ typedef NS_ENUM(NSInteger, DBAUTHAuthErrorTag) {
 - (BOOL)isUserSuspended;
 
 ///
+/// Retrieves whether the union's current tag state has value
+/// "expired_access_token".
+///
+/// @return Whether the union's current tag state has value
+/// "expired_access_token".
+///
+- (BOOL)isExpiredAccessToken;
+
+///
+/// Retrieves whether the union's current tag state has value "missing_scope".
+///
+/// @note Call this method and ensure it returns true before accessing the
+/// `missingScope` property, otherwise a runtime exception will be thrown.
+///
+/// @return Whether the union's current tag state has value "missing_scope".
+///
+- (BOOL)isMissingScope;
+
+///
+/// Retrieves whether the union's current tag state has value
+/// "route_access_denied".
+///
+/// @return Whether the union's current tag state has value
+/// "route_access_denied".
+///
+- (BOOL)isRouteAccessDenied;
+
+///
 /// Retrieves whether the union's current tag state has value "other".
 ///
 /// @return Whether the union's current tag state has value "other".
@@ -169,7 +245,7 @@ typedef NS_ENUM(NSInteger, DBAUTHAuthErrorTag) {
 /// @return A json-compatible dictionary representation of the `DBAUTHAuthError`
 /// API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBAUTHAuthError *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBAUTHAuthError *)instance;
 
 ///
 /// Deserializes `DBAUTHAuthError` instances.
@@ -179,7 +255,7 @@ typedef NS_ENUM(NSInteger, DBAUTHAuthErrorTag) {
 ///
 /// @return An instantiation of the `DBAUTHAuthError` object.
 ///
-+ (DBAUTHAuthError *)deserialize:(NSDictionary *)dict;
++ (DBAUTHAuthError *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

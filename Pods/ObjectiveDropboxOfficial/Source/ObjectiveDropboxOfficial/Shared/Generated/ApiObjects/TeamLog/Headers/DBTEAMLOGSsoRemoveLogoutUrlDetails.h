@@ -17,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 ///
 /// The `SsoRemoveLogoutUrlDetails` struct.
 ///
-/// Removed single sign-on logout URL.
+/// Removed sign-out URL for SSO.
 ///
 /// This class implements the `DBSerializable` protocol (serialize and
 /// deserialize instance methods), which is required for all Obj-C SDK API route
@@ -61,7 +61,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// @return A json-compatible dictionary representation of the
 /// `DBTEAMLOGSsoRemoveLogoutUrlDetails` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBTEAMLOGSsoRemoveLogoutUrlDetails *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBTEAMLOGSsoRemoveLogoutUrlDetails *)instance;
 
 ///
 /// Deserializes `DBTEAMLOGSsoRemoveLogoutUrlDetails` instances.
@@ -71,7 +71,7 @@ NS_ASSUME_NONNULL_BEGIN
 ///
 /// @return An instantiation of the `DBTEAMLOGSsoRemoveLogoutUrlDetails` object.
 ///
-+ (DBTEAMLOGSsoRemoveLogoutUrlDetails *)deserialize:(NSDictionary *)dict;
++ (DBTEAMLOGSsoRemoveLogoutUrlDetails *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

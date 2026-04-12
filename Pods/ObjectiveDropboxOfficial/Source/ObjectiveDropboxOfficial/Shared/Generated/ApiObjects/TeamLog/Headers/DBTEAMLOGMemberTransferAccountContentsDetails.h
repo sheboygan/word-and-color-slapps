@@ -17,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 ///
 /// The `MemberTransferAccountContentsDetails` struct.
 ///
-/// Transferred contents of a removed team member account to another member.
+/// Transferred contents of deleted member account to another member.
 ///
 /// This class implements the `DBSerializable` protocol (serialize and
 /// deserialize instance methods), which is required for all Obj-C SDK API route
@@ -27,26 +27,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Instance fields
 
-/// Source participant position in the Participants list.
-@property (nonatomic, readonly) NSNumber *srcParticipantIndex;
-
-/// Destination participant position in the Participants list.
-@property (nonatomic, readonly) NSNumber *destParticipantIndex;
-
 #pragma mark - Constructors
 
 ///
 /// Full constructor for the struct (exposes all instance variables).
 ///
-/// @param srcParticipantIndex Source participant position in the Participants
-/// list.
-/// @param destParticipantIndex Destination participant position in the
-/// Participants list.
-///
 /// @return An initialized instance.
 ///
-- (instancetype)initWithSrcParticipantIndex:(NSNumber *)srcParticipantIndex
-                       destParticipantIndex:(NSNumber *)destParticipantIndex;
+- (instancetype)initDefault;
 
 - (instancetype)init NS_UNAVAILABLE;
 
@@ -69,7 +57,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// @return A json-compatible dictionary representation of the
 /// `DBTEAMLOGMemberTransferAccountContentsDetails` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBTEAMLOGMemberTransferAccountContentsDetails *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBTEAMLOGMemberTransferAccountContentsDetails *)instance;
 
 ///
 /// Deserializes `DBTEAMLOGMemberTransferAccountContentsDetails` instances.
@@ -80,7 +68,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// @return An instantiation of the
 /// `DBTEAMLOGMemberTransferAccountContentsDetails` object.
 ///
-+ (DBTEAMLOGMemberTransferAccountContentsDetails *)deserialize:(NSDictionary *)dict;
++ (DBTEAMLOGMemberTransferAccountContentsDetails *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

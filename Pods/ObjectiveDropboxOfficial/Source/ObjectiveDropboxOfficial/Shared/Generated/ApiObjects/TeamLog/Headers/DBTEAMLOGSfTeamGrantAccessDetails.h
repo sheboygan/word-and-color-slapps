@@ -17,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 ///
 /// The `SfTeamGrantAccessDetails` struct.
 ///
-/// Granted access to a shared folder.
+/// Granted access to shared folder.
 ///
 /// This class implements the `DBSerializable` protocol (serialize and
 /// deserialize instance methods), which is required for all Obj-C SDK API route
@@ -65,7 +65,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// @return A json-compatible dictionary representation of the
 /// `DBTEAMLOGSfTeamGrantAccessDetails` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBTEAMLOGSfTeamGrantAccessDetails *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBTEAMLOGSfTeamGrantAccessDetails *)instance;
 
 ///
 /// Deserializes `DBTEAMLOGSfTeamGrantAccessDetails` instances.
@@ -75,7 +75,7 @@ NS_ASSUME_NONNULL_BEGIN
 ///
 /// @return An instantiation of the `DBTEAMLOGSfTeamGrantAccessDetails` object.
 ///
-+ (DBTEAMLOGSfTeamGrantAccessDetails *)deserialize:(NSDictionary *)dict;
++ (DBTEAMLOGSfTeamGrantAccessDetails *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

@@ -28,7 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// The `DBTEAMMembersAddJobStatusTag` enum type represents the possible tag
 /// states with which the `DBTEAMMembersAddJobStatus` union can exist.
-typedef NS_ENUM(NSInteger, DBTEAMMembersAddJobStatusTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBTEAMMembersAddJobStatusTag) {
   /// The asynchronous job is still in progress.
   DBTEAMMembersAddJobStatusInProgress,
 
@@ -152,7 +152,7 @@ typedef NS_ENUM(NSInteger, DBTEAMMembersAddJobStatusTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBTEAMMembersAddJobStatus` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBTEAMMembersAddJobStatus *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBTEAMMembersAddJobStatus *)instance;
 
 ///
 /// Deserializes `DBTEAMMembersAddJobStatus` instances.
@@ -162,7 +162,7 @@ typedef NS_ENUM(NSInteger, DBTEAMMembersAddJobStatusTag) {
 ///
 /// @return An instantiation of the `DBTEAMMembersAddJobStatus` object.
 ///
-+ (DBTEAMMembersAddJobStatus *)deserialize:(NSDictionary *)dict;
++ (DBTEAMMembersAddJobStatus *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

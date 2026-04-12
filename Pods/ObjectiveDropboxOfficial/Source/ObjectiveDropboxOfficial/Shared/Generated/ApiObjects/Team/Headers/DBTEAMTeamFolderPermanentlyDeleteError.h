@@ -31,7 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// The `DBTEAMTeamFolderPermanentlyDeleteErrorTag` enum type represents the
 /// possible tag states with which the `DBTEAMTeamFolderPermanentlyDeleteError`
 /// union can exist.
-typedef NS_ENUM(NSInteger, DBTEAMTeamFolderPermanentlyDeleteErrorTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBTEAMTeamFolderPermanentlyDeleteErrorTag) {
   /// (no description).
   DBTEAMTeamFolderPermanentlyDeleteErrorAccessError,
 
@@ -167,7 +167,7 @@ typedef NS_ENUM(NSInteger, DBTEAMTeamFolderPermanentlyDeleteErrorTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBTEAMTeamFolderPermanentlyDeleteError` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBTEAMTeamFolderPermanentlyDeleteError *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBTEAMTeamFolderPermanentlyDeleteError *)instance;
 
 ///
 /// Deserializes `DBTEAMTeamFolderPermanentlyDeleteError` instances.
@@ -178,7 +178,7 @@ typedef NS_ENUM(NSInteger, DBTEAMTeamFolderPermanentlyDeleteErrorTag) {
 /// @return An instantiation of the `DBTEAMTeamFolderPermanentlyDeleteError`
 /// object.
 ///
-+ (DBTEAMTeamFolderPermanentlyDeleteError *)deserialize:(NSDictionary *)dict;
++ (DBTEAMTeamFolderPermanentlyDeleteError *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

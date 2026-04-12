@@ -28,7 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// The `DBTEAMPOLICIESTwoStepVerificationPolicyTag` enum type represents the
 /// possible tag states with which the `DBTEAMPOLICIESTwoStepVerificationPolicy`
 /// union can exist.
-typedef NS_ENUM(NSInteger, DBTEAMPOLICIESTwoStepVerificationPolicyTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBTEAMPOLICIESTwoStepVerificationPolicyTag) {
   /// Enabled require two factor authorization.
   DBTEAMPOLICIESTwoStepVerificationPolicyRequireTfaEnable,
 
@@ -127,7 +127,7 @@ typedef NS_ENUM(NSInteger, DBTEAMPOLICIESTwoStepVerificationPolicyTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBTEAMPOLICIESTwoStepVerificationPolicy` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBTEAMPOLICIESTwoStepVerificationPolicy *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBTEAMPOLICIESTwoStepVerificationPolicy *)instance;
 
 ///
 /// Deserializes `DBTEAMPOLICIESTwoStepVerificationPolicy` instances.
@@ -138,7 +138,7 @@ typedef NS_ENUM(NSInteger, DBTEAMPOLICIESTwoStepVerificationPolicyTag) {
 /// @return An instantiation of the `DBTEAMPOLICIESTwoStepVerificationPolicy`
 /// object.
 ///
-+ (DBTEAMPOLICIESTwoStepVerificationPolicy *)deserialize:(NSDictionary *)dict;
++ (DBTEAMPOLICIESTwoStepVerificationPolicy *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

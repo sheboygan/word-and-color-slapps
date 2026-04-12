@@ -29,12 +29,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// The `DBTEAMRevokeLinkedAppErrorTag` enum type represents the possible tag
 /// states with which the `DBTEAMRevokeLinkedAppError` union can exist.
-typedef NS_ENUM(NSInteger, DBTEAMRevokeLinkedAppErrorTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBTEAMRevokeLinkedAppErrorTag) {
   /// Application not found.
   DBTEAMRevokeLinkedAppErrorAppNotFound,
 
   /// Member not found.
   DBTEAMRevokeLinkedAppErrorMemberNotFound,
+
+  /// App folder removal is not supported.
+  DBTEAMRevokeLinkedAppErrorAppFolderRemovalNotSupported,
 
   /// (no description).
   DBTEAMRevokeLinkedAppErrorOther,
@@ -65,6 +68,17 @@ typedef NS_ENUM(NSInteger, DBTEAMRevokeLinkedAppErrorTag) {
 - (instancetype)initWithMemberNotFound;
 
 ///
+/// Initializes union class with tag state of
+/// "app_folder_removal_not_supported".
+///
+/// Description of the "app_folder_removal_not_supported" tag state: App folder
+/// removal is not supported.
+///
+/// @return An initialized instance.
+///
+- (instancetype)initWithAppFolderRemovalNotSupported;
+
+///
 /// Initializes union class with tag state of "other".
 ///
 /// @return An initialized instance.
@@ -89,6 +103,15 @@ typedef NS_ENUM(NSInteger, DBTEAMRevokeLinkedAppErrorTag) {
 /// @return Whether the union's current tag state has value "member_not_found".
 ///
 - (BOOL)isMemberNotFound;
+
+///
+/// Retrieves whether the union's current tag state has value
+/// "app_folder_removal_not_supported".
+///
+/// @return Whether the union's current tag state has value
+/// "app_folder_removal_not_supported".
+///
+- (BOOL)isAppFolderRemovalNotSupported;
 
 ///
 /// Retrieves whether the union's current tag state has value "other".
@@ -121,7 +144,7 @@ typedef NS_ENUM(NSInteger, DBTEAMRevokeLinkedAppErrorTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBTEAMRevokeLinkedAppError` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBTEAMRevokeLinkedAppError *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBTEAMRevokeLinkedAppError *)instance;
 
 ///
 /// Deserializes `DBTEAMRevokeLinkedAppError` instances.
@@ -131,7 +154,7 @@ typedef NS_ENUM(NSInteger, DBTEAMRevokeLinkedAppErrorTag) {
 ///
 /// @return An instantiation of the `DBTEAMRevokeLinkedAppError` object.
 ///
-+ (DBTEAMRevokeLinkedAppError *)deserialize:(NSDictionary *)dict;
++ (DBTEAMRevokeLinkedAppError *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

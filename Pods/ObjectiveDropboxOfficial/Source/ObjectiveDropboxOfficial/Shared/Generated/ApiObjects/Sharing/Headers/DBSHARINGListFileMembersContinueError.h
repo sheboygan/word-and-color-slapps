@@ -32,7 +32,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// The `DBSHARINGListFileMembersContinueErrorTag` enum type represents the
 /// possible tag states with which the `DBSHARINGListFileMembersContinueError`
 /// union can exist.
-typedef NS_ENUM(NSInteger, DBSHARINGListFileMembersContinueErrorTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBSHARINGListFileMembersContinueErrorTag) {
   /// (no description).
   DBSHARINGListFileMembersContinueErrorUserError,
 
@@ -159,7 +159,7 @@ typedef NS_ENUM(NSInteger, DBSHARINGListFileMembersContinueErrorTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBSHARINGListFileMembersContinueError` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBSHARINGListFileMembersContinueError *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBSHARINGListFileMembersContinueError *)instance;
 
 ///
 /// Deserializes `DBSHARINGListFileMembersContinueError` instances.
@@ -170,7 +170,7 @@ typedef NS_ENUM(NSInteger, DBSHARINGListFileMembersContinueErrorTag) {
 /// @return An instantiation of the `DBSHARINGListFileMembersContinueError`
 /// object.
 ///
-+ (DBSHARINGListFileMembersContinueError *)deserialize:(NSDictionary *)dict;
++ (DBSHARINGListFileMembersContinueError *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

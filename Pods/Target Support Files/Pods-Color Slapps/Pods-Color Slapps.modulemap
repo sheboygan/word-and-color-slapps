@@ -1,0 +1,6 @@
+module Pods_Color_Slapps {
+  umbrella header "Pods-Color Slapps-umbrella.h"
+
+  export *
+  module * { export * }
+}

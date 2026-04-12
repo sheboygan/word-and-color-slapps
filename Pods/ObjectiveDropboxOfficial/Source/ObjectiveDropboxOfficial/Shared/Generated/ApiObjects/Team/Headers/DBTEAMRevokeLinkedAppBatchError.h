@@ -29,7 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// The `DBTEAMRevokeLinkedAppBatchErrorTag` enum type represents the possible
 /// tag states with which the `DBTEAMRevokeLinkedAppBatchError` union can exist.
-typedef NS_ENUM(NSInteger, DBTEAMRevokeLinkedAppBatchErrorTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBTEAMRevokeLinkedAppBatchErrorTag) {
   /// (no description).
   DBTEAMRevokeLinkedAppBatchErrorOther,
 
@@ -83,7 +83,7 @@ typedef NS_ENUM(NSInteger, DBTEAMRevokeLinkedAppBatchErrorTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBTEAMRevokeLinkedAppBatchError` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBTEAMRevokeLinkedAppBatchError *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBTEAMRevokeLinkedAppBatchError *)instance;
 
 ///
 /// Deserializes `DBTEAMRevokeLinkedAppBatchError` instances.
@@ -93,7 +93,7 @@ typedef NS_ENUM(NSInteger, DBTEAMRevokeLinkedAppBatchErrorTag) {
 ///
 /// @return An instantiation of the `DBTEAMRevokeLinkedAppBatchError` object.
 ///
-+ (DBTEAMRevokeLinkedAppBatchError *)deserialize:(NSDictionary *)dict;
++ (DBTEAMRevokeLinkedAppBatchError *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

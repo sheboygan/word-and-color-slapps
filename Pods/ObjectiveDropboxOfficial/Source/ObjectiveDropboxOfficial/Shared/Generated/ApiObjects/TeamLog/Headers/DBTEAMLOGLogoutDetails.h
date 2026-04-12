@@ -27,10 +27,24 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Instance fields
 
+/// Login session id.
+@property (nonatomic, readonly, copy, nullable) NSString *loginId;
+
 #pragma mark - Constructors
 
 ///
 /// Full constructor for the struct (exposes all instance variables).
+///
+/// @param loginId Login session id.
+///
+/// @return An initialized instance.
+///
+- (instancetype)initWithLoginId:(nullable NSString *)loginId;
+
+///
+/// Convenience constructor (exposes only non-nullable instance variables with
+/// no default value).
+///
 ///
 /// @return An initialized instance.
 ///
@@ -55,7 +69,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// @return A json-compatible dictionary representation of the
 /// `DBTEAMLOGLogoutDetails` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBTEAMLOGLogoutDetails *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBTEAMLOGLogoutDetails *)instance;
 
 ///
 /// Deserializes `DBTEAMLOGLogoutDetails` instances.
@@ -65,7 +79,7 @@ NS_ASSUME_NONNULL_BEGIN
 ///
 /// @return An instantiation of the `DBTEAMLOGLogoutDetails` object.
 ///
-+ (DBTEAMLOGLogoutDetails *)deserialize:(NSDictionary *)dict;
++ (DBTEAMLOGLogoutDetails *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

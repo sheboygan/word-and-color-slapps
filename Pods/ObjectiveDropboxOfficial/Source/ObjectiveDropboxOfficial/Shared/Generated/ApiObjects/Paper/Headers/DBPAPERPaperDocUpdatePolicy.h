@@ -27,12 +27,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// The `DBPAPERPaperDocUpdatePolicyTag` enum type represents the possible tag
 /// states with which the `DBPAPERPaperDocUpdatePolicy` union can exist.
-typedef NS_ENUM(NSInteger, DBPAPERPaperDocUpdatePolicyTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBPAPERPaperDocUpdatePolicyTag) {
   /// The content will be appended to the doc.
   DBPAPERPaperDocUpdatePolicyAppend,
 
-  /// The content will be prepended to the doc. Note: the doc title will not
-  /// be affected.
+  /// The content will be prepended to the doc. The doc title will not be
+  /// affected.
   DBPAPERPaperDocUpdatePolicyPrepend,
 
   /// The document will be overwitten at the head with the provided content.
@@ -62,7 +62,7 @@ typedef NS_ENUM(NSInteger, DBPAPERPaperDocUpdatePolicyTag) {
 /// Initializes union class with tag state of "prepend".
 ///
 /// Description of the "prepend" tag state: The content will be prepended to the
-/// doc. Note: the doc title will not be affected.
+/// doc. The doc title will not be affected.
 ///
 /// @return An initialized instance.
 ///
@@ -141,7 +141,7 @@ typedef NS_ENUM(NSInteger, DBPAPERPaperDocUpdatePolicyTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBPAPERPaperDocUpdatePolicy` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBPAPERPaperDocUpdatePolicy *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBPAPERPaperDocUpdatePolicy *)instance;
 
 ///
 /// Deserializes `DBPAPERPaperDocUpdatePolicy` instances.
@@ -151,7 +151,7 @@ typedef NS_ENUM(NSInteger, DBPAPERPaperDocUpdatePolicyTag) {
 ///
 /// @return An instantiation of the `DBPAPERPaperDocUpdatePolicy` object.
 ///
-+ (DBPAPERPaperDocUpdatePolicy *)deserialize:(NSDictionary *)dict;
++ (DBPAPERPaperDocUpdatePolicy *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

@@ -27,7 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// The `DBTEAMPOLICIESOfficeAddInPolicyTag` enum type represents the possible
 /// tag states with which the `DBTEAMPOLICIESOfficeAddInPolicy` union can exist.
-typedef NS_ENUM(NSInteger, DBTEAMPOLICIESOfficeAddInPolicyTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBTEAMPOLICIESOfficeAddInPolicyTag) {
   /// Office Add-In is disabled.
   DBTEAMPOLICIESOfficeAddInPolicyDisabled,
 
@@ -119,7 +119,7 @@ typedef NS_ENUM(NSInteger, DBTEAMPOLICIESOfficeAddInPolicyTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBTEAMPOLICIESOfficeAddInPolicy` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBTEAMPOLICIESOfficeAddInPolicy *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBTEAMPOLICIESOfficeAddInPolicy *)instance;
 
 ///
 /// Deserializes `DBTEAMPOLICIESOfficeAddInPolicy` instances.
@@ -129,7 +129,7 @@ typedef NS_ENUM(NSInteger, DBTEAMPOLICIESOfficeAddInPolicyTag) {
 ///
 /// @return An instantiation of the `DBTEAMPOLICIESOfficeAddInPolicy` object.
 ///
-+ (DBTEAMPOLICIESOfficeAddInPolicy *)deserialize:(NSDictionary *)dict;
++ (DBTEAMPOLICIESOfficeAddInPolicy *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

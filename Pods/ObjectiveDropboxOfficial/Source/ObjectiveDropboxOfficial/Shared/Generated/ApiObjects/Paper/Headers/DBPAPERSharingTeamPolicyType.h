@@ -29,7 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// The `DBPAPERSharingTeamPolicyTypeTag` enum type represents the possible tag
 /// states with which the `DBPAPERSharingTeamPolicyType` union can exist.
-typedef NS_ENUM(NSInteger, DBPAPERSharingTeamPolicyTypeTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBPAPERSharingTeamPolicyTypeTag) {
   /// Users who have a link to this doc can edit it.
   DBPAPERSharingTeamPolicyTypePeopleWithLinkCanEdit,
 
@@ -131,7 +131,7 @@ typedef NS_ENUM(NSInteger, DBPAPERSharingTeamPolicyTypeTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBPAPERSharingTeamPolicyType` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBPAPERSharingTeamPolicyType *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBPAPERSharingTeamPolicyType *)instance;
 
 ///
 /// Deserializes `DBPAPERSharingTeamPolicyType` instances.
@@ -141,7 +141,7 @@ typedef NS_ENUM(NSInteger, DBPAPERSharingTeamPolicyTypeTag) {
 ///
 /// @return An instantiation of the `DBPAPERSharingTeamPolicyType` object.
 ///
-+ (DBPAPERSharingTeamPolicyType *)deserialize:(NSDictionary *)dict;
++ (DBPAPERSharingTeamPolicyType *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

@@ -30,7 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// The `DBFILESGetThumbnailBatchResultEntryTag` enum type represents the
 /// possible tag states with which the `DBFILESGetThumbnailBatchResultEntry`
 /// union can exist.
-typedef NS_ENUM(NSInteger, DBFILESGetThumbnailBatchResultEntryTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBFILESGetThumbnailBatchResultEntryTag) {
   /// (no description).
   DBFILESGetThumbnailBatchResultEntrySuccess,
 
@@ -140,7 +140,7 @@ typedef NS_ENUM(NSInteger, DBFILESGetThumbnailBatchResultEntryTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBFILESGetThumbnailBatchResultEntry` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBFILESGetThumbnailBatchResultEntry *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBFILESGetThumbnailBatchResultEntry *)instance;
 
 ///
 /// Deserializes `DBFILESGetThumbnailBatchResultEntry` instances.
@@ -151,7 +151,7 @@ typedef NS_ENUM(NSInteger, DBFILESGetThumbnailBatchResultEntryTag) {
 /// @return An instantiation of the `DBFILESGetThumbnailBatchResultEntry`
 /// object.
 ///
-+ (DBFILESGetThumbnailBatchResultEntry *)deserialize:(NSDictionary *)dict;
++ (DBFILESGetThumbnailBatchResultEntry *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

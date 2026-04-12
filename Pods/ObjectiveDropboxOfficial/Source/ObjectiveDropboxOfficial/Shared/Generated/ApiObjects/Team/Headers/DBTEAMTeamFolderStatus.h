@@ -27,7 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// The `DBTEAMTeamFolderStatusTag` enum type represents the possible tag states
 /// with which the `DBTEAMTeamFolderStatus` union can exist.
-typedef NS_ENUM(NSInteger, DBTEAMTeamFolderStatusTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBTEAMTeamFolderStatusTag) {
   /// The team folder and sub-folders are available to all members.
   DBTEAMTeamFolderStatusActive,
 
@@ -142,7 +142,7 @@ typedef NS_ENUM(NSInteger, DBTEAMTeamFolderStatusTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBTEAMTeamFolderStatus` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBTEAMTeamFolderStatus *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBTEAMTeamFolderStatus *)instance;
 
 ///
 /// Deserializes `DBTEAMTeamFolderStatus` instances.
@@ -152,7 +152,7 @@ typedef NS_ENUM(NSInteger, DBTEAMTeamFolderStatusTag) {
 ///
 /// @return An instantiation of the `DBTEAMTeamFolderStatus` object.
 ///
-+ (DBTEAMTeamFolderStatus *)deserialize:(NSDictionary *)dict;
++ (DBTEAMTeamFolderStatus *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

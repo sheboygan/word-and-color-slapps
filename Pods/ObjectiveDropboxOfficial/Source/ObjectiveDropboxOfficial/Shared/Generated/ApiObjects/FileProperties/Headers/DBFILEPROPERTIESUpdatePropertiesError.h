@@ -30,7 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// The `DBFILEPROPERTIESUpdatePropertiesErrorTag` enum type represents the
 /// possible tag states with which the `DBFILEPROPERTIESUpdatePropertiesError`
 /// union can exist.
-typedef NS_ENUM(NSInteger, DBFILEPROPERTIESUpdatePropertiesErrorTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBFILEPROPERTIESUpdatePropertiesErrorTag) {
   /// Template does not exist for the given identifier.
   DBFILEPROPERTIESUpdatePropertiesErrorTemplateNotFound,
 
@@ -53,6 +53,10 @@ typedef NS_ENUM(NSInteger, DBFILEPROPERTIESUpdatePropertiesErrorTag) {
   /// One or more of the supplied property fields does not conform to the
   /// template specifications.
   DBFILEPROPERTIESUpdatePropertiesErrorDoesNotFitTemplate,
+
+  /// There are 2 or more property groups referring to the same templates in
+  /// the input.
+  DBFILEPROPERTIESUpdatePropertiesErrorDuplicatePropertyGroups,
 
   /// (no description).
   DBFILEPROPERTIESUpdatePropertiesErrorPropertyGroupLookup,
@@ -146,6 +150,16 @@ typedef NS_ENUM(NSInteger, DBFILEPROPERTIESUpdatePropertiesErrorTag) {
 - (instancetype)initWithDoesNotFitTemplate;
 
 ///
+/// Initializes union class with tag state of "duplicate_property_groups".
+///
+/// Description of the "duplicate_property_groups" tag state: There are 2 or
+/// more property groups referring to the same templates in the input.
+///
+/// @return An initialized instance.
+///
+- (instancetype)initWithDuplicatePropertyGroups;
+
+///
 /// Initializes union class with tag state of "property_group_lookup".
 ///
 /// @param propertyGroupLookup (no description).
@@ -225,6 +239,15 @@ typedef NS_ENUM(NSInteger, DBFILEPROPERTIESUpdatePropertiesErrorTag) {
 
 ///
 /// Retrieves whether the union's current tag state has value
+/// "duplicate_property_groups".
+///
+/// @return Whether the union's current tag state has value
+/// "duplicate_property_groups".
+///
+- (BOOL)isDuplicatePropertyGroups;
+
+///
+/// Retrieves whether the union's current tag state has value
 /// "property_group_lookup".
 ///
 /// @note Call this method and ensure it returns true before accessing the
@@ -262,7 +285,7 @@ typedef NS_ENUM(NSInteger, DBFILEPROPERTIESUpdatePropertiesErrorTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBFILEPROPERTIESUpdatePropertiesError` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBFILEPROPERTIESUpdatePropertiesError *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBFILEPROPERTIESUpdatePropertiesError *)instance;
 
 ///
 /// Deserializes `DBFILEPROPERTIESUpdatePropertiesError` instances.
@@ -273,7 +296,7 @@ typedef NS_ENUM(NSInteger, DBFILEPROPERTIESUpdatePropertiesErrorTag) {
 /// @return An instantiation of the `DBFILEPROPERTIESUpdatePropertiesError`
 /// object.
 ///
-+ (DBFILEPROPERTIESUpdatePropertiesError *)deserialize:(NSDictionary *)dict;
++ (DBFILEPROPERTIESUpdatePropertiesError *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

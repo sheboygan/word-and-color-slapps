@@ -17,8 +17,8 @@ NS_ASSUME_NONNULL_BEGIN
 ///
 /// The `FolderSharingPolicyType` union.
 ///
-/// The sharing policy of a Paper folder.  Note: The sharing policy of
-/// subfolders is inherited from the root folder.
+/// The sharing policy of a Paper folder. The sharing policy of subfolders is
+/// inherited from the root folder.
 ///
 /// This class implements the `DBSerializable` protocol (serialize and
 /// deserialize instance methods), which is required for all Obj-C SDK API route
@@ -30,7 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// The `DBPAPERFolderSharingPolicyTypeTag` enum type represents the possible
 /// tag states with which the `DBPAPERFolderSharingPolicyType` union can exist.
-typedef NS_ENUM(NSInteger, DBPAPERFolderSharingPolicyTypeTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBPAPERFolderSharingPolicyTypeTag) {
   /// Everyone in your team and anyone directly invited can access this
   /// folder.
   DBPAPERFolderSharingPolicyTypeTeam,
@@ -108,7 +108,7 @@ typedef NS_ENUM(NSInteger, DBPAPERFolderSharingPolicyTypeTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBPAPERFolderSharingPolicyType` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBPAPERFolderSharingPolicyType *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBPAPERFolderSharingPolicyType *)instance;
 
 ///
 /// Deserializes `DBPAPERFolderSharingPolicyType` instances.
@@ -118,7 +118,7 @@ typedef NS_ENUM(NSInteger, DBPAPERFolderSharingPolicyTypeTag) {
 ///
 /// @return An instantiation of the `DBPAPERFolderSharingPolicyType` object.
 ///
-+ (DBPAPERFolderSharingPolicyType *)deserialize:(NSDictionary *)dict;
++ (DBPAPERFolderSharingPolicyType *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

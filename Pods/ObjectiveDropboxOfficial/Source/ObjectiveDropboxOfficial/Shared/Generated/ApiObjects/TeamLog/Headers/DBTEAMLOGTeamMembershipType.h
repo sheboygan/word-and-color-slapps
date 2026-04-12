@@ -27,12 +27,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// The `DBTEAMLOGTeamMembershipTypeTag` enum type represents the possible tag
 /// states with which the `DBTEAMLOGTeamMembershipType` union can exist.
-typedef NS_ENUM(NSInteger, DBTEAMLOGTeamMembershipTypeTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBTEAMLOGTeamMembershipTypeTag) {
   /// (no description).
   DBTEAMLOGTeamMembershipTypeFree,
 
   /// (no description).
   DBTEAMLOGTeamMembershipTypeFull,
+
+  /// (no description).
+  DBTEAMLOGTeamMembershipTypeGuest,
 
   /// (no description).
   DBTEAMLOGTeamMembershipTypeOther,
@@ -59,6 +62,13 @@ typedef NS_ENUM(NSInteger, DBTEAMLOGTeamMembershipTypeTag) {
 - (instancetype)initWithFull;
 
 ///
+/// Initializes union class with tag state of "guest".
+///
+/// @return An initialized instance.
+///
+- (instancetype)initWithGuest;
+
+///
 /// Initializes union class with tag state of "other".
 ///
 /// @return An initialized instance.
@@ -82,6 +92,13 @@ typedef NS_ENUM(NSInteger, DBTEAMLOGTeamMembershipTypeTag) {
 /// @return Whether the union's current tag state has value "full".
 ///
 - (BOOL)isFull;
+
+///
+/// Retrieves whether the union's current tag state has value "guest".
+///
+/// @return Whether the union's current tag state has value "guest".
+///
+- (BOOL)isGuest;
 
 ///
 /// Retrieves whether the union's current tag state has value "other".
@@ -114,7 +131,7 @@ typedef NS_ENUM(NSInteger, DBTEAMLOGTeamMembershipTypeTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBTEAMLOGTeamMembershipType` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBTEAMLOGTeamMembershipType *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBTEAMLOGTeamMembershipType *)instance;
 
 ///
 /// Deserializes `DBTEAMLOGTeamMembershipType` instances.
@@ -124,7 +141,7 @@ typedef NS_ENUM(NSInteger, DBTEAMLOGTeamMembershipTypeTag) {
 ///
 /// @return An instantiation of the `DBTEAMLOGTeamMembershipType` object.
 ///
-+ (DBTEAMLOGTeamMembershipType *)deserialize:(NSDictionary *)dict;
++ (DBTEAMLOGTeamMembershipType *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

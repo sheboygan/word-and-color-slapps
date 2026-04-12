@@ -29,7 +29,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// The `DBTEAMLOGSharingLinkPolicyTag` enum type represents the possible tag
 /// states with which the `DBTEAMLOGSharingLinkPolicy` union can exist.
-typedef NS_ENUM(NSInteger, DBTEAMLOGSharingLinkPolicyTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBTEAMLOGSharingLinkPolicyTag) {
+  /// (no description).
+  DBTEAMLOGSharingLinkPolicyDefaultNoOne,
+
   /// (no description).
   DBTEAMLOGSharingLinkPolicyDefaultPrivate,
 
@@ -48,6 +51,13 @@ typedef NS_ENUM(NSInteger, DBTEAMLOGSharingLinkPolicyTag) {
 @property (nonatomic, readonly) DBTEAMLOGSharingLinkPolicyTag tag;
 
 #pragma mark - Constructors
+
+///
+/// Initializes union class with tag state of "default_no_one".
+///
+/// @return An initialized instance.
+///
+- (instancetype)initWithDefaultNoOne;
 
 ///
 /// Initializes union class with tag state of "default_private".
@@ -80,6 +90,13 @@ typedef NS_ENUM(NSInteger, DBTEAMLOGSharingLinkPolicyTag) {
 - (instancetype)init NS_UNAVAILABLE;
 
 #pragma mark - Tag state methods
+
+///
+/// Retrieves whether the union's current tag state has value "default_no_one".
+///
+/// @return Whether the union's current tag state has value "default_no_one".
+///
+- (BOOL)isDefaultNoOne;
 
 ///
 /// Retrieves whether the union's current tag state has value "default_private".
@@ -133,7 +150,7 @@ typedef NS_ENUM(NSInteger, DBTEAMLOGSharingLinkPolicyTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBTEAMLOGSharingLinkPolicy` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBTEAMLOGSharingLinkPolicy *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBTEAMLOGSharingLinkPolicy *)instance;
 
 ///
 /// Deserializes `DBTEAMLOGSharingLinkPolicy` instances.
@@ -143,7 +160,7 @@ typedef NS_ENUM(NSInteger, DBTEAMLOGSharingLinkPolicyTag) {
 ///
 /// @return An instantiation of the `DBTEAMLOGSharingLinkPolicy` object.
 ///
-+ (DBTEAMLOGSharingLinkPolicy *)deserialize:(NSDictionary *)dict;
++ (DBTEAMLOGSharingLinkPolicy *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

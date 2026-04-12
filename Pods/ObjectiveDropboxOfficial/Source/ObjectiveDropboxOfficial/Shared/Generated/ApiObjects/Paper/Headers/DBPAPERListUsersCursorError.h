@@ -28,8 +28,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// The `DBPAPERListUsersCursorErrorTag` enum type represents the possible tag
 /// states with which the `DBPAPERListUsersCursorError` union can exist.
-typedef NS_ENUM(NSInteger, DBPAPERListUsersCursorErrorTag) {
-  /// Your account does not have permissions to perform this action.
+typedef NS_CLOSED_ENUM(NSInteger, DBPAPERListUsersCursorErrorTag) {
+  /// Your account does not have permissions to perform this action. This may
+  /// be due to it only having access to Paper as files in the Dropbox
+  /// filesystem. For more information, refer to the Paper Migration Guide
+  /// https://www.dropbox.com/lp/developers/reference/paper-migration-guide.
   DBPAPERListUsersCursorErrorInsufficientPermissions,
 
   /// (no description).
@@ -56,7 +59,10 @@ typedef NS_ENUM(NSInteger, DBPAPERListUsersCursorErrorTag) {
 /// Initializes union class with tag state of "insufficient_permissions".
 ///
 /// Description of the "insufficient_permissions" tag state: Your account does
-/// not have permissions to perform this action.
+/// not have permissions to perform this action. This may be due to it only
+/// having access to Paper as files in the Dropbox filesystem. For more
+/// information, refer to the Paper Migration Guide
+/// https://www.dropbox.com/lp/developers/reference/paper-migration-guide.
 ///
 /// @return An initialized instance.
 ///
@@ -149,7 +155,7 @@ typedef NS_ENUM(NSInteger, DBPAPERListUsersCursorErrorTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBPAPERListUsersCursorError` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBPAPERListUsersCursorError *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBPAPERListUsersCursorError *)instance;
 
 ///
 /// Deserializes `DBPAPERListUsersCursorError` instances.
@@ -159,7 +165,7 @@ typedef NS_ENUM(NSInteger, DBPAPERListUsersCursorErrorTag) {
 ///
 /// @return An instantiation of the `DBPAPERListUsersCursorError` object.
 ///
-+ (DBPAPERListUsersCursorError *)deserialize:(NSDictionary *)dict;
++ (DBPAPERListUsersCursorError *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

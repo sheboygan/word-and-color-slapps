@@ -17,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 ///
 /// The `SfTeamInviteDetails` struct.
 ///
-/// Invited team members to a shared folder.
+/// Invited team members to shared folder.
 ///
 /// This class implements the `DBSerializable` protocol (serialize and
 /// deserialize instance methods), which is required for all Obj-C SDK API route
@@ -33,7 +33,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// Original shared folder name.
 @property (nonatomic, readonly, copy) NSString *originalFolderName;
 
-/// Sharing permission. Might be missing due to historical data gap.
+/// Sharing permission.
 @property (nonatomic, readonly, copy, nullable) NSString *sharingPermission;
 
 #pragma mark - Constructors
@@ -43,8 +43,7 @@ NS_ASSUME_NONNULL_BEGIN
 ///
 /// @param targetAssetIndex Target asset position in the Assets list.
 /// @param originalFolderName Original shared folder name.
-/// @param sharingPermission Sharing permission. Might be missing due to
-/// historical data gap.
+/// @param sharingPermission Sharing permission.
 ///
 /// @return An initialized instance.
 ///
@@ -83,7 +82,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// @return A json-compatible dictionary representation of the
 /// `DBTEAMLOGSfTeamInviteDetails` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBTEAMLOGSfTeamInviteDetails *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBTEAMLOGSfTeamInviteDetails *)instance;
 
 ///
 /// Deserializes `DBTEAMLOGSfTeamInviteDetails` instances.
@@ -93,7 +92,7 @@ NS_ASSUME_NONNULL_BEGIN
 ///
 /// @return An instantiation of the `DBTEAMLOGSfTeamInviteDetails` object.
 ///
-+ (DBTEAMLOGSfTeamInviteDetails *)deserialize:(NSDictionary *)dict;
++ (DBTEAMLOGSfTeamInviteDetails *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

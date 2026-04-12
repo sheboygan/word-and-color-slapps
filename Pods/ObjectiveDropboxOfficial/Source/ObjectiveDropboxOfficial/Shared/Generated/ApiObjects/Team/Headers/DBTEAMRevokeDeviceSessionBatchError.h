@@ -28,7 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// The `DBTEAMRevokeDeviceSessionBatchErrorTag` enum type represents the
 /// possible tag states with which the `DBTEAMRevokeDeviceSessionBatchError`
 /// union can exist.
-typedef NS_ENUM(NSInteger, DBTEAMRevokeDeviceSessionBatchErrorTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBTEAMRevokeDeviceSessionBatchErrorTag) {
   /// (no description).
   DBTEAMRevokeDeviceSessionBatchErrorOther,
 
@@ -82,7 +82,7 @@ typedef NS_ENUM(NSInteger, DBTEAMRevokeDeviceSessionBatchErrorTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBTEAMRevokeDeviceSessionBatchError` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBTEAMRevokeDeviceSessionBatchError *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBTEAMRevokeDeviceSessionBatchError *)instance;
 
 ///
 /// Deserializes `DBTEAMRevokeDeviceSessionBatchError` instances.
@@ -93,7 +93,7 @@ typedef NS_ENUM(NSInteger, DBTEAMRevokeDeviceSessionBatchErrorTag) {
 /// @return An instantiation of the `DBTEAMRevokeDeviceSessionBatchError`
 /// object.
 ///
-+ (DBTEAMRevokeDeviceSessionBatchError *)deserialize:(NSDictionary *)dict;
++ (DBTEAMRevokeDeviceSessionBatchError *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

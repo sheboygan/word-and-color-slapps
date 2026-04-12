@@ -27,7 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// The `DBTEAMMembersGetInfoErrorTag` enum type represents the possible tag
 /// states with which the `DBTEAMMembersGetInfoError` union can exist.
-typedef NS_ENUM(NSInteger, DBTEAMMembersGetInfoErrorTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBTEAMMembersGetInfoErrorTag) {
   /// (no description).
   DBTEAMMembersGetInfoErrorOther,
 
@@ -80,7 +80,7 @@ typedef NS_ENUM(NSInteger, DBTEAMMembersGetInfoErrorTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBTEAMMembersGetInfoError` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBTEAMMembersGetInfoError *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBTEAMMembersGetInfoError *)instance;
 
 ///
 /// Deserializes `DBTEAMMembersGetInfoError` instances.
@@ -90,7 +90,7 @@ typedef NS_ENUM(NSInteger, DBTEAMMembersGetInfoErrorTag) {
 ///
 /// @return An instantiation of the `DBTEAMMembersGetInfoError` object.
 ///
-+ (DBTEAMMembersGetInfoError *)deserialize:(NSDictionary *)dict;
++ (DBTEAMMembersGetInfoError *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

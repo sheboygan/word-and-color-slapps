@@ -13,6 +13,7 @@
 @class DBTEAMLOGFolderLogInfo;
 @class DBTEAMLOGPaperDocumentLogInfo;
 @class DBTEAMLOGPaperFolderLogInfo;
+@class DBTEAMLOGShowcaseDocumentLogInfo;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -33,18 +34,21 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// The `DBTEAMLOGAssetLogInfoTag` enum type represents the possible tag states
 /// with which the `DBTEAMLOGAssetLogInfo` union can exist.
-typedef NS_ENUM(NSInteger, DBTEAMLOGAssetLogInfoTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBTEAMLOGAssetLogInfoTag) {
   /// File's details.
   DBTEAMLOGAssetLogInfoFile,
 
   /// Folder's details.
   DBTEAMLOGAssetLogInfoFolder,
 
-  /// Paper docuement's details.
+  /// Paper document's details.
   DBTEAMLOGAssetLogInfoPaperDocument,
 
   /// Paper folder's details.
   DBTEAMLOGAssetLogInfoPaperFolder,
+
+  /// Showcase document's details.
+  DBTEAMLOGAssetLogInfoShowcaseDocument,
 
   /// (no description).
   DBTEAMLOGAssetLogInfoOther,
@@ -62,13 +66,17 @@ typedef NS_ENUM(NSInteger, DBTEAMLOGAssetLogInfoTag) {
 /// accessing, otherwise a runtime exception will be raised.
 @property (nonatomic, readonly) DBTEAMLOGFolderLogInfo *folder;
 
-/// Paper docuement's details. @note Ensure the `isPaperDocument` method returns
+/// Paper document's details. @note Ensure the `isPaperDocument` method returns
 /// true before accessing, otherwise a runtime exception will be raised.
 @property (nonatomic, readonly) DBTEAMLOGPaperDocumentLogInfo *paperDocument;
 
 /// Paper folder's details. @note Ensure the `isPaperFolder` method returns true
 /// before accessing, otherwise a runtime exception will be raised.
 @property (nonatomic, readonly) DBTEAMLOGPaperFolderLogInfo *paperFolder;
+
+/// Showcase document's details. @note Ensure the `isShowcaseDocument` method
+/// returns true before accessing, otherwise a runtime exception will be raised.
+@property (nonatomic, readonly) DBTEAMLOGShowcaseDocumentLogInfo *showcaseDocument;
 
 #pragma mark - Constructors
 
@@ -97,9 +105,9 @@ typedef NS_ENUM(NSInteger, DBTEAMLOGAssetLogInfoTag) {
 ///
 /// Initializes union class with tag state of "paper_document".
 ///
-/// Description of the "paper_document" tag state: Paper docuement's details.
+/// Description of the "paper_document" tag state: Paper document's details.
 ///
-/// @param paperDocument Paper docuement's details.
+/// @param paperDocument Paper document's details.
 ///
 /// @return An initialized instance.
 ///
@@ -115,6 +123,18 @@ typedef NS_ENUM(NSInteger, DBTEAMLOGAssetLogInfoTag) {
 /// @return An initialized instance.
 ///
 - (instancetype)initWithPaperFolder:(DBTEAMLOGPaperFolderLogInfo *)paperFolder;
+
+///
+/// Initializes union class with tag state of "showcase_document".
+///
+/// Description of the "showcase_document" tag state: Showcase document's
+/// details.
+///
+/// @param showcaseDocument Showcase document's details.
+///
+/// @return An initialized instance.
+///
+- (instancetype)initWithShowcaseDocument:(DBTEAMLOGShowcaseDocumentLogInfo *)showcaseDocument;
 
 ///
 /// Initializes union class with tag state of "other".
@@ -168,6 +188,17 @@ typedef NS_ENUM(NSInteger, DBTEAMLOGAssetLogInfoTag) {
 - (BOOL)isPaperFolder;
 
 ///
+/// Retrieves whether the union's current tag state has value
+/// "showcase_document".
+///
+/// @note Call this method and ensure it returns true before accessing the
+/// `showcaseDocument` property, otherwise a runtime exception will be thrown.
+///
+/// @return Whether the union's current tag state has value "showcase_document".
+///
+- (BOOL)isShowcaseDocument;
+
+///
 /// Retrieves whether the union's current tag state has value "other".
 ///
 /// @return Whether the union's current tag state has value "other".
@@ -198,7 +229,7 @@ typedef NS_ENUM(NSInteger, DBTEAMLOGAssetLogInfoTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBTEAMLOGAssetLogInfo` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBTEAMLOGAssetLogInfo *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBTEAMLOGAssetLogInfo *)instance;
 
 ///
 /// Deserializes `DBTEAMLOGAssetLogInfo` instances.
@@ -208,7 +239,7 @@ typedef NS_ENUM(NSInteger, DBTEAMLOGAssetLogInfoTag) {
 ///
 /// @return An instantiation of the `DBTEAMLOGAssetLogInfo` object.
 ///
-+ (DBTEAMLOGAssetLogInfo *)deserialize:(NSDictionary *)dict;
++ (DBTEAMLOGAssetLogInfo *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

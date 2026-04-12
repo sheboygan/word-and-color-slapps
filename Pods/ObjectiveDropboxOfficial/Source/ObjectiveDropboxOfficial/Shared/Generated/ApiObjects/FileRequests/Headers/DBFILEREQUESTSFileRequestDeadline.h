@@ -29,8 +29,8 @@ NS_ASSUME_NONNULL_BEGIN
 /// The deadline for this file request.
 @property (nonatomic, readonly) NSDate *deadline;
 
-/// If set, allow uploads after the deadline has passed. These uploads will be
-/// marked overdue.
+/// If set, allow uploads after the deadline has passed. These     uploads will
+/// be marked overdue.
 @property (nonatomic, readonly, nullable) DBFILEREQUESTSGracePeriod *allowLateUploads;
 
 #pragma mark - Constructors
@@ -40,7 +40,7 @@ NS_ASSUME_NONNULL_BEGIN
 ///
 /// @param deadline The deadline for this file request.
 /// @param allowLateUploads If set, allow uploads after the deadline has passed.
-/// These uploads will be marked overdue.
+/// These     uploads will be marked overdue.
 ///
 /// @return An initialized instance.
 ///
@@ -77,7 +77,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// @return A json-compatible dictionary representation of the
 /// `DBFILEREQUESTSFileRequestDeadline` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBFILEREQUESTSFileRequestDeadline *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBFILEREQUESTSFileRequestDeadline *)instance;
 
 ///
 /// Deserializes `DBFILEREQUESTSFileRequestDeadline` instances.
@@ -87,7 +87,7 @@ NS_ASSUME_NONNULL_BEGIN
 ///
 /// @return An instantiation of the `DBFILEREQUESTSFileRequestDeadline` object.
 ///
-+ (DBFILEREQUESTSFileRequestDeadline *)deserialize:(NSDictionary *)dict;
++ (DBFILEREQUESTSFileRequestDeadline *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

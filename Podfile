@@ -1,6 +1,6 @@
 
 # Uncomment the next line to define a global platform for your project
-platform :ios, '10.0'
+platform :ios, '16.0'
 
 target 'Color Slapps' do
   # Uncomment the next line if you're using Swift or would like to use dynamic frameworks
@@ -8,7 +8,7 @@ target 'Color Slapps' do
 
   # Pods for Color Slapps
     pod 'ObjectiveDropboxOfficial'
-    pod 'Google-Mobile-Ads-SDK'
+    pod 'Google-Mobile-Ads-SDK', '~> 11.0'
 end
 
 target 'Game' do
@@ -17,7 +17,7 @@ target 'Game' do
 
   # Pods for Game
     pod 'ObjectiveDropboxOfficial'
-    pod 'Google-Mobile-Ads-SDK'
+    pod 'Google-Mobile-Ads-SDK', '~> 11.0'
 
 end
 
@@ -27,6 +27,6 @@ target 'Lite' do
 
   # Pods for Lite
     pod 'ObjectiveDropboxOfficial'
-    pod 'Google-Mobile-Ads-SDK'
+    pod 'Google-Mobile-Ads-SDK', '~> 11.0'
 
 end

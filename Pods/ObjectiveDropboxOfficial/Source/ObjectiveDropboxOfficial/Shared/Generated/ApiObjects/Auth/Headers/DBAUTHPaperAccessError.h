@@ -27,7 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// The `DBAUTHPaperAccessErrorTag` enum type represents the possible tag states
 /// with which the `DBAUTHPaperAccessError` union can exist.
-typedef NS_ENUM(NSInteger, DBAUTHPaperAccessErrorTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBAUTHPaperAccessErrorTag) {
   /// Paper is disabled.
   DBAUTHPaperAccessErrorPaperDisabled,
 
@@ -119,7 +119,7 @@ typedef NS_ENUM(NSInteger, DBAUTHPaperAccessErrorTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBAUTHPaperAccessError` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBAUTHPaperAccessError *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBAUTHPaperAccessError *)instance;
 
 ///
 /// Deserializes `DBAUTHPaperAccessError` instances.
@@ -129,7 +129,7 @@ typedef NS_ENUM(NSInteger, DBAUTHPaperAccessErrorTag) {
 ///
 /// @return An instantiation of the `DBAUTHPaperAccessError` object.
 ///
-+ (DBAUTHPaperAccessError *)deserialize:(NSDictionary *)dict;
++ (DBAUTHPaperAccessError *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

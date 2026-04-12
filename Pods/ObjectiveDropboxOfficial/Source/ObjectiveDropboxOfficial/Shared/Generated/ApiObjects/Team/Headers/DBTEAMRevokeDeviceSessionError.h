@@ -27,7 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// The `DBTEAMRevokeDeviceSessionErrorTag` enum type represents the possible
 /// tag states with which the `DBTEAMRevokeDeviceSessionError` union can exist.
-typedef NS_ENUM(NSInteger, DBTEAMRevokeDeviceSessionErrorTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBTEAMRevokeDeviceSessionErrorTag) {
   /// Device session not found.
   DBTEAMRevokeDeviceSessionErrorDeviceSessionNotFound,
 
@@ -123,7 +123,7 @@ typedef NS_ENUM(NSInteger, DBTEAMRevokeDeviceSessionErrorTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBTEAMRevokeDeviceSessionError` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBTEAMRevokeDeviceSessionError *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBTEAMRevokeDeviceSessionError *)instance;
 
 ///
 /// Deserializes `DBTEAMRevokeDeviceSessionError` instances.
@@ -133,7 +133,7 @@ typedef NS_ENUM(NSInteger, DBTEAMRevokeDeviceSessionErrorTag) {
 ///
 /// @return An instantiation of the `DBTEAMRevokeDeviceSessionError` object.
 ///
-+ (DBTEAMRevokeDeviceSessionError *)deserialize:(NSDictionary *)dict;
++ (DBTEAMRevokeDeviceSessionError *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

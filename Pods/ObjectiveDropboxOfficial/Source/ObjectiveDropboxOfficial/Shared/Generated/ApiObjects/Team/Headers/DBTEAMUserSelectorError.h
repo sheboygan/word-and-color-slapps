@@ -30,7 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// The `DBTEAMUserSelectorErrorTag` enum type represents the possible tag
 /// states with which the `DBTEAMUserSelectorError` union can exist.
-typedef NS_ENUM(NSInteger, DBTEAMUserSelectorErrorTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBTEAMUserSelectorErrorTag) {
   /// No matching user found. The provided team_member_id, email, or
   /// external_id does not exist on this team.
   DBTEAMUserSelectorErrorUserNotFound,
@@ -87,7 +87,7 @@ typedef NS_ENUM(NSInteger, DBTEAMUserSelectorErrorTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBTEAMUserSelectorError` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBTEAMUserSelectorError *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBTEAMUserSelectorError *)instance;
 
 ///
 /// Deserializes `DBTEAMUserSelectorError` instances.
@@ -97,7 +97,7 @@ typedef NS_ENUM(NSInteger, DBTEAMUserSelectorErrorTag) {
 ///
 /// @return An instantiation of the `DBTEAMUserSelectorError` object.
 ///
-+ (DBTEAMUserSelectorError *)deserialize:(NSDictionary *)dict;
++ (DBTEAMUserSelectorError *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

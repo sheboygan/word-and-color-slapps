@@ -30,7 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// The `DBTEAMPOLICIESSharedFolderMemberPolicyTag` enum type represents the
 /// possible tag states with which the `DBTEAMPOLICIESSharedFolderMemberPolicy`
 /// union can exist.
-typedef NS_ENUM(NSInteger, DBTEAMPOLICIESSharedFolderMemberPolicyTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBTEAMPOLICIESSharedFolderMemberPolicyTag) {
   /// Only a teammate can be a member of a folder shared by a team member.
   DBTEAMPOLICIESSharedFolderMemberPolicyTeam,
 
@@ -125,7 +125,7 @@ typedef NS_ENUM(NSInteger, DBTEAMPOLICIESSharedFolderMemberPolicyTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBTEAMPOLICIESSharedFolderMemberPolicy` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBTEAMPOLICIESSharedFolderMemberPolicy *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBTEAMPOLICIESSharedFolderMemberPolicy *)instance;
 
 ///
 /// Deserializes `DBTEAMPOLICIESSharedFolderMemberPolicy` instances.
@@ -136,7 +136,7 @@ typedef NS_ENUM(NSInteger, DBTEAMPOLICIESSharedFolderMemberPolicyTag) {
 /// @return An instantiation of the `DBTEAMPOLICIESSharedFolderMemberPolicy`
 /// object.
 ///
-+ (DBTEAMPOLICIESSharedFolderMemberPolicy *)deserialize:(NSDictionary *)dict;
++ (DBTEAMPOLICIESSharedFolderMemberPolicy *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

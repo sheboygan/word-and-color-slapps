@@ -18,8 +18,8 @@ NS_ASSUME_NONNULL_BEGIN
 ///
 /// The `PaperChangeDeploymentPolicyDetails` struct.
 ///
-/// Changed whether Dropbox Paper, when enabled, is deployed to all teams or to
-/// specific members of the team.
+/// Changed whether Dropbox Paper, when enabled, is deployed to all members or
+/// to specific members.
 ///
 /// This class implements the `DBSerializable` protocol (serialize and
 /// deserialize instance methods), which is required for all Obj-C SDK API route
@@ -80,7 +80,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// @return A json-compatible dictionary representation of the
 /// `DBTEAMLOGPaperChangeDeploymentPolicyDetails` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBTEAMLOGPaperChangeDeploymentPolicyDetails *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBTEAMLOGPaperChangeDeploymentPolicyDetails *)instance;
 
 ///
 /// Deserializes `DBTEAMLOGPaperChangeDeploymentPolicyDetails` instances.
@@ -91,7 +91,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// @return An instantiation of the
 /// `DBTEAMLOGPaperChangeDeploymentPolicyDetails` object.
 ///
-+ (DBTEAMLOGPaperChangeDeploymentPolicyDetails *)deserialize:(NSDictionary *)dict;
++ (DBTEAMLOGPaperChangeDeploymentPolicyDetails *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

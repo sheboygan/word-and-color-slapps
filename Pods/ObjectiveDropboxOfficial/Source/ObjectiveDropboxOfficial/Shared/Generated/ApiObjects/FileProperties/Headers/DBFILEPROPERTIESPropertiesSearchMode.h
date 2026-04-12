@@ -28,7 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// The `DBFILEPROPERTIESPropertiesSearchModeTag` enum type represents the
 /// possible tag states with which the `DBFILEPROPERTIESPropertiesSearchMode`
 /// union can exist.
-typedef NS_ENUM(NSInteger, DBFILEPROPERTIESPropertiesSearchModeTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBFILEPROPERTIESPropertiesSearchModeTag) {
   /// Search for a value associated with this field name.
   DBFILEPROPERTIESPropertiesSearchModeFieldName,
 
@@ -113,7 +113,7 @@ typedef NS_ENUM(NSInteger, DBFILEPROPERTIESPropertiesSearchModeTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBFILEPROPERTIESPropertiesSearchMode` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBFILEPROPERTIESPropertiesSearchMode *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBFILEPROPERTIESPropertiesSearchMode *)instance;
 
 ///
 /// Deserializes `DBFILEPROPERTIESPropertiesSearchMode` instances.
@@ -124,7 +124,7 @@ typedef NS_ENUM(NSInteger, DBFILEPROPERTIESPropertiesSearchModeTag) {
 /// @return An instantiation of the `DBFILEPROPERTIESPropertiesSearchMode`
 /// object.
 ///
-+ (DBFILEPROPERTIESPropertiesSearchMode *)deserialize:(NSDictionary *)dict;
++ (DBFILEPROPERTIESPropertiesSearchMode *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

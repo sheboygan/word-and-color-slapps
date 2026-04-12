@@ -8,6 +8,7 @@
 
 #import "DBSerializableProtocol.h"
 
+@class DBFILEPROPERTIESInvalidPropertyGroupError;
 @class DBFILESUploadSessionFinishError;
 @class DBFILESUploadSessionLookupError;
 @class DBFILESWriteError;
@@ -29,12 +30,18 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// The `DBFILESUploadSessionFinishErrorTag` enum type represents the possible
 /// tag states with which the `DBFILESUploadSessionFinishError` union can exist.
-typedef NS_ENUM(NSInteger, DBFILESUploadSessionFinishErrorTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBFILESUploadSessionFinishErrorTag) {
   /// The session arguments are incorrect; the value explains the reason.
   DBFILESUploadSessionFinishErrorLookupFailed,
 
-  /// Unable to save the uploaded contents to a file.
+  /// Unable to save the uploaded contents to a file. Data has already been
+  /// appended to the upload session. Please retry with empty data body and
+  /// updated offset.
   DBFILESUploadSessionFinishErrorPath,
+
+  /// The supplied property group is invalid. The file has uploaded without
+  /// property groups.
+  DBFILESUploadSessionFinishErrorPropertiesError,
 
   /// The batch request commits files into too many different shared folders.
   /// Please limit your batch request to files contained in a single shared
@@ -44,6 +51,23 @@ typedef NS_ENUM(NSInteger, DBFILESUploadSessionFinishErrorTag) {
   /// There are too many write operations happening in the user's Dropbox. You
   /// should retry uploading this file.
   DBFILESUploadSessionFinishErrorTooManyWriteOperations,
+
+  /// Uploading data not allowed when finishing concurrent upload session.
+  DBFILESUploadSessionFinishErrorConcurrentSessionDataNotAllowed,
+
+  /// Concurrent upload sessions need to be closed before finishing.
+  DBFILESUploadSessionFinishErrorConcurrentSessionNotClosed,
+
+  /// Not all pieces of data were uploaded before trying to finish the
+  /// session.
+  DBFILESUploadSessionFinishErrorConcurrentSessionMissingData,
+
+  /// The request payload must be at most 150 MB.
+  DBFILESUploadSessionFinishErrorPayloadTooLarge,
+
+  /// The content received by the Dropbox server in this call does not match
+  /// the provided content hash.
+  DBFILESUploadSessionFinishErrorContentHashMismatch,
 
   /// (no description).
   DBFILESUploadSessionFinishErrorOther,
@@ -58,10 +82,16 @@ typedef NS_ENUM(NSInteger, DBFILESUploadSessionFinishErrorTag) {
 /// a runtime exception will be raised.
 @property (nonatomic, readonly) DBFILESUploadSessionLookupError *lookupFailed;
 
-/// Unable to save the uploaded contents to a file. @note Ensure the `isPath`
-/// method returns true before accessing, otherwise a runtime exception will be
-/// raised.
+/// Unable to save the uploaded contents to a file. Data has already been
+/// appended to the upload session. Please retry with empty data body and
+/// updated offset. @note Ensure the `isPath` method returns true before
+/// accessing, otherwise a runtime exception will be raised.
 @property (nonatomic, readonly) DBFILESWriteError *path;
+
+/// The supplied property group is invalid. The file has uploaded without
+/// property groups. @note Ensure the `isPropertiesError` method returns true
+/// before accessing, otherwise a runtime exception will be raised.
+@property (nonatomic, readonly) DBFILEPROPERTIESInvalidPropertyGroupError *propertiesError;
 
 #pragma mark - Constructors
 
@@ -82,13 +112,29 @@ typedef NS_ENUM(NSInteger, DBFILESUploadSessionFinishErrorTag) {
 /// Initializes union class with tag state of "path".
 ///
 /// Description of the "path" tag state: Unable to save the uploaded contents to
-/// a file.
+/// a file. Data has already been appended to the upload session. Please retry
+/// with empty data body and updated offset.
 ///
-/// @param path Unable to save the uploaded contents to a file.
+/// @param path Unable to save the uploaded contents to a file. Data has already
+/// been appended to the upload session. Please retry with empty data body and
+/// updated offset.
 ///
 /// @return An initialized instance.
 ///
 - (instancetype)initWithPath:(DBFILESWriteError *)path;
+
+///
+/// Initializes union class with tag state of "properties_error".
+///
+/// Description of the "properties_error" tag state: The supplied property group
+/// is invalid. The file has uploaded without property groups.
+///
+/// @param propertiesError The supplied property group is invalid. The file has
+/// uploaded without property groups.
+///
+/// @return An initialized instance.
+///
+- (instancetype)initWithPropertiesError:(DBFILEPROPERTIESInvalidPropertyGroupError *)propertiesError;
 
 ///
 /// Initializes union class with tag state of "too_many_shared_folder_targets".
@@ -111,6 +157,57 @@ typedef NS_ENUM(NSInteger, DBFILESUploadSessionFinishErrorTag) {
 /// @return An initialized instance.
 ///
 - (instancetype)initWithTooManyWriteOperations;
+
+///
+/// Initializes union class with tag state of
+/// "concurrent_session_data_not_allowed".
+///
+/// Description of the "concurrent_session_data_not_allowed" tag state:
+/// Uploading data not allowed when finishing concurrent upload session.
+///
+/// @return An initialized instance.
+///
+- (instancetype)initWithConcurrentSessionDataNotAllowed;
+
+///
+/// Initializes union class with tag state of "concurrent_session_not_closed".
+///
+/// Description of the "concurrent_session_not_closed" tag state: Concurrent
+/// upload sessions need to be closed before finishing.
+///
+/// @return An initialized instance.
+///
+- (instancetype)initWithConcurrentSessionNotClosed;
+
+///
+/// Initializes union class with tag state of "concurrent_session_missing_data".
+///
+/// Description of the "concurrent_session_missing_data" tag state: Not all
+/// pieces of data were uploaded before trying to finish the session.
+///
+/// @return An initialized instance.
+///
+- (instancetype)initWithConcurrentSessionMissingData;
+
+///
+/// Initializes union class with tag state of "payload_too_large".
+///
+/// Description of the "payload_too_large" tag state: The request payload must
+/// be at most 150 MB.
+///
+/// @return An initialized instance.
+///
+- (instancetype)initWithPayloadTooLarge;
+
+///
+/// Initializes union class with tag state of "content_hash_mismatch".
+///
+/// Description of the "content_hash_mismatch" tag state: The content received
+/// by the Dropbox server in this call does not match the provided content hash.
+///
+/// @return An initialized instance.
+///
+- (instancetype)initWithContentHashMismatch;
 
 ///
 /// Initializes union class with tag state of "other".
@@ -145,6 +242,17 @@ typedef NS_ENUM(NSInteger, DBFILESUploadSessionFinishErrorTag) {
 
 ///
 /// Retrieves whether the union's current tag state has value
+/// "properties_error".
+///
+/// @note Call this method and ensure it returns true before accessing the
+/// `propertiesError` property, otherwise a runtime exception will be thrown.
+///
+/// @return Whether the union's current tag state has value "properties_error".
+///
+- (BOOL)isPropertiesError;
+
+///
+/// Retrieves whether the union's current tag state has value
 /// "too_many_shared_folder_targets".
 ///
 /// @return Whether the union's current tag state has value
@@ -160,6 +268,50 @@ typedef NS_ENUM(NSInteger, DBFILESUploadSessionFinishErrorTag) {
 /// "too_many_write_operations".
 ///
 - (BOOL)isTooManyWriteOperations;
+
+///
+/// Retrieves whether the union's current tag state has value
+/// "concurrent_session_data_not_allowed".
+///
+/// @return Whether the union's current tag state has value
+/// "concurrent_session_data_not_allowed".
+///
+- (BOOL)isConcurrentSessionDataNotAllowed;
+
+///
+/// Retrieves whether the union's current tag state has value
+/// "concurrent_session_not_closed".
+///
+/// @return Whether the union's current tag state has value
+/// "concurrent_session_not_closed".
+///
+- (BOOL)isConcurrentSessionNotClosed;
+
+///
+/// Retrieves whether the union's current tag state has value
+/// "concurrent_session_missing_data".
+///
+/// @return Whether the union's current tag state has value
+/// "concurrent_session_missing_data".
+///
+- (BOOL)isConcurrentSessionMissingData;
+
+///
+/// Retrieves whether the union's current tag state has value
+/// "payload_too_large".
+///
+/// @return Whether the union's current tag state has value "payload_too_large".
+///
+- (BOOL)isPayloadTooLarge;
+
+///
+/// Retrieves whether the union's current tag state has value
+/// "content_hash_mismatch".
+///
+/// @return Whether the union's current tag state has value
+/// "content_hash_mismatch".
+///
+- (BOOL)isContentHashMismatch;
 
 ///
 /// Retrieves whether the union's current tag state has value "other".
@@ -193,7 +345,7 @@ typedef NS_ENUM(NSInteger, DBFILESUploadSessionFinishErrorTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBFILESUploadSessionFinishError` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBFILESUploadSessionFinishError *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBFILESUploadSessionFinishError *)instance;
 
 ///
 /// Deserializes `DBFILESUploadSessionFinishError` instances.
@@ -203,7 +355,7 @@ typedef NS_ENUM(NSInteger, DBFILESUploadSessionFinishErrorTag) {
 ///
 /// @return An instantiation of the `DBFILESUploadSessionFinishError` object.
 ///
-+ (DBFILESUploadSessionFinishError *)deserialize:(NSDictionary *)dict;
++ (DBFILESUploadSessionFinishError *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

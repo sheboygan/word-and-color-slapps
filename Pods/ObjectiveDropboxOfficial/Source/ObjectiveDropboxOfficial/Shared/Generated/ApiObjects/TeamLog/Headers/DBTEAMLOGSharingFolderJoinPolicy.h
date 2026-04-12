@@ -31,7 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// The `DBTEAMLOGSharingFolderJoinPolicyTag` enum type represents the possible
 /// tag states with which the `DBTEAMLOGSharingFolderJoinPolicy` union can
 /// exist.
-typedef NS_ENUM(NSInteger, DBTEAMLOGSharingFolderJoinPolicyTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBTEAMLOGSharingFolderJoinPolicyTag) {
   /// (no description).
   DBTEAMLOGSharingFolderJoinPolicyFromAnyone,
 
@@ -119,7 +119,7 @@ typedef NS_ENUM(NSInteger, DBTEAMLOGSharingFolderJoinPolicyTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBTEAMLOGSharingFolderJoinPolicy` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBTEAMLOGSharingFolderJoinPolicy *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBTEAMLOGSharingFolderJoinPolicy *)instance;
 
 ///
 /// Deserializes `DBTEAMLOGSharingFolderJoinPolicy` instances.
@@ -129,7 +129,7 @@ typedef NS_ENUM(NSInteger, DBTEAMLOGSharingFolderJoinPolicyTag) {
 ///
 /// @return An instantiation of the `DBTEAMLOGSharingFolderJoinPolicy` object.
 ///
-+ (DBTEAMLOGSharingFolderJoinPolicy *)deserialize:(NSDictionary *)dict;
++ (DBTEAMLOGSharingFolderJoinPolicy *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

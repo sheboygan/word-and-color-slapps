@@ -13,6 +13,7 @@
 @class DBASYNCPollError;
 @class DBFILESLookupError;
 @class DBNilObject;
+@class DBSHARINGAccessInheritance;
 @class DBSHARINGAccessLevel;
 @class DBSHARINGAclUpdatePolicy;
 @class DBSHARINGAddFileMemberError;
@@ -73,8 +74,10 @@
 @class DBSHARINGRemoveFileMemberError;
 @class DBSHARINGRemoveFolderMemberError;
 @class DBSHARINGRemoveMemberJobStatus;
+@class DBSHARINGRequestedLinkAccessLevel;
 @class DBSHARINGRequestedVisibility;
 @class DBSHARINGRevokeSharedLinkError;
+@class DBSHARINGSetAccessInheritanceError;
 @class DBSHARINGShareFolderError;
 @class DBSHARINGShareFolderJobStatus;
 @class DBSHARINGShareFolderLaunch;
@@ -86,6 +89,7 @@
 @class DBSHARINGSharedFolderMemberError;
 @class DBSHARINGSharedFolderMembers;
 @class DBSHARINGSharedFolderMetadata;
+@class DBSHARINGSharedLinkAlreadyExistsMetadata;
 @class DBSHARINGSharedLinkError;
 @class DBSHARINGSharedLinkMetadata;
 @class DBSHARINGSharedLinkPolicy;
@@ -128,24 +132,24 @@ NS_ASSUME_NONNULL_BEGIN
 /// Adds specified members to a file.
 ///
 /// @param file File to which to add members.
-/// @param members Members to add. Note that even an email address is given, this may result in a user being directy
+/// @param members Members to add. Note that even an email address is given, this may result in a user being directly
 /// added to the membership if that email is the user's main account email.
 ///
 /// @return Through the response callback, the caller will receive a `NSArray<DBSHARINGFileMemberActionResult *>` object
 /// on success or a `DBSHARINGAddFileMemberError` object on failure.
 ///
 - (DBRpcTask<NSArray<DBSHARINGFileMemberActionResult *> *, DBSHARINGAddFileMemberError *> *)
-addFileMember:(NSString *)file
-      members:(NSArray<DBSHARINGMemberSelector *> *)members;
+    addFileMember:(NSString *)file
+          members:(NSArray<DBSHARINGMemberSelector *> *)members;
 
 ///
 /// Adds specified members to a file.
 ///
 /// @param file File to which to add members.
-/// @param members Members to add. Note that even an email address is given, this may result in a user being directy
+/// @param members Members to add. Note that even an email address is given, this may result in a user being directly
 /// added to the membership if that email is the user's main account email.
 /// @param customMessage Message to send to added members in their invitation.
-/// @param quiet Whether added members should be notified via device notifications of their invitation.
+/// @param quiet Whether added members should be notified via email and device notifications of their invitation.
 /// @param accessLevel AccessLevel union object, describing what access level we want to give new members.
 /// @param addMessageAsComment If the custom message should be added as a comment on the file.
 ///
@@ -153,17 +157,16 @@ addFileMember:(NSString *)file
 /// on success or a `DBSHARINGAddFileMemberError` object on failure.
 ///
 - (DBRpcTask<NSArray<DBSHARINGFileMemberActionResult *> *, DBSHARINGAddFileMemberError *> *)
-      addFileMember:(NSString *)file
-            members:(NSArray<DBSHARINGMemberSelector *> *)members
-      customMessage:(nullable NSString *)customMessage
-              quiet:(nullable NSNumber *)quiet
-        accessLevel:(nullable DBSHARINGAccessLevel *)accessLevel
-addMessageAsComment:(nullable NSNumber *)addMessageAsComment;
+          addFileMember:(NSString *)file
+                members:(NSArray<DBSHARINGMemberSelector *> *)members
+          customMessage:(nullable NSString *)customMessage
+                  quiet:(nullable NSNumber *)quiet
+            accessLevel:(nullable DBSHARINGAccessLevel *)accessLevel
+    addMessageAsComment:(nullable NSNumber *)addMessageAsComment;
 
 ///
 /// Allows an owner or editor (if the ACL update policy allows) of a shared folder to add another member. For the new
 /// member to get access to all the functionality for this folder, you will need to call `mountFolder` on their behalf.
-/// Apps must have full Dropbox access to use this endpoint.
 ///
 /// @param sharedFolderId The ID for the shared folder.
 /// @param members The intended list of members to add.  Added members will receive invites to join the shared folder.
@@ -177,7 +180,6 @@ addMessageAsComment:(nullable NSNumber *)addMessageAsComment;
 ///
 /// Allows an owner or editor (if the ACL update policy allows) of a shared folder to add another member. For the new
 /// member to get access to all the functionality for this folder, you will need to call `mountFolder` on their behalf.
-/// Apps must have full Dropbox access to use this endpoint.
 ///
 /// @param sharedFolderId The ID for the shared folder.
 /// @param members The intended list of members to add.  Added members will receive invites to join the shared folder.
@@ -193,23 +195,7 @@ addMessageAsComment:(nullable NSNumber *)addMessageAsComment;
                                                                  customMessage:(nullable NSString *)customMessage;
 
 ///
-/// DEPRECATED: Identical to update_file_member but with less information returned.
-///
-/// @param file File for which we are changing a member's access.
-/// @param member The member whose access we are changing.
-/// @param accessLevel The new access level for the member.
-///
-/// @return Through the response callback, the caller will receive a `DBSHARINGFileMemberActionResult` object on success
-/// or a `DBSHARINGFileMemberActionError` object on failure.
-///
-- (DBRpcTask<DBSHARINGFileMemberActionResult *, DBSHARINGFileMemberActionError *> *)
-changeFileMemberAccess:(NSString *)file
-                member:(DBSHARINGMemberSelector *)member
-           accessLevel:(DBSHARINGAccessLevel *)accessLevel
-    __deprecated_msg("changeFileMemberAccess is deprecated. Use updateFileMember.");
-
-///
-/// Returns the status of an asynchronous job. Apps must have full Dropbox access to use this endpoint.
+/// Returns the status of an asynchronous job.
 ///
 /// @param asyncJobId Id of the asynchronous job. This is the value of a response returned from the method that launched
 /// the job.
@@ -220,8 +206,7 @@ changeFileMemberAccess:(NSString *)file
 - (DBRpcTask<DBSHARINGJobStatus *, DBASYNCPollError *> *)checkJobStatus:(NSString *)asyncJobId;
 
 ///
-/// Returns the status of an asynchronous job for sharing a folder. Apps must have full Dropbox access to use this
-/// endpoint.
+/// Returns the status of an asynchronous job for sharing a folder.
 ///
 /// @param asyncJobId Id of the asynchronous job. This is the value of a response returned from the method that launched
 /// the job.
@@ -232,8 +217,7 @@ changeFileMemberAccess:(NSString *)file
 - (DBRpcTask<DBSHARINGRemoveMemberJobStatus *, DBASYNCPollError *> *)checkRemoveMemberJobStatus:(NSString *)asyncJobId;
 
 ///
-/// Returns the status of an asynchronous job for sharing a folder. Apps must have full Dropbox access to use this
-/// endpoint.
+/// Returns the status of an asynchronous job for sharing a folder.
 ///
 /// @param asyncJobId Id of the asynchronous job. This is the value of a response returned from the method that launched
 /// the job.
@@ -244,12 +228,10 @@ changeFileMemberAccess:(NSString *)file
 - (DBRpcTask<DBSHARINGShareFolderJobStatus *, DBASYNCPollError *> *)checkShareJobStatus:(NSString *)asyncJobId;
 
 ///
-/// DEPRECATED: Create a shared link. If a shared link already exists for the given path, that link is returned. Note
-/// that in the returned PathLinkMetadata, the `url` in `DBSHARINGPathLinkMetadata` field is the shortened URL if
-/// `shortUrl` in `DBSHARINGCreateSharedLinkArg` argument is set to true. Previously, it was technically possible to
-/// break a shared link by moving or renaming the corresponding file or folder. In the future, this will no longer be
-/// the case, so your app shouldn't rely on this behavior. Instead, if your app needs to revoke a shared link, use
-/// `revokeSharedLink`.
+/// DEPRECATED: Create a shared link. If a shared link already exists for the given path, that link is returned.
+/// Previously, it was technically possible to break a shared link by moving or renaming the corresponding file or
+/// folder. In the future, this will no longer be the case, so your app shouldn't rely on this behavior. Instead, if
+/// your app needs to revoke a shared link, use `revokeSharedLink`.
 ///
 /// @param path The path to share.
 ///
@@ -260,15 +242,12 @@ changeFileMemberAccess:(NSString *)file
     __deprecated_msg("createSharedLink is deprecated. Use createSharedLinkWithSettings.");
 
 ///
-/// DEPRECATED: Create a shared link. If a shared link already exists for the given path, that link is returned. Note
-/// that in the returned PathLinkMetadata, the `url` in `DBSHARINGPathLinkMetadata` field is the shortened URL if
-/// `shortUrl` in `DBSHARINGCreateSharedLinkArg` argument is set to true. Previously, it was technically possible to
-/// break a shared link by moving or renaming the corresponding file or folder. In the future, this will no longer be
-/// the case, so your app shouldn't rely on this behavior. Instead, if your app needs to revoke a shared link, use
-/// `revokeSharedLink`.
+/// DEPRECATED: Create a shared link. If a shared link already exists for the given path, that link is returned.
+/// Previously, it was technically possible to break a shared link by moving or renaming the corresponding file or
+/// folder. In the future, this will no longer be the case, so your app shouldn't rely on this behavior. Instead, if
+/// your app needs to revoke a shared link, use `revokeSharedLink`.
 ///
 /// @param path The path to share.
-/// @param shortUrl Whether to return a shortened URL.
 /// @param pendingUpload If it's okay to share a path that does not yet exist, set this to either `file` in
 /// `DBSHARINGPendingUploadMode` or `folder` in `DBSHARINGPendingUploadMode` to indicate whether to assume it's a file
 /// or folder.
@@ -277,9 +256,9 @@ changeFileMemberAccess:(NSString *)file
 /// `DBSHARINGCreateSharedLinkError` object on failure.
 ///
 - (DBRpcTask<DBSHARINGPathLinkMetadata *, DBSHARINGCreateSharedLinkError *> *)
-createSharedLink:(NSString *)path
-        shortUrl:(nullable NSNumber *)shortUrl
-   pendingUpload:(nullable DBSHARINGPendingUploadMode *)pendingUpload
+    createSharedLink:(NSString *)path
+            shortUrl:(nullable NSNumber *)shortUrl
+       pendingUpload:(nullable DBSHARINGPendingUploadMode *)pendingUpload
     __deprecated_msg("createSharedLink is deprecated. Use createSharedLinkWithSettings.");
 
 ///
@@ -293,7 +272,7 @@ createSharedLink:(NSString *)path
 /// a `DBSHARINGCreateSharedLinkWithSettingsError` object on failure.
 ///
 - (DBRpcTask<DBSHARINGSharedLinkMetadata *, DBSHARINGCreateSharedLinkWithSettingsError *> *)
-createSharedLinkWithSettings:(NSString *)path;
+    createSharedLinkWithSettings:(NSString *)path;
 
 ///
 /// Create a shared link with custom settings. If no settings are given then the default visibility is `public` in
@@ -307,8 +286,8 @@ createSharedLinkWithSettings:(NSString *)path;
 /// a `DBSHARINGCreateSharedLinkWithSettingsError` object on failure.
 ///
 - (DBRpcTask<DBSHARINGSharedLinkMetadata *, DBSHARINGCreateSharedLinkWithSettingsError *> *)
-createSharedLinkWithSettings:(NSString *)path
-                    settings:(nullable DBSHARINGSharedLinkSettings *)settings;
+    createSharedLinkWithSettings:(NSString *)path
+                        settings:(nullable DBSHARINGSharedLinkSettings *)settings;
 
 ///
 /// Returns shared file metadata.
@@ -332,8 +311,8 @@ createSharedLinkWithSettings:(NSString *)path
 /// a `DBSHARINGGetFileMetadataError` object on failure.
 ///
 - (DBRpcTask<DBSHARINGSharedFileMetadata *, DBSHARINGGetFileMetadataError *> *)
-getFileMetadata:(NSString *)file
-        actions:(nullable NSArray<DBSHARINGFileAction *> *)actions;
+    getFileMetadata:(NSString *)file
+            actions:(nullable NSArray<DBSHARINGFileAction *> *)actions;
 
 ///
 /// Returns shared file metadata.
@@ -358,11 +337,11 @@ getFileMetadata:(NSString *)file
 /// object on success or a `DBSHARINGSharingUserError` object on failure.
 ///
 - (DBRpcTask<NSArray<DBSHARINGGetFileMetadataBatchResult *> *, DBSHARINGSharingUserError *> *)
-getFileMetadataBatch:(NSArray<NSString *> *)files
-             actions:(nullable NSArray<DBSHARINGFileAction *> *)actions;
+    getFileMetadataBatch:(NSArray<NSString *> *)files
+                 actions:(nullable NSArray<DBSHARINGFileAction *> *)actions;
 
 ///
-/// Returns shared folder metadata by its folder ID. Apps must have full Dropbox access to use this endpoint.
+/// Returns shared folder metadata by its folder ID.
 ///
 /// @param sharedFolderId The ID for the shared folder.
 ///
@@ -373,7 +352,7 @@ getFileMetadataBatch:(NSArray<NSString *> *)files
     (NSString *)sharedFolderId;
 
 ///
-/// Returns shared folder metadata by its folder ID. Apps must have full Dropbox access to use this endpoint.
+/// Returns shared folder metadata by its folder ID.
 ///
 /// @param sharedFolderId The ID for the shared folder.
 /// @param actions A list of `FolderAction`s corresponding to `FolderPermission`s that should appear in the  response's
@@ -384,8 +363,8 @@ getFileMetadataBatch:(NSArray<NSString *> *)files
 /// or a `DBSHARINGSharedFolderAccessError` object on failure.
 ///
 - (DBRpcTask<DBSHARINGSharedFolderMetadata *, DBSHARINGSharedFolderAccessError *> *)
-getFolderMetadata:(NSString *)sharedFolderId
-          actions:(nullable NSArray<DBSHARINGFolderAction *> *)actions;
+    getFolderMetadata:(NSString *)sharedFolderId
+              actions:(nullable NSArray<DBSHARINGFolderAction *> *)actions;
 
 ///
 /// Download the shared link's file from a user's Dropbox.
@@ -400,9 +379,9 @@ getFolderMetadata:(NSString *)sharedFolderId
 /// a `DBSHARINGGetSharedLinkFileError` object on failure.
 ///
 - (DBDownloadUrlTask<DBSHARINGSharedLinkMetadata *, DBSHARINGGetSharedLinkFileError *> *)
-getSharedLinkFileUrl:(NSString *)url
-           overwrite:(BOOL)overwrite
-         destination:(NSURL *)destination;
+    getSharedLinkFileUrl:(NSString *)url
+               overwrite:(BOOL)overwrite
+             destination:(NSURL *)destination;
 
 ///
 /// Download the shared link's file from a user's Dropbox.
@@ -420,11 +399,11 @@ getSharedLinkFileUrl:(NSString *)url
 /// a `DBSHARINGGetSharedLinkFileError` object on failure.
 ///
 - (DBDownloadUrlTask<DBSHARINGSharedLinkMetadata *, DBSHARINGGetSharedLinkFileError *> *)
-getSharedLinkFileUrl:(NSString *)url
-                path:(nullable NSString *)path
-        linkPassword:(nullable NSString *)linkPassword
-           overwrite:(BOOL)overwrite
-         destination:(NSURL *)destination;
+    getSharedLinkFileUrl:(NSString *)url
+                    path:(nullable NSString *)path
+            linkPassword:(nullable NSString *)linkPassword
+               overwrite:(BOOL)overwrite
+             destination:(NSURL *)destination;
 
 ///
 /// Download the shared link's file from a user's Dropbox.
@@ -443,11 +422,11 @@ getSharedLinkFileUrl:(NSString *)url
 /// a `DBSHARINGGetSharedLinkFileError` object on failure.
 ///
 - (DBDownloadUrlTask<DBSHARINGSharedLinkMetadata *, DBSHARINGGetSharedLinkFileError *> *)
-getSharedLinkFileUrl:(NSString *)url
-           overwrite:(BOOL)overwrite
-         destination:(NSURL *)destination
-     byteOffsetStart:(NSNumber *)byteOffsetStart
-       byteOffsetEnd:(NSNumber *)byteOffsetEnd;
+    getSharedLinkFileUrl:(NSString *)url
+               overwrite:(BOOL)overwrite
+             destination:(NSURL *)destination
+         byteOffsetStart:(NSNumber *)byteOffsetStart
+           byteOffsetEnd:(NSNumber *)byteOffsetEnd;
 
 ///
 /// Download the shared link's file from a user's Dropbox.
@@ -469,13 +448,13 @@ getSharedLinkFileUrl:(NSString *)url
 /// a `DBSHARINGGetSharedLinkFileError` object on failure.
 ///
 - (DBDownloadUrlTask<DBSHARINGSharedLinkMetadata *, DBSHARINGGetSharedLinkFileError *> *)
-getSharedLinkFileUrl:(NSString *)url
-                path:(nullable NSString *)path
-        linkPassword:(nullable NSString *)linkPassword
-           overwrite:(BOOL)overwrite
-         destination:(NSURL *)destination
-     byteOffsetStart:(NSNumber *)byteOffsetStart
-       byteOffsetEnd:(NSNumber *)byteOffsetEnd;
+    getSharedLinkFileUrl:(NSString *)url
+                    path:(nullable NSString *)path
+            linkPassword:(nullable NSString *)linkPassword
+               overwrite:(BOOL)overwrite
+             destination:(NSURL *)destination
+         byteOffsetStart:(NSNumber *)byteOffsetStart
+           byteOffsetEnd:(NSNumber *)byteOffsetEnd;
 
 ///
 /// Download the shared link's file from a user's Dropbox.
@@ -500,9 +479,9 @@ getSharedLinkFileUrl:(NSString *)url
 /// a `DBSHARINGGetSharedLinkFileError` object on failure.
 ///
 - (DBDownloadDataTask<DBSHARINGSharedLinkMetadata *, DBSHARINGGetSharedLinkFileError *> *)
-getSharedLinkFileData:(NSString *)url
-                 path:(nullable NSString *)path
-         linkPassword:(nullable NSString *)linkPassword;
+    getSharedLinkFileData:(NSString *)url
+                     path:(nullable NSString *)path
+             linkPassword:(nullable NSString *)linkPassword;
 
 ///
 /// Download the shared link's file from a user's Dropbox.
@@ -517,9 +496,9 @@ getSharedLinkFileData:(NSString *)url
 /// a `DBSHARINGGetSharedLinkFileError` object on failure.
 ///
 - (DBDownloadDataTask<DBSHARINGSharedLinkMetadata *, DBSHARINGGetSharedLinkFileError *> *)
-getSharedLinkFileData:(NSString *)url
-      byteOffsetStart:(NSNumber *)byteOffsetStart
-        byteOffsetEnd:(NSNumber *)byteOffsetEnd;
+    getSharedLinkFileData:(NSString *)url
+          byteOffsetStart:(NSNumber *)byteOffsetStart
+            byteOffsetEnd:(NSNumber *)byteOffsetEnd;
 
 ///
 /// Download the shared link's file from a user's Dropbox.
@@ -537,11 +516,11 @@ getSharedLinkFileData:(NSString *)url
 /// a `DBSHARINGGetSharedLinkFileError` object on failure.
 ///
 - (DBDownloadDataTask<DBSHARINGSharedLinkMetadata *, DBSHARINGGetSharedLinkFileError *> *)
-getSharedLinkFileData:(NSString *)url
-                 path:(nullable NSString *)path
-         linkPassword:(nullable NSString *)linkPassword
-      byteOffsetStart:(NSNumber *)byteOffsetStart
-        byteOffsetEnd:(NSNumber *)byteOffsetEnd;
+    getSharedLinkFileData:(NSString *)url
+                     path:(nullable NSString *)path
+             linkPassword:(nullable NSString *)linkPassword
+          byteOffsetStart:(NSNumber *)byteOffsetStart
+            byteOffsetEnd:(NSNumber *)byteOffsetEnd;
 
 ///
 /// Get the shared link's metadata.
@@ -565,28 +544,28 @@ getSharedLinkFileData:(NSString *)url
 /// a `DBSHARINGSharedLinkError` object on failure.
 ///
 - (DBRpcTask<DBSHARINGSharedLinkMetadata *, DBSHARINGSharedLinkError *> *)
-getSharedLinkMetadata:(NSString *)url
-                 path:(nullable NSString *)path
-         linkPassword:(nullable NSString *)linkPassword;
+    getSharedLinkMetadata:(NSString *)url
+                     path:(nullable NSString *)path
+             linkPassword:(nullable NSString *)linkPassword;
 
 ///
 /// DEPRECATED: Returns a list of LinkMetadata objects for this user, including collection links. If no path is given,
 /// returns a list of all shared links for the current user, including collection links, up to a maximum of 1000 links.
 /// If a non-empty path is given, returns a list of all shared links that allow access to the given path.  Collection
-/// links are never returned in this case. Note that the url field in the response is never the shortened URL.
+/// links are never returned in this case.
 ///
 ///
 /// @return Through the response callback, the caller will receive a `DBSHARINGGetSharedLinksResult` object on success
 /// or a `DBSHARINGGetSharedLinksError` object on failure.
 ///
-- (DBRpcTask<DBSHARINGGetSharedLinksResult *, DBSHARINGGetSharedLinksError *> *)getSharedLinks
-    __deprecated_msg("getSharedLinks is deprecated. Use listSharedLinks.");
+- (DBRpcTask<DBSHARINGGetSharedLinksResult *, DBSHARINGGetSharedLinksError *> *)
+    getSharedLinks __deprecated_msg("getSharedLinks is deprecated. Use listSharedLinks.");
 
 ///
 /// DEPRECATED: Returns a list of LinkMetadata objects for this user, including collection links. If no path is given,
 /// returns a list of all shared links for the current user, including collection links, up to a maximum of 1000 links.
 /// If a non-empty path is given, returns a list of all shared links that allow access to the given path.  Collection
-/// links are never returned in this case. Note that the url field in the response is never the shortened URL.
+/// links are never returned in this case.
 ///
 /// @param path See `getSharedLinks` description.
 ///
@@ -618,10 +597,10 @@ getSharedLinkMetadata:(NSString *)url
 /// `DBSHARINGListFileMembersError` object on failure.
 ///
 - (DBRpcTask<DBSHARINGSharedFileMembers *, DBSHARINGListFileMembersError *> *)
- listFileMembers:(NSString *)file
-         actions:(nullable NSArray<DBSHARINGMemberAction *> *)actions
-includeInherited:(nullable NSNumber *)includeInherited
-           limit:(nullable NSNumber *)limit;
+     listFileMembers:(NSString *)file
+             actions:(nullable NSArray<DBSHARINGMemberAction *> *)actions
+    includeInherited:(nullable NSNumber *)includeInherited
+               limit:(nullable NSNumber *)limit;
 
 ///
 /// Get members of multiple files at once. The arguments to this route are more limited, and the limit on query result
@@ -648,8 +627,8 @@ includeInherited:(nullable NSNumber *)includeInherited
 /// object on success or a `DBSHARINGSharingUserError` object on failure.
 ///
 - (DBRpcTask<NSArray<DBSHARINGListFileMembersBatchResult *> *, DBSHARINGSharingUserError *> *)
-listFileMembersBatch:(NSArray<NSString *> *)files
-               limit:(nullable NSNumber *)limit;
+    listFileMembersBatch:(NSArray<NSString *> *)files
+                   limit:(nullable NSNumber *)limit;
 
 ///
 /// Once a cursor has been retrieved from `listFileMembers` or `listFileMembersBatch`, use this to paginate through all
@@ -665,7 +644,7 @@ listFileMembersBatch:(NSArray<NSString *> *)files
     (NSString *)cursor;
 
 ///
-/// Returns shared folder membership by its folder ID. Apps must have full Dropbox access to use this endpoint.
+/// Returns shared folder membership by its folder ID.
 ///
 /// @param sharedFolderId The ID for the shared folder.
 ///
@@ -676,7 +655,7 @@ listFileMembersBatch:(NSArray<NSString *> *)files
     (NSString *)sharedFolderId;
 
 ///
-/// Returns shared folder membership by its folder ID. Apps must have full Dropbox access to use this endpoint.
+/// Returns shared folder membership by its folder ID.
 ///
 /// @param sharedFolderId The ID for the shared folder.
 ///
@@ -684,13 +663,12 @@ listFileMembersBatch:(NSArray<NSString *> *)files
 /// a `DBSHARINGSharedFolderAccessError` object on failure.
 ///
 - (DBRpcTask<DBSHARINGSharedFolderMembers *, DBSHARINGSharedFolderAccessError *> *)
-listFolderMembers:(NSString *)sharedFolderId
-          actions:(nullable NSArray<DBSHARINGMemberAction *> *)actions
-            limit:(nullable NSNumber *)limit;
+    listFolderMembers:(NSString *)sharedFolderId
+              actions:(nullable NSArray<DBSHARINGMemberAction *> *)actions
+                limit:(nullable NSNumber *)limit;
 
 ///
 /// Once a cursor has been retrieved from `listFolderMembers`, use this to paginate through all shared folder members.
-/// Apps must have full Dropbox access to use this endpoint.
 ///
 /// @param cursor The cursor returned by your last call to `listFolderMembers` or `listFolderMembersContinue`.
 ///
@@ -701,8 +679,7 @@ listFolderMembers:(NSString *)sharedFolderId
     (NSString *)cursor;
 
 ///
-/// Return the list of all shared folders the current user has access to. Apps must have full Dropbox access to use this
-/// endpoint.
+/// Return the list of all shared folders the current user has access to.
 ///
 ///
 /// @return Through the response callback, the caller will receive a `DBSHARINGListFoldersResult` object on success or a
@@ -711,8 +688,7 @@ listFolderMembers:(NSString *)sharedFolderId
 - (DBRpcTask<DBSHARINGListFoldersResult *, DBNilObject *> *)listFolders;
 
 ///
-/// Return the list of all shared folders the current user has access to. Apps must have full Dropbox access to use this
-/// endpoint.
+/// Return the list of all shared folders the current user has access to.
 ///
 /// @param limit The maximum number of results to return per request.
 /// @param actions A list of `FolderAction`s corresponding to `FolderPermission`s that should appear in the  response's
@@ -728,8 +704,7 @@ listFolderMembers:(NSString *)sharedFolderId
 
 ///
 /// Once a cursor has been retrieved from `listFolders`, use this to paginate through all shared folders. The cursor
-/// must come from a previous call to `listFolders` or `listFoldersContinue`. Apps must have full Dropbox access to use
-/// this endpoint.
+/// must come from a previous call to `listFolders` or `listFoldersContinue`.
 ///
 /// @param cursor The cursor returned by the previous API call specified in the endpoint description.
 ///
@@ -740,8 +715,7 @@ listFolderMembers:(NSString *)sharedFolderId
     (NSString *)cursor;
 
 ///
-/// Return the list of all shared folders the current user can mount or unmount. Apps must have full Dropbox access to
-/// use this endpoint.
+/// Return the list of all shared folders the current user can mount or unmount.
 ///
 ///
 /// @return Through the response callback, the caller will receive a `DBSHARINGListFoldersResult` object on success or a
@@ -750,8 +724,7 @@ listFolderMembers:(NSString *)sharedFolderId
 - (DBRpcTask<DBSHARINGListFoldersResult *, DBNilObject *> *)listMountableFolders;
 
 ///
-/// Return the list of all shared folders the current user can mount or unmount. Apps must have full Dropbox access to
-/// use this endpoint.
+/// Return the list of all shared folders the current user can mount or unmount.
 ///
 /// @param limit The maximum number of results to return per request.
 /// @param actions A list of `FolderAction`s corresponding to `FolderPermission`s that should appear in the  response's
@@ -762,13 +735,12 @@ listFolderMembers:(NSString *)sharedFolderId
 /// `void` object on failure.
 ///
 - (DBRpcTask<DBSHARINGListFoldersResult *, DBNilObject *> *)
-listMountableFolders:(nullable NSNumber *)limit
-             actions:(nullable NSArray<DBSHARINGFolderAction *> *)actions;
+    listMountableFolders:(nullable NSNumber *)limit
+                 actions:(nullable NSArray<DBSHARINGFolderAction *> *)actions;
 
 ///
 /// Once a cursor has been retrieved from `listMountableFolders`, use this to paginate through all mountable shared
-/// folders. The cursor must come from a previous call to `listMountableFolders` or `listMountableFoldersContinue`. Apps
-/// must have full Dropbox access to use this endpoint.
+/// folders. The cursor must come from a previous call to `listMountableFolders` or `listMountableFoldersContinue`.
 ///
 /// @param cursor The cursor returned by the previous API call specified in the endpoint description.
 ///
@@ -801,8 +773,8 @@ listMountableFolders:(nullable NSNumber *)limit
 /// `DBSHARINGSharingUserError` object on failure.
 ///
 - (DBRpcTask<DBSHARINGListFilesResult *, DBSHARINGSharingUserError *> *)
-listReceivedFiles:(nullable NSNumber *)limit
-          actions:(nullable NSArray<DBSHARINGFileAction *> *)actions;
+    listReceivedFiles:(nullable NSNumber *)limit
+              actions:(nullable NSArray<DBSHARINGFileAction *> *)actions;
 
 ///
 /// Get more results with a cursor from `listReceivedFiles`.
@@ -816,10 +788,12 @@ listReceivedFiles:(nullable NSNumber *)limit
     (NSString *)cursor;
 
 ///
-/// List shared links of this user. If no path is given, returns a list of all shared links for the current user. If a
-/// non-empty path is given, returns a list of all shared links that allow access to the given path - direct links to
-/// the given path and links to parent folders of the given path. Links to parent folders can be suppressed by setting
-/// direct_only to true.
+/// List shared links of this user. If no path is given, returns a list of all shared links for the current user. For
+/// members of business teams using team space and member folders, returns all shared links in the team member's home
+/// folder unless the team space ID is specified in the request header. For more information, refer to the Namespace
+/// Guide https://www.dropbox.com/developers/reference/namespace-guide. If a non-empty path is given, returns a list of
+/// all shared links that allow access to the given path - direct links to the given path and links to parent folders of
+/// the given path. Links to parent folders can be suppressed by setting direct_only to true.
 ///
 ///
 /// @return Through the response callback, the caller will receive a `DBSHARINGListSharedLinksResult` object on success
@@ -828,10 +802,12 @@ listReceivedFiles:(nullable NSNumber *)limit
 - (DBRpcTask<DBSHARINGListSharedLinksResult *, DBSHARINGListSharedLinksError *> *)listSharedLinks;
 
 ///
-/// List shared links of this user. If no path is given, returns a list of all shared links for the current user. If a
-/// non-empty path is given, returns a list of all shared links that allow access to the given path - direct links to
-/// the given path and links to parent folders of the given path. Links to parent folders can be suppressed by setting
-/// direct_only to true.
+/// List shared links of this user. If no path is given, returns a list of all shared links for the current user. For
+/// members of business teams using team space and member folders, returns all shared links in the team member's home
+/// folder unless the team space ID is specified in the request header. For more information, refer to the Namespace
+/// Guide https://www.dropbox.com/developers/reference/namespace-guide. If a non-empty path is given, returns a list of
+/// all shared links that allow access to the given path - direct links to the given path and links to parent folders of
+/// the given path. Links to parent folders can be suppressed by setting direct_only to true.
 ///
 /// @param path See `listSharedLinks` description.
 /// @param cursor The cursor returned by your last call to `listSharedLinks`.
@@ -841,9 +817,9 @@ listReceivedFiles:(nullable NSNumber *)limit
 /// or a `DBSHARINGListSharedLinksError` object on failure.
 ///
 - (DBRpcTask<DBSHARINGListSharedLinksResult *, DBSHARINGListSharedLinksError *> *)
-listSharedLinks:(nullable NSString *)path
-         cursor:(nullable NSString *)cursor
-     directOnly:(nullable NSNumber *)directOnly;
+    listSharedLinks:(nullable NSString *)path
+             cursor:(nullable NSString *)cursor
+         directOnly:(nullable NSNumber *)directOnly;
 
 ///
 /// Modify the shared link's settings. If the requested visibility conflict with the shared links policy of the team or
@@ -858,8 +834,8 @@ listSharedLinks:(nullable NSString *)path
 /// a `DBSHARINGModifySharedLinkSettingsError` object on failure.
 ///
 - (DBRpcTask<DBSHARINGSharedLinkMetadata *, DBSHARINGModifySharedLinkSettingsError *> *)
-modifySharedLinkSettings:(NSString *)url
-                settings:(DBSHARINGSharedLinkSettings *)settings;
+    modifySharedLinkSettings:(NSString *)url
+                    settings:(DBSHARINGSharedLinkSettings *)settings;
 
 ///
 /// Modify the shared link's settings. If the requested visibility conflict with the shared links policy of the team or
@@ -875,14 +851,13 @@ modifySharedLinkSettings:(NSString *)url
 /// a `DBSHARINGModifySharedLinkSettingsError` object on failure.
 ///
 - (DBRpcTask<DBSHARINGSharedLinkMetadata *, DBSHARINGModifySharedLinkSettingsError *> *)
-modifySharedLinkSettings:(NSString *)url
-                settings:(DBSHARINGSharedLinkSettings *)settings
-        removeExpiration:(nullable NSNumber *)removeExpiration;
+    modifySharedLinkSettings:(NSString *)url
+                    settings:(DBSHARINGSharedLinkSettings *)settings
+            removeExpiration:(nullable NSNumber *)removeExpiration;
 
 ///
 /// The current user mounts the designated folder. Mount a shared folder for a user after they have been added as a
-/// member. Once mounted, the shared folder will appear in their Dropbox. Apps must have full Dropbox access to use this
-/// endpoint.
+/// member. Once mounted, the shared folder will appear in their Dropbox.
 ///
 /// @param sharedFolderId The ID of the shared folder to mount.
 ///
@@ -893,7 +868,7 @@ modifySharedLinkSettings:(NSString *)url
 
 ///
 /// The current user relinquishes their membership in the designated file. Note that the current user may still have
-/// inherited access to this file through the parent folder. Apps must have full Dropbox access to use this endpoint.
+/// inherited access to this file through the parent folder.
 ///
 /// @param file The path or id for the file.
 ///
@@ -905,8 +880,7 @@ modifySharedLinkSettings:(NSString *)url
 ///
 /// The current user relinquishes their membership in the designated shared folder and will no longer have access to the
 /// folder.  A folder owner cannot relinquish membership in their own folder. This will run synchronously if
-/// leave_a_copy is false, and asynchronously if leave_a_copy is true. Apps must have full Dropbox access to use this
-/// endpoint.
+/// leave_a_copy is false, and asynchronously if leave_a_copy is true.
 ///
 /// @param sharedFolderId The ID for the shared folder.
 ///
@@ -919,18 +893,18 @@ modifySharedLinkSettings:(NSString *)url
 ///
 /// The current user relinquishes their membership in the designated shared folder and will no longer have access to the
 /// folder.  A folder owner cannot relinquish membership in their own folder. This will run synchronously if
-/// leave_a_copy is false, and asynchronously if leave_a_copy is true. Apps must have full Dropbox access to use this
-/// endpoint.
+/// leave_a_copy is false, and asynchronously if leave_a_copy is true.
 ///
 /// @param sharedFolderId The ID for the shared folder.
-/// @param leaveACopy Keep a copy of the folder's contents upon relinquishing membership.
+/// @param leaveACopy Keep a copy of the folder's contents upon relinquishing membership. This must be set to false when
+/// the folder is within a team folder or another shared folder.
 ///
 /// @return Through the response callback, the caller will receive a `DBASYNCLaunchEmptyResult` object on success or a
 /// `DBSHARINGRelinquishFolderMembershipError` object on failure.
 ///
 - (DBRpcTask<DBASYNCLaunchEmptyResult *, DBSHARINGRelinquishFolderMembershipError *> *)
-relinquishFolderMembership:(NSString *)sharedFolderId
-                leaveACopy:(nullable NSNumber *)leaveACopy;
+    relinquishFolderMembership:(NSString *)sharedFolderId
+                    leaveACopy:(nullable NSNumber *)leaveACopy;
 
 ///
 /// DEPRECATED: Identical to remove_file_member_2 but with less information returned.
@@ -943,8 +917,8 @@ relinquishFolderMembership:(NSString *)sharedFolderId
 /// on success or a `DBSHARINGRemoveFileMemberError` object on failure.
 ///
 - (DBRpcTask<DBSHARINGFileMemberActionIndividualResult *, DBSHARINGRemoveFileMemberError *> *)
-removeFileMember:(NSString *)file
-          member:(DBSHARINGMemberSelector *)member
+    removeFileMember:(NSString *)file
+              member:(DBSHARINGMemberSelector *)member
     __deprecated_msg("removeFileMember is deprecated. Use removeFileMember2.");
 
 ///
@@ -958,25 +932,25 @@ removeFileMember:(NSString *)file
 /// success or a `DBSHARINGRemoveFileMemberError` object on failure.
 ///
 - (DBRpcTask<DBSHARINGFileMemberRemoveActionResult *, DBSHARINGRemoveFileMemberError *> *)
-removeFileMember2:(NSString *)file
-           member:(DBSHARINGMemberSelector *)member;
+    removeFileMember2:(NSString *)file
+               member:(DBSHARINGMemberSelector *)member;
 
 ///
-/// Allows an owner or editor (if the ACL update policy allows) of a shared folder to remove another member. Apps must
-/// have full Dropbox access to use this endpoint.
+/// Allows an owner or editor (if the ACL update policy allows) of a shared folder to remove another member.
 ///
 /// @param sharedFolderId The ID for the shared folder.
 /// @param member The member to remove from the folder.
 /// @param leaveACopy If true, the removed user will keep their copy of the folder after it's unshared, assuming it was
-/// mounted. Otherwise, it will be removed from their Dropbox. Also, this must be set to false when kicking a group.
+/// mounted. Otherwise, it will be removed from their Dropbox. This must be set to false when removing a group, or when
+/// the folder is within a team folder or another shared folder.
 ///
 /// @return Through the response callback, the caller will receive a `DBASYNCLaunchResultBase` object on success or a
 /// `DBSHARINGRemoveFolderMemberError` object on failure.
 ///
 - (DBRpcTask<DBASYNCLaunchResultBase *, DBSHARINGRemoveFolderMemberError *> *)
-removeFolderMember:(NSString *)sharedFolderId
-            member:(DBSHARINGMemberSelector *)member
-        leaveACopy:(NSNumber *)leaveACopy;
+    removeFolderMember:(NSString *)sharedFolderId
+                member:(DBSHARINGMemberSelector *)member
+            leaveACopy:(NSNumber *)leaveACopy;
 
 ///
 /// Revoke a shared link. Note that even after revoking a shared link to a file, the file may be accessible if there are
@@ -991,10 +965,38 @@ removeFolderMember:(NSString *)sharedFolderId
 - (DBRpcTask<DBNilObject *, DBSHARINGRevokeSharedLinkError *> *)revokeSharedLink:(NSString *)url;
 
 ///
+/// Change the inheritance policy of an existing Shared Folder. Only permitted for shared folders in a shared team root.
+/// If a `asyncJobId` in `DBSHARINGShareFolderLaunch` is returned, you'll need to call `checkShareJobStatus` until the
+/// action completes to get the metadata for the folder.
+///
+/// @param sharedFolderId The ID for the shared folder.
+///
+/// @return Through the response callback, the caller will receive a `DBSHARINGShareFolderLaunch` object on success or a
+/// `DBSHARINGSetAccessInheritanceError` object on failure.
+///
+- (DBRpcTask<DBSHARINGShareFolderLaunch *, DBSHARINGSetAccessInheritanceError *> *)setAccessInheritance:
+    (NSString *)sharedFolderId;
+
+///
+/// Change the inheritance policy of an existing Shared Folder. Only permitted for shared folders in a shared team root.
+/// If a `asyncJobId` in `DBSHARINGShareFolderLaunch` is returned, you'll need to call `checkShareJobStatus` until the
+/// action completes to get the metadata for the folder.
+///
+/// @param accessInheritance The access inheritance settings for the folder.
+/// @param sharedFolderId The ID for the shared folder.
+///
+/// @return Through the response callback, the caller will receive a `DBSHARINGShareFolderLaunch` object on success or a
+/// `DBSHARINGSetAccessInheritanceError` object on failure.
+///
+- (DBRpcTask<DBSHARINGShareFolderLaunch *, DBSHARINGSetAccessInheritanceError *> *)
+    setAccessInheritance:(NSString *)sharedFolderId
+       accessInheritance:(nullable DBSHARINGAccessInheritance *)accessInheritance;
+
+///
 /// Share a folder with collaborators. Most sharing will be completed synchronously. Large folders will be completed
 /// asynchronously. To make testing the async case repeatable, set `ShareFolderArg.force_async`. If a `asyncJobId` in
 /// `DBSHARINGShareFolderLaunch` is returned, you'll need to call `checkShareJobStatus` until the action completes to
-/// get the metadata for the folder. Apps must have full Dropbox access to use this endpoint.
+/// get the metadata for the folder.
 ///
 ///
 /// @return Through the response callback, the caller will receive a `DBSHARINGShareFolderLaunch` object on success or a
@@ -1006,7 +1008,7 @@ removeFolderMember:(NSString *)sharedFolderId
 /// Share a folder with collaborators. Most sharing will be completed synchronously. Large folders will be completed
 /// asynchronously. To make testing the async case repeatable, set `ShareFolderArg.force_async`. If a `asyncJobId` in
 /// `DBSHARINGShareFolderLaunch` is returned, you'll need to call `checkShareJobStatus` until the action completes to
-/// get the metadata for the folder. Apps must have full Dropbox access to use this endpoint.
+/// get the metadata for the folder.
 ///
 /// @param actions A list of `FolderAction`s corresponding to `FolderPermission`s that should appear in the  response's
 /// `permissions` in `DBSHARINGSharedFolderMetadata` field describing the actions the  authenticated user can perform on
@@ -1017,19 +1019,19 @@ removeFolderMember:(NSString *)sharedFolderId
 /// `DBSHARINGShareFolderError` object on failure.
 ///
 - (DBRpcTask<DBSHARINGShareFolderLaunch *, DBSHARINGShareFolderError *> *)
-     shareFolder:(NSString *)path
- aclUpdatePolicy:(nullable DBSHARINGAclUpdatePolicy *)aclUpdatePolicy
-      forceAsync:(nullable NSNumber *)forceAsync
-    memberPolicy:(nullable DBSHARINGMemberPolicy *)memberPolicy
-sharedLinkPolicy:(nullable DBSHARINGSharedLinkPolicy *)sharedLinkPolicy
-viewerInfoPolicy:(nullable DBSHARINGViewerInfoPolicy *)viewerInfoPolicy
-         actions:(nullable NSArray<DBSHARINGFolderAction *> *)actions
-    linkSettings:(nullable DBSHARINGLinkSettings *)linkSettings;
+          shareFolder:(NSString *)path
+      aclUpdatePolicy:(nullable DBSHARINGAclUpdatePolicy *)aclUpdatePolicy
+           forceAsync:(nullable NSNumber *)forceAsync
+         memberPolicy:(nullable DBSHARINGMemberPolicy *)memberPolicy
+     sharedLinkPolicy:(nullable DBSHARINGSharedLinkPolicy *)sharedLinkPolicy
+     viewerInfoPolicy:(nullable DBSHARINGViewerInfoPolicy *)viewerInfoPolicy
+    accessInheritance:(nullable DBSHARINGAccessInheritance *)accessInheritance
+              actions:(nullable NSArray<DBSHARINGFolderAction *> *)actions
+         linkSettings:(nullable DBSHARINGLinkSettings *)linkSettings;
 
 ///
 /// Transfer ownership of a shared folder to a member of the shared folder. User must have `owner` in
-/// `DBSHARINGAccessLevel` access to the shared folder to perform a transfer. Apps must have full Dropbox access to use
-/// this endpoint.
+/// `DBSHARINGAccessLevel` access to the shared folder to perform a transfer.
 ///
 /// @param sharedFolderId The ID for the shared folder.
 /// @param toDropboxId A account or team member ID to transfer ownership to.
@@ -1042,7 +1044,6 @@ viewerInfoPolicy:(nullable DBSHARINGViewerInfoPolicy *)viewerInfoPolicy
 
 ///
 /// The current user unmounts the designated folder. They can re-mount the folder at a later time using `mountFolder`.
-/// Apps must have full Dropbox access to use this endpoint.
 ///
 /// @param sharedFolderId The ID for the shared folder.
 ///
@@ -1063,7 +1064,7 @@ viewerInfoPolicy:(nullable DBSHARINGViewerInfoPolicy *)viewerInfoPolicy
 
 ///
 /// Allows a shared folder owner to unshare the folder. You'll need to call `checkJobStatus` to determine if the action
-/// has completed successfully. Apps must have full Dropbox access to use this endpoint.
+/// has completed successfully.
 ///
 /// @param sharedFolderId The ID for the shared folder.
 ///
@@ -1074,7 +1075,7 @@ viewerInfoPolicy:(nullable DBSHARINGViewerInfoPolicy *)viewerInfoPolicy
 
 ///
 /// Allows a shared folder owner to unshare the folder. You'll need to call `checkJobStatus` to determine if the action
-/// has completed successfully. Apps must have full Dropbox access to use this endpoint.
+/// has completed successfully.
 ///
 /// @param sharedFolderId The ID for the shared folder.
 /// @param leaveACopy If true, members of this shared folder will get a copy of this folder after it's unshared.
@@ -1089,18 +1090,20 @@ viewerInfoPolicy:(nullable DBSHARINGViewerInfoPolicy *)viewerInfoPolicy
 ///
 /// Changes a member's access on a shared file.
 ///
+/// @param file File for which we are changing a member's access.
+/// @param member The member whose access we are changing.
+/// @param accessLevel The new access level for the member.
 ///
 /// @return Through the response callback, the caller will receive a `DBSHARINGMemberAccessLevelResult` object on
 /// success or a `DBSHARINGFileMemberActionError` object on failure.
 ///
 - (DBRpcTask<DBSHARINGMemberAccessLevelResult *, DBSHARINGFileMemberActionError *> *)
-updateFileMember:(NSString *)file
-          member:(DBSHARINGMemberSelector *)member
-     accessLevel:(DBSHARINGAccessLevel *)accessLevel;
+    updateFileMember:(NSString *)file
+              member:(DBSHARINGMemberSelector *)member
+         accessLevel:(DBSHARINGAccessLevel *)accessLevel;
 
 ///
-/// Allows an owner or editor of a shared folder to update another member's permissions. Apps must have full Dropbox
-/// access to use this endpoint.
+/// Allows an owner or editor of a shared folder to update another member's permissions.
 ///
 /// @param sharedFolderId The ID for the shared folder.
 /// @param member The member of the shared folder to update.  Only the `dropboxId` in `DBSHARINGMemberSelector` may be
@@ -1111,13 +1114,13 @@ updateFileMember:(NSString *)file
 /// success or a `DBSHARINGUpdateFolderMemberError` object on failure.
 ///
 - (DBRpcTask<DBSHARINGMemberAccessLevelResult *, DBSHARINGUpdateFolderMemberError *> *)
-updateFolderMember:(NSString *)sharedFolderId
-            member:(DBSHARINGMemberSelector *)member
-       accessLevel:(DBSHARINGAccessLevel *)accessLevel;
+    updateFolderMember:(NSString *)sharedFolderId
+                member:(DBSHARINGMemberSelector *)member
+           accessLevel:(DBSHARINGAccessLevel *)accessLevel;
 
 ///
 /// Update the sharing policies for a shared folder. User must have `owner` in `DBSHARINGAccessLevel` access to the
-/// shared folder to update its policies. Apps must have full Dropbox access to use this endpoint.
+/// shared folder to update its policies.
 ///
 /// @param sharedFolderId The ID for the shared folder.
 ///
@@ -1129,7 +1132,7 @@ updateFolderMember:(NSString *)sharedFolderId
 
 ///
 /// Update the sharing policies for a shared folder. User must have `owner` in `DBSHARINGAccessLevel` access to the
-/// shared folder to update its policies. Apps must have full Dropbox access to use this endpoint.
+/// shared folder to update its policies.
 ///
 /// @param sharedFolderId The ID for the shared folder.
 /// @param memberPolicy Who can be a member of this shared folder. Only applicable if the current user is on a team.
@@ -1146,13 +1149,13 @@ updateFolderMember:(NSString *)sharedFolderId
 /// or a `DBSHARINGUpdateFolderPolicyError` object on failure.
 ///
 - (DBRpcTask<DBSHARINGSharedFolderMetadata *, DBSHARINGUpdateFolderPolicyError *> *)
-updateFolderPolicy:(NSString *)sharedFolderId
-      memberPolicy:(nullable DBSHARINGMemberPolicy *)memberPolicy
-   aclUpdatePolicy:(nullable DBSHARINGAclUpdatePolicy *)aclUpdatePolicy
-  viewerInfoPolicy:(nullable DBSHARINGViewerInfoPolicy *)viewerInfoPolicy
-  sharedLinkPolicy:(nullable DBSHARINGSharedLinkPolicy *)sharedLinkPolicy
-      linkSettings:(nullable DBSHARINGLinkSettings *)linkSettings
-           actions:(nullable NSArray<DBSHARINGFolderAction *> *)actions;
+    updateFolderPolicy:(NSString *)sharedFolderId
+          memberPolicy:(nullable DBSHARINGMemberPolicy *)memberPolicy
+       aclUpdatePolicy:(nullable DBSHARINGAclUpdatePolicy *)aclUpdatePolicy
+      viewerInfoPolicy:(nullable DBSHARINGViewerInfoPolicy *)viewerInfoPolicy
+      sharedLinkPolicy:(nullable DBSHARINGSharedLinkPolicy *)sharedLinkPolicy
+          linkSettings:(nullable DBSHARINGLinkSettings *)linkSettings
+               actions:(nullable NSArray<DBSHARINGFolderAction *> *)actions;
 
 @end
 

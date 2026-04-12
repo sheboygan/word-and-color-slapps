@@ -29,7 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// The `DBSHARINGFileMemberActionErrorTag` enum type represents the possible
 /// tag states with which the `DBSHARINGFileMemberActionError` union can exist.
-typedef NS_ENUM(NSInteger, DBSHARINGFileMemberActionErrorTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBSHARINGFileMemberActionErrorTag) {
   /// Specified member was not found.
   DBSHARINGFileMemberActionErrorInvalidMember,
 
@@ -193,7 +193,7 @@ typedef NS_ENUM(NSInteger, DBSHARINGFileMemberActionErrorTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBSHARINGFileMemberActionError` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBSHARINGFileMemberActionError *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBSHARINGFileMemberActionError *)instance;
 
 ///
 /// Deserializes `DBSHARINGFileMemberActionError` instances.
@@ -203,7 +203,7 @@ typedef NS_ENUM(NSInteger, DBSHARINGFileMemberActionErrorTag) {
 ///
 /// @return An instantiation of the `DBSHARINGFileMemberActionError` object.
 ///
-+ (DBSHARINGFileMemberActionError *)deserialize:(NSDictionary *)dict;
++ (DBSHARINGFileMemberActionError *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

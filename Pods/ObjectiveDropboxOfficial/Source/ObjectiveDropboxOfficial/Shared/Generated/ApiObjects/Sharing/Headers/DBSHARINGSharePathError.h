@@ -28,7 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// The `DBSHARINGSharePathErrorTag` enum type represents the possible tag
 /// states with which the `DBSHARINGSharePathError` union can exist.
-typedef NS_ENUM(NSInteger, DBSHARINGSharePathErrorTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBSHARINGSharePathErrorTag) {
   /// A file is at the specified path.
   DBSHARINGSharePathErrorIsFile,
 
@@ -69,6 +69,15 @@ typedef NS_ENUM(NSInteger, DBSHARINGSharePathErrorTag) {
 
   /// We do not support sharing a folder inside a Mac OS X package.
   DBSHARINGSharePathErrorInsideOsxPackage,
+
+  /// We do not support sharing the Vault folder.
+  DBSHARINGSharePathErrorIsVault,
+
+  /// We do not support sharing a folder inside a locked Vault.
+  DBSHARINGSharePathErrorIsVaultLocked,
+
+  /// We do not support sharing the Family folder.
+  DBSHARINGSharePathErrorIsFamily,
 
   /// (no description).
   DBSHARINGSharePathErrorOther,
@@ -217,6 +226,36 @@ typedef NS_ENUM(NSInteger, DBSHARINGSharePathErrorTag) {
 - (instancetype)initWithInsideOsxPackage;
 
 ///
+/// Initializes union class with tag state of "is_vault".
+///
+/// Description of the "is_vault" tag state: We do not support sharing the Vault
+/// folder.
+///
+/// @return An initialized instance.
+///
+- (instancetype)initWithIsVault;
+
+///
+/// Initializes union class with tag state of "is_vault_locked".
+///
+/// Description of the "is_vault_locked" tag state: We do not support sharing a
+/// folder inside a locked Vault.
+///
+/// @return An initialized instance.
+///
+- (instancetype)initWithIsVaultLocked;
+
+///
+/// Initializes union class with tag state of "is_family".
+///
+/// Description of the "is_family" tag state: We do not support sharing the
+/// Family folder.
+///
+/// @return An initialized instance.
+///
+- (instancetype)initWithIsFamily;
+
+///
 /// Initializes union class with tag state of "other".
 ///
 /// @return An initialized instance.
@@ -336,6 +375,27 @@ typedef NS_ENUM(NSInteger, DBSHARINGSharePathErrorTag) {
 - (BOOL)isInsideOsxPackage;
 
 ///
+/// Retrieves whether the union's current tag state has value "is_vault".
+///
+/// @return Whether the union's current tag state has value "is_vault".
+///
+- (BOOL)isIsVault;
+
+///
+/// Retrieves whether the union's current tag state has value "is_vault_locked".
+///
+/// @return Whether the union's current tag state has value "is_vault_locked".
+///
+- (BOOL)isIsVaultLocked;
+
+///
+/// Retrieves whether the union's current tag state has value "is_family".
+///
+/// @return Whether the union's current tag state has value "is_family".
+///
+- (BOOL)isIsFamily;
+
+///
 /// Retrieves whether the union's current tag state has value "other".
 ///
 /// @return Whether the union's current tag state has value "other".
@@ -366,7 +426,7 @@ typedef NS_ENUM(NSInteger, DBSHARINGSharePathErrorTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBSHARINGSharePathError` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBSHARINGSharePathError *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBSHARINGSharePathError *)instance;
 
 ///
 /// Deserializes `DBSHARINGSharePathError` instances.
@@ -376,7 +436,7 @@ typedef NS_ENUM(NSInteger, DBSHARINGSharePathErrorTag) {
 ///
 /// @return An instantiation of the `DBSHARINGSharePathError` object.
 ///
-+ (DBSHARINGSharePathError *)deserialize:(NSDictionary *)dict;
++ (DBSHARINGSharePathError *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

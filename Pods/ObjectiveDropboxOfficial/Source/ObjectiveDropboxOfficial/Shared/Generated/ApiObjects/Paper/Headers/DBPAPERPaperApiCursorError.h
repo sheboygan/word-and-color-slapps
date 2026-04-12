@@ -27,7 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// The `DBPAPERPaperApiCursorErrorTag` enum type represents the possible tag
 /// states with which the `DBPAPERPaperApiCursorError` union can exist.
-typedef NS_ENUM(NSInteger, DBPAPERPaperApiCursorErrorTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBPAPERPaperApiCursorErrorTag) {
   /// The provided cursor is expired.
   DBPAPERPaperApiCursorErrorExpiredCursor,
 
@@ -164,7 +164,7 @@ typedef NS_ENUM(NSInteger, DBPAPERPaperApiCursorErrorTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBPAPERPaperApiCursorError` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBPAPERPaperApiCursorError *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBPAPERPaperApiCursorError *)instance;
 
 ///
 /// Deserializes `DBPAPERPaperApiCursorError` instances.
@@ -174,7 +174,7 @@ typedef NS_ENUM(NSInteger, DBPAPERPaperApiCursorErrorTag) {
 ///
 /// @return An instantiation of the `DBPAPERPaperApiCursorError` object.
 ///
-+ (DBPAPERPaperApiCursorError *)deserialize:(NSDictionary *)dict;
++ (DBPAPERPaperApiCursorError *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

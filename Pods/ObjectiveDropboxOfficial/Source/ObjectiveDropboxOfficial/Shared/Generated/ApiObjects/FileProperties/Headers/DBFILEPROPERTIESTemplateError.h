@@ -27,7 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// The `DBFILEPROPERTIESTemplateErrorTag` enum type represents the possible tag
 /// states with which the `DBFILEPROPERTIESTemplateError` union can exist.
-typedef NS_ENUM(NSInteger, DBFILEPROPERTIESTemplateErrorTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBFILEPROPERTIESTemplateErrorTag) {
   /// Template does not exist for the given identifier.
   DBFILEPROPERTIESTemplateErrorTemplateNotFound,
 
@@ -135,7 +135,7 @@ typedef NS_ENUM(NSInteger, DBFILEPROPERTIESTemplateErrorTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBFILEPROPERTIESTemplateError` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBFILEPROPERTIESTemplateError *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBFILEPROPERTIESTemplateError *)instance;
 
 ///
 /// Deserializes `DBFILEPROPERTIESTemplateError` instances.
@@ -145,7 +145,7 @@ typedef NS_ENUM(NSInteger, DBFILEPROPERTIESTemplateErrorTag) {
 ///
 /// @return An instantiation of the `DBFILEPROPERTIESTemplateError` object.
 ///
-+ (DBFILEPROPERTIESTemplateError *)deserialize:(NSDictionary *)dict;
++ (DBFILEPROPERTIESTemplateError *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

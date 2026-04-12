@@ -191,8 +191,10 @@
   BOOL success = YES;
 
   if (![fileManager fileExistsAtPath:tmpDirPath isDirectory:&isDir]) {
-    success =
-        [fileManager createDirectoryAtPath:tmpDirPath withIntermediateDirectories:YES attributes:nil error:fileError];
+    success = [fileManager createDirectoryAtPath:tmpDirPath
+                     withIntermediateDirectories:YES
+                                      attributes:nil
+                                           error:fileError];
   }
 
   if (success) {
@@ -203,12 +205,12 @@
   return tmpOutputPath;
 }
 
-- (void)addProgressHandler:(NSURLSessionTask *)task
-                   session:(NSURLSession *)session
-           progressHandler:(void (^)(int64_t, int64_t, int64_t))handler
-      progressHandlerQueue:(NSOperationQueue *)handlerQueue {
+- (void)addProgressHandlerForTaskWithIdentifier:(NSUInteger)identifier
+                                        session:(NSURLSession *)session
+                                progressHandler:(void (^)(int64_t, int64_t, int64_t))handler
+                           progressHandlerQueue:(NSOperationQueue *)handlerQueue {
   [_delegateQueue addOperationWithBlock:^{
-    NSNumber *taskId = @(task.taskIdentifier);
+    NSNumber *taskId = @(identifier);
 
     DBSessionData *sessionData = [self sessionDataWithSession:session];
     DBProgressData *progressData = sessionData.progressData[taskId];
@@ -230,12 +232,12 @@
 
 #pragma mark - Add RPC-style handler
 
-- (void)addRpcResponseHandler:(NSURLSessionTask *)task
-                      session:(NSURLSession *)session
-              responseHandler:(DBRpcResponseBlockStorage)handler
-         responseHandlerQueue:(NSOperationQueue *)handlerQueue {
+- (void)addRpcResponseHandlerForTaskWithIdentifier:(NSUInteger)identifier
+                                           session:(NSURLSession *)session
+                                   responseHandler:(DBRpcResponseBlockStorage)handler
+                              responseHandlerQueue:(NSOperationQueue *)handlerQueue {
   [_delegateQueue addOperationWithBlock:^{
-    NSNumber *taskId = @(task.taskIdentifier);
+    NSNumber *taskId = @(identifier);
     DBSessionData *sessionData = [self sessionDataWithSession:session];
 
     DBCompletionData *completionData = sessionData.completionData[taskId];
@@ -262,12 +264,12 @@
 
 #pragma mark - Add Upload-style handler
 
-- (void)addUploadResponseHandler:(NSURLSessionTask *)task
-                         session:(NSURLSession *)session
-                 responseHandler:(DBUploadResponseBlockStorage)handler
-            responseHandlerQueue:(NSOperationQueue *)handlerQueue {
+- (void)addUploadResponseHandlerForTaskWithIdentifier:(NSUInteger)identifier
+                                              session:(NSURLSession *)session
+                                      responseHandler:(DBUploadResponseBlockStorage)handler
+                                 responseHandlerQueue:(NSOperationQueue *)handlerQueue {
   [_delegateQueue addOperationWithBlock:^{
-    NSNumber *taskId = @(task.taskIdentifier);
+    NSNumber *taskId = @(identifier);
     DBSessionData *sessionData = [self sessionDataWithSession:session];
 
     DBCompletionData *completionData = sessionData.completionData[taskId];
@@ -294,12 +296,12 @@
 
 #pragma mark - Add Download-style handler
 
-- (void)addDownloadResponseHandler:(NSURLSessionTask *)task
-                           session:(NSURLSession *)session
-                   responseHandler:(DBDownloadResponseBlockStorage)handler
-              responseHandlerQueue:(NSOperationQueue *)handlerQueue {
+- (void)addDownloadResponseHandlerForTaskWithIdentifier:(NSUInteger)identifier
+                                                session:(NSURLSession *)session
+                                        responseHandler:(DBDownloadResponseBlockStorage)handler
+                                   responseHandlerQueue:(NSOperationQueue *)handlerQueue {
   [_delegateQueue addOperationWithBlock:^{
-    NSNumber *taskId = @(task.taskIdentifier);
+    NSNumber *taskId = @(identifier);
     DBSessionData *sessionData = [self sessionDataWithSession:session];
 
     DBCompletionData *completionData = sessionData.completionData[taskId];
@@ -325,7 +327,7 @@
 }
 
 - (NSString *)sessionIdWithSession:(NSURLSession *)session {
-  return session.configuration.identifier ?: kForegroundSessionId;
+  return session.configuration.identifier ?: session.sessionDescription ?: kDBSDKForegroundSessionId;
 }
 
 - (DBSessionData *)sessionDataWithSession:(NSURLSession *)session {

@@ -29,12 +29,16 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// The `DBTEAMLOGGetTeamEventsErrorTag` enum type represents the possible tag
 /// states with which the `DBTEAMLOGGetTeamEventsError` union can exist.
-typedef NS_ENUM(NSInteger, DBTEAMLOGGetTeamEventsErrorTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBTEAMLOGGetTeamEventsErrorTag) {
   /// No user found matching the provided account_id.
   DBTEAMLOGGetTeamEventsErrorAccountIdNotFound,
 
   /// Invalid time range.
   DBTEAMLOGGetTeamEventsErrorInvalidTimeRange,
+
+  /// Invalid filters. Do not specify both event_type and category parameters
+  /// for the same call.
+  DBTEAMLOGGetTeamEventsErrorInvalidFilters,
 
   /// (no description).
   DBTEAMLOGGetTeamEventsErrorOther,
@@ -66,6 +70,16 @@ typedef NS_ENUM(NSInteger, DBTEAMLOGGetTeamEventsErrorTag) {
 - (instancetype)initWithInvalidTimeRange;
 
 ///
+/// Initializes union class with tag state of "invalid_filters".
+///
+/// Description of the "invalid_filters" tag state: Invalid filters. Do not
+/// specify both event_type and category parameters for the same call.
+///
+/// @return An initialized instance.
+///
+- (instancetype)initWithInvalidFilters;
+
+///
 /// Initializes union class with tag state of "other".
 ///
 /// @return An initialized instance.
@@ -93,6 +107,13 @@ typedef NS_ENUM(NSInteger, DBTEAMLOGGetTeamEventsErrorTag) {
 /// "invalid_time_range".
 ///
 - (BOOL)isInvalidTimeRange;
+
+///
+/// Retrieves whether the union's current tag state has value "invalid_filters".
+///
+/// @return Whether the union's current tag state has value "invalid_filters".
+///
+- (BOOL)isInvalidFilters;
 
 ///
 /// Retrieves whether the union's current tag state has value "other".
@@ -125,7 +146,7 @@ typedef NS_ENUM(NSInteger, DBTEAMLOGGetTeamEventsErrorTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBTEAMLOGGetTeamEventsError` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBTEAMLOGGetTeamEventsError *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBTEAMLOGGetTeamEventsError *)instance;
 
 ///
 /// Deserializes `DBTEAMLOGGetTeamEventsError` instances.
@@ -135,7 +156,7 @@ typedef NS_ENUM(NSInteger, DBTEAMLOGGetTeamEventsErrorTag) {
 ///
 /// @return An instantiation of the `DBTEAMLOGGetTeamEventsError` object.
 ///
-+ (DBTEAMLOGGetTeamEventsError *)deserialize:(NSDictionary *)dict;
++ (DBTEAMLOGGetTeamEventsError *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

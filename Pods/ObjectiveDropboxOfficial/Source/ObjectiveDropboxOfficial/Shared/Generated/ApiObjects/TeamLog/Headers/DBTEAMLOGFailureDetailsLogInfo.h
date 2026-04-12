@@ -27,8 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Instance fields
 
-/// A user friendly explanation of the error. Might be missing due to historical
-/// data gap.
+/// A user friendly explanation of the error.
 @property (nonatomic, readonly, copy, nullable) NSString *userFriendlyMessage;
 
 /// A technical explanation of the error. This is relevant for some errors.
@@ -39,8 +38,7 @@ NS_ASSUME_NONNULL_BEGIN
 ///
 /// Full constructor for the struct (exposes all instance variables).
 ///
-/// @param userFriendlyMessage A user friendly explanation of the error. Might
-/// be missing due to historical data gap.
+/// @param userFriendlyMessage A user friendly explanation of the error.
 /// @param technicalErrorMessage A technical explanation of the error. This is
 /// relevant for some errors.
 ///
@@ -78,7 +76,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// @return A json-compatible dictionary representation of the
 /// `DBTEAMLOGFailureDetailsLogInfo` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBTEAMLOGFailureDetailsLogInfo *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBTEAMLOGFailureDetailsLogInfo *)instance;
 
 ///
 /// Deserializes `DBTEAMLOGFailureDetailsLogInfo` instances.
@@ -88,7 +86,7 @@ NS_ASSUME_NONNULL_BEGIN
 ///
 /// @return An instantiation of the `DBTEAMLOGFailureDetailsLogInfo` object.
 ///
-+ (DBTEAMLOGFailureDetailsLogInfo *)deserialize:(NSDictionary *)dict;
++ (DBTEAMLOGFailureDetailsLogInfo *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

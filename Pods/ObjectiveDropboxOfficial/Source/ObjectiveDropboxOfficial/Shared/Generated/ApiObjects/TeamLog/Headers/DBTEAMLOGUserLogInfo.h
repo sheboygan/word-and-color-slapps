@@ -27,13 +27,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Instance fields
 
-/// User unique ID. Might be missing due to historical data gap.
+/// User unique ID.
 @property (nonatomic, readonly, copy, nullable) NSString *accountId;
 
-/// User display name. Might be missing due to historical data gap.
+/// User display name.
 @property (nonatomic, readonly, copy, nullable) NSString *displayName;
 
-/// User email address. Might be missing due to historical data gap.
+/// User email address.
 @property (nonatomic, readonly, copy, nullable) NSString *email;
 
 #pragma mark - Constructors
@@ -41,12 +41,9 @@ NS_ASSUME_NONNULL_BEGIN
 ///
 /// Full constructor for the struct (exposes all instance variables).
 ///
-/// @param accountId User unique ID. Might be missing due to historical data
-/// gap.
-/// @param displayName User display name. Might be missing due to historical
-/// data gap.
-/// @param email User email address. Might be missing due to historical data
-/// gap.
+/// @param accountId User unique ID.
+/// @param displayName User display name.
+/// @param email User email address.
 ///
 /// @return An initialized instance.
 ///
@@ -82,7 +79,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// @return A json-compatible dictionary representation of the
 /// `DBTEAMLOGUserLogInfo` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBTEAMLOGUserLogInfo *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBTEAMLOGUserLogInfo *)instance;
 
 ///
 /// Deserializes `DBTEAMLOGUserLogInfo` instances.
@@ -92,7 +89,7 @@ NS_ASSUME_NONNULL_BEGIN
 ///
 /// @return An instantiation of the `DBTEAMLOGUserLogInfo` object.
 ///
-+ (DBTEAMLOGUserLogInfo *)deserialize:(NSDictionary *)dict;
++ (DBTEAMLOGUserLogInfo *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

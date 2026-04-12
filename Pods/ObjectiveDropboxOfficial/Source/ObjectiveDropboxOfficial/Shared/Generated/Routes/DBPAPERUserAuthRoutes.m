@@ -42,6 +42,9 @@
 #import "DBPAPERPaperDocUpdateArgs.h"
 #import "DBPAPERPaperDocUpdateError.h"
 #import "DBPAPERPaperDocUpdatePolicy.h"
+#import "DBPAPERPaperFolderCreateArg.h"
+#import "DBPAPERPaperFolderCreateError.h"
+#import "DBPAPERPaperFolderCreateResult.h"
 #import "DBPAPERRefPaperDoc.h"
 #import "DBPAPERRemovePaperDocUser.h"
 #import "DBPAPERRouteObjects.h"
@@ -83,8 +86,8 @@
                  parentFolderId:(NSString *)parentFolderId
                        inputUrl:(NSString *)inputUrl {
   DBRoute *route = DBPAPERRouteObjects.DBPAPERDocsCreate;
-  DBPAPERPaperDocCreateArgs *arg =
-      [[DBPAPERPaperDocCreateArgs alloc] initWithImportFormat:importFormat parentFolderId:parentFolderId];
+  DBPAPERPaperDocCreateArgs *arg = [[DBPAPERPaperDocCreateArgs alloc] initWithImportFormat:importFormat
+                                                                            parentFolderId:parentFolderId];
   return [self.client requestUpload:route arg:arg inputUrl:inputUrl];
 }
 
@@ -98,8 +101,8 @@
                   parentFolderId:(NSString *)parentFolderId
                        inputData:(NSData *)inputData {
   DBRoute *route = DBPAPERRouteObjects.DBPAPERDocsCreate;
-  DBPAPERPaperDocCreateArgs *arg =
-      [[DBPAPERPaperDocCreateArgs alloc] initWithImportFormat:importFormat parentFolderId:parentFolderId];
+  DBPAPERPaperDocCreateArgs *arg = [[DBPAPERPaperDocCreateArgs alloc] initWithImportFormat:importFormat
+                                                                            parentFolderId:parentFolderId];
   return [self.client requestUpload:route arg:arg inputData:inputData];
 }
 
@@ -113,8 +116,8 @@
                     parentFolderId:(NSString *)parentFolderId
                        inputStream:(NSInputStream *)inputStream {
   DBRoute *route = DBPAPERRouteObjects.DBPAPERDocsCreate;
-  DBPAPERPaperDocCreateArgs *arg =
-      [[DBPAPERPaperDocCreateArgs alloc] initWithImportFormat:importFormat parentFolderId:parentFolderId];
+  DBPAPERPaperDocCreateArgs *arg = [[DBPAPERPaperDocCreateArgs alloc] initWithImportFormat:importFormat
+                                                                            parentFolderId:parentFolderId];
   return [self.client requestUpload:route arg:arg inputStream:inputStream];
 }
 
@@ -172,8 +175,8 @@
 
 - (DBRpcTask *)docsFolderUsersListContinue:(NSString *)docId cursor:(NSString *)cursor {
   DBRoute *route = DBPAPERRouteObjects.DBPAPERDocsFolderUsersListContinue;
-  DBPAPERListUsersOnFolderContinueArgs *arg =
-      [[DBPAPERListUsersOnFolderContinueArgs alloc] initWithDocId:docId cursor:cursor];
+  DBPAPERListUsersOnFolderContinueArgs *arg = [[DBPAPERListUsersOnFolderContinueArgs alloc] initWithDocId:docId
+                                                                                                   cursor:cursor];
   return [self.client requestRpc:route arg:arg];
 }
 
@@ -194,8 +197,10 @@
               sortOrder:(DBPAPERListPaperDocsSortOrder *)sortOrder
                   limit:(NSNumber *)limit {
   DBRoute *route = DBPAPERRouteObjects.DBPAPERDocsList;
-  DBPAPERListPaperDocsArgs *arg =
-      [[DBPAPERListPaperDocsArgs alloc] initWithFilterBy:filterBy sortBy:sortBy sortOrder:sortOrder limit:limit];
+  DBPAPERListPaperDocsArgs *arg = [[DBPAPERListPaperDocsArgs alloc] initWithFilterBy:filterBy
+                                                                              sortBy:sortBy
+                                                                           sortOrder:sortOrder
+                                                                               limit:limit];
   return [self.client requestRpc:route arg:arg];
 }
 
@@ -219,8 +224,8 @@
 
 - (DBRpcTask *)docsSharingPolicySet:(NSString *)docId sharingPolicy:(DBPAPERSharingPolicy *)sharingPolicy {
   DBRoute *route = DBPAPERRouteObjects.DBPAPERDocsSharingPolicySet;
-  DBPAPERPaperDocSharingPolicy *arg =
-      [[DBPAPERPaperDocSharingPolicy alloc] initWithDocId:docId sharingPolicy:sharingPolicy];
+  DBPAPERPaperDocSharingPolicy *arg = [[DBPAPERPaperDocSharingPolicy alloc] initWithDocId:docId
+                                                                            sharingPolicy:sharingPolicy];
   return [self.client requestRpc:route arg:arg];
 }
 
@@ -274,8 +279,10 @@
               customMessage:(NSString *)customMessage
                       quiet:(NSNumber *)quiet {
   DBRoute *route = DBPAPERRouteObjects.DBPAPERDocsUsersAdd;
-  DBPAPERAddPaperDocUser *arg =
-      [[DBPAPERAddPaperDocUser alloc] initWithDocId:docId members:members customMessage:customMessage quiet:quiet];
+  DBPAPERAddPaperDocUser *arg = [[DBPAPERAddPaperDocUser alloc] initWithDocId:docId
+                                                                      members:members
+                                                                customMessage:customMessage
+                                                                        quiet:quiet];
   return [self.client requestRpc:route arg:arg];
 }
 
@@ -289,21 +296,38 @@
                        limit:(NSNumber *)limit
                     filterBy:(DBPAPERUserOnPaperDocFilter *)filterBy {
   DBRoute *route = DBPAPERRouteObjects.DBPAPERDocsUsersList;
-  DBPAPERListUsersOnPaperDocArgs *arg =
-      [[DBPAPERListUsersOnPaperDocArgs alloc] initWithDocId:docId limit:limit filterBy:filterBy];
+  DBPAPERListUsersOnPaperDocArgs *arg = [[DBPAPERListUsersOnPaperDocArgs alloc] initWithDocId:docId
+                                                                                        limit:limit
+                                                                                     filterBy:filterBy];
   return [self.client requestRpc:route arg:arg];
 }
 
 - (DBRpcTask *)docsUsersListContinue:(NSString *)docId cursor:(NSString *)cursor {
   DBRoute *route = DBPAPERRouteObjects.DBPAPERDocsUsersListContinue;
-  DBPAPERListUsersOnPaperDocContinueArgs *arg =
-      [[DBPAPERListUsersOnPaperDocContinueArgs alloc] initWithDocId:docId cursor:cursor];
+  DBPAPERListUsersOnPaperDocContinueArgs *arg = [[DBPAPERListUsersOnPaperDocContinueArgs alloc] initWithDocId:docId
+                                                                                                       cursor:cursor];
   return [self.client requestRpc:route arg:arg];
 }
 
 - (DBRpcTask *)docsUsersRemove:(NSString *)docId member:(DBSHARINGMemberSelector *)member {
   DBRoute *route = DBPAPERRouteObjects.DBPAPERDocsUsersRemove;
   DBPAPERRemovePaperDocUser *arg = [[DBPAPERRemovePaperDocUser alloc] initWithDocId:docId member:member];
+  return [self.client requestRpc:route arg:arg];
+}
+
+- (DBRpcTask *)foldersCreate:(NSString *)name {
+  DBRoute *route = DBPAPERRouteObjects.DBPAPERFoldersCreate;
+  DBPAPERPaperFolderCreateArg *arg = [[DBPAPERPaperFolderCreateArg alloc] initWithName:name];
+  return [self.client requestRpc:route arg:arg];
+}
+
+- (DBRpcTask *)foldersCreate:(NSString *)name
+              parentFolderId:(NSString *)parentFolderId
+                isTeamFolder:(NSNumber *)isTeamFolder {
+  DBRoute *route = DBPAPERRouteObjects.DBPAPERFoldersCreate;
+  DBPAPERPaperFolderCreateArg *arg = [[DBPAPERPaperFolderCreateArg alloc] initWithName:name
+                                                                        parentFolderId:parentFolderId
+                                                                          isTeamFolder:isTeamFolder];
   return [self.client requestRpc:route arg:arg];
 }
 

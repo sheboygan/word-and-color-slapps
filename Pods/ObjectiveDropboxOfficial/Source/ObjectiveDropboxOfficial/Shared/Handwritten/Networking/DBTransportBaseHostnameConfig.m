@@ -4,45 +4,70 @@
 
 #import "DBTransportBaseHostnameConfig.h"
 #import "DBSDKConstants.h"
+#import "DBStoneBase.h"
+
+@implementation DBRoute (DropboxHost)
+
+- (DBRouteHost)host {
+  NSString *routeHost = self.attrs[@"host"];
+  if ([routeHost isEqualToString:@"api"]) {
+    return DBRouteHostApi;
+  }
+  if ([routeHost isEqualToString:@"content"]) {
+    return DBRouteHostContent;
+  }
+  if ([routeHost isEqualToString:@"notify"]) {
+    return DBRouteHostNotify;
+  }
+  return DBRouteHostUnknown;
+}
+
+@end
 
 @implementation DBTransportBaseHostnameConfig
 
 - (instancetype)init {
-  if (!kSDKDebug) {
-    return [self initWithMeta:@"www.dropbox.com"
-                          api:@"api.dropbox.com"
-                      content:@"api-content.dropbox.com"
-                       notify:@"notify.dropboxapi.com"];
-  } else {
-    return [self initWithMeta:[NSString stringWithFormat:@"meta-%@.dev.corp.dropbox.com", kSDKDebugHost]
-                          api:[NSString stringWithFormat:@"api-%@.dev.corp.dropbox.com", kSDKDebugHost]
-                      content:[NSString stringWithFormat:@"api-content-%@.dev.corp.dropbox.com", kSDKDebugHost]
-                       notify:[NSString stringWithFormat:@"notify-%@.dev.corp.dropboxapi.com", kSDKDebugHost]];
-  }
-  return self;
+  return [self initWithMeta:@"www.dropbox.com"
+                        api:@"api.dropbox.com"
+                    content:@"api-content.dropbox.com"
+                     notify:@"notify.dropboxapi.com"];
 }
 
 - (instancetype)initWithMeta:(NSString *)meta
                          api:(NSString *)api
                      content:(NSString *)content
                       notify:(NSString *)notify {
+  return [self initWithMeta:meta api:api content:content downloadContent:content notify:notify];
+}
+
+- (instancetype)initWithMeta:(NSString *)meta
+                         api:(NSString *)api
+                     content:(NSString *)content
+             downloadContent:(NSString *)downloadContent
+                      notify:(NSString *)notify {
   if (self = [super init]) {
     _meta = meta;
     _api = api;
     _content = content;
+    _downloadContent = downloadContent;
     _notify = notify;
   }
   return self;
 }
 
-- (nullable NSString *)apiV2PrefixWithRouteType:(NSString *)routeType {
-  if ([routeType isEqualToString:@"api"]) {
+- (nullable NSString *)apiV2PrefixWithRoute:(DBRoute *)route {
+  switch (route.host) {
+  case DBRouteHostApi:
     return [NSString stringWithFormat:@"https://%@/2", _api];
-  } else if ([routeType isEqualToString:@"content"]) {
-    return [NSString stringWithFormat:@"https://%@/2", _content];
-  } else if ([routeType isEqualToString:@"notify"]) {
+  case DBRouteHostContent:
+    if ([route.attrs[@"style"] isEqualToString:@"download"]) {
+      return [NSString stringWithFormat:@"https://%@/2", _downloadContent];
+    } else {
+      return [NSString stringWithFormat:@"https://%@/2", _content];
+    }
+  case DBRouteHostNotify:
     return [NSString stringWithFormat:@"https://%@/2", _notify];
-  } else {
+  case DBRouteHostUnknown:
     return nil;
   }
 }

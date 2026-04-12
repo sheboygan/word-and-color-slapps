@@ -30,7 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// The `DBTEAMUserSelectorArgTag` enum type represents the possible tag states
 /// with which the `DBTEAMUserSelectorArg` union can exist.
-typedef NS_ENUM(NSInteger, DBTEAMUserSelectorArgTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBTEAMUserSelectorArgTag) {
   /// (no description).
   DBTEAMUserSelectorArgTeamMemberId,
 
@@ -144,7 +144,7 @@ typedef NS_ENUM(NSInteger, DBTEAMUserSelectorArgTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBTEAMUserSelectorArg` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBTEAMUserSelectorArg *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBTEAMUserSelectorArg *)instance;
 
 ///
 /// Deserializes `DBTEAMUserSelectorArg` instances.
@@ -154,7 +154,7 @@ typedef NS_ENUM(NSInteger, DBTEAMUserSelectorArgTag) {
 ///
 /// @return An instantiation of the `DBTEAMUserSelectorArg` object.
 ///
-+ (DBTEAMUserSelectorArg *)deserialize:(NSDictionary *)dict;
++ (DBTEAMUserSelectorArg *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

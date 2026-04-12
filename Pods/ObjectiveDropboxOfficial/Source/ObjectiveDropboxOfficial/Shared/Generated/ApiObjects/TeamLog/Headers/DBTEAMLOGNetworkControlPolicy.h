@@ -29,7 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// The `DBTEAMLOGNetworkControlPolicyTag` enum type represents the possible tag
 /// states with which the `DBTEAMLOGNetworkControlPolicy` union can exist.
-typedef NS_ENUM(NSInteger, DBTEAMLOGNetworkControlPolicyTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBTEAMLOGNetworkControlPolicyTag) {
   /// (no description).
   DBTEAMLOGNetworkControlPolicyDisabled,
 
@@ -117,7 +117,7 @@ typedef NS_ENUM(NSInteger, DBTEAMLOGNetworkControlPolicyTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBTEAMLOGNetworkControlPolicy` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBTEAMLOGNetworkControlPolicy *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBTEAMLOGNetworkControlPolicy *)instance;
 
 ///
 /// Deserializes `DBTEAMLOGNetworkControlPolicy` instances.
@@ -127,7 +127,7 @@ typedef NS_ENUM(NSInteger, DBTEAMLOGNetworkControlPolicyTag) {
 ///
 /// @return An instantiation of the `DBTEAMLOGNetworkControlPolicy` object.
 ///
-+ (DBTEAMLOGNetworkControlPolicy *)deserialize:(NSDictionary *)dict;
++ (DBTEAMLOGNetworkControlPolicy *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

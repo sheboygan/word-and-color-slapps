@@ -29,7 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// The `DBPAPERExportFormatTag` enum type represents the possible tag states
 /// with which the `DBPAPERExportFormat` union can exist.
-typedef NS_ENUM(NSInteger, DBPAPERExportFormatTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBPAPERExportFormatTag) {
   /// The HTML export format.
   DBPAPERExportFormatHtml,
 
@@ -120,7 +120,7 @@ typedef NS_ENUM(NSInteger, DBPAPERExportFormatTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBPAPERExportFormat` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBPAPERExportFormat *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBPAPERExportFormat *)instance;
 
 ///
 /// Deserializes `DBPAPERExportFormat` instances.
@@ -130,7 +130,7 @@ typedef NS_ENUM(NSInteger, DBPAPERExportFormatTag) {
 ///
 /// @return An instantiation of the `DBPAPERExportFormat` object.
 ///
-+ (DBPAPERExportFormat *)deserialize:(NSDictionary *)dict;
++ (DBPAPERExportFormat *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

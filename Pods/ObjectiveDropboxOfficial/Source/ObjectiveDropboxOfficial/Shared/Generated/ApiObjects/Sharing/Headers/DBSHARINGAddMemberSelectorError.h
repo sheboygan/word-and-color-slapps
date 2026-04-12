@@ -27,7 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// The `DBSHARINGAddMemberSelectorErrorTag` enum type represents the possible
 /// tag states with which the `DBSHARINGAddMemberSelectorError` union can exist.
-typedef NS_ENUM(NSInteger, DBSHARINGAddMemberSelectorErrorTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBSHARINGAddMemberSelectorErrorTag) {
   /// Automatically created groups can only be added to team folders.
   DBSHARINGAddMemberSelectorErrorAutomaticGroup,
 
@@ -37,8 +37,8 @@ typedef NS_ENUM(NSInteger, DBSHARINGAddMemberSelectorErrorTag) {
   /// The value is the e-email address that is malformed.
   DBSHARINGAddMemberSelectorErrorInvalidEmail,
 
-  /// The value is the ID of the Dropbox user with an unverified e-mail
-  /// address.  Invite unverified users by e-mail address instead of by their
+  /// The value is the ID of the Dropbox user with an unverified email
+  /// address. Invite unverified users by email address instead of by their
   /// Dropbox ID.
   DBSHARINGAddMemberSelectorErrorUnverifiedDropboxId,
 
@@ -67,8 +67,8 @@ typedef NS_ENUM(NSInteger, DBSHARINGAddMemberSelectorErrorTag) {
 /// exception will be raised.
 @property (nonatomic, readonly, copy) NSString *invalidEmail;
 
-/// The value is the ID of the Dropbox user with an unverified e-mail address.
-/// Invite unverified users by e-mail address instead of by their Dropbox ID.
+/// The value is the ID of the Dropbox user with an unverified email address.
+/// Invite unverified users by email address instead of by their Dropbox ID.
 /// @note Ensure the `isUnverifiedDropboxId` method returns true before
 /// accessing, otherwise a runtime exception will be raised.
 @property (nonatomic, readonly, copy) NSString *unverifiedDropboxId;
@@ -113,12 +113,12 @@ typedef NS_ENUM(NSInteger, DBSHARINGAddMemberSelectorErrorTag) {
 /// Initializes union class with tag state of "unverified_dropbox_id".
 ///
 /// Description of the "unverified_dropbox_id" tag state: The value is the ID of
-/// the Dropbox user with an unverified e-mail address.  Invite unverified users
-/// by e-mail address instead of by their Dropbox ID.
+/// the Dropbox user with an unverified email address. Invite unverified users
+/// by email address instead of by their Dropbox ID.
 ///
 /// @param unverifiedDropboxId The value is the ID of the Dropbox user with an
-/// unverified e-mail address.  Invite unverified users by e-mail address
-/// instead of by their Dropbox ID.
+/// unverified email address. Invite unverified users by email address instead
+/// of by their Dropbox ID.
 ///
 /// @return An initialized instance.
 ///
@@ -244,7 +244,7 @@ typedef NS_ENUM(NSInteger, DBSHARINGAddMemberSelectorErrorTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBSHARINGAddMemberSelectorError` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBSHARINGAddMemberSelectorError *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBSHARINGAddMemberSelectorError *)instance;
 
 ///
 /// Deserializes `DBSHARINGAddMemberSelectorError` instances.
@@ -254,7 +254,7 @@ typedef NS_ENUM(NSInteger, DBSHARINGAddMemberSelectorErrorTag) {
 ///
 /// @return An instantiation of the `DBSHARINGAddMemberSelectorError` object.
 ///
-+ (DBSHARINGAddMemberSelectorError *)deserialize:(NSDictionary *)dict;
++ (DBSHARINGAddMemberSelectorError *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

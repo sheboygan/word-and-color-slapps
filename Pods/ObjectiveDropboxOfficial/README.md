@@ -2,7 +2,7 @@
 
 The Official Dropbox Objective-C SDK for integrating with Dropbox [API v2](https://www.dropbox.com/developers/documentation/http/documentation) on iOS or macOS.
 
-Full documentation [here](http://dropbox.github.io/dropbox-sdk-obj-c/api-docs/latest/).
+Full documentation [here](https://dropbox.github.io/dropbox-sdk-obj-c/api-docs/7.1.0/).
 
 NOTE: Please do not rely on `master` in production. Please instead use one of our tagged [release commits](https://github.com/dropbox/dropbox-sdk-obj-c/releases) (preferrably fetched via CocoaPods or Carthage), as these commits have been more thoroughly tested.
 
@@ -50,15 +50,16 @@ NOTE: Please do not rely on `master` in production. Please instead use one of ou
 * [Documentation](#documentation)
 * [Stone](#stone)
 * [Modifications](#modifications)
+* [App Store Connect Privacy Labels](#app-store-connect-privacy-labels)
 * [Bugs](#bugs)
 
 ---
 
 ## System requirements
 
-- iOS 9.0+
+- iOS 11.0+
 - macOS 10.10+
-- Xcode 8+
+- Xcode 8+ (11.0+ if you use Carthage)
 
 ---
 
@@ -90,7 +91,7 @@ All requests need to be made with an OAuth 2.0 access token. An OAuth token repr
 a Dropbox user account or team.
 
 Once you've created an app, you can go to the App Console and manually generate an access token to authorize your app to access your own Dropbox account.
-Otherwise, you can obtain an OAuth token programmatically using the SDK's pre-defined auth flow. For more information, [see below](https://github.com/dropbox/dropbox-sdk-obj-c#handling-authorization-flow).
+Otherwise, you can obtain an OAuth token programmatically using the SDK's pre-defined auth flow. For more information, [see below](https://github.com/dropbox/dropbox-sdk-obj-c#handling-the-authorization-flow).
 
 ---
 
@@ -156,7 +157,7 @@ If Xcode errors with a message about `Undefined symbols for architecture...`, tr
 
 ### Carthage
 
-You can also integrate the Dropbox Objective-C SDK into your project using [Carthage](https://github.com/Carthage/Carthage), a decentralized dependency manager for Cocoa. Carthage offers more flexibility than CocoaPods, but requires some additional work. You can install Carthage (with Xcode 7+) via [Homebrew](http://brew.sh/):
+You can also integrate the Dropbox Objective-C SDK into your project using [Carthage](https://github.com/Carthage/Carthage), a decentralized dependency manager for Cocoa. Carthage offers more flexibility than CocoaPods, but requires some additional work. Carthage 0.37.0 is required due to XCFramework requirements on Xcode 12. You can install Carthage (with Xcode 11+) via [Homebrew](http://brew.sh/):
 
 ```bash
 brew update
@@ -167,58 +168,25 @@ brew install carthage
 
 ```
 # ObjectiveDropboxOfficial
-github "https://github.com/dropbox/dropbox-sdk-obj-c" ~> 3.4.0
+github "https://github.com/dropbox/dropbox-sdk-obj-c" ~> 7.4.2
 ```
 
-Then, run the following command to checkout and build the Dropbox Objective-C SDK repository:
+To integrate the Dropbox Objective-C SDK into your project, take the following steps:
+
+Run the following command to checkout and build the Dropbox Objective-C SDK repository:
 
 ##### iOS
 
 ```bash
-carthage update --platform iOS
-```
-
-In the Project Navigator in Xcode, select your project, and then navigate to **General** > **Linked Frameworks and Libraries**, then drag and drop `ObjectiveDropboxOfficial.framework` (from `Carthage/Build/iOS`).
-
-Then, navigate to **Build Phases** > **+** > **New Run Script Phase**. In the newly-created **Run Script** section, add the following code to the script body area (beneath the "Shell" box):
-
-```
-/usr/local/bin/carthage copy-frameworks
-```
-
-Then, navigate to the **Input Files** section and add the following path:
-
-```
-$(SRCROOT)/Carthage/Build/iOS/ObjectiveDropboxOfficial.framework
+carthage update --platform iOS --use-xcframeworks
 ```
 
 ##### macOS
 ```bash
-carthage update --platform Mac
+carthage update --platform Mac --use-xcframeworks
 ```
 
-In the Project Navigator in Xcode, select your project, and then navigate to **General** > **Embedded Binaries**, then drag and drop `ObjectiveDropboxOfficial.framework` (from `Carthage/Build/Mac`).
-
-Then navigate to **Build Phases** > **+** > **New Copy Files Phase**. In the newly-created **Copy Files** section, click the **Destination** drop-down menu and select **Products Directory**, then drag and drop `ObjectiveDropboxOfficial.framework.dSYM` (from `Carthage/Build/Mac`).
-
-##### Common issues
-
-###### Linking errors
-
-Please make sure the SDK is inside of your Xcode project folder, otherwise your app may run into linking errors.
-
-If you wish to keep the SDK outside of your Xcode project folder (perhaps to share between different apps), you will need to configure your a few environmental variables.
-
-- Project Navigator > build target > **Build Settings** > **Header Search Path** add `$(PROJECT_DIR)/../<PATH_TO_SDK>/dropbox-sdk-obj-c/Source/ObjectiveDropboxOfficial (recursive)`
-
-- Project Navigator > build target > **Build Settings** > **Framework Search Paths** add `$(PROJECT_DIR)/../<PATH_TO_SDK>/dropbox-sdk-obj-c/Source/ObjectiveDropboxOfficial/build/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME) (non-recursive)`
-
-###### dyld: Library not loaded error
-
-If you receive a run-time error message like `dyld: Library not loaded:`, please try the following:
-
-- Add ObjectiveDropboxOfficial framework to **Embedded Binaries** as well as **Linked Frameworks and Libraries**.
-- Project Navigator > build target > **Build Settings** > **Linking** > **Runpath Search Paths** add `$(inherited) @executable_path/Frameworks`.
+Then, in the Project Navigator in Xcode, select your project, and then navigate to your project's build target > **General** > **Frameworks, Libraries and Embedded Content**. Drag the `ObjectiveDropboxOfficial.xcframework` file from `Carthage/Build` into the table and choose `Embed & Sign`.
 
 ---
 
@@ -233,20 +201,15 @@ Then, run the following command to checkout and build the Dropbox Objective-C SD
 ##### iOS
 
 ```bash
-carthage update --platform iOS
+carthage update --platform iOS --use-xcframeworks
 ```
-Once you have checked-out out all the necessary code via Carthage, drag the `Carthage/Checkouts/ObjectiveDropboxOfficial/Source/ObjectiveDropboxOfficial/ObjectiveDropboxOfficial.xcodeproj` file into your project as a subproject.
-
-Then, in the Project Navigator in Xcode, select your project, and then navigate to your project's build target > **General** > **Linked Frameworks and Libraries** > **+** and then add the `ObjectiveDropboxOfficial.framework` file for the iOS platform.
 
 ##### macOS
 ```bash
-carthage update --platform Mac
+carthage update --platform Mac --use-xcframeworks
 ```
 
 Once you have checked-out out all the necessary code via Carthage, drag the `Carthage/Checkouts/ObjectiveDropboxOfficial/Source/ObjectiveDropboxOfficial/ObjectiveDropboxOfficial.xcodeproj` file into your project as a subproject.
-
-Then, in the Project Navigator in Xcode, select your project, and then navigate to your project's build target > **General** > **Embedded Binaries** > **+** and then add the `ObjectiveDropboxOfficial.framework` file for the macOS platform.
 
 ---
 
@@ -335,10 +298,10 @@ To facilitate the above authorization flows, you should take the following steps
 
 #### Begin the authorization flow
 
-You can commence the auth flow by calling `authorizeFromController:controller:openURL` method in your application's
+You can commence the auth flow by calling `authorizeFromControllerV2:controller:openURL` method in your application's
 view controller.
 
-Please ensure that the supplied view controller is the top-most controller, so that the authorization view displays correctly. 
+Please ensure that the supplied view controller is the top-most controller, so that the authorization view displays correctly.
 
 
 ##### iOS
@@ -347,11 +310,15 @@ Please ensure that the supplied view controller is the top-most controller, so t
 #import <ObjectiveDropboxOfficial/ObjectiveDropboxOfficial.h>
 
 - (void)myButtonInControllerPressed {
-  [DBClientsManager authorizeFromController:[UIApplication sharedApplication]
-                                 controller:[[self class] topMostController]
-                                    openURL:^(NSURL *url) {
-                                      [[UIApplication sharedApplication] openURL:url];
-                                    }];
+  // OAuth 2 code flow with PKCE that grants a short-lived token with scopes, and performs refreshes of the token automatically.
+  DBScopeRequest *scopeRequest = [[DBScopeRequest alloc] initWithScopeType:DBScopeTypeUser
+                                                                    scopes:@[@"account_info.read"]
+                                                      includeGrantedScopes:NO];
+  [DBClientsManager authorizeFromControllerV2:[UIApplication sharedApplication]
+                                   controller:[[self class] topMostController]
+                        loadingStatusDelegate:nil
+                                      openURL:^(NSURL *url) { [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:nil]; }
+                                 scopeRequest:scopeRequest];
 }
 
 + (UIViewController*)topMostController
@@ -373,20 +340,15 @@ Please ensure that the supplied view controller is the top-most controller, so t
 #import <ObjectiveDropboxOfficial/ObjectiveDropboxOfficial.h>
 
 - (void)myButtonInControllerPressed {
-  [DBClientsManager authorizeFromControllerDesktop:[NSWorkspace sharedWorkspace]
-                                        controller:[[self class] topMostController]
-                                           openURL:^(NSURL *url){ [[NSWorkspace sharedWorkspace] openURL:url]; }];
-}
-
-+ (UIViewController*)topMostController
-{
-    UIViewController *topController = [UIApplication sharedApplication].keyWindow.rootViewController;
-
-    while (topController.presentedViewController) {
-        topController = topController.presentedViewController;
-    }
-
-    return topController;
+  // OAuth 2 code flow with PKCE that grants a short-lived token with scopes, and performs refreshes of the token automatically.
+  DBScopeRequest *scopeRequest = [[DBScopeRequest alloc] initWithScopeType:DBScopeTypeUser
+                                                                    scopes:@[@"account_info.read"]
+                                                      includeGrantedScopes:NO];
+  [DBClientsManager authorizeFromControllerDesktopV2:[NSWorkspace sharedWorkspace]
+                                          controller:self
+                               loadingStatusDelegate:nil
+                                             openURL:^(NSURL *url) { [[NSWorkspace sharedWorkspace] openURL:url]; }
+                                        scopeRequest:scopeRequest];
 }
 ```
 
@@ -410,17 +372,45 @@ To handle the redirection back into the Objective-C SDK once the authentication 
 
 - (BOOL)application:(UIApplication *)app openURL:(NSURL *)url
             options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
-  DBOAuthResult *authResult = [DBClientsManager handleRedirectURL:url];
-  if (authResult != nil) {
-    if ([authResult isSuccess]) {
-      NSLog(@"Success! User is logged into Dropbox.");
-    } else if ([authResult isCancel]) {
-      NSLog(@"Authorization flow was manually canceled by user!");
-    } else if ([authResult isError]) {
-      NSLog(@"Error: %@", authResult);
+  DBOAuthCompletion completion = ^(DBOAuthResult *authResult) {
+    if (authResult != nil) {
+      if ([authResult isSuccess]) {
+        NSLog(@"\n\nSuccess! User is logged into Dropbox.\n\n");
+      } else if ([authResult isCancel]) {
+        NSLog(@"\n\nAuthorization flow was manually canceled by user!\n\n");
+      } else if ([authResult isError]) {
+        NSLog(@"\n\nError: %@\n\n", authResult);
+      }
+    }
+  };
+  BOOL canHandle = [DBClientsManager handleRedirectURL:url completion:completion];
+  return canHandle;
+}
+```
+
+Or if your app is iOS13+, or your app also supports Scenes, add the following code into your application's main scene delegate:
+```objective-c
+#import <ObjectiveDropboxOfficial/ObjectiveDropboxOfficial.h>
+
+- (void)scene:(UIScene *)scene
+        openURLContexts:(NSSet<UIOpenURLContext *> *)URLContexts {
+  DBOAuthCompletion completion = ^(DBOAuthResult *authResult) {
+    if (authResult != nil) {
+      if ([authResult isSuccess]) {
+        NSLog(@"\n\nSuccess! User is logged into Dropbox.\n\n");
+      } else if ([authResult isCancel]) {
+        NSLog(@"\n\nAuthorization flow was manually canceled by user!\n\n");
+      } else if ([authResult isError]) {
+        NSLog(@"\n\nError: %@\n\n", authResult);
+      }
+    }
+  };
+  for (UIOpenURLContext *context in URLContexts) {
+    if ([DBClientsManager handleRedirectURL:context.URL completion:completion]) {
+      // stop iterating after the first handle-able url
+      break;
     }
   }
-  return NO;
 }
 ```
 
@@ -440,19 +430,21 @@ To handle the redirection back into the Objective-C SDK once the authentication 
 // custom handler
 - (void)handleAppleEvent:(NSAppleEventDescriptor *)event withReplyEvent:(NSAppleEventDescriptor *)replyEvent {
   NSURL *url = [NSURL URLWithString:[[event paramDescriptorForKeyword:keyDirectObject] stringValue]];
-  DBOAuthResult *authResult = [DBClientsManager handleRedirectURL:url];
-  if (authResult != nil) {
-    if ([authResult isSuccess]) {
-      NSLog(@"Success! User is logged into Dropbox.");
-    } else if ([authResult isCancel]) {
-      NSLog(@"Authorization flow was manually canceled by user!");
-    } else if ([authResult isError]) {
-      NSLog(@"Error: %@", authResult);
+  DBOAuthCompletion oauthCompletion = ^(DBOAuthResult *authResult) {
+    if (authResult != nil) {
+      if ([authResult isSuccess]) {
+        NSLog(@"\n\nSuccess! User is logged into Dropbox.\n\n");
+      } else if ([authResult isCancel]) {
+        NSLog(@"\n\nAuthorization flow was manually canceled by user!\n\n");
+      } else if ([authResult isError]) {
+        NSLog(@"\n\nError: %@\n\n", authResult);
+      }
+      // this forces your app to the foreground, after it has handled the browser redirect
+      [[NSRunningApplication currentApplication]
+          activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
     }
-    // this forces your app to the foreground, after it has handled the browser redirect
-    [[NSRunningApplication currentApplication]
-        activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
-  }
+  };
+  [DBClientsManager handleRedirectURL:url completion:oauthCompletion];
 }
 ```
 
@@ -464,7 +456,7 @@ After the end user signs in with their Dropbox login credentials on mobile, they
 </p>
 
 If they press **Allow** or **Cancel**, the `db-<APP_KEY>` redirect URL will be launched from the view controller, and will be handled in your application
-delegate's `application:handleOpenURL` method, from which the result of the authorization can be parsed.
+delegate's `application:openURL:options:` method, from which the result of the authorization can be parsed.
 
 Now you're ready to begin making API requests!
 
@@ -612,6 +604,7 @@ DBFILESWriteMode *mode = [[DBFILESWriteMode alloc] initWithOverwrite];
                       autorename:@(YES)
                   clientModified:nil
                             mute:@(NO)
+                  propertyGroups:nil
                        inputData:fileData]
     setResponseBlock:^(DBFILESFileMetadata *result, DBFILESUploadError *routeError, DBRequestError *networkError) {
       if (result) {
@@ -978,11 +971,11 @@ The Objective-C SDK includes a convenience class, `DBClientsManager`, for integr
 
 #### Single Dropbox user case
 
-For most apps, it is reasonable to assume that only one Dropbox account (and access token) needs to be managed at a time. In this case, the `DBClientsManager` flow looks like this: 
+For most apps, it is reasonable to assume that only one Dropbox account (and access token) needs to be managed at a time. In this case, the `DBClientsManager` flow looks like this:
 
 * call `setupWithAppKey`/`setupWithAppKeyDesktop` (or `setupWithTeamAppKey`/`setupWithTeamAppKeyDesktop`) in integrating app's app delegate
 * `DBClientsManager` class determines whether any access tokens are stored -- if any exist, one token is arbitrarily chosen to use for the `authorizedClient` / `authorizedTeamClient` shared instance
-* if no token is found, client of the SDK should call `authorizeFromController`/`authorizeFromControllerDesktop` to initiate the OAuth flow
+* if no token is found, client of the SDK should call `authorizeFromControllerV2`/`authorizeFromControllerDesktopV2` to initiate the OAuth flow
 * if auth flow is initiated, client of the SDK should call `handleRedirectURL` (or `handleRedirectURLTeam`) in integrating app's app delegate to handle auth redirect back into the app and store the retrieved access token
 * `DBClientsManager` class sets up a `DBUserClient` (or `DBTeamClient`) with the particular network configuration as defined by the `DBTransportDefaultConfig` instance passed in (or a standard configuration, if no config instance was passed when the `setupWith...` method was called)
 
@@ -992,13 +985,13 @@ The `DBUserClient` (or `DBTeamClient`) is then used to make all of the desired A
 
 #### Multiple Dropbox user case
 
-For some apps, it is necessary to manage more than one Dropbox account (and access token) at a time. In this case, the `DBClientsManager` flow looks like this: 
+For some apps, it is necessary to manage more than one Dropbox account (and access token) at a time. In this case, the `DBClientsManager` flow looks like this:
 
 * access token uids are managed by the app that is integrating with the SDK for later lookup
 * call `setupWithAppKey`/`setupWithAppKeyDesktop` (or `setupWithTeamAppKey`/`setupWithTeamAppKeyDesktop`) in integrating app's app delegate
 * `DBClientsManager` class determines whether any access tokens are stored -- if any exist, one token is arbitrarily chosen to use for the `authorizedClient` / `authorizedTeamClient` shared instance
 * `DBClientsManager` class also populates `authorizedClients` / `authorizedTeamClients` shared dictionary from all tokens stored in keychain, if any exist
-* if no token is found, client of the SDK should call `authorizeFromController`/`authorizeFromControllerDesktop` to initiate the OAuth flow
+* if no token is found, client of the SDK should call `authorizeFromControllerV2`/`authorizeFromControllerDesktopV2` to initiate the OAuth flow
 * if auth flow is initiated, call `handleRedirectURL` (or `handleRedirectURLTeam`) in integrating app's app delegate to handle auth redirect back into the app and store the retrieved access token
 * at this point, the app that is integrating with the SDK should persistently save the `tokenUid` from the `DBAccessToken` field of the `DBOAuthResult` object returned from the `handleRedirectURL` (or `handleRedirectURLTeam`) method
 * `DBClientsManager` class sets up a `DBUserClient` (or `DBTeamClient`) with the particular network configuration as defined by the `DBTransportDefaultConfig` instance passed in (or a standard configuration, if no config instance was passed when the `setupWith...` method was called) and saves it to the list of authorized clients
@@ -1114,10 +1107,48 @@ following the instructions listed in the `ViewController.m` file.
 
 ---
 
+## App Store Connect Privacy Labels
+
+To assist developers using Dropbox SDKs in filling out Apple’s Privacy Practices Questionnaire, we’ve provided the below information on the data that may be collected and used by Dropbox.
+
+As you complete the questionnaire you should note that the below information is general in nature. Dropbox SDKs are designed to be configured by the developer to incorporate Dropbox functionality as is best suited to their application. As a result of this customizable nature of the Dropbox SDKs, we are unable to provide information on the actual data collection and use for each application. We advise developers reference our Dropbox for HTTP Developers for specifics on how data is collected by each Dropbox API.
+
+In addition, you should note that the information below only identifies Dropbox’s collection and use of data. You are responsible for identifying your own collection and use of data in your app, which may result in different questionnaire answers than identified below:
+
+| Data                    | Collected by Dropbox                                                      | Data Use                                                                 | Data Linked to the User | Tracking |
+| ----------------------- | ------------------------------------------------------------------------- | ------------------------------------------------------------------------ | ----------------------- | -------- |
+| **Contact Info**        |                                                                           |                                                                          |                         |          |
+| &emsp;• Name            | Not collected                                                             | N/A                                                                      | N/A                     | N/A      |
+| &emsp;• Email Address   | May be collected<br>(if you enable authentication using an email address) | • Application functionality                                              | Y                       | N        |
+| **Health & Fitness**    | Not collected                                                             | N/A                                                                      | N/A                     | N/A      |
+| **Financial Info**      | Not collected                                                             | N/A                                                                      | N/A                     | N/A      |
+| **Location**            | Not collected                                                             | N/A                                                                      | N/A                     | N/A      |
+| **Sensitive Info**      | Not collected                                                             | N/A                                                                      | N/A                     | N/A      |
+| **Contacts**            | Not collected                                                             | N/A                                                                      | N/A                     | N/A      |
+| **User Content**        |                                                                           |                                                                          |                         |          |
+| &emsp;• Audio Data      | May be collected                                                          | • Application functionality                                              | Y                       | N        |
+| &emsp;• Photos or Videos | May be collected                                                          | • Application functionality                                              | Y                       | N        |
+| &emsp;• Other User Content | May be collected                                                          | • Application functionality                                              | Y                       | N        |
+| **Browsing History**    | Not collected                                                             | N/A                                                                      | N/A                     | N/A      |
+| **Search History**      |                                                                           |                                                                          |                         |          |
+| &emsp;• Search History  | May be collected<br>(if using search functionality)                       | • Application functionality<br>• Analytics                               | Y                       | N        |
+| **Identifiers**         |                                                                           |                                                                          |                         |          |
+| &emsp;• User ID         | Collected                                                                 | • Application functionality<br>• Analytics                               | Y                       | N        |
+| **Purchases**           | Not collected                                                             | N/A                                                                      | N/A                     | N/A      |
+| **Usage Data**          |                                                                           |                                                                          |                         |          |
+| &emsp;• Product Interaction | Collected                                                                 | • Application functionality <br>• Analytics<br>• Product personalization | Y                       | N        |
+| **Diagnostics**         |                                                                           |                                                                          |                         |          |
+| &emsp;• Other Diagnostic Data | Collected<br>(API call logs)                                              | • Application functionality                                              | Y                       | N        |
+| **Other Data**          | N/A                                                                       | N/A                                                                      | N/A                     | N/A      |
+
+
+
+---
+
 ## Bugs
 
 Please post any bugs to the [issue tracker](https://github.com/dropbox/dropbox-sdk-obj-c/issues) found on the project's GitHub page.
-  
+
 Please include the following with your issue:
  - a description of what is not working right
  - sample code to help replicate the issue

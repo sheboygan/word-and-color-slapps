@@ -29,7 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// The `DBTEAMCustomQuotaErrorTag` enum type represents the possible tag states
 /// with which the `DBTEAMCustomQuotaError` union can exist.
-typedef NS_ENUM(NSInteger, DBTEAMCustomQuotaErrorTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBTEAMCustomQuotaErrorTag) {
   /// A maximum of 1000 users can be set for a single call.
   DBTEAMCustomQuotaErrorTooManyUsers,
 
@@ -102,7 +102,7 @@ typedef NS_ENUM(NSInteger, DBTEAMCustomQuotaErrorTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBTEAMCustomQuotaError` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBTEAMCustomQuotaError *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBTEAMCustomQuotaError *)instance;
 
 ///
 /// Deserializes `DBTEAMCustomQuotaError` instances.
@@ -112,7 +112,7 @@ typedef NS_ENUM(NSInteger, DBTEAMCustomQuotaErrorTag) {
 ///
 /// @return An instantiation of the `DBTEAMCustomQuotaError` object.
 ///
-+ (DBTEAMCustomQuotaError *)deserialize:(NSDictionary *)dict;
++ (DBTEAMCustomQuotaError *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

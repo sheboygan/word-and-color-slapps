@@ -32,7 +32,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// The `DBAUTHAccessErrorTag` enum type represents the possible tag states with
 /// which the `DBAUTHAccessError` union can exist.
-typedef NS_ENUM(NSInteger, DBAUTHAccessErrorTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBAUTHAccessErrorTag) {
   /// Current account type cannot access the resource.
   DBAUTHAccessErrorInvalidAccountType,
 
@@ -149,7 +149,7 @@ typedef NS_ENUM(NSInteger, DBAUTHAccessErrorTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBAUTHAccessError` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBAUTHAccessError *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBAUTHAccessError *)instance;
 
 ///
 /// Deserializes `DBAUTHAccessError` instances.
@@ -159,7 +159,7 @@ typedef NS_ENUM(NSInteger, DBAUTHAccessErrorTag) {
 ///
 /// @return An instantiation of the `DBAUTHAccessError` object.
 ///
-+ (DBAUTHAccessError *)deserialize:(NSDictionary *)dict;
++ (DBAUTHAccessError *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

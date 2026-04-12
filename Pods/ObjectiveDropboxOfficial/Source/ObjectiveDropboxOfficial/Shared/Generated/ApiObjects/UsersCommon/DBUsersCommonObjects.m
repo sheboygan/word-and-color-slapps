@@ -71,17 +71,17 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBUSERSCOMMONAccountTypeSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBUSERSCOMMONAccountTypeSerializer deserialize:dict];
 }
 
-#pragma mark - Description method
+#pragma mark - Debug Description method
 
-- (NSString *)description {
+- (NSString *)debugDescription {
   return [[DBUSERSCOMMONAccountTypeSerializer serialize:self] description];
 }
 
@@ -102,10 +102,13 @@
   switch (_tag) {
   case DBUSERSCOMMONAccountTypeBasic:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBUSERSCOMMONAccountTypePro:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBUSERSCOMMONAccountTypeBusiness:
     result = prime * result + [[self tagName] hash];
+    break;
   }
 
   return prime * result;
@@ -147,7 +150,7 @@
 
 @implementation DBUSERSCOMMONAccountTypeSerializer
 
-+ (NSDictionary *)serialize:(DBUSERSCOMMONAccountType *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBUSERSCOMMONAccountType *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isBasic]) {
@@ -162,10 +165,10 @@
                                  userInfo:nil]);
   }
 
-  return [jsonDict count] > 0 ? jsonDict : nil;
+  return jsonDict;
 }
 
-+ (DBUSERSCOMMONAccountType *)deserialize:(NSDictionary *)valueDict {
++ (DBUSERSCOMMONAccountType *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"basic"]) {

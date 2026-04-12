@@ -29,12 +29,17 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// The `DBSHARINGAddFolderMemberErrorTag` enum type represents the possible tag
 /// states with which the `DBSHARINGAddFolderMemberError` union can exist.
-typedef NS_ENUM(NSInteger, DBSHARINGAddFolderMemberErrorTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBSHARINGAddFolderMemberErrorTag) {
   /// Unable to access shared folder.
   DBSHARINGAddFolderMemberErrorAccessError,
 
-  /// The current user's e-mail address is unverified.
+  /// This user's email address is not verified. This functionality is only
+  /// available on accounts with a verified email address. Users can verify
+  /// their email address here https://www.dropbox.com/help/317.
   DBSHARINGAddFolderMemberErrorEmailUnverified,
+
+  /// The current user has been banned.
+  DBSHARINGAddFolderMemberErrorBannedMember,
 
   /// `members` in `DBSHARINGAddFolderMemberArg` contains a bad invitation
   /// recipient.
@@ -66,6 +71,9 @@ typedef NS_ENUM(NSInteger, DBSHARINGAddFolderMemberErrorTag) {
 
   /// The current user does not have permission to perform this action.
   DBSHARINGAddFolderMemberErrorNoPermission,
+
+  /// Invalid shared folder error will be returned as an access_error.
+  DBSHARINGAddFolderMemberErrorInvalidSharedFolder,
 
   /// (no description).
   DBSHARINGAddFolderMemberErrorOther,
@@ -110,12 +118,24 @@ typedef NS_ENUM(NSInteger, DBSHARINGAddFolderMemberErrorTag) {
 ///
 /// Initializes union class with tag state of "email_unverified".
 ///
-/// Description of the "email_unverified" tag state: The current user's e-mail
-/// address is unverified.
+/// Description of the "email_unverified" tag state: This user's email address
+/// is not verified. This functionality is only available on accounts with a
+/// verified email address. Users can verify their email address here
+/// https://www.dropbox.com/help/317.
 ///
 /// @return An initialized instance.
 ///
 - (instancetype)initWithEmailUnverified;
+
+///
+/// Initializes union class with tag state of "banned_member".
+///
+/// Description of the "banned_member" tag state: The current user has been
+/// banned.
+///
+/// @return An initialized instance.
+///
+- (instancetype)initWithBannedMember;
 
 ///
 /// Initializes union class with tag state of "bad_member".
@@ -218,6 +238,16 @@ typedef NS_ENUM(NSInteger, DBSHARINGAddFolderMemberErrorTag) {
 - (instancetype)initWithNoPermission;
 
 ///
+/// Initializes union class with tag state of "invalid_shared_folder".
+///
+/// Description of the "invalid_shared_folder" tag state: Invalid shared folder
+/// error will be returned as an access_error.
+///
+/// @return An initialized instance.
+///
+- (instancetype)initWithInvalidSharedFolder;
+
+///
 /// Initializes union class with tag state of "other".
 ///
 /// @return An initialized instance.
@@ -245,6 +275,13 @@ typedef NS_ENUM(NSInteger, DBSHARINGAddFolderMemberErrorTag) {
 /// @return Whether the union's current tag state has value "email_unverified".
 ///
 - (BOOL)isEmailUnverified;
+
+///
+/// Retrieves whether the union's current tag state has value "banned_member".
+///
+/// @return Whether the union's current tag state has value "banned_member".
+///
+- (BOOL)isBannedMember;
 
 ///
 /// Retrieves whether the union's current tag state has value "bad_member".
@@ -327,6 +364,15 @@ typedef NS_ENUM(NSInteger, DBSHARINGAddFolderMemberErrorTag) {
 - (BOOL)isNoPermission;
 
 ///
+/// Retrieves whether the union's current tag state has value
+/// "invalid_shared_folder".
+///
+/// @return Whether the union's current tag state has value
+/// "invalid_shared_folder".
+///
+- (BOOL)isInvalidSharedFolder;
+
+///
 /// Retrieves whether the union's current tag state has value "other".
 ///
 /// @return Whether the union's current tag state has value "other".
@@ -358,7 +404,7 @@ typedef NS_ENUM(NSInteger, DBSHARINGAddFolderMemberErrorTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBSHARINGAddFolderMemberError` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBSHARINGAddFolderMemberError *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBSHARINGAddFolderMemberError *)instance;
 
 ///
 /// Deserializes `DBSHARINGAddFolderMemberError` instances.
@@ -368,7 +414,7 @@ typedef NS_ENUM(NSInteger, DBSHARINGAddFolderMemberErrorTag) {
 ///
 /// @return An instantiation of the `DBSHARINGAddFolderMemberError` object.
 ///
-+ (DBSHARINGAddFolderMemberError *)deserialize:(NSDictionary *)dict;
++ (DBSHARINGAddFolderMemberError *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

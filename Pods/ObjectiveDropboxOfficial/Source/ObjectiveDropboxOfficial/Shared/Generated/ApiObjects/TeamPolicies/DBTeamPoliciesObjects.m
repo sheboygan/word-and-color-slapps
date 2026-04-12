@@ -8,6 +8,381 @@
 
 #import "DBStoneSerializers.h"
 #import "DBStoneValidators.h"
+#import "DBTEAMPOLICIESCameraUploadsPolicyState.h"
+
+#pragma mark - API Object
+
+@implementation DBTEAMPOLICIESCameraUploadsPolicyState
+
+#pragma mark - Constructors
+
+- (instancetype)initWithDisabled {
+  self = [super init];
+  if (self) {
+    _tag = DBTEAMPOLICIESCameraUploadsPolicyStateDisabled;
+  }
+  return self;
+}
+
+- (instancetype)initWithEnabled {
+  self = [super init];
+  if (self) {
+    _tag = DBTEAMPOLICIESCameraUploadsPolicyStateEnabled;
+  }
+  return self;
+}
+
+- (instancetype)initWithOther {
+  self = [super init];
+  if (self) {
+    _tag = DBTEAMPOLICIESCameraUploadsPolicyStateOther;
+  }
+  return self;
+}
+
+#pragma mark - Instance field accessors
+
+#pragma mark - Tag state methods
+
+- (BOOL)isDisabled {
+  return _tag == DBTEAMPOLICIESCameraUploadsPolicyStateDisabled;
+}
+
+- (BOOL)isEnabled {
+  return _tag == DBTEAMPOLICIESCameraUploadsPolicyStateEnabled;
+}
+
+- (BOOL)isOther {
+  return _tag == DBTEAMPOLICIESCameraUploadsPolicyStateOther;
+}
+
+- (NSString *)tagName {
+  switch (_tag) {
+  case DBTEAMPOLICIESCameraUploadsPolicyStateDisabled:
+    return @"DBTEAMPOLICIESCameraUploadsPolicyStateDisabled";
+  case DBTEAMPOLICIESCameraUploadsPolicyStateEnabled:
+    return @"DBTEAMPOLICIESCameraUploadsPolicyStateEnabled";
+  case DBTEAMPOLICIESCameraUploadsPolicyStateOther:
+    return @"DBTEAMPOLICIESCameraUploadsPolicyStateOther";
+  }
+
+  @throw([NSException exceptionWithName:@"InvalidTag" reason:@"Tag has an unknown value." userInfo:nil]);
+}
+
+#pragma mark - Serialization methods
+
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
+  return [DBTEAMPOLICIESCameraUploadsPolicyStateSerializer serialize:instance];
+}
+
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
+  return [DBTEAMPOLICIESCameraUploadsPolicyStateSerializer deserialize:dict];
+}
+
+#pragma mark - Debug Description method
+
+- (NSString *)debugDescription {
+  return [[DBTEAMPOLICIESCameraUploadsPolicyStateSerializer serialize:self] description];
+}
+
+#pragma mark - Copyable method
+
+- (instancetype)copyWithZone:(NSZone *)zone {
+#pragma unused(zone)
+  /// object is immutable
+  return self;
+}
+
+#pragma mark - Hash method
+
+- (NSUInteger)hash {
+  NSUInteger prime = 31;
+  NSUInteger result = 1;
+
+  switch (_tag) {
+  case DBTEAMPOLICIESCameraUploadsPolicyStateDisabled:
+    result = prime * result + [[self tagName] hash];
+    break;
+  case DBTEAMPOLICIESCameraUploadsPolicyStateEnabled:
+    result = prime * result + [[self tagName] hash];
+    break;
+  case DBTEAMPOLICIESCameraUploadsPolicyStateOther:
+    result = prime * result + [[self tagName] hash];
+    break;
+  }
+
+  return prime * result;
+}
+
+#pragma mark - Equality method
+
+- (BOOL)isEqual:(id)other {
+  if (other == self) {
+    return YES;
+  }
+  if (!other || ![other isKindOfClass:[self class]]) {
+    return NO;
+  }
+  return [self isEqualToCameraUploadsPolicyState:other];
+}
+
+- (BOOL)isEqualToCameraUploadsPolicyState:(DBTEAMPOLICIESCameraUploadsPolicyState *)aCameraUploadsPolicyState {
+  if (self == aCameraUploadsPolicyState) {
+    return YES;
+  }
+  if (self.tag != aCameraUploadsPolicyState.tag) {
+    return NO;
+  }
+  switch (_tag) {
+  case DBTEAMPOLICIESCameraUploadsPolicyStateDisabled:
+    return [[self tagName] isEqual:[aCameraUploadsPolicyState tagName]];
+  case DBTEAMPOLICIESCameraUploadsPolicyStateEnabled:
+    return [[self tagName] isEqual:[aCameraUploadsPolicyState tagName]];
+  case DBTEAMPOLICIESCameraUploadsPolicyStateOther:
+    return [[self tagName] isEqual:[aCameraUploadsPolicyState tagName]];
+  }
+  return YES;
+}
+
+@end
+
+#pragma mark - Serializer Object
+
+@implementation DBTEAMPOLICIESCameraUploadsPolicyStateSerializer
+
++ (NSDictionary<NSString *, id> *)serialize:(DBTEAMPOLICIESCameraUploadsPolicyState *)valueObj {
+  NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
+
+  if ([valueObj isDisabled]) {
+    jsonDict[@".tag"] = @"disabled";
+  } else if ([valueObj isEnabled]) {
+    jsonDict[@".tag"] = @"enabled";
+  } else if ([valueObj isOther]) {
+    jsonDict[@".tag"] = @"other";
+  } else {
+    jsonDict[@".tag"] = @"other";
+  }
+
+  return jsonDict;
+}
+
++ (DBTEAMPOLICIESCameraUploadsPolicyState *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
+  NSString *tag = valueDict[@".tag"];
+
+  if ([tag isEqualToString:@"disabled"]) {
+    return [[DBTEAMPOLICIESCameraUploadsPolicyState alloc] initWithDisabled];
+  } else if ([tag isEqualToString:@"enabled"]) {
+    return [[DBTEAMPOLICIESCameraUploadsPolicyState alloc] initWithEnabled];
+  } else if ([tag isEqualToString:@"other"]) {
+    return [[DBTEAMPOLICIESCameraUploadsPolicyState alloc] initWithOther];
+  } else {
+    return [[DBTEAMPOLICIESCameraUploadsPolicyState alloc] initWithOther];
+  }
+}
+
+@end
+
+#import "DBStoneSerializers.h"
+#import "DBStoneValidators.h"
+#import "DBTEAMPOLICIESComputerBackupPolicyState.h"
+
+#pragma mark - API Object
+
+@implementation DBTEAMPOLICIESComputerBackupPolicyState
+
+#pragma mark - Constructors
+
+- (instancetype)initWithDisabled {
+  self = [super init];
+  if (self) {
+    _tag = DBTEAMPOLICIESComputerBackupPolicyStateDisabled;
+  }
+  return self;
+}
+
+- (instancetype)initWithEnabled {
+  self = [super init];
+  if (self) {
+    _tag = DBTEAMPOLICIESComputerBackupPolicyStateEnabled;
+  }
+  return self;
+}
+
+- (instancetype)initWithDefault_ {
+  self = [super init];
+  if (self) {
+    _tag = DBTEAMPOLICIESComputerBackupPolicyStateDefault_;
+  }
+  return self;
+}
+
+- (instancetype)initWithOther {
+  self = [super init];
+  if (self) {
+    _tag = DBTEAMPOLICIESComputerBackupPolicyStateOther;
+  }
+  return self;
+}
+
+#pragma mark - Instance field accessors
+
+#pragma mark - Tag state methods
+
+- (BOOL)isDisabled {
+  return _tag == DBTEAMPOLICIESComputerBackupPolicyStateDisabled;
+}
+
+- (BOOL)isEnabled {
+  return _tag == DBTEAMPOLICIESComputerBackupPolicyStateEnabled;
+}
+
+- (BOOL)isDefault_ {
+  return _tag == DBTEAMPOLICIESComputerBackupPolicyStateDefault_;
+}
+
+- (BOOL)isOther {
+  return _tag == DBTEAMPOLICIESComputerBackupPolicyStateOther;
+}
+
+- (NSString *)tagName {
+  switch (_tag) {
+  case DBTEAMPOLICIESComputerBackupPolicyStateDisabled:
+    return @"DBTEAMPOLICIESComputerBackupPolicyStateDisabled";
+  case DBTEAMPOLICIESComputerBackupPolicyStateEnabled:
+    return @"DBTEAMPOLICIESComputerBackupPolicyStateEnabled";
+  case DBTEAMPOLICIESComputerBackupPolicyStateDefault_:
+    return @"DBTEAMPOLICIESComputerBackupPolicyStateDefault_";
+  case DBTEAMPOLICIESComputerBackupPolicyStateOther:
+    return @"DBTEAMPOLICIESComputerBackupPolicyStateOther";
+  }
+
+  @throw([NSException exceptionWithName:@"InvalidTag" reason:@"Tag has an unknown value." userInfo:nil]);
+}
+
+#pragma mark - Serialization methods
+
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
+  return [DBTEAMPOLICIESComputerBackupPolicyStateSerializer serialize:instance];
+}
+
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
+  return [DBTEAMPOLICIESComputerBackupPolicyStateSerializer deserialize:dict];
+}
+
+#pragma mark - Debug Description method
+
+- (NSString *)debugDescription {
+  return [[DBTEAMPOLICIESComputerBackupPolicyStateSerializer serialize:self] description];
+}
+
+#pragma mark - Copyable method
+
+- (instancetype)copyWithZone:(NSZone *)zone {
+#pragma unused(zone)
+  /// object is immutable
+  return self;
+}
+
+#pragma mark - Hash method
+
+- (NSUInteger)hash {
+  NSUInteger prime = 31;
+  NSUInteger result = 1;
+
+  switch (_tag) {
+  case DBTEAMPOLICIESComputerBackupPolicyStateDisabled:
+    result = prime * result + [[self tagName] hash];
+    break;
+  case DBTEAMPOLICIESComputerBackupPolicyStateEnabled:
+    result = prime * result + [[self tagName] hash];
+    break;
+  case DBTEAMPOLICIESComputerBackupPolicyStateDefault_:
+    result = prime * result + [[self tagName] hash];
+    break;
+  case DBTEAMPOLICIESComputerBackupPolicyStateOther:
+    result = prime * result + [[self tagName] hash];
+    break;
+  }
+
+  return prime * result;
+}
+
+#pragma mark - Equality method
+
+- (BOOL)isEqual:(id)other {
+  if (other == self) {
+    return YES;
+  }
+  if (!other || ![other isKindOfClass:[self class]]) {
+    return NO;
+  }
+  return [self isEqualToComputerBackupPolicyState:other];
+}
+
+- (BOOL)isEqualToComputerBackupPolicyState:(DBTEAMPOLICIESComputerBackupPolicyState *)aComputerBackupPolicyState {
+  if (self == aComputerBackupPolicyState) {
+    return YES;
+  }
+  if (self.tag != aComputerBackupPolicyState.tag) {
+    return NO;
+  }
+  switch (_tag) {
+  case DBTEAMPOLICIESComputerBackupPolicyStateDisabled:
+    return [[self tagName] isEqual:[aComputerBackupPolicyState tagName]];
+  case DBTEAMPOLICIESComputerBackupPolicyStateEnabled:
+    return [[self tagName] isEqual:[aComputerBackupPolicyState tagName]];
+  case DBTEAMPOLICIESComputerBackupPolicyStateDefault_:
+    return [[self tagName] isEqual:[aComputerBackupPolicyState tagName]];
+  case DBTEAMPOLICIESComputerBackupPolicyStateOther:
+    return [[self tagName] isEqual:[aComputerBackupPolicyState tagName]];
+  }
+  return YES;
+}
+
+@end
+
+#pragma mark - Serializer Object
+
+@implementation DBTEAMPOLICIESComputerBackupPolicyStateSerializer
+
++ (NSDictionary<NSString *, id> *)serialize:(DBTEAMPOLICIESComputerBackupPolicyState *)valueObj {
+  NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
+
+  if ([valueObj isDisabled]) {
+    jsonDict[@".tag"] = @"disabled";
+  } else if ([valueObj isEnabled]) {
+    jsonDict[@".tag"] = @"enabled";
+  } else if ([valueObj isDefault_]) {
+    jsonDict[@".tag"] = @"default";
+  } else if ([valueObj isOther]) {
+    jsonDict[@".tag"] = @"other";
+  } else {
+    jsonDict[@".tag"] = @"other";
+  }
+
+  return jsonDict;
+}
+
++ (DBTEAMPOLICIESComputerBackupPolicyState *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
+  NSString *tag = valueDict[@".tag"];
+
+  if ([tag isEqualToString:@"disabled"]) {
+    return [[DBTEAMPOLICIESComputerBackupPolicyState alloc] initWithDisabled];
+  } else if ([tag isEqualToString:@"enabled"]) {
+    return [[DBTEAMPOLICIESComputerBackupPolicyState alloc] initWithEnabled];
+  } else if ([tag isEqualToString:@"default"]) {
+    return [[DBTEAMPOLICIESComputerBackupPolicyState alloc] initWithDefault_];
+  } else if ([tag isEqualToString:@"other"]) {
+    return [[DBTEAMPOLICIESComputerBackupPolicyState alloc] initWithOther];
+  } else {
+    return [[DBTEAMPOLICIESComputerBackupPolicyState alloc] initWithOther];
+  }
+}
+
+@end
+
+#import "DBStoneSerializers.h"
+#import "DBStoneValidators.h"
 #import "DBTEAMPOLICIESEmmState.h"
 
 #pragma mark - API Object
@@ -85,17 +460,17 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBTEAMPOLICIESEmmStateSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBTEAMPOLICIESEmmStateSerializer deserialize:dict];
 }
 
-#pragma mark - Description method
+#pragma mark - Debug Description method
 
-- (NSString *)description {
+- (NSString *)debugDescription {
   return [[DBTEAMPOLICIESEmmStateSerializer serialize:self] description];
 }
 
@@ -116,12 +491,16 @@
   switch (_tag) {
   case DBTEAMPOLICIESEmmStateDisabled:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBTEAMPOLICIESEmmStateOptional:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBTEAMPOLICIESEmmStateRequired:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBTEAMPOLICIESEmmStateOther:
     result = prime * result + [[self tagName] hash];
+    break;
   }
 
   return prime * result;
@@ -165,7 +544,7 @@
 
 @implementation DBTEAMPOLICIESEmmStateSerializer
 
-+ (NSDictionary *)serialize:(DBTEAMPOLICIESEmmState *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBTEAMPOLICIESEmmState *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isDisabled]) {
@@ -180,10 +559,10 @@
     jsonDict[@".tag"] = @"other";
   }
 
-  return [jsonDict count] > 0 ? jsonDict : nil;
+  return jsonDict;
 }
 
-+ (DBTEAMPOLICIESEmmState *)deserialize:(NSDictionary *)valueDict {
++ (DBTEAMPOLICIESEmmState *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"disabled"]) {
@@ -196,6 +575,582 @@
     return [[DBTEAMPOLICIESEmmState alloc] initWithOther];
   } else {
     return [[DBTEAMPOLICIESEmmState alloc] initWithOther];
+  }
+}
+
+@end
+
+#import "DBStoneSerializers.h"
+#import "DBStoneValidators.h"
+#import "DBTEAMPOLICIESExternalDriveBackupPolicyState.h"
+
+#pragma mark - API Object
+
+@implementation DBTEAMPOLICIESExternalDriveBackupPolicyState
+
+#pragma mark - Constructors
+
+- (instancetype)initWithDisabled {
+  self = [super init];
+  if (self) {
+    _tag = DBTEAMPOLICIESExternalDriveBackupPolicyStateDisabled;
+  }
+  return self;
+}
+
+- (instancetype)initWithEnabled {
+  self = [super init];
+  if (self) {
+    _tag = DBTEAMPOLICIESExternalDriveBackupPolicyStateEnabled;
+  }
+  return self;
+}
+
+- (instancetype)initWithDefault_ {
+  self = [super init];
+  if (self) {
+    _tag = DBTEAMPOLICIESExternalDriveBackupPolicyStateDefault_;
+  }
+  return self;
+}
+
+- (instancetype)initWithOther {
+  self = [super init];
+  if (self) {
+    _tag = DBTEAMPOLICIESExternalDriveBackupPolicyStateOther;
+  }
+  return self;
+}
+
+#pragma mark - Instance field accessors
+
+#pragma mark - Tag state methods
+
+- (BOOL)isDisabled {
+  return _tag == DBTEAMPOLICIESExternalDriveBackupPolicyStateDisabled;
+}
+
+- (BOOL)isEnabled {
+  return _tag == DBTEAMPOLICIESExternalDriveBackupPolicyStateEnabled;
+}
+
+- (BOOL)isDefault_ {
+  return _tag == DBTEAMPOLICIESExternalDriveBackupPolicyStateDefault_;
+}
+
+- (BOOL)isOther {
+  return _tag == DBTEAMPOLICIESExternalDriveBackupPolicyStateOther;
+}
+
+- (NSString *)tagName {
+  switch (_tag) {
+  case DBTEAMPOLICIESExternalDriveBackupPolicyStateDisabled:
+    return @"DBTEAMPOLICIESExternalDriveBackupPolicyStateDisabled";
+  case DBTEAMPOLICIESExternalDriveBackupPolicyStateEnabled:
+    return @"DBTEAMPOLICIESExternalDriveBackupPolicyStateEnabled";
+  case DBTEAMPOLICIESExternalDriveBackupPolicyStateDefault_:
+    return @"DBTEAMPOLICIESExternalDriveBackupPolicyStateDefault_";
+  case DBTEAMPOLICIESExternalDriveBackupPolicyStateOther:
+    return @"DBTEAMPOLICIESExternalDriveBackupPolicyStateOther";
+  }
+
+  @throw([NSException exceptionWithName:@"InvalidTag" reason:@"Tag has an unknown value." userInfo:nil]);
+}
+
+#pragma mark - Serialization methods
+
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
+  return [DBTEAMPOLICIESExternalDriveBackupPolicyStateSerializer serialize:instance];
+}
+
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
+  return [DBTEAMPOLICIESExternalDriveBackupPolicyStateSerializer deserialize:dict];
+}
+
+#pragma mark - Debug Description method
+
+- (NSString *)debugDescription {
+  return [[DBTEAMPOLICIESExternalDriveBackupPolicyStateSerializer serialize:self] description];
+}
+
+#pragma mark - Copyable method
+
+- (instancetype)copyWithZone:(NSZone *)zone {
+#pragma unused(zone)
+  /// object is immutable
+  return self;
+}
+
+#pragma mark - Hash method
+
+- (NSUInteger)hash {
+  NSUInteger prime = 31;
+  NSUInteger result = 1;
+
+  switch (_tag) {
+  case DBTEAMPOLICIESExternalDriveBackupPolicyStateDisabled:
+    result = prime * result + [[self tagName] hash];
+    break;
+  case DBTEAMPOLICIESExternalDriveBackupPolicyStateEnabled:
+    result = prime * result + [[self tagName] hash];
+    break;
+  case DBTEAMPOLICIESExternalDriveBackupPolicyStateDefault_:
+    result = prime * result + [[self tagName] hash];
+    break;
+  case DBTEAMPOLICIESExternalDriveBackupPolicyStateOther:
+    result = prime * result + [[self tagName] hash];
+    break;
+  }
+
+  return prime * result;
+}
+
+#pragma mark - Equality method
+
+- (BOOL)isEqual:(id)other {
+  if (other == self) {
+    return YES;
+  }
+  if (!other || ![other isKindOfClass:[self class]]) {
+    return NO;
+  }
+  return [self isEqualToExternalDriveBackupPolicyState:other];
+}
+
+- (BOOL)isEqualToExternalDriveBackupPolicyState:
+    (DBTEAMPOLICIESExternalDriveBackupPolicyState *)anExternalDriveBackupPolicyState {
+  if (self == anExternalDriveBackupPolicyState) {
+    return YES;
+  }
+  if (self.tag != anExternalDriveBackupPolicyState.tag) {
+    return NO;
+  }
+  switch (_tag) {
+  case DBTEAMPOLICIESExternalDriveBackupPolicyStateDisabled:
+    return [[self tagName] isEqual:[anExternalDriveBackupPolicyState tagName]];
+  case DBTEAMPOLICIESExternalDriveBackupPolicyStateEnabled:
+    return [[self tagName] isEqual:[anExternalDriveBackupPolicyState tagName]];
+  case DBTEAMPOLICIESExternalDriveBackupPolicyStateDefault_:
+    return [[self tagName] isEqual:[anExternalDriveBackupPolicyState tagName]];
+  case DBTEAMPOLICIESExternalDriveBackupPolicyStateOther:
+    return [[self tagName] isEqual:[anExternalDriveBackupPolicyState tagName]];
+  }
+  return YES;
+}
+
+@end
+
+#pragma mark - Serializer Object
+
+@implementation DBTEAMPOLICIESExternalDriveBackupPolicyStateSerializer
+
++ (NSDictionary<NSString *, id> *)serialize:(DBTEAMPOLICIESExternalDriveBackupPolicyState *)valueObj {
+  NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
+
+  if ([valueObj isDisabled]) {
+    jsonDict[@".tag"] = @"disabled";
+  } else if ([valueObj isEnabled]) {
+    jsonDict[@".tag"] = @"enabled";
+  } else if ([valueObj isDefault_]) {
+    jsonDict[@".tag"] = @"default";
+  } else if ([valueObj isOther]) {
+    jsonDict[@".tag"] = @"other";
+  } else {
+    jsonDict[@".tag"] = @"other";
+  }
+
+  return jsonDict;
+}
+
++ (DBTEAMPOLICIESExternalDriveBackupPolicyState *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
+  NSString *tag = valueDict[@".tag"];
+
+  if ([tag isEqualToString:@"disabled"]) {
+    return [[DBTEAMPOLICIESExternalDriveBackupPolicyState alloc] initWithDisabled];
+  } else if ([tag isEqualToString:@"enabled"]) {
+    return [[DBTEAMPOLICIESExternalDriveBackupPolicyState alloc] initWithEnabled];
+  } else if ([tag isEqualToString:@"default"]) {
+    return [[DBTEAMPOLICIESExternalDriveBackupPolicyState alloc] initWithDefault_];
+  } else if ([tag isEqualToString:@"other"]) {
+    return [[DBTEAMPOLICIESExternalDriveBackupPolicyState alloc] initWithOther];
+  } else {
+    return [[DBTEAMPOLICIESExternalDriveBackupPolicyState alloc] initWithOther];
+  }
+}
+
+@end
+
+#import "DBStoneSerializers.h"
+#import "DBStoneValidators.h"
+#import "DBTEAMPOLICIESFileLockingPolicyState.h"
+
+#pragma mark - API Object
+
+@implementation DBTEAMPOLICIESFileLockingPolicyState
+
+#pragma mark - Constructors
+
+- (instancetype)initWithDisabled {
+  self = [super init];
+  if (self) {
+    _tag = DBTEAMPOLICIESFileLockingPolicyStateDisabled;
+  }
+  return self;
+}
+
+- (instancetype)initWithEnabled {
+  self = [super init];
+  if (self) {
+    _tag = DBTEAMPOLICIESFileLockingPolicyStateEnabled;
+  }
+  return self;
+}
+
+- (instancetype)initWithOther {
+  self = [super init];
+  if (self) {
+    _tag = DBTEAMPOLICIESFileLockingPolicyStateOther;
+  }
+  return self;
+}
+
+#pragma mark - Instance field accessors
+
+#pragma mark - Tag state methods
+
+- (BOOL)isDisabled {
+  return _tag == DBTEAMPOLICIESFileLockingPolicyStateDisabled;
+}
+
+- (BOOL)isEnabled {
+  return _tag == DBTEAMPOLICIESFileLockingPolicyStateEnabled;
+}
+
+- (BOOL)isOther {
+  return _tag == DBTEAMPOLICIESFileLockingPolicyStateOther;
+}
+
+- (NSString *)tagName {
+  switch (_tag) {
+  case DBTEAMPOLICIESFileLockingPolicyStateDisabled:
+    return @"DBTEAMPOLICIESFileLockingPolicyStateDisabled";
+  case DBTEAMPOLICIESFileLockingPolicyStateEnabled:
+    return @"DBTEAMPOLICIESFileLockingPolicyStateEnabled";
+  case DBTEAMPOLICIESFileLockingPolicyStateOther:
+    return @"DBTEAMPOLICIESFileLockingPolicyStateOther";
+  }
+
+  @throw([NSException exceptionWithName:@"InvalidTag" reason:@"Tag has an unknown value." userInfo:nil]);
+}
+
+#pragma mark - Serialization methods
+
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
+  return [DBTEAMPOLICIESFileLockingPolicyStateSerializer serialize:instance];
+}
+
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
+  return [DBTEAMPOLICIESFileLockingPolicyStateSerializer deserialize:dict];
+}
+
+#pragma mark - Debug Description method
+
+- (NSString *)debugDescription {
+  return [[DBTEAMPOLICIESFileLockingPolicyStateSerializer serialize:self] description];
+}
+
+#pragma mark - Copyable method
+
+- (instancetype)copyWithZone:(NSZone *)zone {
+#pragma unused(zone)
+  /// object is immutable
+  return self;
+}
+
+#pragma mark - Hash method
+
+- (NSUInteger)hash {
+  NSUInteger prime = 31;
+  NSUInteger result = 1;
+
+  switch (_tag) {
+  case DBTEAMPOLICIESFileLockingPolicyStateDisabled:
+    result = prime * result + [[self tagName] hash];
+    break;
+  case DBTEAMPOLICIESFileLockingPolicyStateEnabled:
+    result = prime * result + [[self tagName] hash];
+    break;
+  case DBTEAMPOLICIESFileLockingPolicyStateOther:
+    result = prime * result + [[self tagName] hash];
+    break;
+  }
+
+  return prime * result;
+}
+
+#pragma mark - Equality method
+
+- (BOOL)isEqual:(id)other {
+  if (other == self) {
+    return YES;
+  }
+  if (!other || ![other isKindOfClass:[self class]]) {
+    return NO;
+  }
+  return [self isEqualToFileLockingPolicyState:other];
+}
+
+- (BOOL)isEqualToFileLockingPolicyState:(DBTEAMPOLICIESFileLockingPolicyState *)aFileLockingPolicyState {
+  if (self == aFileLockingPolicyState) {
+    return YES;
+  }
+  if (self.tag != aFileLockingPolicyState.tag) {
+    return NO;
+  }
+  switch (_tag) {
+  case DBTEAMPOLICIESFileLockingPolicyStateDisabled:
+    return [[self tagName] isEqual:[aFileLockingPolicyState tagName]];
+  case DBTEAMPOLICIESFileLockingPolicyStateEnabled:
+    return [[self tagName] isEqual:[aFileLockingPolicyState tagName]];
+  case DBTEAMPOLICIESFileLockingPolicyStateOther:
+    return [[self tagName] isEqual:[aFileLockingPolicyState tagName]];
+  }
+  return YES;
+}
+
+@end
+
+#pragma mark - Serializer Object
+
+@implementation DBTEAMPOLICIESFileLockingPolicyStateSerializer
+
++ (NSDictionary<NSString *, id> *)serialize:(DBTEAMPOLICIESFileLockingPolicyState *)valueObj {
+  NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
+
+  if ([valueObj isDisabled]) {
+    jsonDict[@".tag"] = @"disabled";
+  } else if ([valueObj isEnabled]) {
+    jsonDict[@".tag"] = @"enabled";
+  } else if ([valueObj isOther]) {
+    jsonDict[@".tag"] = @"other";
+  } else {
+    jsonDict[@".tag"] = @"other";
+  }
+
+  return jsonDict;
+}
+
++ (DBTEAMPOLICIESFileLockingPolicyState *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
+  NSString *tag = valueDict[@".tag"];
+
+  if ([tag isEqualToString:@"disabled"]) {
+    return [[DBTEAMPOLICIESFileLockingPolicyState alloc] initWithDisabled];
+  } else if ([tag isEqualToString:@"enabled"]) {
+    return [[DBTEAMPOLICIESFileLockingPolicyState alloc] initWithEnabled];
+  } else if ([tag isEqualToString:@"other"]) {
+    return [[DBTEAMPOLICIESFileLockingPolicyState alloc] initWithOther];
+  } else {
+    return [[DBTEAMPOLICIESFileLockingPolicyState alloc] initWithOther];
+  }
+}
+
+@end
+
+#import "DBStoneSerializers.h"
+#import "DBStoneValidators.h"
+#import "DBTEAMPOLICIESFileProviderMigrationPolicyState.h"
+
+#pragma mark - API Object
+
+@implementation DBTEAMPOLICIESFileProviderMigrationPolicyState
+
+#pragma mark - Constructors
+
+- (instancetype)initWithDisabled {
+  self = [super init];
+  if (self) {
+    _tag = DBTEAMPOLICIESFileProviderMigrationPolicyStateDisabled;
+  }
+  return self;
+}
+
+- (instancetype)initWithEnabled {
+  self = [super init];
+  if (self) {
+    _tag = DBTEAMPOLICIESFileProviderMigrationPolicyStateEnabled;
+  }
+  return self;
+}
+
+- (instancetype)initWithDefault_ {
+  self = [super init];
+  if (self) {
+    _tag = DBTEAMPOLICIESFileProviderMigrationPolicyStateDefault_;
+  }
+  return self;
+}
+
+- (instancetype)initWithOther {
+  self = [super init];
+  if (self) {
+    _tag = DBTEAMPOLICIESFileProviderMigrationPolicyStateOther;
+  }
+  return self;
+}
+
+#pragma mark - Instance field accessors
+
+#pragma mark - Tag state methods
+
+- (BOOL)isDisabled {
+  return _tag == DBTEAMPOLICIESFileProviderMigrationPolicyStateDisabled;
+}
+
+- (BOOL)isEnabled {
+  return _tag == DBTEAMPOLICIESFileProviderMigrationPolicyStateEnabled;
+}
+
+- (BOOL)isDefault_ {
+  return _tag == DBTEAMPOLICIESFileProviderMigrationPolicyStateDefault_;
+}
+
+- (BOOL)isOther {
+  return _tag == DBTEAMPOLICIESFileProviderMigrationPolicyStateOther;
+}
+
+- (NSString *)tagName {
+  switch (_tag) {
+  case DBTEAMPOLICIESFileProviderMigrationPolicyStateDisabled:
+    return @"DBTEAMPOLICIESFileProviderMigrationPolicyStateDisabled";
+  case DBTEAMPOLICIESFileProviderMigrationPolicyStateEnabled:
+    return @"DBTEAMPOLICIESFileProviderMigrationPolicyStateEnabled";
+  case DBTEAMPOLICIESFileProviderMigrationPolicyStateDefault_:
+    return @"DBTEAMPOLICIESFileProviderMigrationPolicyStateDefault_";
+  case DBTEAMPOLICIESFileProviderMigrationPolicyStateOther:
+    return @"DBTEAMPOLICIESFileProviderMigrationPolicyStateOther";
+  }
+
+  @throw([NSException exceptionWithName:@"InvalidTag" reason:@"Tag has an unknown value." userInfo:nil]);
+}
+
+#pragma mark - Serialization methods
+
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
+  return [DBTEAMPOLICIESFileProviderMigrationPolicyStateSerializer serialize:instance];
+}
+
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
+  return [DBTEAMPOLICIESFileProviderMigrationPolicyStateSerializer deserialize:dict];
+}
+
+#pragma mark - Debug Description method
+
+- (NSString *)debugDescription {
+  return [[DBTEAMPOLICIESFileProviderMigrationPolicyStateSerializer serialize:self] description];
+}
+
+#pragma mark - Copyable method
+
+- (instancetype)copyWithZone:(NSZone *)zone {
+#pragma unused(zone)
+  /// object is immutable
+  return self;
+}
+
+#pragma mark - Hash method
+
+- (NSUInteger)hash {
+  NSUInteger prime = 31;
+  NSUInteger result = 1;
+
+  switch (_tag) {
+  case DBTEAMPOLICIESFileProviderMigrationPolicyStateDisabled:
+    result = prime * result + [[self tagName] hash];
+    break;
+  case DBTEAMPOLICIESFileProviderMigrationPolicyStateEnabled:
+    result = prime * result + [[self tagName] hash];
+    break;
+  case DBTEAMPOLICIESFileProviderMigrationPolicyStateDefault_:
+    result = prime * result + [[self tagName] hash];
+    break;
+  case DBTEAMPOLICIESFileProviderMigrationPolicyStateOther:
+    result = prime * result + [[self tagName] hash];
+    break;
+  }
+
+  return prime * result;
+}
+
+#pragma mark - Equality method
+
+- (BOOL)isEqual:(id)other {
+  if (other == self) {
+    return YES;
+  }
+  if (!other || ![other isKindOfClass:[self class]]) {
+    return NO;
+  }
+  return [self isEqualToFileProviderMigrationPolicyState:other];
+}
+
+- (BOOL)isEqualToFileProviderMigrationPolicyState:
+    (DBTEAMPOLICIESFileProviderMigrationPolicyState *)aFileProviderMigrationPolicyState {
+  if (self == aFileProviderMigrationPolicyState) {
+    return YES;
+  }
+  if (self.tag != aFileProviderMigrationPolicyState.tag) {
+    return NO;
+  }
+  switch (_tag) {
+  case DBTEAMPOLICIESFileProviderMigrationPolicyStateDisabled:
+    return [[self tagName] isEqual:[aFileProviderMigrationPolicyState tagName]];
+  case DBTEAMPOLICIESFileProviderMigrationPolicyStateEnabled:
+    return [[self tagName] isEqual:[aFileProviderMigrationPolicyState tagName]];
+  case DBTEAMPOLICIESFileProviderMigrationPolicyStateDefault_:
+    return [[self tagName] isEqual:[aFileProviderMigrationPolicyState tagName]];
+  case DBTEAMPOLICIESFileProviderMigrationPolicyStateOther:
+    return [[self tagName] isEqual:[aFileProviderMigrationPolicyState tagName]];
+  }
+  return YES;
+}
+
+@end
+
+#pragma mark - Serializer Object
+
+@implementation DBTEAMPOLICIESFileProviderMigrationPolicyStateSerializer
+
++ (NSDictionary<NSString *, id> *)serialize:(DBTEAMPOLICIESFileProviderMigrationPolicyState *)valueObj {
+  NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
+
+  if ([valueObj isDisabled]) {
+    jsonDict[@".tag"] = @"disabled";
+  } else if ([valueObj isEnabled]) {
+    jsonDict[@".tag"] = @"enabled";
+  } else if ([valueObj isDefault_]) {
+    jsonDict[@".tag"] = @"default";
+  } else if ([valueObj isOther]) {
+    jsonDict[@".tag"] = @"other";
+  } else {
+    jsonDict[@".tag"] = @"other";
+  }
+
+  return jsonDict;
+}
+
++ (DBTEAMPOLICIESFileProviderMigrationPolicyState *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
+  NSString *tag = valueDict[@".tag"];
+
+  if ([tag isEqualToString:@"disabled"]) {
+    return [[DBTEAMPOLICIESFileProviderMigrationPolicyState alloc] initWithDisabled];
+  } else if ([tag isEqualToString:@"enabled"]) {
+    return [[DBTEAMPOLICIESFileProviderMigrationPolicyState alloc] initWithEnabled];
+  } else if ([tag isEqualToString:@"default"]) {
+    return [[DBTEAMPOLICIESFileProviderMigrationPolicyState alloc] initWithDefault_];
+  } else if ([tag isEqualToString:@"other"]) {
+    return [[DBTEAMPOLICIESFileProviderMigrationPolicyState alloc] initWithOther];
+  } else {
+    return [[DBTEAMPOLICIESFileProviderMigrationPolicyState alloc] initWithOther];
   }
 }
 
@@ -252,17 +1207,17 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBTEAMPOLICIESGroupCreationSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBTEAMPOLICIESGroupCreationSerializer deserialize:dict];
 }
 
-#pragma mark - Description method
+#pragma mark - Debug Description method
 
-- (NSString *)description {
+- (NSString *)debugDescription {
   return [[DBTEAMPOLICIESGroupCreationSerializer serialize:self] description];
 }
 
@@ -283,8 +1238,10 @@
   switch (_tag) {
   case DBTEAMPOLICIESGroupCreationAdminsAndMembers:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBTEAMPOLICIESGroupCreationAdminsOnly:
     result = prime * result + [[self tagName] hash];
+    break;
   }
 
   return prime * result;
@@ -324,7 +1281,7 @@
 
 @implementation DBTEAMPOLICIESGroupCreationSerializer
 
-+ (NSDictionary *)serialize:(DBTEAMPOLICIESGroupCreation *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBTEAMPOLICIESGroupCreation *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isAdminsAndMembers]) {
@@ -337,10 +1294,10 @@
                                  userInfo:nil]);
   }
 
-  return [jsonDict count] > 0 ? jsonDict : nil;
+  return jsonDict;
 }
 
-+ (DBTEAMPOLICIESGroupCreation *)deserialize:(NSDictionary *)valueDict {
++ (DBTEAMPOLICIESGroupCreation *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"admins_and_members"]) {
@@ -422,17 +1379,17 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBTEAMPOLICIESOfficeAddInPolicySerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBTEAMPOLICIESOfficeAddInPolicySerializer deserialize:dict];
 }
 
-#pragma mark - Description method
+#pragma mark - Debug Description method
 
-- (NSString *)description {
+- (NSString *)debugDescription {
   return [[DBTEAMPOLICIESOfficeAddInPolicySerializer serialize:self] description];
 }
 
@@ -453,10 +1410,13 @@
   switch (_tag) {
   case DBTEAMPOLICIESOfficeAddInPolicyDisabled:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBTEAMPOLICIESOfficeAddInPolicyEnabled:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBTEAMPOLICIESOfficeAddInPolicyOther:
     result = prime * result + [[self tagName] hash];
+    break;
   }
 
   return prime * result;
@@ -498,7 +1458,7 @@
 
 @implementation DBTEAMPOLICIESOfficeAddInPolicySerializer
 
-+ (NSDictionary *)serialize:(DBTEAMPOLICIESOfficeAddInPolicy *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBTEAMPOLICIESOfficeAddInPolicy *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isDisabled]) {
@@ -511,10 +1471,10 @@
     jsonDict[@".tag"] = @"other";
   }
 
-  return [jsonDict count] > 0 ? jsonDict : nil;
+  return jsonDict;
 }
 
-+ (DBTEAMPOLICIESOfficeAddInPolicy *)deserialize:(NSDictionary *)valueDict {
++ (DBTEAMPOLICIESOfficeAddInPolicy *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"disabled"]) {
@@ -525,6 +1485,182 @@
     return [[DBTEAMPOLICIESOfficeAddInPolicy alloc] initWithOther];
   } else {
     return [[DBTEAMPOLICIESOfficeAddInPolicy alloc] initWithOther];
+  }
+}
+
+@end
+
+#import "DBStoneSerializers.h"
+#import "DBStoneValidators.h"
+#import "DBTEAMPOLICIESPaperDefaultFolderPolicy.h"
+
+#pragma mark - API Object
+
+@implementation DBTEAMPOLICIESPaperDefaultFolderPolicy
+
+#pragma mark - Constructors
+
+- (instancetype)initWithEveryoneInTeam {
+  self = [super init];
+  if (self) {
+    _tag = DBTEAMPOLICIESPaperDefaultFolderPolicyEveryoneInTeam;
+  }
+  return self;
+}
+
+- (instancetype)initWithInviteOnly {
+  self = [super init];
+  if (self) {
+    _tag = DBTEAMPOLICIESPaperDefaultFolderPolicyInviteOnly;
+  }
+  return self;
+}
+
+- (instancetype)initWithOther {
+  self = [super init];
+  if (self) {
+    _tag = DBTEAMPOLICIESPaperDefaultFolderPolicyOther;
+  }
+  return self;
+}
+
+#pragma mark - Instance field accessors
+
+#pragma mark - Tag state methods
+
+- (BOOL)isEveryoneInTeam {
+  return _tag == DBTEAMPOLICIESPaperDefaultFolderPolicyEveryoneInTeam;
+}
+
+- (BOOL)isInviteOnly {
+  return _tag == DBTEAMPOLICIESPaperDefaultFolderPolicyInviteOnly;
+}
+
+- (BOOL)isOther {
+  return _tag == DBTEAMPOLICIESPaperDefaultFolderPolicyOther;
+}
+
+- (NSString *)tagName {
+  switch (_tag) {
+  case DBTEAMPOLICIESPaperDefaultFolderPolicyEveryoneInTeam:
+    return @"DBTEAMPOLICIESPaperDefaultFolderPolicyEveryoneInTeam";
+  case DBTEAMPOLICIESPaperDefaultFolderPolicyInviteOnly:
+    return @"DBTEAMPOLICIESPaperDefaultFolderPolicyInviteOnly";
+  case DBTEAMPOLICIESPaperDefaultFolderPolicyOther:
+    return @"DBTEAMPOLICIESPaperDefaultFolderPolicyOther";
+  }
+
+  @throw([NSException exceptionWithName:@"InvalidTag" reason:@"Tag has an unknown value." userInfo:nil]);
+}
+
+#pragma mark - Serialization methods
+
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
+  return [DBTEAMPOLICIESPaperDefaultFolderPolicySerializer serialize:instance];
+}
+
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
+  return [DBTEAMPOLICIESPaperDefaultFolderPolicySerializer deserialize:dict];
+}
+
+#pragma mark - Debug Description method
+
+- (NSString *)debugDescription {
+  return [[DBTEAMPOLICIESPaperDefaultFolderPolicySerializer serialize:self] description];
+}
+
+#pragma mark - Copyable method
+
+- (instancetype)copyWithZone:(NSZone *)zone {
+#pragma unused(zone)
+  /// object is immutable
+  return self;
+}
+
+#pragma mark - Hash method
+
+- (NSUInteger)hash {
+  NSUInteger prime = 31;
+  NSUInteger result = 1;
+
+  switch (_tag) {
+  case DBTEAMPOLICIESPaperDefaultFolderPolicyEveryoneInTeam:
+    result = prime * result + [[self tagName] hash];
+    break;
+  case DBTEAMPOLICIESPaperDefaultFolderPolicyInviteOnly:
+    result = prime * result + [[self tagName] hash];
+    break;
+  case DBTEAMPOLICIESPaperDefaultFolderPolicyOther:
+    result = prime * result + [[self tagName] hash];
+    break;
+  }
+
+  return prime * result;
+}
+
+#pragma mark - Equality method
+
+- (BOOL)isEqual:(id)other {
+  if (other == self) {
+    return YES;
+  }
+  if (!other || ![other isKindOfClass:[self class]]) {
+    return NO;
+  }
+  return [self isEqualToPaperDefaultFolderPolicy:other];
+}
+
+- (BOOL)isEqualToPaperDefaultFolderPolicy:(DBTEAMPOLICIESPaperDefaultFolderPolicy *)aPaperDefaultFolderPolicy {
+  if (self == aPaperDefaultFolderPolicy) {
+    return YES;
+  }
+  if (self.tag != aPaperDefaultFolderPolicy.tag) {
+    return NO;
+  }
+  switch (_tag) {
+  case DBTEAMPOLICIESPaperDefaultFolderPolicyEveryoneInTeam:
+    return [[self tagName] isEqual:[aPaperDefaultFolderPolicy tagName]];
+  case DBTEAMPOLICIESPaperDefaultFolderPolicyInviteOnly:
+    return [[self tagName] isEqual:[aPaperDefaultFolderPolicy tagName]];
+  case DBTEAMPOLICIESPaperDefaultFolderPolicyOther:
+    return [[self tagName] isEqual:[aPaperDefaultFolderPolicy tagName]];
+  }
+  return YES;
+}
+
+@end
+
+#pragma mark - Serializer Object
+
+@implementation DBTEAMPOLICIESPaperDefaultFolderPolicySerializer
+
++ (NSDictionary<NSString *, id> *)serialize:(DBTEAMPOLICIESPaperDefaultFolderPolicy *)valueObj {
+  NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
+
+  if ([valueObj isEveryoneInTeam]) {
+    jsonDict[@".tag"] = @"everyone_in_team";
+  } else if ([valueObj isInviteOnly]) {
+    jsonDict[@".tag"] = @"invite_only";
+  } else if ([valueObj isOther]) {
+    jsonDict[@".tag"] = @"other";
+  } else {
+    jsonDict[@".tag"] = @"other";
+  }
+
+  return jsonDict;
+}
+
++ (DBTEAMPOLICIESPaperDefaultFolderPolicy *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
+  NSString *tag = valueDict[@".tag"];
+
+  if ([tag isEqualToString:@"everyone_in_team"]) {
+    return [[DBTEAMPOLICIESPaperDefaultFolderPolicy alloc] initWithEveryoneInTeam];
+  } else if ([tag isEqualToString:@"invite_only"]) {
+    return [[DBTEAMPOLICIESPaperDefaultFolderPolicy alloc] initWithInviteOnly];
+  } else if ([tag isEqualToString:@"other"]) {
+    return [[DBTEAMPOLICIESPaperDefaultFolderPolicy alloc] initWithOther];
+  } else {
+    return [[DBTEAMPOLICIESPaperDefaultFolderPolicy alloc] initWithOther];
   }
 }
 
@@ -595,17 +1731,17 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBTEAMPOLICIESPaperDeploymentPolicySerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBTEAMPOLICIESPaperDeploymentPolicySerializer deserialize:dict];
 }
 
-#pragma mark - Description method
+#pragma mark - Debug Description method
 
-- (NSString *)description {
+- (NSString *)debugDescription {
   return [[DBTEAMPOLICIESPaperDeploymentPolicySerializer serialize:self] description];
 }
 
@@ -626,10 +1762,13 @@
   switch (_tag) {
   case DBTEAMPOLICIESPaperDeploymentPolicyFull:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBTEAMPOLICIESPaperDeploymentPolicyPartial:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBTEAMPOLICIESPaperDeploymentPolicyOther:
     result = prime * result + [[self tagName] hash];
+    break;
   }
 
   return prime * result;
@@ -671,7 +1810,7 @@
 
 @implementation DBTEAMPOLICIESPaperDeploymentPolicySerializer
 
-+ (NSDictionary *)serialize:(DBTEAMPOLICIESPaperDeploymentPolicy *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBTEAMPOLICIESPaperDeploymentPolicy *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isFull]) {
@@ -684,10 +1823,10 @@
     jsonDict[@".tag"] = @"other";
   }
 
-  return [jsonDict count] > 0 ? jsonDict : nil;
+  return jsonDict;
 }
 
-+ (DBTEAMPOLICIESPaperDeploymentPolicy *)deserialize:(NSDictionary *)valueDict {
++ (DBTEAMPOLICIESPaperDeploymentPolicy *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"full"]) {
@@ -698,6 +1837,182 @@
     return [[DBTEAMPOLICIESPaperDeploymentPolicy alloc] initWithOther];
   } else {
     return [[DBTEAMPOLICIESPaperDeploymentPolicy alloc] initWithOther];
+  }
+}
+
+@end
+
+#import "DBStoneSerializers.h"
+#import "DBStoneValidators.h"
+#import "DBTEAMPOLICIESPaperDesktopPolicy.h"
+
+#pragma mark - API Object
+
+@implementation DBTEAMPOLICIESPaperDesktopPolicy
+
+#pragma mark - Constructors
+
+- (instancetype)initWithDisabled {
+  self = [super init];
+  if (self) {
+    _tag = DBTEAMPOLICIESPaperDesktopPolicyDisabled;
+  }
+  return self;
+}
+
+- (instancetype)initWithEnabled {
+  self = [super init];
+  if (self) {
+    _tag = DBTEAMPOLICIESPaperDesktopPolicyEnabled;
+  }
+  return self;
+}
+
+- (instancetype)initWithOther {
+  self = [super init];
+  if (self) {
+    _tag = DBTEAMPOLICIESPaperDesktopPolicyOther;
+  }
+  return self;
+}
+
+#pragma mark - Instance field accessors
+
+#pragma mark - Tag state methods
+
+- (BOOL)isDisabled {
+  return _tag == DBTEAMPOLICIESPaperDesktopPolicyDisabled;
+}
+
+- (BOOL)isEnabled {
+  return _tag == DBTEAMPOLICIESPaperDesktopPolicyEnabled;
+}
+
+- (BOOL)isOther {
+  return _tag == DBTEAMPOLICIESPaperDesktopPolicyOther;
+}
+
+- (NSString *)tagName {
+  switch (_tag) {
+  case DBTEAMPOLICIESPaperDesktopPolicyDisabled:
+    return @"DBTEAMPOLICIESPaperDesktopPolicyDisabled";
+  case DBTEAMPOLICIESPaperDesktopPolicyEnabled:
+    return @"DBTEAMPOLICIESPaperDesktopPolicyEnabled";
+  case DBTEAMPOLICIESPaperDesktopPolicyOther:
+    return @"DBTEAMPOLICIESPaperDesktopPolicyOther";
+  }
+
+  @throw([NSException exceptionWithName:@"InvalidTag" reason:@"Tag has an unknown value." userInfo:nil]);
+}
+
+#pragma mark - Serialization methods
+
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
+  return [DBTEAMPOLICIESPaperDesktopPolicySerializer serialize:instance];
+}
+
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
+  return [DBTEAMPOLICIESPaperDesktopPolicySerializer deserialize:dict];
+}
+
+#pragma mark - Debug Description method
+
+- (NSString *)debugDescription {
+  return [[DBTEAMPOLICIESPaperDesktopPolicySerializer serialize:self] description];
+}
+
+#pragma mark - Copyable method
+
+- (instancetype)copyWithZone:(NSZone *)zone {
+#pragma unused(zone)
+  /// object is immutable
+  return self;
+}
+
+#pragma mark - Hash method
+
+- (NSUInteger)hash {
+  NSUInteger prime = 31;
+  NSUInteger result = 1;
+
+  switch (_tag) {
+  case DBTEAMPOLICIESPaperDesktopPolicyDisabled:
+    result = prime * result + [[self tagName] hash];
+    break;
+  case DBTEAMPOLICIESPaperDesktopPolicyEnabled:
+    result = prime * result + [[self tagName] hash];
+    break;
+  case DBTEAMPOLICIESPaperDesktopPolicyOther:
+    result = prime * result + [[self tagName] hash];
+    break;
+  }
+
+  return prime * result;
+}
+
+#pragma mark - Equality method
+
+- (BOOL)isEqual:(id)other {
+  if (other == self) {
+    return YES;
+  }
+  if (!other || ![other isKindOfClass:[self class]]) {
+    return NO;
+  }
+  return [self isEqualToPaperDesktopPolicy:other];
+}
+
+- (BOOL)isEqualToPaperDesktopPolicy:(DBTEAMPOLICIESPaperDesktopPolicy *)aPaperDesktopPolicy {
+  if (self == aPaperDesktopPolicy) {
+    return YES;
+  }
+  if (self.tag != aPaperDesktopPolicy.tag) {
+    return NO;
+  }
+  switch (_tag) {
+  case DBTEAMPOLICIESPaperDesktopPolicyDisabled:
+    return [[self tagName] isEqual:[aPaperDesktopPolicy tagName]];
+  case DBTEAMPOLICIESPaperDesktopPolicyEnabled:
+    return [[self tagName] isEqual:[aPaperDesktopPolicy tagName]];
+  case DBTEAMPOLICIESPaperDesktopPolicyOther:
+    return [[self tagName] isEqual:[aPaperDesktopPolicy tagName]];
+  }
+  return YES;
+}
+
+@end
+
+#pragma mark - Serializer Object
+
+@implementation DBTEAMPOLICIESPaperDesktopPolicySerializer
+
++ (NSDictionary<NSString *, id> *)serialize:(DBTEAMPOLICIESPaperDesktopPolicy *)valueObj {
+  NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
+
+  if ([valueObj isDisabled]) {
+    jsonDict[@".tag"] = @"disabled";
+  } else if ([valueObj isEnabled]) {
+    jsonDict[@".tag"] = @"enabled";
+  } else if ([valueObj isOther]) {
+    jsonDict[@".tag"] = @"other";
+  } else {
+    jsonDict[@".tag"] = @"other";
+  }
+
+  return jsonDict;
+}
+
++ (DBTEAMPOLICIESPaperDesktopPolicy *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
+  NSString *tag = valueDict[@".tag"];
+
+  if ([tag isEqualToString:@"disabled"]) {
+    return [[DBTEAMPOLICIESPaperDesktopPolicy alloc] initWithDisabled];
+  } else if ([tag isEqualToString:@"enabled"]) {
+    return [[DBTEAMPOLICIESPaperDesktopPolicy alloc] initWithEnabled];
+  } else if ([tag isEqualToString:@"other"]) {
+    return [[DBTEAMPOLICIESPaperDesktopPolicy alloc] initWithOther];
+  } else {
+    return [[DBTEAMPOLICIESPaperDesktopPolicy alloc] initWithOther];
   }
 }
 
@@ -782,17 +2097,17 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBTEAMPOLICIESPaperEnabledPolicySerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBTEAMPOLICIESPaperEnabledPolicySerializer deserialize:dict];
 }
 
-#pragma mark - Description method
+#pragma mark - Debug Description method
 
-- (NSString *)description {
+- (NSString *)debugDescription {
   return [[DBTEAMPOLICIESPaperEnabledPolicySerializer serialize:self] description];
 }
 
@@ -813,12 +2128,16 @@
   switch (_tag) {
   case DBTEAMPOLICIESPaperEnabledPolicyDisabled:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBTEAMPOLICIESPaperEnabledPolicyEnabled:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBTEAMPOLICIESPaperEnabledPolicyUnspecified:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBTEAMPOLICIESPaperEnabledPolicyOther:
     result = prime * result + [[self tagName] hash];
+    break;
   }
 
   return prime * result;
@@ -862,7 +2181,7 @@
 
 @implementation DBTEAMPOLICIESPaperEnabledPolicySerializer
 
-+ (NSDictionary *)serialize:(DBTEAMPOLICIESPaperEnabledPolicy *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBTEAMPOLICIESPaperEnabledPolicy *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isDisabled]) {
@@ -877,10 +2196,10 @@
     jsonDict[@".tag"] = @"other";
   }
 
-  return [jsonDict count] > 0 ? jsonDict : nil;
+  return jsonDict;
 }
 
-+ (DBTEAMPOLICIESPaperEnabledPolicy *)deserialize:(NSDictionary *)valueDict {
++ (DBTEAMPOLICIESPaperEnabledPolicy *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"disabled"]) {
@@ -893,6 +2212,182 @@
     return [[DBTEAMPOLICIESPaperEnabledPolicy alloc] initWithOther];
   } else {
     return [[DBTEAMPOLICIESPaperEnabledPolicy alloc] initWithOther];
+  }
+}
+
+@end
+
+#import "DBStoneSerializers.h"
+#import "DBStoneValidators.h"
+#import "DBTEAMPOLICIESPasswordControlMode.h"
+
+#pragma mark - API Object
+
+@implementation DBTEAMPOLICIESPasswordControlMode
+
+#pragma mark - Constructors
+
+- (instancetype)initWithDisabled {
+  self = [super init];
+  if (self) {
+    _tag = DBTEAMPOLICIESPasswordControlModeDisabled;
+  }
+  return self;
+}
+
+- (instancetype)initWithEnabled {
+  self = [super init];
+  if (self) {
+    _tag = DBTEAMPOLICIESPasswordControlModeEnabled;
+  }
+  return self;
+}
+
+- (instancetype)initWithOther {
+  self = [super init];
+  if (self) {
+    _tag = DBTEAMPOLICIESPasswordControlModeOther;
+  }
+  return self;
+}
+
+#pragma mark - Instance field accessors
+
+#pragma mark - Tag state methods
+
+- (BOOL)isDisabled {
+  return _tag == DBTEAMPOLICIESPasswordControlModeDisabled;
+}
+
+- (BOOL)isEnabled {
+  return _tag == DBTEAMPOLICIESPasswordControlModeEnabled;
+}
+
+- (BOOL)isOther {
+  return _tag == DBTEAMPOLICIESPasswordControlModeOther;
+}
+
+- (NSString *)tagName {
+  switch (_tag) {
+  case DBTEAMPOLICIESPasswordControlModeDisabled:
+    return @"DBTEAMPOLICIESPasswordControlModeDisabled";
+  case DBTEAMPOLICIESPasswordControlModeEnabled:
+    return @"DBTEAMPOLICIESPasswordControlModeEnabled";
+  case DBTEAMPOLICIESPasswordControlModeOther:
+    return @"DBTEAMPOLICIESPasswordControlModeOther";
+  }
+
+  @throw([NSException exceptionWithName:@"InvalidTag" reason:@"Tag has an unknown value." userInfo:nil]);
+}
+
+#pragma mark - Serialization methods
+
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
+  return [DBTEAMPOLICIESPasswordControlModeSerializer serialize:instance];
+}
+
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
+  return [DBTEAMPOLICIESPasswordControlModeSerializer deserialize:dict];
+}
+
+#pragma mark - Debug Description method
+
+- (NSString *)debugDescription {
+  return [[DBTEAMPOLICIESPasswordControlModeSerializer serialize:self] description];
+}
+
+#pragma mark - Copyable method
+
+- (instancetype)copyWithZone:(NSZone *)zone {
+#pragma unused(zone)
+  /// object is immutable
+  return self;
+}
+
+#pragma mark - Hash method
+
+- (NSUInteger)hash {
+  NSUInteger prime = 31;
+  NSUInteger result = 1;
+
+  switch (_tag) {
+  case DBTEAMPOLICIESPasswordControlModeDisabled:
+    result = prime * result + [[self tagName] hash];
+    break;
+  case DBTEAMPOLICIESPasswordControlModeEnabled:
+    result = prime * result + [[self tagName] hash];
+    break;
+  case DBTEAMPOLICIESPasswordControlModeOther:
+    result = prime * result + [[self tagName] hash];
+    break;
+  }
+
+  return prime * result;
+}
+
+#pragma mark - Equality method
+
+- (BOOL)isEqual:(id)other {
+  if (other == self) {
+    return YES;
+  }
+  if (!other || ![other isKindOfClass:[self class]]) {
+    return NO;
+  }
+  return [self isEqualToPasswordControlMode:other];
+}
+
+- (BOOL)isEqualToPasswordControlMode:(DBTEAMPOLICIESPasswordControlMode *)aPasswordControlMode {
+  if (self == aPasswordControlMode) {
+    return YES;
+  }
+  if (self.tag != aPasswordControlMode.tag) {
+    return NO;
+  }
+  switch (_tag) {
+  case DBTEAMPOLICIESPasswordControlModeDisabled:
+    return [[self tagName] isEqual:[aPasswordControlMode tagName]];
+  case DBTEAMPOLICIESPasswordControlModeEnabled:
+    return [[self tagName] isEqual:[aPasswordControlMode tagName]];
+  case DBTEAMPOLICIESPasswordControlModeOther:
+    return [[self tagName] isEqual:[aPasswordControlMode tagName]];
+  }
+  return YES;
+}
+
+@end
+
+#pragma mark - Serializer Object
+
+@implementation DBTEAMPOLICIESPasswordControlModeSerializer
+
++ (NSDictionary<NSString *, id> *)serialize:(DBTEAMPOLICIESPasswordControlMode *)valueObj {
+  NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
+
+  if ([valueObj isDisabled]) {
+    jsonDict[@".tag"] = @"disabled";
+  } else if ([valueObj isEnabled]) {
+    jsonDict[@".tag"] = @"enabled";
+  } else if ([valueObj isOther]) {
+    jsonDict[@".tag"] = @"other";
+  } else {
+    jsonDict[@".tag"] = @"other";
+  }
+
+  return jsonDict;
+}
+
++ (DBTEAMPOLICIESPasswordControlMode *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
+  NSString *tag = valueDict[@".tag"];
+
+  if ([tag isEqualToString:@"disabled"]) {
+    return [[DBTEAMPOLICIESPasswordControlMode alloc] initWithDisabled];
+  } else if ([tag isEqualToString:@"enabled"]) {
+    return [[DBTEAMPOLICIESPasswordControlMode alloc] initWithEnabled];
+  } else if ([tag isEqualToString:@"other"]) {
+    return [[DBTEAMPOLICIESPasswordControlMode alloc] initWithOther];
+  } else {
+    return [[DBTEAMPOLICIESPasswordControlMode alloc] initWithOther];
   }
 }
 
@@ -977,17 +2472,17 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBTEAMPOLICIESPasswordStrengthPolicySerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBTEAMPOLICIESPasswordStrengthPolicySerializer deserialize:dict];
 }
 
-#pragma mark - Description method
+#pragma mark - Debug Description method
 
-- (NSString *)description {
+- (NSString *)debugDescription {
   return [[DBTEAMPOLICIESPasswordStrengthPolicySerializer serialize:self] description];
 }
 
@@ -1008,12 +2503,16 @@
   switch (_tag) {
   case DBTEAMPOLICIESPasswordStrengthPolicyMinimalRequirements:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBTEAMPOLICIESPasswordStrengthPolicyModeratePassword:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBTEAMPOLICIESPasswordStrengthPolicyStrongPassword:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBTEAMPOLICIESPasswordStrengthPolicyOther:
     result = prime * result + [[self tagName] hash];
+    break;
   }
 
   return prime * result;
@@ -1057,7 +2556,7 @@
 
 @implementation DBTEAMPOLICIESPasswordStrengthPolicySerializer
 
-+ (NSDictionary *)serialize:(DBTEAMPOLICIESPasswordStrengthPolicy *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBTEAMPOLICIESPasswordStrengthPolicy *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isMinimalRequirements]) {
@@ -1072,10 +2571,10 @@
     jsonDict[@".tag"] = @"other";
   }
 
-  return [jsonDict count] > 0 ? jsonDict : nil;
+  return jsonDict;
 }
 
-+ (DBTEAMPOLICIESPasswordStrengthPolicy *)deserialize:(NSDictionary *)valueDict {
++ (DBTEAMPOLICIESPasswordStrengthPolicy *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"minimal_requirements"]) {
@@ -1158,17 +2657,17 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBTEAMPOLICIESRolloutMethodSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBTEAMPOLICIESRolloutMethodSerializer deserialize:dict];
 }
 
-#pragma mark - Description method
+#pragma mark - Debug Description method
 
-- (NSString *)description {
+- (NSString *)debugDescription {
   return [[DBTEAMPOLICIESRolloutMethodSerializer serialize:self] description];
 }
 
@@ -1189,10 +2688,13 @@
   switch (_tag) {
   case DBTEAMPOLICIESRolloutMethodUnlinkAll:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBTEAMPOLICIESRolloutMethodUnlinkMostInactive:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBTEAMPOLICIESRolloutMethodAddMemberToExceptions:
     result = prime * result + [[self tagName] hash];
+    break;
   }
 
   return prime * result;
@@ -1234,7 +2736,7 @@
 
 @implementation DBTEAMPOLICIESRolloutMethodSerializer
 
-+ (NSDictionary *)serialize:(DBTEAMPOLICIESRolloutMethod *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBTEAMPOLICIESRolloutMethod *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isUnlinkAll]) {
@@ -1249,10 +2751,10 @@
                                  userInfo:nil]);
   }
 
-  return [jsonDict count] > 0 ? jsonDict : nil;
+  return jsonDict;
 }
 
-+ (DBTEAMPOLICIESRolloutMethod *)deserialize:(NSDictionary *)valueDict {
++ (DBTEAMPOLICIESRolloutMethod *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"unlink_all"]) {
@@ -1266,6 +2768,183 @@
         exceptionWithName:@"InvalidTag"
                    reason:[NSString stringWithFormat:@"Tag has an invalid value: \"%@\".", valueDict[@".tag"]]
                  userInfo:nil]);
+  }
+}
+
+@end
+
+#import "DBStoneSerializers.h"
+#import "DBStoneValidators.h"
+#import "DBTEAMPOLICIESSharedFolderBlanketLinkRestrictionPolicy.h"
+
+#pragma mark - API Object
+
+@implementation DBTEAMPOLICIESSharedFolderBlanketLinkRestrictionPolicy
+
+#pragma mark - Constructors
+
+- (instancetype)initWithMembers {
+  self = [super init];
+  if (self) {
+    _tag = DBTEAMPOLICIESSharedFolderBlanketLinkRestrictionPolicyMembers;
+  }
+  return self;
+}
+
+- (instancetype)initWithAnyone {
+  self = [super init];
+  if (self) {
+    _tag = DBTEAMPOLICIESSharedFolderBlanketLinkRestrictionPolicyAnyone;
+  }
+  return self;
+}
+
+- (instancetype)initWithOther {
+  self = [super init];
+  if (self) {
+    _tag = DBTEAMPOLICIESSharedFolderBlanketLinkRestrictionPolicyOther;
+  }
+  return self;
+}
+
+#pragma mark - Instance field accessors
+
+#pragma mark - Tag state methods
+
+- (BOOL)isMembers {
+  return _tag == DBTEAMPOLICIESSharedFolderBlanketLinkRestrictionPolicyMembers;
+}
+
+- (BOOL)isAnyone {
+  return _tag == DBTEAMPOLICIESSharedFolderBlanketLinkRestrictionPolicyAnyone;
+}
+
+- (BOOL)isOther {
+  return _tag == DBTEAMPOLICIESSharedFolderBlanketLinkRestrictionPolicyOther;
+}
+
+- (NSString *)tagName {
+  switch (_tag) {
+  case DBTEAMPOLICIESSharedFolderBlanketLinkRestrictionPolicyMembers:
+    return @"DBTEAMPOLICIESSharedFolderBlanketLinkRestrictionPolicyMembers";
+  case DBTEAMPOLICIESSharedFolderBlanketLinkRestrictionPolicyAnyone:
+    return @"DBTEAMPOLICIESSharedFolderBlanketLinkRestrictionPolicyAnyone";
+  case DBTEAMPOLICIESSharedFolderBlanketLinkRestrictionPolicyOther:
+    return @"DBTEAMPOLICIESSharedFolderBlanketLinkRestrictionPolicyOther";
+  }
+
+  @throw([NSException exceptionWithName:@"InvalidTag" reason:@"Tag has an unknown value." userInfo:nil]);
+}
+
+#pragma mark - Serialization methods
+
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
+  return [DBTEAMPOLICIESSharedFolderBlanketLinkRestrictionPolicySerializer serialize:instance];
+}
+
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
+  return [DBTEAMPOLICIESSharedFolderBlanketLinkRestrictionPolicySerializer deserialize:dict];
+}
+
+#pragma mark - Debug Description method
+
+- (NSString *)debugDescription {
+  return [[DBTEAMPOLICIESSharedFolderBlanketLinkRestrictionPolicySerializer serialize:self] description];
+}
+
+#pragma mark - Copyable method
+
+- (instancetype)copyWithZone:(NSZone *)zone {
+#pragma unused(zone)
+  /// object is immutable
+  return self;
+}
+
+#pragma mark - Hash method
+
+- (NSUInteger)hash {
+  NSUInteger prime = 31;
+  NSUInteger result = 1;
+
+  switch (_tag) {
+  case DBTEAMPOLICIESSharedFolderBlanketLinkRestrictionPolicyMembers:
+    result = prime * result + [[self tagName] hash];
+    break;
+  case DBTEAMPOLICIESSharedFolderBlanketLinkRestrictionPolicyAnyone:
+    result = prime * result + [[self tagName] hash];
+    break;
+  case DBTEAMPOLICIESSharedFolderBlanketLinkRestrictionPolicyOther:
+    result = prime * result + [[self tagName] hash];
+    break;
+  }
+
+  return prime * result;
+}
+
+#pragma mark - Equality method
+
+- (BOOL)isEqual:(id)other {
+  if (other == self) {
+    return YES;
+  }
+  if (!other || ![other isKindOfClass:[self class]]) {
+    return NO;
+  }
+  return [self isEqualToSharedFolderBlanketLinkRestrictionPolicy:other];
+}
+
+- (BOOL)isEqualToSharedFolderBlanketLinkRestrictionPolicy:
+    (DBTEAMPOLICIESSharedFolderBlanketLinkRestrictionPolicy *)aSharedFolderBlanketLinkRestrictionPolicy {
+  if (self == aSharedFolderBlanketLinkRestrictionPolicy) {
+    return YES;
+  }
+  if (self.tag != aSharedFolderBlanketLinkRestrictionPolicy.tag) {
+    return NO;
+  }
+  switch (_tag) {
+  case DBTEAMPOLICIESSharedFolderBlanketLinkRestrictionPolicyMembers:
+    return [[self tagName] isEqual:[aSharedFolderBlanketLinkRestrictionPolicy tagName]];
+  case DBTEAMPOLICIESSharedFolderBlanketLinkRestrictionPolicyAnyone:
+    return [[self tagName] isEqual:[aSharedFolderBlanketLinkRestrictionPolicy tagName]];
+  case DBTEAMPOLICIESSharedFolderBlanketLinkRestrictionPolicyOther:
+    return [[self tagName] isEqual:[aSharedFolderBlanketLinkRestrictionPolicy tagName]];
+  }
+  return YES;
+}
+
+@end
+
+#pragma mark - Serializer Object
+
+@implementation DBTEAMPOLICIESSharedFolderBlanketLinkRestrictionPolicySerializer
+
++ (NSDictionary<NSString *, id> *)serialize:(DBTEAMPOLICIESSharedFolderBlanketLinkRestrictionPolicy *)valueObj {
+  NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
+
+  if ([valueObj isMembers]) {
+    jsonDict[@".tag"] = @"members";
+  } else if ([valueObj isAnyone]) {
+    jsonDict[@".tag"] = @"anyone";
+  } else if ([valueObj isOther]) {
+    jsonDict[@".tag"] = @"other";
+  } else {
+    jsonDict[@".tag"] = @"other";
+  }
+
+  return jsonDict;
+}
+
++ (DBTEAMPOLICIESSharedFolderBlanketLinkRestrictionPolicy *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
+  NSString *tag = valueDict[@".tag"];
+
+  if ([tag isEqualToString:@"members"]) {
+    return [[DBTEAMPOLICIESSharedFolderBlanketLinkRestrictionPolicy alloc] initWithMembers];
+  } else if ([tag isEqualToString:@"anyone"]) {
+    return [[DBTEAMPOLICIESSharedFolderBlanketLinkRestrictionPolicy alloc] initWithAnyone];
+  } else if ([tag isEqualToString:@"other"]) {
+    return [[DBTEAMPOLICIESSharedFolderBlanketLinkRestrictionPolicy alloc] initWithOther];
+  } else {
+    return [[DBTEAMPOLICIESSharedFolderBlanketLinkRestrictionPolicy alloc] initWithOther];
   }
 }
 
@@ -1336,17 +3015,17 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBTEAMPOLICIESSharedFolderJoinPolicySerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBTEAMPOLICIESSharedFolderJoinPolicySerializer deserialize:dict];
 }
 
-#pragma mark - Description method
+#pragma mark - Debug Description method
 
-- (NSString *)description {
+- (NSString *)debugDescription {
   return [[DBTEAMPOLICIESSharedFolderJoinPolicySerializer serialize:self] description];
 }
 
@@ -1367,10 +3046,13 @@
   switch (_tag) {
   case DBTEAMPOLICIESSharedFolderJoinPolicyFromTeamOnly:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBTEAMPOLICIESSharedFolderJoinPolicyFromAnyone:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBTEAMPOLICIESSharedFolderJoinPolicyOther:
     result = prime * result + [[self tagName] hash];
+    break;
   }
 
   return prime * result;
@@ -1412,7 +3094,7 @@
 
 @implementation DBTEAMPOLICIESSharedFolderJoinPolicySerializer
 
-+ (NSDictionary *)serialize:(DBTEAMPOLICIESSharedFolderJoinPolicy *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBTEAMPOLICIESSharedFolderJoinPolicy *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isFromTeamOnly]) {
@@ -1425,10 +3107,10 @@
     jsonDict[@".tag"] = @"other";
   }
 
-  return [jsonDict count] > 0 ? jsonDict : nil;
+  return jsonDict;
 }
 
-+ (DBTEAMPOLICIESSharedFolderJoinPolicy *)deserialize:(NSDictionary *)valueDict {
++ (DBTEAMPOLICIESSharedFolderJoinPolicy *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"from_team_only"]) {
@@ -1509,17 +3191,17 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBTEAMPOLICIESSharedFolderMemberPolicySerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBTEAMPOLICIESSharedFolderMemberPolicySerializer deserialize:dict];
 }
 
-#pragma mark - Description method
+#pragma mark - Debug Description method
 
-- (NSString *)description {
+- (NSString *)debugDescription {
   return [[DBTEAMPOLICIESSharedFolderMemberPolicySerializer serialize:self] description];
 }
 
@@ -1540,10 +3222,13 @@
   switch (_tag) {
   case DBTEAMPOLICIESSharedFolderMemberPolicyTeam:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBTEAMPOLICIESSharedFolderMemberPolicyAnyone:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBTEAMPOLICIESSharedFolderMemberPolicyOther:
     result = prime * result + [[self tagName] hash];
+    break;
   }
 
   return prime * result;
@@ -1585,7 +3270,7 @@
 
 @implementation DBTEAMPOLICIESSharedFolderMemberPolicySerializer
 
-+ (NSDictionary *)serialize:(DBTEAMPOLICIESSharedFolderMemberPolicy *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBTEAMPOLICIESSharedFolderMemberPolicy *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isTeam]) {
@@ -1598,10 +3283,10 @@
     jsonDict[@".tag"] = @"other";
   }
 
-  return [jsonDict count] > 0 ? jsonDict : nil;
+  return jsonDict;
 }
 
-+ (DBTEAMPOLICIESSharedFolderMemberPolicy *)deserialize:(NSDictionary *)valueDict {
++ (DBTEAMPOLICIESSharedFolderMemberPolicy *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"team"]) {
@@ -1651,6 +3336,14 @@
   return self;
 }
 
+- (instancetype)initWithDefaultNoOne {
+  self = [super init];
+  if (self) {
+    _tag = DBTEAMPOLICIESSharedLinkCreatePolicyDefaultNoOne;
+  }
+  return self;
+}
+
 - (instancetype)initWithOther {
   self = [super init];
   if (self) {
@@ -1675,6 +3368,10 @@
   return _tag == DBTEAMPOLICIESSharedLinkCreatePolicyTeamOnly;
 }
 
+- (BOOL)isDefaultNoOne {
+  return _tag == DBTEAMPOLICIESSharedLinkCreatePolicyDefaultNoOne;
+}
+
 - (BOOL)isOther {
   return _tag == DBTEAMPOLICIESSharedLinkCreatePolicyOther;
 }
@@ -1687,6 +3384,8 @@
     return @"DBTEAMPOLICIESSharedLinkCreatePolicyDefaultTeamOnly";
   case DBTEAMPOLICIESSharedLinkCreatePolicyTeamOnly:
     return @"DBTEAMPOLICIESSharedLinkCreatePolicyTeamOnly";
+  case DBTEAMPOLICIESSharedLinkCreatePolicyDefaultNoOne:
+    return @"DBTEAMPOLICIESSharedLinkCreatePolicyDefaultNoOne";
   case DBTEAMPOLICIESSharedLinkCreatePolicyOther:
     return @"DBTEAMPOLICIESSharedLinkCreatePolicyOther";
   }
@@ -1696,17 +3395,17 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBTEAMPOLICIESSharedLinkCreatePolicySerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBTEAMPOLICIESSharedLinkCreatePolicySerializer deserialize:dict];
 }
 
-#pragma mark - Description method
+#pragma mark - Debug Description method
 
-- (NSString *)description {
+- (NSString *)debugDescription {
   return [[DBTEAMPOLICIESSharedLinkCreatePolicySerializer serialize:self] description];
 }
 
@@ -1727,12 +3426,19 @@
   switch (_tag) {
   case DBTEAMPOLICIESSharedLinkCreatePolicyDefaultPublic:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBTEAMPOLICIESSharedLinkCreatePolicyDefaultTeamOnly:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBTEAMPOLICIESSharedLinkCreatePolicyTeamOnly:
     result = prime * result + [[self tagName] hash];
+    break;
+  case DBTEAMPOLICIESSharedLinkCreatePolicyDefaultNoOne:
+    result = prime * result + [[self tagName] hash];
+    break;
   case DBTEAMPOLICIESSharedLinkCreatePolicyOther:
     result = prime * result + [[self tagName] hash];
+    break;
   }
 
   return prime * result;
@@ -1764,6 +3470,8 @@
     return [[self tagName] isEqual:[aSharedLinkCreatePolicy tagName]];
   case DBTEAMPOLICIESSharedLinkCreatePolicyTeamOnly:
     return [[self tagName] isEqual:[aSharedLinkCreatePolicy tagName]];
+  case DBTEAMPOLICIESSharedLinkCreatePolicyDefaultNoOne:
+    return [[self tagName] isEqual:[aSharedLinkCreatePolicy tagName]];
   case DBTEAMPOLICIESSharedLinkCreatePolicyOther:
     return [[self tagName] isEqual:[aSharedLinkCreatePolicy tagName]];
   }
@@ -1776,7 +3484,7 @@
 
 @implementation DBTEAMPOLICIESSharedLinkCreatePolicySerializer
 
-+ (NSDictionary *)serialize:(DBTEAMPOLICIESSharedLinkCreatePolicy *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBTEAMPOLICIESSharedLinkCreatePolicy *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isDefaultPublic]) {
@@ -1785,16 +3493,18 @@
     jsonDict[@".tag"] = @"default_team_only";
   } else if ([valueObj isTeamOnly]) {
     jsonDict[@".tag"] = @"team_only";
+  } else if ([valueObj isDefaultNoOne]) {
+    jsonDict[@".tag"] = @"default_no_one";
   } else if ([valueObj isOther]) {
     jsonDict[@".tag"] = @"other";
   } else {
     jsonDict[@".tag"] = @"other";
   }
 
-  return [jsonDict count] > 0 ? jsonDict : nil;
+  return jsonDict;
 }
 
-+ (DBTEAMPOLICIESSharedLinkCreatePolicy *)deserialize:(NSDictionary *)valueDict {
++ (DBTEAMPOLICIESSharedLinkCreatePolicy *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"default_public"]) {
@@ -1803,10 +3513,541 @@
     return [[DBTEAMPOLICIESSharedLinkCreatePolicy alloc] initWithDefaultTeamOnly];
   } else if ([tag isEqualToString:@"team_only"]) {
     return [[DBTEAMPOLICIESSharedLinkCreatePolicy alloc] initWithTeamOnly];
+  } else if ([tag isEqualToString:@"default_no_one"]) {
+    return [[DBTEAMPOLICIESSharedLinkCreatePolicy alloc] initWithDefaultNoOne];
   } else if ([tag isEqualToString:@"other"]) {
     return [[DBTEAMPOLICIESSharedLinkCreatePolicy alloc] initWithOther];
   } else {
     return [[DBTEAMPOLICIESSharedLinkCreatePolicy alloc] initWithOther];
+  }
+}
+
+@end
+
+#import "DBStoneSerializers.h"
+#import "DBStoneValidators.h"
+#import "DBTEAMPOLICIESShowcaseDownloadPolicy.h"
+
+#pragma mark - API Object
+
+@implementation DBTEAMPOLICIESShowcaseDownloadPolicy
+
+#pragma mark - Constructors
+
+- (instancetype)initWithDisabled {
+  self = [super init];
+  if (self) {
+    _tag = DBTEAMPOLICIESShowcaseDownloadPolicyDisabled;
+  }
+  return self;
+}
+
+- (instancetype)initWithEnabled {
+  self = [super init];
+  if (self) {
+    _tag = DBTEAMPOLICIESShowcaseDownloadPolicyEnabled;
+  }
+  return self;
+}
+
+- (instancetype)initWithOther {
+  self = [super init];
+  if (self) {
+    _tag = DBTEAMPOLICIESShowcaseDownloadPolicyOther;
+  }
+  return self;
+}
+
+#pragma mark - Instance field accessors
+
+#pragma mark - Tag state methods
+
+- (BOOL)isDisabled {
+  return _tag == DBTEAMPOLICIESShowcaseDownloadPolicyDisabled;
+}
+
+- (BOOL)isEnabled {
+  return _tag == DBTEAMPOLICIESShowcaseDownloadPolicyEnabled;
+}
+
+- (BOOL)isOther {
+  return _tag == DBTEAMPOLICIESShowcaseDownloadPolicyOther;
+}
+
+- (NSString *)tagName {
+  switch (_tag) {
+  case DBTEAMPOLICIESShowcaseDownloadPolicyDisabled:
+    return @"DBTEAMPOLICIESShowcaseDownloadPolicyDisabled";
+  case DBTEAMPOLICIESShowcaseDownloadPolicyEnabled:
+    return @"DBTEAMPOLICIESShowcaseDownloadPolicyEnabled";
+  case DBTEAMPOLICIESShowcaseDownloadPolicyOther:
+    return @"DBTEAMPOLICIESShowcaseDownloadPolicyOther";
+  }
+
+  @throw([NSException exceptionWithName:@"InvalidTag" reason:@"Tag has an unknown value." userInfo:nil]);
+}
+
+#pragma mark - Serialization methods
+
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
+  return [DBTEAMPOLICIESShowcaseDownloadPolicySerializer serialize:instance];
+}
+
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
+  return [DBTEAMPOLICIESShowcaseDownloadPolicySerializer deserialize:dict];
+}
+
+#pragma mark - Debug Description method
+
+- (NSString *)debugDescription {
+  return [[DBTEAMPOLICIESShowcaseDownloadPolicySerializer serialize:self] description];
+}
+
+#pragma mark - Copyable method
+
+- (instancetype)copyWithZone:(NSZone *)zone {
+#pragma unused(zone)
+  /// object is immutable
+  return self;
+}
+
+#pragma mark - Hash method
+
+- (NSUInteger)hash {
+  NSUInteger prime = 31;
+  NSUInteger result = 1;
+
+  switch (_tag) {
+  case DBTEAMPOLICIESShowcaseDownloadPolicyDisabled:
+    result = prime * result + [[self tagName] hash];
+    break;
+  case DBTEAMPOLICIESShowcaseDownloadPolicyEnabled:
+    result = prime * result + [[self tagName] hash];
+    break;
+  case DBTEAMPOLICIESShowcaseDownloadPolicyOther:
+    result = prime * result + [[self tagName] hash];
+    break;
+  }
+
+  return prime * result;
+}
+
+#pragma mark - Equality method
+
+- (BOOL)isEqual:(id)other {
+  if (other == self) {
+    return YES;
+  }
+  if (!other || ![other isKindOfClass:[self class]]) {
+    return NO;
+  }
+  return [self isEqualToShowcaseDownloadPolicy:other];
+}
+
+- (BOOL)isEqualToShowcaseDownloadPolicy:(DBTEAMPOLICIESShowcaseDownloadPolicy *)aShowcaseDownloadPolicy {
+  if (self == aShowcaseDownloadPolicy) {
+    return YES;
+  }
+  if (self.tag != aShowcaseDownloadPolicy.tag) {
+    return NO;
+  }
+  switch (_tag) {
+  case DBTEAMPOLICIESShowcaseDownloadPolicyDisabled:
+    return [[self tagName] isEqual:[aShowcaseDownloadPolicy tagName]];
+  case DBTEAMPOLICIESShowcaseDownloadPolicyEnabled:
+    return [[self tagName] isEqual:[aShowcaseDownloadPolicy tagName]];
+  case DBTEAMPOLICIESShowcaseDownloadPolicyOther:
+    return [[self tagName] isEqual:[aShowcaseDownloadPolicy tagName]];
+  }
+  return YES;
+}
+
+@end
+
+#pragma mark - Serializer Object
+
+@implementation DBTEAMPOLICIESShowcaseDownloadPolicySerializer
+
++ (NSDictionary<NSString *, id> *)serialize:(DBTEAMPOLICIESShowcaseDownloadPolicy *)valueObj {
+  NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
+
+  if ([valueObj isDisabled]) {
+    jsonDict[@".tag"] = @"disabled";
+  } else if ([valueObj isEnabled]) {
+    jsonDict[@".tag"] = @"enabled";
+  } else if ([valueObj isOther]) {
+    jsonDict[@".tag"] = @"other";
+  } else {
+    jsonDict[@".tag"] = @"other";
+  }
+
+  return jsonDict;
+}
+
++ (DBTEAMPOLICIESShowcaseDownloadPolicy *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
+  NSString *tag = valueDict[@".tag"];
+
+  if ([tag isEqualToString:@"disabled"]) {
+    return [[DBTEAMPOLICIESShowcaseDownloadPolicy alloc] initWithDisabled];
+  } else if ([tag isEqualToString:@"enabled"]) {
+    return [[DBTEAMPOLICIESShowcaseDownloadPolicy alloc] initWithEnabled];
+  } else if ([tag isEqualToString:@"other"]) {
+    return [[DBTEAMPOLICIESShowcaseDownloadPolicy alloc] initWithOther];
+  } else {
+    return [[DBTEAMPOLICIESShowcaseDownloadPolicy alloc] initWithOther];
+  }
+}
+
+@end
+
+#import "DBStoneSerializers.h"
+#import "DBStoneValidators.h"
+#import "DBTEAMPOLICIESShowcaseEnabledPolicy.h"
+
+#pragma mark - API Object
+
+@implementation DBTEAMPOLICIESShowcaseEnabledPolicy
+
+#pragma mark - Constructors
+
+- (instancetype)initWithDisabled {
+  self = [super init];
+  if (self) {
+    _tag = DBTEAMPOLICIESShowcaseEnabledPolicyDisabled;
+  }
+  return self;
+}
+
+- (instancetype)initWithEnabled {
+  self = [super init];
+  if (self) {
+    _tag = DBTEAMPOLICIESShowcaseEnabledPolicyEnabled;
+  }
+  return self;
+}
+
+- (instancetype)initWithOther {
+  self = [super init];
+  if (self) {
+    _tag = DBTEAMPOLICIESShowcaseEnabledPolicyOther;
+  }
+  return self;
+}
+
+#pragma mark - Instance field accessors
+
+#pragma mark - Tag state methods
+
+- (BOOL)isDisabled {
+  return _tag == DBTEAMPOLICIESShowcaseEnabledPolicyDisabled;
+}
+
+- (BOOL)isEnabled {
+  return _tag == DBTEAMPOLICIESShowcaseEnabledPolicyEnabled;
+}
+
+- (BOOL)isOther {
+  return _tag == DBTEAMPOLICIESShowcaseEnabledPolicyOther;
+}
+
+- (NSString *)tagName {
+  switch (_tag) {
+  case DBTEAMPOLICIESShowcaseEnabledPolicyDisabled:
+    return @"DBTEAMPOLICIESShowcaseEnabledPolicyDisabled";
+  case DBTEAMPOLICIESShowcaseEnabledPolicyEnabled:
+    return @"DBTEAMPOLICIESShowcaseEnabledPolicyEnabled";
+  case DBTEAMPOLICIESShowcaseEnabledPolicyOther:
+    return @"DBTEAMPOLICIESShowcaseEnabledPolicyOther";
+  }
+
+  @throw([NSException exceptionWithName:@"InvalidTag" reason:@"Tag has an unknown value." userInfo:nil]);
+}
+
+#pragma mark - Serialization methods
+
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
+  return [DBTEAMPOLICIESShowcaseEnabledPolicySerializer serialize:instance];
+}
+
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
+  return [DBTEAMPOLICIESShowcaseEnabledPolicySerializer deserialize:dict];
+}
+
+#pragma mark - Debug Description method
+
+- (NSString *)debugDescription {
+  return [[DBTEAMPOLICIESShowcaseEnabledPolicySerializer serialize:self] description];
+}
+
+#pragma mark - Copyable method
+
+- (instancetype)copyWithZone:(NSZone *)zone {
+#pragma unused(zone)
+  /// object is immutable
+  return self;
+}
+
+#pragma mark - Hash method
+
+- (NSUInteger)hash {
+  NSUInteger prime = 31;
+  NSUInteger result = 1;
+
+  switch (_tag) {
+  case DBTEAMPOLICIESShowcaseEnabledPolicyDisabled:
+    result = prime * result + [[self tagName] hash];
+    break;
+  case DBTEAMPOLICIESShowcaseEnabledPolicyEnabled:
+    result = prime * result + [[self tagName] hash];
+    break;
+  case DBTEAMPOLICIESShowcaseEnabledPolicyOther:
+    result = prime * result + [[self tagName] hash];
+    break;
+  }
+
+  return prime * result;
+}
+
+#pragma mark - Equality method
+
+- (BOOL)isEqual:(id)other {
+  if (other == self) {
+    return YES;
+  }
+  if (!other || ![other isKindOfClass:[self class]]) {
+    return NO;
+  }
+  return [self isEqualToShowcaseEnabledPolicy:other];
+}
+
+- (BOOL)isEqualToShowcaseEnabledPolicy:(DBTEAMPOLICIESShowcaseEnabledPolicy *)aShowcaseEnabledPolicy {
+  if (self == aShowcaseEnabledPolicy) {
+    return YES;
+  }
+  if (self.tag != aShowcaseEnabledPolicy.tag) {
+    return NO;
+  }
+  switch (_tag) {
+  case DBTEAMPOLICIESShowcaseEnabledPolicyDisabled:
+    return [[self tagName] isEqual:[aShowcaseEnabledPolicy tagName]];
+  case DBTEAMPOLICIESShowcaseEnabledPolicyEnabled:
+    return [[self tagName] isEqual:[aShowcaseEnabledPolicy tagName]];
+  case DBTEAMPOLICIESShowcaseEnabledPolicyOther:
+    return [[self tagName] isEqual:[aShowcaseEnabledPolicy tagName]];
+  }
+  return YES;
+}
+
+@end
+
+#pragma mark - Serializer Object
+
+@implementation DBTEAMPOLICIESShowcaseEnabledPolicySerializer
+
++ (NSDictionary<NSString *, id> *)serialize:(DBTEAMPOLICIESShowcaseEnabledPolicy *)valueObj {
+  NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
+
+  if ([valueObj isDisabled]) {
+    jsonDict[@".tag"] = @"disabled";
+  } else if ([valueObj isEnabled]) {
+    jsonDict[@".tag"] = @"enabled";
+  } else if ([valueObj isOther]) {
+    jsonDict[@".tag"] = @"other";
+  } else {
+    jsonDict[@".tag"] = @"other";
+  }
+
+  return jsonDict;
+}
+
++ (DBTEAMPOLICIESShowcaseEnabledPolicy *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
+  NSString *tag = valueDict[@".tag"];
+
+  if ([tag isEqualToString:@"disabled"]) {
+    return [[DBTEAMPOLICIESShowcaseEnabledPolicy alloc] initWithDisabled];
+  } else if ([tag isEqualToString:@"enabled"]) {
+    return [[DBTEAMPOLICIESShowcaseEnabledPolicy alloc] initWithEnabled];
+  } else if ([tag isEqualToString:@"other"]) {
+    return [[DBTEAMPOLICIESShowcaseEnabledPolicy alloc] initWithOther];
+  } else {
+    return [[DBTEAMPOLICIESShowcaseEnabledPolicy alloc] initWithOther];
+  }
+}
+
+@end
+
+#import "DBStoneSerializers.h"
+#import "DBStoneValidators.h"
+#import "DBTEAMPOLICIESShowcaseExternalSharingPolicy.h"
+
+#pragma mark - API Object
+
+@implementation DBTEAMPOLICIESShowcaseExternalSharingPolicy
+
+#pragma mark - Constructors
+
+- (instancetype)initWithDisabled {
+  self = [super init];
+  if (self) {
+    _tag = DBTEAMPOLICIESShowcaseExternalSharingPolicyDisabled;
+  }
+  return self;
+}
+
+- (instancetype)initWithEnabled {
+  self = [super init];
+  if (self) {
+    _tag = DBTEAMPOLICIESShowcaseExternalSharingPolicyEnabled;
+  }
+  return self;
+}
+
+- (instancetype)initWithOther {
+  self = [super init];
+  if (self) {
+    _tag = DBTEAMPOLICIESShowcaseExternalSharingPolicyOther;
+  }
+  return self;
+}
+
+#pragma mark - Instance field accessors
+
+#pragma mark - Tag state methods
+
+- (BOOL)isDisabled {
+  return _tag == DBTEAMPOLICIESShowcaseExternalSharingPolicyDisabled;
+}
+
+- (BOOL)isEnabled {
+  return _tag == DBTEAMPOLICIESShowcaseExternalSharingPolicyEnabled;
+}
+
+- (BOOL)isOther {
+  return _tag == DBTEAMPOLICIESShowcaseExternalSharingPolicyOther;
+}
+
+- (NSString *)tagName {
+  switch (_tag) {
+  case DBTEAMPOLICIESShowcaseExternalSharingPolicyDisabled:
+    return @"DBTEAMPOLICIESShowcaseExternalSharingPolicyDisabled";
+  case DBTEAMPOLICIESShowcaseExternalSharingPolicyEnabled:
+    return @"DBTEAMPOLICIESShowcaseExternalSharingPolicyEnabled";
+  case DBTEAMPOLICIESShowcaseExternalSharingPolicyOther:
+    return @"DBTEAMPOLICIESShowcaseExternalSharingPolicyOther";
+  }
+
+  @throw([NSException exceptionWithName:@"InvalidTag" reason:@"Tag has an unknown value." userInfo:nil]);
+}
+
+#pragma mark - Serialization methods
+
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
+  return [DBTEAMPOLICIESShowcaseExternalSharingPolicySerializer serialize:instance];
+}
+
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
+  return [DBTEAMPOLICIESShowcaseExternalSharingPolicySerializer deserialize:dict];
+}
+
+#pragma mark - Debug Description method
+
+- (NSString *)debugDescription {
+  return [[DBTEAMPOLICIESShowcaseExternalSharingPolicySerializer serialize:self] description];
+}
+
+#pragma mark - Copyable method
+
+- (instancetype)copyWithZone:(NSZone *)zone {
+#pragma unused(zone)
+  /// object is immutable
+  return self;
+}
+
+#pragma mark - Hash method
+
+- (NSUInteger)hash {
+  NSUInteger prime = 31;
+  NSUInteger result = 1;
+
+  switch (_tag) {
+  case DBTEAMPOLICIESShowcaseExternalSharingPolicyDisabled:
+    result = prime * result + [[self tagName] hash];
+    break;
+  case DBTEAMPOLICIESShowcaseExternalSharingPolicyEnabled:
+    result = prime * result + [[self tagName] hash];
+    break;
+  case DBTEAMPOLICIESShowcaseExternalSharingPolicyOther:
+    result = prime * result + [[self tagName] hash];
+    break;
+  }
+
+  return prime * result;
+}
+
+#pragma mark - Equality method
+
+- (BOOL)isEqual:(id)other {
+  if (other == self) {
+    return YES;
+  }
+  if (!other || ![other isKindOfClass:[self class]]) {
+    return NO;
+  }
+  return [self isEqualToShowcaseExternalSharingPolicy:other];
+}
+
+- (BOOL)isEqualToShowcaseExternalSharingPolicy:
+    (DBTEAMPOLICIESShowcaseExternalSharingPolicy *)aShowcaseExternalSharingPolicy {
+  if (self == aShowcaseExternalSharingPolicy) {
+    return YES;
+  }
+  if (self.tag != aShowcaseExternalSharingPolicy.tag) {
+    return NO;
+  }
+  switch (_tag) {
+  case DBTEAMPOLICIESShowcaseExternalSharingPolicyDisabled:
+    return [[self tagName] isEqual:[aShowcaseExternalSharingPolicy tagName]];
+  case DBTEAMPOLICIESShowcaseExternalSharingPolicyEnabled:
+    return [[self tagName] isEqual:[aShowcaseExternalSharingPolicy tagName]];
+  case DBTEAMPOLICIESShowcaseExternalSharingPolicyOther:
+    return [[self tagName] isEqual:[aShowcaseExternalSharingPolicy tagName]];
+  }
+  return YES;
+}
+
+@end
+
+#pragma mark - Serializer Object
+
+@implementation DBTEAMPOLICIESShowcaseExternalSharingPolicySerializer
+
++ (NSDictionary<NSString *, id> *)serialize:(DBTEAMPOLICIESShowcaseExternalSharingPolicy *)valueObj {
+  NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
+
+  if ([valueObj isDisabled]) {
+    jsonDict[@".tag"] = @"disabled";
+  } else if ([valueObj isEnabled]) {
+    jsonDict[@".tag"] = @"enabled";
+  } else if ([valueObj isOther]) {
+    jsonDict[@".tag"] = @"other";
+  } else {
+    jsonDict[@".tag"] = @"other";
+  }
+
+  return jsonDict;
+}
+
++ (DBTEAMPOLICIESShowcaseExternalSharingPolicy *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
+  NSString *tag = valueDict[@".tag"];
+
+  if ([tag isEqualToString:@"disabled"]) {
+    return [[DBTEAMPOLICIESShowcaseExternalSharingPolicy alloc] initWithDisabled];
+  } else if ([tag isEqualToString:@"enabled"]) {
+    return [[DBTEAMPOLICIESShowcaseExternalSharingPolicy alloc] initWithEnabled];
+  } else if ([tag isEqualToString:@"other"]) {
+    return [[DBTEAMPOLICIESShowcaseExternalSharingPolicy alloc] initWithOther];
+  } else {
+    return [[DBTEAMPOLICIESShowcaseExternalSharingPolicy alloc] initWithOther];
   }
 }
 
@@ -1877,17 +4118,17 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBTEAMPOLICIESSmartSyncPolicySerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBTEAMPOLICIESSmartSyncPolicySerializer deserialize:dict];
 }
 
-#pragma mark - Description method
+#pragma mark - Debug Description method
 
-- (NSString *)description {
+- (NSString *)debugDescription {
   return [[DBTEAMPOLICIESSmartSyncPolicySerializer serialize:self] description];
 }
 
@@ -1908,10 +4149,13 @@
   switch (_tag) {
   case DBTEAMPOLICIESSmartSyncPolicyLocal:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBTEAMPOLICIESSmartSyncPolicyOnDemand:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBTEAMPOLICIESSmartSyncPolicyOther:
     result = prime * result + [[self tagName] hash];
+    break;
   }
 
   return prime * result;
@@ -1953,7 +4197,7 @@
 
 @implementation DBTEAMPOLICIESSmartSyncPolicySerializer
 
-+ (NSDictionary *)serialize:(DBTEAMPOLICIESSmartSyncPolicy *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBTEAMPOLICIESSmartSyncPolicy *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isLocal]) {
@@ -1966,10 +4210,10 @@
     jsonDict[@".tag"] = @"other";
   }
 
-  return [jsonDict count] > 0 ? jsonDict : nil;
+  return jsonDict;
 }
 
-+ (DBTEAMPOLICIESSmartSyncPolicy *)deserialize:(NSDictionary *)valueDict {
++ (DBTEAMPOLICIESSmartSyncPolicy *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"local"]) {
@@ -1980,6 +4224,182 @@
     return [[DBTEAMPOLICIESSmartSyncPolicy alloc] initWithOther];
   } else {
     return [[DBTEAMPOLICIESSmartSyncPolicy alloc] initWithOther];
+  }
+}
+
+@end
+
+#import "DBStoneSerializers.h"
+#import "DBStoneValidators.h"
+#import "DBTEAMPOLICIESSmarterSmartSyncPolicyState.h"
+
+#pragma mark - API Object
+
+@implementation DBTEAMPOLICIESSmarterSmartSyncPolicyState
+
+#pragma mark - Constructors
+
+- (instancetype)initWithDisabled {
+  self = [super init];
+  if (self) {
+    _tag = DBTEAMPOLICIESSmarterSmartSyncPolicyStateDisabled;
+  }
+  return self;
+}
+
+- (instancetype)initWithEnabled {
+  self = [super init];
+  if (self) {
+    _tag = DBTEAMPOLICIESSmarterSmartSyncPolicyStateEnabled;
+  }
+  return self;
+}
+
+- (instancetype)initWithOther {
+  self = [super init];
+  if (self) {
+    _tag = DBTEAMPOLICIESSmarterSmartSyncPolicyStateOther;
+  }
+  return self;
+}
+
+#pragma mark - Instance field accessors
+
+#pragma mark - Tag state methods
+
+- (BOOL)isDisabled {
+  return _tag == DBTEAMPOLICIESSmarterSmartSyncPolicyStateDisabled;
+}
+
+- (BOOL)isEnabled {
+  return _tag == DBTEAMPOLICIESSmarterSmartSyncPolicyStateEnabled;
+}
+
+- (BOOL)isOther {
+  return _tag == DBTEAMPOLICIESSmarterSmartSyncPolicyStateOther;
+}
+
+- (NSString *)tagName {
+  switch (_tag) {
+  case DBTEAMPOLICIESSmarterSmartSyncPolicyStateDisabled:
+    return @"DBTEAMPOLICIESSmarterSmartSyncPolicyStateDisabled";
+  case DBTEAMPOLICIESSmarterSmartSyncPolicyStateEnabled:
+    return @"DBTEAMPOLICIESSmarterSmartSyncPolicyStateEnabled";
+  case DBTEAMPOLICIESSmarterSmartSyncPolicyStateOther:
+    return @"DBTEAMPOLICIESSmarterSmartSyncPolicyStateOther";
+  }
+
+  @throw([NSException exceptionWithName:@"InvalidTag" reason:@"Tag has an unknown value." userInfo:nil]);
+}
+
+#pragma mark - Serialization methods
+
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
+  return [DBTEAMPOLICIESSmarterSmartSyncPolicyStateSerializer serialize:instance];
+}
+
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
+  return [DBTEAMPOLICIESSmarterSmartSyncPolicyStateSerializer deserialize:dict];
+}
+
+#pragma mark - Debug Description method
+
+- (NSString *)debugDescription {
+  return [[DBTEAMPOLICIESSmarterSmartSyncPolicyStateSerializer serialize:self] description];
+}
+
+#pragma mark - Copyable method
+
+- (instancetype)copyWithZone:(NSZone *)zone {
+#pragma unused(zone)
+  /// object is immutable
+  return self;
+}
+
+#pragma mark - Hash method
+
+- (NSUInteger)hash {
+  NSUInteger prime = 31;
+  NSUInteger result = 1;
+
+  switch (_tag) {
+  case DBTEAMPOLICIESSmarterSmartSyncPolicyStateDisabled:
+    result = prime * result + [[self tagName] hash];
+    break;
+  case DBTEAMPOLICIESSmarterSmartSyncPolicyStateEnabled:
+    result = prime * result + [[self tagName] hash];
+    break;
+  case DBTEAMPOLICIESSmarterSmartSyncPolicyStateOther:
+    result = prime * result + [[self tagName] hash];
+    break;
+  }
+
+  return prime * result;
+}
+
+#pragma mark - Equality method
+
+- (BOOL)isEqual:(id)other {
+  if (other == self) {
+    return YES;
+  }
+  if (!other || ![other isKindOfClass:[self class]]) {
+    return NO;
+  }
+  return [self isEqualToSmarterSmartSyncPolicyState:other];
+}
+
+- (BOOL)isEqualToSmarterSmartSyncPolicyState:(DBTEAMPOLICIESSmarterSmartSyncPolicyState *)aSmarterSmartSyncPolicyState {
+  if (self == aSmarterSmartSyncPolicyState) {
+    return YES;
+  }
+  if (self.tag != aSmarterSmartSyncPolicyState.tag) {
+    return NO;
+  }
+  switch (_tag) {
+  case DBTEAMPOLICIESSmarterSmartSyncPolicyStateDisabled:
+    return [[self tagName] isEqual:[aSmarterSmartSyncPolicyState tagName]];
+  case DBTEAMPOLICIESSmarterSmartSyncPolicyStateEnabled:
+    return [[self tagName] isEqual:[aSmarterSmartSyncPolicyState tagName]];
+  case DBTEAMPOLICIESSmarterSmartSyncPolicyStateOther:
+    return [[self tagName] isEqual:[aSmarterSmartSyncPolicyState tagName]];
+  }
+  return YES;
+}
+
+@end
+
+#pragma mark - Serializer Object
+
+@implementation DBTEAMPOLICIESSmarterSmartSyncPolicyStateSerializer
+
++ (NSDictionary<NSString *, id> *)serialize:(DBTEAMPOLICIESSmarterSmartSyncPolicyState *)valueObj {
+  NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
+
+  if ([valueObj isDisabled]) {
+    jsonDict[@".tag"] = @"disabled";
+  } else if ([valueObj isEnabled]) {
+    jsonDict[@".tag"] = @"enabled";
+  } else if ([valueObj isOther]) {
+    jsonDict[@".tag"] = @"other";
+  } else {
+    jsonDict[@".tag"] = @"other";
+  }
+
+  return jsonDict;
+}
+
++ (DBTEAMPOLICIESSmarterSmartSyncPolicyState *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
+  NSString *tag = valueDict[@".tag"];
+
+  if ([tag isEqualToString:@"disabled"]) {
+    return [[DBTEAMPOLICIESSmarterSmartSyncPolicyState alloc] initWithDisabled];
+  } else if ([tag isEqualToString:@"enabled"]) {
+    return [[DBTEAMPOLICIESSmarterSmartSyncPolicyState alloc] initWithEnabled];
+  } else if ([tag isEqualToString:@"other"]) {
+    return [[DBTEAMPOLICIESSmarterSmartSyncPolicyState alloc] initWithOther];
+  } else {
+    return [[DBTEAMPOLICIESSmarterSmartSyncPolicyState alloc] initWithOther];
   }
 }
 
@@ -2064,17 +4484,17 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBTEAMPOLICIESSsoPolicySerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBTEAMPOLICIESSsoPolicySerializer deserialize:dict];
 }
 
-#pragma mark - Description method
+#pragma mark - Debug Description method
 
-- (NSString *)description {
+- (NSString *)debugDescription {
   return [[DBTEAMPOLICIESSsoPolicySerializer serialize:self] description];
 }
 
@@ -2095,12 +4515,16 @@
   switch (_tag) {
   case DBTEAMPOLICIESSsoPolicyDisabled:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBTEAMPOLICIESSsoPolicyOptional:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBTEAMPOLICIESSsoPolicyRequired:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBTEAMPOLICIESSsoPolicyOther:
     result = prime * result + [[self tagName] hash];
+    break;
   }
 
   return prime * result;
@@ -2144,7 +4568,7 @@
 
 @implementation DBTEAMPOLICIESSsoPolicySerializer
 
-+ (NSDictionary *)serialize:(DBTEAMPOLICIESSsoPolicy *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBTEAMPOLICIESSsoPolicy *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isDisabled]) {
@@ -2159,10 +4583,10 @@
     jsonDict[@".tag"] = @"other";
   }
 
-  return [jsonDict count] > 0 ? jsonDict : nil;
+  return jsonDict;
 }
 
-+ (DBTEAMPOLICIESSsoPolicy *)deserialize:(NSDictionary *)valueDict {
++ (DBTEAMPOLICIESSsoPolicy *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"disabled"]) {
@@ -2182,8 +4606,185 @@
 
 #import "DBStoneSerializers.h"
 #import "DBStoneValidators.h"
+#import "DBTEAMPOLICIESSuggestMembersPolicy.h"
+
+#pragma mark - API Object
+
+@implementation DBTEAMPOLICIESSuggestMembersPolicy
+
+#pragma mark - Constructors
+
+- (instancetype)initWithDisabled {
+  self = [super init];
+  if (self) {
+    _tag = DBTEAMPOLICIESSuggestMembersPolicyDisabled;
+  }
+  return self;
+}
+
+- (instancetype)initWithEnabled {
+  self = [super init];
+  if (self) {
+    _tag = DBTEAMPOLICIESSuggestMembersPolicyEnabled;
+  }
+  return self;
+}
+
+- (instancetype)initWithOther {
+  self = [super init];
+  if (self) {
+    _tag = DBTEAMPOLICIESSuggestMembersPolicyOther;
+  }
+  return self;
+}
+
+#pragma mark - Instance field accessors
+
+#pragma mark - Tag state methods
+
+- (BOOL)isDisabled {
+  return _tag == DBTEAMPOLICIESSuggestMembersPolicyDisabled;
+}
+
+- (BOOL)isEnabled {
+  return _tag == DBTEAMPOLICIESSuggestMembersPolicyEnabled;
+}
+
+- (BOOL)isOther {
+  return _tag == DBTEAMPOLICIESSuggestMembersPolicyOther;
+}
+
+- (NSString *)tagName {
+  switch (_tag) {
+  case DBTEAMPOLICIESSuggestMembersPolicyDisabled:
+    return @"DBTEAMPOLICIESSuggestMembersPolicyDisabled";
+  case DBTEAMPOLICIESSuggestMembersPolicyEnabled:
+    return @"DBTEAMPOLICIESSuggestMembersPolicyEnabled";
+  case DBTEAMPOLICIESSuggestMembersPolicyOther:
+    return @"DBTEAMPOLICIESSuggestMembersPolicyOther";
+  }
+
+  @throw([NSException exceptionWithName:@"InvalidTag" reason:@"Tag has an unknown value." userInfo:nil]);
+}
+
+#pragma mark - Serialization methods
+
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
+  return [DBTEAMPOLICIESSuggestMembersPolicySerializer serialize:instance];
+}
+
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
+  return [DBTEAMPOLICIESSuggestMembersPolicySerializer deserialize:dict];
+}
+
+#pragma mark - Debug Description method
+
+- (NSString *)debugDescription {
+  return [[DBTEAMPOLICIESSuggestMembersPolicySerializer serialize:self] description];
+}
+
+#pragma mark - Copyable method
+
+- (instancetype)copyWithZone:(NSZone *)zone {
+#pragma unused(zone)
+  /// object is immutable
+  return self;
+}
+
+#pragma mark - Hash method
+
+- (NSUInteger)hash {
+  NSUInteger prime = 31;
+  NSUInteger result = 1;
+
+  switch (_tag) {
+  case DBTEAMPOLICIESSuggestMembersPolicyDisabled:
+    result = prime * result + [[self tagName] hash];
+    break;
+  case DBTEAMPOLICIESSuggestMembersPolicyEnabled:
+    result = prime * result + [[self tagName] hash];
+    break;
+  case DBTEAMPOLICIESSuggestMembersPolicyOther:
+    result = prime * result + [[self tagName] hash];
+    break;
+  }
+
+  return prime * result;
+}
+
+#pragma mark - Equality method
+
+- (BOOL)isEqual:(id)other {
+  if (other == self) {
+    return YES;
+  }
+  if (!other || ![other isKindOfClass:[self class]]) {
+    return NO;
+  }
+  return [self isEqualToSuggestMembersPolicy:other];
+}
+
+- (BOOL)isEqualToSuggestMembersPolicy:(DBTEAMPOLICIESSuggestMembersPolicy *)aSuggestMembersPolicy {
+  if (self == aSuggestMembersPolicy) {
+    return YES;
+  }
+  if (self.tag != aSuggestMembersPolicy.tag) {
+    return NO;
+  }
+  switch (_tag) {
+  case DBTEAMPOLICIESSuggestMembersPolicyDisabled:
+    return [[self tagName] isEqual:[aSuggestMembersPolicy tagName]];
+  case DBTEAMPOLICIESSuggestMembersPolicyEnabled:
+    return [[self tagName] isEqual:[aSuggestMembersPolicy tagName]];
+  case DBTEAMPOLICIESSuggestMembersPolicyOther:
+    return [[self tagName] isEqual:[aSuggestMembersPolicy tagName]];
+  }
+  return YES;
+}
+
+@end
+
+#pragma mark - Serializer Object
+
+@implementation DBTEAMPOLICIESSuggestMembersPolicySerializer
+
++ (NSDictionary<NSString *, id> *)serialize:(DBTEAMPOLICIESSuggestMembersPolicy *)valueObj {
+  NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
+
+  if ([valueObj isDisabled]) {
+    jsonDict[@".tag"] = @"disabled";
+  } else if ([valueObj isEnabled]) {
+    jsonDict[@".tag"] = @"enabled";
+  } else if ([valueObj isOther]) {
+    jsonDict[@".tag"] = @"other";
+  } else {
+    jsonDict[@".tag"] = @"other";
+  }
+
+  return jsonDict;
+}
+
++ (DBTEAMPOLICIESSuggestMembersPolicy *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
+  NSString *tag = valueDict[@".tag"];
+
+  if ([tag isEqualToString:@"disabled"]) {
+    return [[DBTEAMPOLICIESSuggestMembersPolicy alloc] initWithDisabled];
+  } else if ([tag isEqualToString:@"enabled"]) {
+    return [[DBTEAMPOLICIESSuggestMembersPolicy alloc] initWithEnabled];
+  } else if ([tag isEqualToString:@"other"]) {
+    return [[DBTEAMPOLICIESSuggestMembersPolicy alloc] initWithOther];
+  } else {
+    return [[DBTEAMPOLICIESSuggestMembersPolicy alloc] initWithOther];
+  }
+}
+
+@end
+
+#import "DBStoneSerializers.h"
+#import "DBStoneValidators.h"
 #import "DBTEAMPOLICIESEmmState.h"
 #import "DBTEAMPOLICIESOfficeAddInPolicy.h"
+#import "DBTEAMPOLICIESSuggestMembersPolicy.h"
 #import "DBTEAMPOLICIESTeamMemberPolicies.h"
 #import "DBTEAMPOLICIESTeamSharingPolicies.h"
 
@@ -2195,33 +4796,36 @@
 
 - (instancetype)initWithSharing:(DBTEAMPOLICIESTeamSharingPolicies *)sharing
                        emmState:(DBTEAMPOLICIESEmmState *)emmState
-                    officeAddin:(DBTEAMPOLICIESOfficeAddInPolicy *)officeAddin {
+                    officeAddin:(DBTEAMPOLICIESOfficeAddInPolicy *)officeAddin
+           suggestMembersPolicy:(DBTEAMPOLICIESSuggestMembersPolicy *)suggestMembersPolicy {
   [DBStoneValidators nonnullValidator:nil](sharing);
   [DBStoneValidators nonnullValidator:nil](emmState);
   [DBStoneValidators nonnullValidator:nil](officeAddin);
+  [DBStoneValidators nonnullValidator:nil](suggestMembersPolicy);
 
   self = [super init];
   if (self) {
     _sharing = sharing;
     _emmState = emmState;
     _officeAddin = officeAddin;
+    _suggestMembersPolicy = suggestMembersPolicy;
   }
   return self;
 }
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBTEAMPOLICIESTeamMemberPoliciesSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBTEAMPOLICIESTeamMemberPoliciesSerializer deserialize:dict];
 }
 
-#pragma mark - Description method
+#pragma mark - Debug Description method
 
-- (NSString *)description {
+- (NSString *)debugDescription {
   return [[DBTEAMPOLICIESTeamMemberPoliciesSerializer serialize:self] description];
 }
 
@@ -2242,6 +4846,7 @@
   result = prime * result + [self.sharing hash];
   result = prime * result + [self.emmState hash];
   result = prime * result + [self.officeAddin hash];
+  result = prime * result + [self.suggestMembersPolicy hash];
 
   return prime * result;
 }
@@ -2271,6 +4876,9 @@
   if (![self.officeAddin isEqual:aTeamMemberPolicies.officeAddin]) {
     return NO;
   }
+  if (![self.suggestMembersPolicy isEqual:aTeamMemberPolicies.suggestMembersPolicy]) {
+    return NO;
+  }
   return YES;
 }
 
@@ -2280,30 +4888,39 @@
 
 @implementation DBTEAMPOLICIESTeamMemberPoliciesSerializer
 
-+ (NSDictionary *)serialize:(DBTEAMPOLICIESTeamMemberPolicies *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBTEAMPOLICIESTeamMemberPolicies *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"sharing"] = [DBTEAMPOLICIESTeamSharingPoliciesSerializer serialize:valueObj.sharing];
   jsonDict[@"emm_state"] = [DBTEAMPOLICIESEmmStateSerializer serialize:valueObj.emmState];
   jsonDict[@"office_addin"] = [DBTEAMPOLICIESOfficeAddInPolicySerializer serialize:valueObj.officeAddin];
+  jsonDict[@"suggest_members_policy"] =
+      [DBTEAMPOLICIESSuggestMembersPolicySerializer serialize:valueObj.suggestMembersPolicy];
 
-  return [jsonDict count] > 0 ? jsonDict : nil;
+  return jsonDict;
 }
 
-+ (DBTEAMPOLICIESTeamMemberPolicies *)deserialize:(NSDictionary *)valueDict {
++ (DBTEAMPOLICIESTeamMemberPolicies *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   DBTEAMPOLICIESTeamSharingPolicies *sharing =
       [DBTEAMPOLICIESTeamSharingPoliciesSerializer deserialize:valueDict[@"sharing"]];
   DBTEAMPOLICIESEmmState *emmState = [DBTEAMPOLICIESEmmStateSerializer deserialize:valueDict[@"emm_state"]];
   DBTEAMPOLICIESOfficeAddInPolicy *officeAddin =
       [DBTEAMPOLICIESOfficeAddInPolicySerializer deserialize:valueDict[@"office_addin"]];
+  DBTEAMPOLICIESSuggestMembersPolicy *suggestMembersPolicy =
+      [DBTEAMPOLICIESSuggestMembersPolicySerializer deserialize:valueDict[@"suggest_members_policy"]];
 
-  return [[DBTEAMPOLICIESTeamMemberPolicies alloc] initWithSharing:sharing emmState:emmState officeAddin:officeAddin];
+  return [[DBTEAMPOLICIESTeamMemberPolicies alloc] initWithSharing:sharing
+                                                          emmState:emmState
+                                                       officeAddin:officeAddin
+                                              suggestMembersPolicy:suggestMembersPolicy];
 }
 
 @end
 
 #import "DBStoneSerializers.h"
 #import "DBStoneValidators.h"
+#import "DBTEAMPOLICIESGroupCreation.h"
+#import "DBTEAMPOLICIESSharedFolderBlanketLinkRestrictionPolicy.h"
 #import "DBTEAMPOLICIESSharedFolderJoinPolicy.h"
 #import "DBTEAMPOLICIESSharedFolderMemberPolicy.h"
 #import "DBTEAMPOLICIESSharedLinkCreatePolicy.h"
@@ -2317,33 +4934,40 @@
 
 - (instancetype)initWithSharedFolderMemberPolicy:(DBTEAMPOLICIESSharedFolderMemberPolicy *)sharedFolderMemberPolicy
                           sharedFolderJoinPolicy:(DBTEAMPOLICIESSharedFolderJoinPolicy *)sharedFolderJoinPolicy
-                          sharedLinkCreatePolicy:(DBTEAMPOLICIESSharedLinkCreatePolicy *)sharedLinkCreatePolicy {
+                          sharedLinkCreatePolicy:(DBTEAMPOLICIESSharedLinkCreatePolicy *)sharedLinkCreatePolicy
+                             groupCreationPolicy:(DBTEAMPOLICIESGroupCreation *)groupCreationPolicy
+               sharedFolderLinkRestrictionPolicy:
+                   (DBTEAMPOLICIESSharedFolderBlanketLinkRestrictionPolicy *)sharedFolderLinkRestrictionPolicy {
   [DBStoneValidators nonnullValidator:nil](sharedFolderMemberPolicy);
   [DBStoneValidators nonnullValidator:nil](sharedFolderJoinPolicy);
   [DBStoneValidators nonnullValidator:nil](sharedLinkCreatePolicy);
+  [DBStoneValidators nonnullValidator:nil](groupCreationPolicy);
+  [DBStoneValidators nonnullValidator:nil](sharedFolderLinkRestrictionPolicy);
 
   self = [super init];
   if (self) {
     _sharedFolderMemberPolicy = sharedFolderMemberPolicy;
     _sharedFolderJoinPolicy = sharedFolderJoinPolicy;
     _sharedLinkCreatePolicy = sharedLinkCreatePolicy;
+    _groupCreationPolicy = groupCreationPolicy;
+    _sharedFolderLinkRestrictionPolicy = sharedFolderLinkRestrictionPolicy;
   }
   return self;
 }
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBTEAMPOLICIESTeamSharingPoliciesSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBTEAMPOLICIESTeamSharingPoliciesSerializer deserialize:dict];
 }
 
-#pragma mark - Description method
+#pragma mark - Debug Description method
 
-- (NSString *)description {
+- (NSString *)debugDescription {
   return [[DBTEAMPOLICIESTeamSharingPoliciesSerializer serialize:self] description];
 }
 
@@ -2364,6 +4988,8 @@
   result = prime * result + [self.sharedFolderMemberPolicy hash];
   result = prime * result + [self.sharedFolderJoinPolicy hash];
   result = prime * result + [self.sharedLinkCreatePolicy hash];
+  result = prime * result + [self.groupCreationPolicy hash];
+  result = prime * result + [self.sharedFolderLinkRestrictionPolicy hash];
 
   return prime * result;
 }
@@ -2393,6 +5019,12 @@
   if (![self.sharedLinkCreatePolicy isEqual:aTeamSharingPolicies.sharedLinkCreatePolicy]) {
     return NO;
   }
+  if (![self.groupCreationPolicy isEqual:aTeamSharingPolicies.groupCreationPolicy]) {
+    return NO;
+  }
+  if (![self.sharedFolderLinkRestrictionPolicy isEqual:aTeamSharingPolicies.sharedFolderLinkRestrictionPolicy]) {
+    return NO;
+  }
   return YES;
 }
 
@@ -2402,7 +5034,7 @@
 
 @implementation DBTEAMPOLICIESTeamSharingPoliciesSerializer
 
-+ (NSDictionary *)serialize:(DBTEAMPOLICIESTeamSharingPolicies *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBTEAMPOLICIESTeamSharingPolicies *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"shared_folder_member_policy"] =
@@ -2411,21 +5043,31 @@
       [DBTEAMPOLICIESSharedFolderJoinPolicySerializer serialize:valueObj.sharedFolderJoinPolicy];
   jsonDict[@"shared_link_create_policy"] =
       [DBTEAMPOLICIESSharedLinkCreatePolicySerializer serialize:valueObj.sharedLinkCreatePolicy];
+  jsonDict[@"group_creation_policy"] = [DBTEAMPOLICIESGroupCreationSerializer serialize:valueObj.groupCreationPolicy];
+  jsonDict[@"shared_folder_link_restriction_policy"] = [DBTEAMPOLICIESSharedFolderBlanketLinkRestrictionPolicySerializer
+      serialize:valueObj.sharedFolderLinkRestrictionPolicy];
 
-  return [jsonDict count] > 0 ? jsonDict : nil;
+  return jsonDict;
 }
 
-+ (DBTEAMPOLICIESTeamSharingPolicies *)deserialize:(NSDictionary *)valueDict {
++ (DBTEAMPOLICIESTeamSharingPolicies *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   DBTEAMPOLICIESSharedFolderMemberPolicy *sharedFolderMemberPolicy =
       [DBTEAMPOLICIESSharedFolderMemberPolicySerializer deserialize:valueDict[@"shared_folder_member_policy"]];
   DBTEAMPOLICIESSharedFolderJoinPolicy *sharedFolderJoinPolicy =
       [DBTEAMPOLICIESSharedFolderJoinPolicySerializer deserialize:valueDict[@"shared_folder_join_policy"]];
   DBTEAMPOLICIESSharedLinkCreatePolicy *sharedLinkCreatePolicy =
       [DBTEAMPOLICIESSharedLinkCreatePolicySerializer deserialize:valueDict[@"shared_link_create_policy"]];
+  DBTEAMPOLICIESGroupCreation *groupCreationPolicy =
+      [DBTEAMPOLICIESGroupCreationSerializer deserialize:valueDict[@"group_creation_policy"]];
+  DBTEAMPOLICIESSharedFolderBlanketLinkRestrictionPolicy *sharedFolderLinkRestrictionPolicy =
+      [DBTEAMPOLICIESSharedFolderBlanketLinkRestrictionPolicySerializer
+          deserialize:valueDict[@"shared_folder_link_restriction_policy"]];
 
   return [[DBTEAMPOLICIESTeamSharingPolicies alloc] initWithSharedFolderMemberPolicy:sharedFolderMemberPolicy
                                                               sharedFolderJoinPolicy:sharedFolderJoinPolicy
-                                                              sharedLinkCreatePolicy:sharedLinkCreatePolicy];
+                                                              sharedLinkCreatePolicy:sharedLinkCreatePolicy
+                                                                 groupCreationPolicy:groupCreationPolicy
+                                                   sharedFolderLinkRestrictionPolicy:sharedFolderLinkRestrictionPolicy];
 }
 
 @end
@@ -2495,17 +5137,17 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBTEAMPOLICIESTwoStepVerificationPolicySerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBTEAMPOLICIESTwoStepVerificationPolicySerializer deserialize:dict];
 }
 
-#pragma mark - Description method
+#pragma mark - Debug Description method
 
-- (NSString *)description {
+- (NSString *)debugDescription {
   return [[DBTEAMPOLICIESTwoStepVerificationPolicySerializer serialize:self] description];
 }
 
@@ -2526,10 +5168,13 @@
   switch (_tag) {
   case DBTEAMPOLICIESTwoStepVerificationPolicyRequireTfaEnable:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBTEAMPOLICIESTwoStepVerificationPolicyRequireTfaDisable:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBTEAMPOLICIESTwoStepVerificationPolicyOther:
     result = prime * result + [[self tagName] hash];
+    break;
   }
 
   return prime * result;
@@ -2571,7 +5216,7 @@
 
 @implementation DBTEAMPOLICIESTwoStepVerificationPolicySerializer
 
-+ (NSDictionary *)serialize:(DBTEAMPOLICIESTwoStepVerificationPolicy *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBTEAMPOLICIESTwoStepVerificationPolicy *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isRequireTfaEnable]) {
@@ -2584,10 +5229,10 @@
     jsonDict[@".tag"] = @"other";
   }
 
-  return [jsonDict count] > 0 ? jsonDict : nil;
+  return jsonDict;
 }
 
-+ (DBTEAMPOLICIESTwoStepVerificationPolicy *)deserialize:(NSDictionary *)valueDict {
++ (DBTEAMPOLICIESTwoStepVerificationPolicy *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"require_tfa_enable"]) {
@@ -2598,6 +5243,205 @@
     return [[DBTEAMPOLICIESTwoStepVerificationPolicy alloc] initWithOther];
   } else {
     return [[DBTEAMPOLICIESTwoStepVerificationPolicy alloc] initWithOther];
+  }
+}
+
+@end
+
+#import "DBStoneSerializers.h"
+#import "DBStoneValidators.h"
+#import "DBTEAMPOLICIESTwoStepVerificationState.h"
+
+#pragma mark - API Object
+
+@implementation DBTEAMPOLICIESTwoStepVerificationState
+
+#pragma mark - Constructors
+
+- (instancetype)initWithRequired {
+  self = [super init];
+  if (self) {
+    _tag = DBTEAMPOLICIESTwoStepVerificationStateRequired;
+  }
+  return self;
+}
+
+- (instancetype)initWithOptional {
+  self = [super init];
+  if (self) {
+    _tag = DBTEAMPOLICIESTwoStepVerificationStateOptional;
+  }
+  return self;
+}
+
+- (instancetype)initWithDisabled {
+  self = [super init];
+  if (self) {
+    _tag = DBTEAMPOLICIESTwoStepVerificationStateDisabled;
+  }
+  return self;
+}
+
+- (instancetype)initWithOther {
+  self = [super init];
+  if (self) {
+    _tag = DBTEAMPOLICIESTwoStepVerificationStateOther;
+  }
+  return self;
+}
+
+#pragma mark - Instance field accessors
+
+#pragma mark - Tag state methods
+
+- (BOOL)isRequired {
+  return _tag == DBTEAMPOLICIESTwoStepVerificationStateRequired;
+}
+
+- (BOOL)isOptional {
+  return _tag == DBTEAMPOLICIESTwoStepVerificationStateOptional;
+}
+
+- (BOOL)isDisabled {
+  return _tag == DBTEAMPOLICIESTwoStepVerificationStateDisabled;
+}
+
+- (BOOL)isOther {
+  return _tag == DBTEAMPOLICIESTwoStepVerificationStateOther;
+}
+
+- (NSString *)tagName {
+  switch (_tag) {
+  case DBTEAMPOLICIESTwoStepVerificationStateRequired:
+    return @"DBTEAMPOLICIESTwoStepVerificationStateRequired";
+  case DBTEAMPOLICIESTwoStepVerificationStateOptional:
+    return @"DBTEAMPOLICIESTwoStepVerificationStateOptional";
+  case DBTEAMPOLICIESTwoStepVerificationStateDisabled:
+    return @"DBTEAMPOLICIESTwoStepVerificationStateDisabled";
+  case DBTEAMPOLICIESTwoStepVerificationStateOther:
+    return @"DBTEAMPOLICIESTwoStepVerificationStateOther";
+  }
+
+  @throw([NSException exceptionWithName:@"InvalidTag" reason:@"Tag has an unknown value." userInfo:nil]);
+}
+
+#pragma mark - Serialization methods
+
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
+  return [DBTEAMPOLICIESTwoStepVerificationStateSerializer serialize:instance];
+}
+
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
+  return [DBTEAMPOLICIESTwoStepVerificationStateSerializer deserialize:dict];
+}
+
+#pragma mark - Debug Description method
+
+- (NSString *)debugDescription {
+  return [[DBTEAMPOLICIESTwoStepVerificationStateSerializer serialize:self] description];
+}
+
+#pragma mark - Copyable method
+
+- (instancetype)copyWithZone:(NSZone *)zone {
+#pragma unused(zone)
+  /// object is immutable
+  return self;
+}
+
+#pragma mark - Hash method
+
+- (NSUInteger)hash {
+  NSUInteger prime = 31;
+  NSUInteger result = 1;
+
+  switch (_tag) {
+  case DBTEAMPOLICIESTwoStepVerificationStateRequired:
+    result = prime * result + [[self tagName] hash];
+    break;
+  case DBTEAMPOLICIESTwoStepVerificationStateOptional:
+    result = prime * result + [[self tagName] hash];
+    break;
+  case DBTEAMPOLICIESTwoStepVerificationStateDisabled:
+    result = prime * result + [[self tagName] hash];
+    break;
+  case DBTEAMPOLICIESTwoStepVerificationStateOther:
+    result = prime * result + [[self tagName] hash];
+    break;
+  }
+
+  return prime * result;
+}
+
+#pragma mark - Equality method
+
+- (BOOL)isEqual:(id)other {
+  if (other == self) {
+    return YES;
+  }
+  if (!other || ![other isKindOfClass:[self class]]) {
+    return NO;
+  }
+  return [self isEqualToTwoStepVerificationState:other];
+}
+
+- (BOOL)isEqualToTwoStepVerificationState:(DBTEAMPOLICIESTwoStepVerificationState *)aTwoStepVerificationState {
+  if (self == aTwoStepVerificationState) {
+    return YES;
+  }
+  if (self.tag != aTwoStepVerificationState.tag) {
+    return NO;
+  }
+  switch (_tag) {
+  case DBTEAMPOLICIESTwoStepVerificationStateRequired:
+    return [[self tagName] isEqual:[aTwoStepVerificationState tagName]];
+  case DBTEAMPOLICIESTwoStepVerificationStateOptional:
+    return [[self tagName] isEqual:[aTwoStepVerificationState tagName]];
+  case DBTEAMPOLICIESTwoStepVerificationStateDisabled:
+    return [[self tagName] isEqual:[aTwoStepVerificationState tagName]];
+  case DBTEAMPOLICIESTwoStepVerificationStateOther:
+    return [[self tagName] isEqual:[aTwoStepVerificationState tagName]];
+  }
+  return YES;
+}
+
+@end
+
+#pragma mark - Serializer Object
+
+@implementation DBTEAMPOLICIESTwoStepVerificationStateSerializer
+
++ (NSDictionary<NSString *, id> *)serialize:(DBTEAMPOLICIESTwoStepVerificationState *)valueObj {
+  NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
+
+  if ([valueObj isRequired]) {
+    jsonDict[@".tag"] = @"required";
+  } else if ([valueObj isOptional]) {
+    jsonDict[@".tag"] = @"optional";
+  } else if ([valueObj isDisabled]) {
+    jsonDict[@".tag"] = @"disabled";
+  } else if ([valueObj isOther]) {
+    jsonDict[@".tag"] = @"other";
+  } else {
+    jsonDict[@".tag"] = @"other";
+  }
+
+  return jsonDict;
+}
+
++ (DBTEAMPOLICIESTwoStepVerificationState *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
+  NSString *tag = valueDict[@".tag"];
+
+  if ([tag isEqualToString:@"required"]) {
+    return [[DBTEAMPOLICIESTwoStepVerificationState alloc] initWithRequired];
+  } else if ([tag isEqualToString:@"optional"]) {
+    return [[DBTEAMPOLICIESTwoStepVerificationState alloc] initWithOptional];
+  } else if ([tag isEqualToString:@"disabled"]) {
+    return [[DBTEAMPOLICIESTwoStepVerificationState alloc] initWithDisabled];
+  } else if ([tag isEqualToString:@"other"]) {
+    return [[DBTEAMPOLICIESTwoStepVerificationState alloc] initWithOther];
+  } else {
+    return [[DBTEAMPOLICIESTwoStepVerificationState alloc] initWithOther];
   }
 }
 

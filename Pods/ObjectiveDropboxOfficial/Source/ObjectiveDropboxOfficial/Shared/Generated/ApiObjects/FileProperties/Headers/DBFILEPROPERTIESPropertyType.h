@@ -29,7 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// The `DBFILEPROPERTIESPropertyTypeTag` enum type represents the possible tag
 /// states with which the `DBFILEPROPERTIESPropertyType` union can exist.
-typedef NS_ENUM(NSInteger, DBFILEPROPERTIESPropertyTypeTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBFILEPROPERTIESPropertyTypeTag) {
   /// The associated property field will be of type string. Unicode is
   /// supported.
   DBFILEPROPERTIESPropertyTypeString,
@@ -104,7 +104,7 @@ typedef NS_ENUM(NSInteger, DBFILEPROPERTIESPropertyTypeTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBFILEPROPERTIESPropertyType` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBFILEPROPERTIESPropertyType *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBFILEPROPERTIESPropertyType *)instance;
 
 ///
 /// Deserializes `DBFILEPROPERTIESPropertyType` instances.
@@ -114,7 +114,7 @@ typedef NS_ENUM(NSInteger, DBFILEPROPERTIESPropertyTypeTag) {
 ///
 /// @return An instantiation of the `DBFILEPROPERTIESPropertyType` object.
 ///
-+ (DBFILEPROPERTIESPropertyType *)deserialize:(NSDictionary *)dict;
++ (DBFILEPROPERTIESPropertyType *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

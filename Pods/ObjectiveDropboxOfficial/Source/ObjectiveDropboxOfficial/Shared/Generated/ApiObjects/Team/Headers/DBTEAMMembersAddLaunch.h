@@ -28,7 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// The `DBTEAMMembersAddLaunchTag` enum type represents the possible tag states
 /// with which the `DBTEAMMembersAddLaunch` union can exist.
-typedef NS_ENUM(NSInteger, DBTEAMMembersAddLaunchTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBTEAMMembersAddLaunchTag) {
   /// This response indicates that the processing is asynchronous. The string
   /// is an id that can be used to obtain the status of the asynchronous job.
   DBTEAMMembersAddLaunchAsyncJobId,
@@ -125,7 +125,7 @@ typedef NS_ENUM(NSInteger, DBTEAMMembersAddLaunchTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBTEAMMembersAddLaunch` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBTEAMMembersAddLaunch *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBTEAMMembersAddLaunch *)instance;
 
 ///
 /// Deserializes `DBTEAMMembersAddLaunch` instances.
@@ -135,7 +135,7 @@ typedef NS_ENUM(NSInteger, DBTEAMMembersAddLaunchTag) {
 ///
 /// @return An instantiation of the `DBTEAMMembersAddLaunch` object.
 ///
-+ (DBTEAMMembersAddLaunch *)deserialize:(NSDictionary *)dict;
++ (DBTEAMMembersAddLaunch *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

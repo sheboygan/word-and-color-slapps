@@ -27,7 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// The `DBTEAMMembersRecoverErrorTag` enum type represents the possible tag
 /// states with which the `DBTEAMMembersRecoverError` union can exist.
-typedef NS_ENUM(NSInteger, DBTEAMMembersRecoverErrorTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBTEAMMembersRecoverErrorTag) {
   /// No matching user found. The provided team_member_id, email, or
   /// external_id does not exist on this team.
   DBTEAMMembersRecoverErrorUserNotFound,
@@ -166,7 +166,7 @@ typedef NS_ENUM(NSInteger, DBTEAMMembersRecoverErrorTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBTEAMMembersRecoverError` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBTEAMMembersRecoverError *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBTEAMMembersRecoverError *)instance;
 
 ///
 /// Deserializes `DBTEAMMembersRecoverError` instances.
@@ -176,7 +176,7 @@ typedef NS_ENUM(NSInteger, DBTEAMMembersRecoverErrorTag) {
 ///
 /// @return An instantiation of the `DBTEAMMembersRecoverError` object.
 ///
-+ (DBTEAMMembersRecoverError *)deserialize:(NSDictionary *)dict;
++ (DBTEAMMembersRecoverError *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

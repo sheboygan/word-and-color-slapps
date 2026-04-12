@@ -27,7 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// The `DBTEAMGroupUpdateErrorTag` enum type represents the possible tag states
 /// with which the `DBTEAMGroupUpdateError` union can exist.
-typedef NS_ENUM(NSInteger, DBTEAMGroupUpdateErrorTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBTEAMGroupUpdateErrorTag) {
   /// No matching group found. No groups match the specified group ID.
   DBTEAMGroupUpdateErrorGroupNotFound,
 
@@ -188,7 +188,7 @@ typedef NS_ENUM(NSInteger, DBTEAMGroupUpdateErrorTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBTEAMGroupUpdateError` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBTEAMGroupUpdateError *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBTEAMGroupUpdateError *)instance;
 
 ///
 /// Deserializes `DBTEAMGroupUpdateError` instances.
@@ -198,7 +198,7 @@ typedef NS_ENUM(NSInteger, DBTEAMGroupUpdateErrorTag) {
 ///
 /// @return An instantiation of the `DBTEAMGroupUpdateError` object.
 ///
-+ (DBTEAMGroupUpdateError *)deserialize:(NSDictionary *)dict;
++ (DBTEAMGroupUpdateError *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

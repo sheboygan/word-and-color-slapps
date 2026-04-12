@@ -10,6 +10,7 @@
 
 @class DBTEAMCOMMONTimeRange;
 @class DBTEAMLOGEventCategory;
+@class DBTEAMLOGEventTypeArg;
 @class DBTEAMLOGGetTeamEventsArg;
 
 NS_ASSUME_NONNULL_BEGIN
@@ -27,36 +28,51 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Instance fields
 
-/// Number of results to return per call.
+/// The maximal number of results to return per call. Note that some calls may
+/// not return limit number of events, and may even return no events, even with
+/// `has_more` set to true. In this case, callers should fetch again using
+/// `getEventsContinue`.
 @property (nonatomic, readonly) NSNumber *limit;
 
-/// Filter the events by account ID. Return ony events with this account_id as
+/// Filter the events by account ID. Return only events with this account_id as
 /// either Actor, Context, or Participants.
 @property (nonatomic, readonly, copy, nullable) NSString *accountId;
 
 /// Filter by time range.
 @property (nonatomic, readonly, nullable) DBTEAMCOMMONTimeRange *time;
 
-/// Filter the returned events to a single category.
+/// Filter the returned events to a single category. Note that category
+/// shouldn't be provided together with event_type.
 @property (nonatomic, readonly, nullable) DBTEAMLOGEventCategory *category;
+
+/// Filter the returned events to a single event type. Note that event_type
+/// shouldn't be provided together with category.
+@property (nonatomic, readonly, nullable) DBTEAMLOGEventTypeArg *eventType;
 
 #pragma mark - Constructors
 
 ///
 /// Full constructor for the struct (exposes all instance variables).
 ///
-/// @param limit Number of results to return per call.
-/// @param accountId Filter the events by account ID. Return ony events with
+/// @param limit The maximal number of results to return per call. Note that
+/// some calls may not return limit number of events, and may even return no
+/// events, even with `has_more` set to true. In this case, callers should fetch
+/// again using `getEventsContinue`.
+/// @param accountId Filter the events by account ID. Return only events with
 /// this account_id as either Actor, Context, or Participants.
 /// @param time Filter by time range.
-/// @param category Filter the returned events to a single category.
+/// @param category Filter the returned events to a single category. Note that
+/// category shouldn't be provided together with event_type.
+/// @param eventType Filter the returned events to a single event type. Note
+/// that event_type shouldn't be provided together with category.
 ///
 /// @return An initialized instance.
 ///
 - (instancetype)initWithLimit:(nullable NSNumber *)limit
                     accountId:(nullable NSString *)accountId
                          time:(nullable DBTEAMCOMMONTimeRange *)time
-                     category:(nullable DBTEAMLOGEventCategory *)category;
+                     category:(nullable DBTEAMLOGEventCategory *)category
+                    eventType:(nullable DBTEAMLOGEventTypeArg *)eventType;
 
 ///
 /// Convenience constructor (exposes only non-nullable instance variables with
@@ -86,7 +102,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// @return A json-compatible dictionary representation of the
 /// `DBTEAMLOGGetTeamEventsArg` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBTEAMLOGGetTeamEventsArg *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBTEAMLOGGetTeamEventsArg *)instance;
 
 ///
 /// Deserializes `DBTEAMLOGGetTeamEventsArg` instances.
@@ -96,7 +112,7 @@ NS_ASSUME_NONNULL_BEGIN
 ///
 /// @return An instantiation of the `DBTEAMLOGGetTeamEventsArg` object.
 ///
-+ (DBTEAMLOGGetTeamEventsArg *)deserialize:(NSDictionary *)dict;
++ (DBTEAMLOGGetTeamEventsArg *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

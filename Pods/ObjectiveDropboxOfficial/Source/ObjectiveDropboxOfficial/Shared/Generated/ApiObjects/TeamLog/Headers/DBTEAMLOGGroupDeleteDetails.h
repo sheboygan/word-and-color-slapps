@@ -17,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 ///
 /// The `GroupDeleteDetails` struct.
 ///
-/// Deleted a group.
+/// Deleted group.
 ///
 /// This class implements the `DBSerializable` protocol (serialize and
 /// deserialize instance methods), which is required for all Obj-C SDK API route
@@ -27,7 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Instance fields
 
-/// Is company managed group. Might be missing due to historical data gap.
+/// Is company managed group.
 @property (nonatomic, readonly, nullable) NSNumber *isCompanyManaged;
 
 #pragma mark - Constructors
@@ -35,8 +35,7 @@ NS_ASSUME_NONNULL_BEGIN
 ///
 /// Full constructor for the struct (exposes all instance variables).
 ///
-/// @param isCompanyManaged Is company managed group. Might be missing due to
-/// historical data gap.
+/// @param isCompanyManaged Is company managed group.
 ///
 /// @return An initialized instance.
 ///
@@ -70,7 +69,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// @return A json-compatible dictionary representation of the
 /// `DBTEAMLOGGroupDeleteDetails` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBTEAMLOGGroupDeleteDetails *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBTEAMLOGGroupDeleteDetails *)instance;
 
 ///
 /// Deserializes `DBTEAMLOGGroupDeleteDetails` instances.
@@ -80,7 +79,7 @@ NS_ASSUME_NONNULL_BEGIN
 ///
 /// @return An instantiation of the `DBTEAMLOGGroupDeleteDetails` object.
 ///
-+ (DBTEAMLOGGroupDeleteDetails *)deserialize:(NSDictionary *)dict;
++ (DBTEAMLOGGroupDeleteDetails *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

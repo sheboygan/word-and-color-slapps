@@ -29,7 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// The `DBSHARINGUpdateFolderPolicyErrorTag` enum type represents the possible
 /// tag states with which the `DBSHARINGUpdateFolderPolicyError` union can
 /// exist.
-typedef NS_ENUM(NSInteger, DBSHARINGUpdateFolderPolicyErrorTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBSHARINGUpdateFolderPolicyErrorTag) {
   /// (no description).
   DBSHARINGUpdateFolderPolicyErrorAccessError,
 
@@ -218,7 +218,7 @@ typedef NS_ENUM(NSInteger, DBSHARINGUpdateFolderPolicyErrorTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBSHARINGUpdateFolderPolicyError` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBSHARINGUpdateFolderPolicyError *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBSHARINGUpdateFolderPolicyError *)instance;
 
 ///
 /// Deserializes `DBSHARINGUpdateFolderPolicyError` instances.
@@ -228,7 +228,7 @@ typedef NS_ENUM(NSInteger, DBSHARINGUpdateFolderPolicyErrorTag) {
 ///
 /// @return An instantiation of the `DBSHARINGUpdateFolderPolicyError` object.
 ///
-+ (DBSHARINGUpdateFolderPolicyError *)deserialize:(NSDictionary *)dict;
++ (DBSHARINGUpdateFolderPolicyError *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

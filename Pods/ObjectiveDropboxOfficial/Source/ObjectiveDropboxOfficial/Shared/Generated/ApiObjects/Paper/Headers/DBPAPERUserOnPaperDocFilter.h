@@ -27,7 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// The `DBPAPERUserOnPaperDocFilterTag` enum type represents the possible tag
 /// states with which the `DBPAPERUserOnPaperDocFilter` union can exist.
-typedef NS_ENUM(NSInteger, DBPAPERUserOnPaperDocFilterTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBPAPERUserOnPaperDocFilterTag) {
   /// all users who have visited the Paper doc.
   DBPAPERUserOnPaperDocFilterVisited,
 
@@ -122,7 +122,7 @@ typedef NS_ENUM(NSInteger, DBPAPERUserOnPaperDocFilterTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBPAPERUserOnPaperDocFilter` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBPAPERUserOnPaperDocFilter *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBPAPERUserOnPaperDocFilter *)instance;
 
 ///
 /// Deserializes `DBPAPERUserOnPaperDocFilter` instances.
@@ -132,7 +132,7 @@ typedef NS_ENUM(NSInteger, DBPAPERUserOnPaperDocFilterTag) {
 ///
 /// @return An instantiation of the `DBPAPERUserOnPaperDocFilter` object.
 ///
-+ (DBPAPERUserOnPaperDocFilter *)deserialize:(NSDictionary *)dict;
++ (DBPAPERUserOnPaperDocFilter *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

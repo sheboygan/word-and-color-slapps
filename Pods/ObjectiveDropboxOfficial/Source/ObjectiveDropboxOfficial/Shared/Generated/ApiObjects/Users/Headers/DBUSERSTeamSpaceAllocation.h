@@ -8,6 +8,7 @@
 
 #import "DBSerializableProtocol.h"
 
+@class DBTEAMCOMMONMemberSpaceLimitType;
 @class DBUSERSTeamSpaceAllocation;
 
 NS_ASSUME_NONNULL_BEGIN
@@ -31,6 +32,17 @@ NS_ASSUME_NONNULL_BEGIN
 /// The total space allocated to the user's team (bytes).
 @property (nonatomic, readonly) NSNumber *allocated;
 
+/// The total space allocated to the user within its team allocated space (0
+/// means that no restriction is imposed on the user's quota within its team).
+@property (nonatomic, readonly) NSNumber *userWithinTeamSpaceAllocated;
+
+/// The type of the space limit imposed on the team member (off, alert_only,
+/// stop_sync).
+@property (nonatomic, readonly) DBTEAMCOMMONMemberSpaceLimitType *userWithinTeamSpaceLimitType;
+
+/// An accurate cached calculation of a team member's total space usage (bytes).
+@property (nonatomic, readonly) NSNumber *userWithinTeamSpaceUsedCached;
+
 #pragma mark - Constructors
 
 ///
@@ -38,10 +50,21 @@ NS_ASSUME_NONNULL_BEGIN
 ///
 /// @param used The total space currently used by the user's team (bytes).
 /// @param allocated The total space allocated to the user's team (bytes).
+/// @param userWithinTeamSpaceAllocated The total space allocated to the user
+/// within its team allocated space (0 means that no restriction is imposed on
+/// the user's quota within its team).
+/// @param userWithinTeamSpaceLimitType The type of the space limit imposed on
+/// the team member (off, alert_only, stop_sync).
+/// @param userWithinTeamSpaceUsedCached An accurate cached calculation of a
+/// team member's total space usage (bytes).
 ///
 /// @return An initialized instance.
 ///
-- (instancetype)initWithUsed:(NSNumber *)used allocated:(NSNumber *)allocated;
+- (instancetype)initWithUsed:(NSNumber *)used
+                        allocated:(NSNumber *)allocated
+     userWithinTeamSpaceAllocated:(NSNumber *)userWithinTeamSpaceAllocated
+     userWithinTeamSpaceLimitType:(DBTEAMCOMMONMemberSpaceLimitType *)userWithinTeamSpaceLimitType
+    userWithinTeamSpaceUsedCached:(NSNumber *)userWithinTeamSpaceUsedCached;
 
 - (instancetype)init NS_UNAVAILABLE;
 
@@ -62,7 +85,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// @return A json-compatible dictionary representation of the
 /// `DBUSERSTeamSpaceAllocation` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBUSERSTeamSpaceAllocation *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBUSERSTeamSpaceAllocation *)instance;
 
 ///
 /// Deserializes `DBUSERSTeamSpaceAllocation` instances.
@@ -72,7 +95,7 @@ NS_ASSUME_NONNULL_BEGIN
 ///
 /// @return An instantiation of the `DBUSERSTeamSpaceAllocation` object.
 ///
-+ (DBUSERSTeamSpaceAllocation *)deserialize:(NSDictionary *)dict;
++ (DBUSERSTeamSpaceAllocation *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

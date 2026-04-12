@@ -29,7 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// The `DBTEAMCOMMONGroupManagementTypeTag` enum type represents the possible
 /// tag states with which the `DBTEAMCOMMONGroupManagementType` union can exist.
-typedef NS_ENUM(NSInteger, DBTEAMCOMMONGroupManagementTypeTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBTEAMCOMMONGroupManagementTypeTag) {
   /// A group which is managed by selected users.
   DBTEAMCOMMONGroupManagementTypeUserManaged,
 
@@ -143,7 +143,7 @@ typedef NS_ENUM(NSInteger, DBTEAMCOMMONGroupManagementTypeTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBTEAMCOMMONGroupManagementType` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBTEAMCOMMONGroupManagementType *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBTEAMCOMMONGroupManagementType *)instance;
 
 ///
 /// Deserializes `DBTEAMCOMMONGroupManagementType` instances.
@@ -153,7 +153,7 @@ typedef NS_ENUM(NSInteger, DBTEAMCOMMONGroupManagementTypeTag) {
 ///
 /// @return An instantiation of the `DBTEAMCOMMONGroupManagementType` object.
 ///
-+ (DBTEAMCOMMONGroupManagementType *)deserialize:(NSDictionary *)dict;
++ (DBTEAMCOMMONGroupManagementType *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

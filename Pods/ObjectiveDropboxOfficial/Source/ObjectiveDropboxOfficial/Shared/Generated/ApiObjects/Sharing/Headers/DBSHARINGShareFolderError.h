@@ -28,8 +28,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// The `DBSHARINGShareFolderErrorTag` enum type represents the possible tag
 /// states with which the `DBSHARINGShareFolderError` union can exist.
-typedef NS_ENUM(NSInteger, DBSHARINGShareFolderErrorTag) {
-  /// The current user's e-mail address is unverified.
+typedef NS_CLOSED_ENUM(NSInteger, DBSHARINGShareFolderErrorTag) {
+  /// This user's email address is not verified. This functionality is only
+  /// available on accounts with a verified email address. Users can verify
+  /// their email address here https://www.dropbox.com/help/317.
   DBSHARINGShareFolderErrorEmailUnverified,
 
   /// `path` in `DBSHARINGShareFolderArg` is invalid.
@@ -64,8 +66,10 @@ typedef NS_ENUM(NSInteger, DBSHARINGShareFolderErrorTag) {
 ///
 /// Initializes union class with tag state of "email_unverified".
 ///
-/// Description of the "email_unverified" tag state: The current user's e-mail
-/// address is unverified.
+/// Description of the "email_unverified" tag state: This user's email address
+/// is not verified. This functionality is only available on accounts with a
+/// verified email address. Users can verify their email address here
+/// https://www.dropbox.com/help/317.
 ///
 /// @return An initialized instance.
 ///
@@ -200,7 +204,7 @@ typedef NS_ENUM(NSInteger, DBSHARINGShareFolderErrorTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBSHARINGShareFolderError` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBSHARINGShareFolderError *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBSHARINGShareFolderError *)instance;
 
 ///
 /// Deserializes `DBSHARINGShareFolderError` instances.
@@ -210,7 +214,7 @@ typedef NS_ENUM(NSInteger, DBSHARINGShareFolderErrorTag) {
 ///
 /// @return An instantiation of the `DBSHARINGShareFolderError` object.
 ///
-+ (DBSHARINGShareFolderError *)deserialize:(NSDictionary *)dict;
++ (DBSHARINGShareFolderError *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

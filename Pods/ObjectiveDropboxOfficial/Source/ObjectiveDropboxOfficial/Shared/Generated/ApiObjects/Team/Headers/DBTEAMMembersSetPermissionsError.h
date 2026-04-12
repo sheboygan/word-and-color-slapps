@@ -28,7 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// The `DBTEAMMembersSetPermissionsErrorTag` enum type represents the possible
 /// tag states with which the `DBTEAMMembersSetPermissionsError` union can
 /// exist.
-typedef NS_ENUM(NSInteger, DBTEAMMembersSetPermissionsErrorTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBTEAMMembersSetPermissionsErrorTag) {
   /// No matching user found. The provided team_member_id, email, or
   /// external_id does not exist on this team.
   DBTEAMMembersSetPermissionsErrorUserNotFound,
@@ -188,7 +188,7 @@ typedef NS_ENUM(NSInteger, DBTEAMMembersSetPermissionsErrorTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBTEAMMembersSetPermissionsError` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBTEAMMembersSetPermissionsError *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBTEAMMembersSetPermissionsError *)instance;
 
 ///
 /// Deserializes `DBTEAMMembersSetPermissionsError` instances.
@@ -198,7 +198,7 @@ typedef NS_ENUM(NSInteger, DBTEAMMembersSetPermissionsErrorTag) {
 ///
 /// @return An instantiation of the `DBTEAMMembersSetPermissionsError` object.
 ///
-+ (DBTEAMMembersSetPermissionsError *)deserialize:(NSDictionary *)dict;
++ (DBTEAMMembersSetPermissionsError *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

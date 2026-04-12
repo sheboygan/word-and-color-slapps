@@ -29,7 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// The `DBFILESDeleteBatchJobStatusTag` enum type represents the possible tag
 /// states with which the `DBFILESDeleteBatchJobStatus` union can exist.
-typedef NS_ENUM(NSInteger, DBFILESDeleteBatchJobStatusTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBFILESDeleteBatchJobStatusTag) {
   /// The asynchronous job is still in progress.
   DBFILESDeleteBatchJobStatusInProgress,
 
@@ -158,7 +158,7 @@ typedef NS_ENUM(NSInteger, DBFILESDeleteBatchJobStatusTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBFILESDeleteBatchJobStatus` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBFILESDeleteBatchJobStatus *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBFILESDeleteBatchJobStatus *)instance;
 
 ///
 /// Deserializes `DBFILESDeleteBatchJobStatus` instances.
@@ -168,7 +168,7 @@ typedef NS_ENUM(NSInteger, DBFILESDeleteBatchJobStatusTag) {
 ///
 /// @return An instantiation of the `DBFILESDeleteBatchJobStatus` object.
 ///
-+ (DBFILESDeleteBatchJobStatus *)deserialize:(NSDictionary *)dict;
++ (DBFILESDeleteBatchJobStatus *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

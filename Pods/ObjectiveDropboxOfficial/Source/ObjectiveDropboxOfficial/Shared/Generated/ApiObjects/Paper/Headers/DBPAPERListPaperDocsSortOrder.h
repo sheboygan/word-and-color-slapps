@@ -27,7 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// The `DBPAPERListPaperDocsSortOrderTag` enum type represents the possible tag
 /// states with which the `DBPAPERListPaperDocsSortOrder` union can exist.
-typedef NS_ENUM(NSInteger, DBPAPERListPaperDocsSortOrderTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBPAPERListPaperDocsSortOrderTag) {
   /// Sorts the search result in ascending order.
   DBPAPERListPaperDocsSortOrderAscending,
 
@@ -121,7 +121,7 @@ typedef NS_ENUM(NSInteger, DBPAPERListPaperDocsSortOrderTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBPAPERListPaperDocsSortOrder` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBPAPERListPaperDocsSortOrder *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBPAPERListPaperDocsSortOrder *)instance;
 
 ///
 /// Deserializes `DBPAPERListPaperDocsSortOrder` instances.
@@ -131,7 +131,7 @@ typedef NS_ENUM(NSInteger, DBPAPERListPaperDocsSortOrderTag) {
 ///
 /// @return An instantiation of the `DBPAPERListPaperDocsSortOrder` object.
 ///
-+ (DBPAPERListPaperDocsSortOrder *)deserialize:(NSDictionary *)dict;
++ (DBPAPERListPaperDocsSortOrder *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

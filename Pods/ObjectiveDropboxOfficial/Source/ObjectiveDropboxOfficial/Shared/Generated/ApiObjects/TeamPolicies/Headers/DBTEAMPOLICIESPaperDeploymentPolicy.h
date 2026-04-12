@@ -28,7 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// The `DBTEAMPOLICIESPaperDeploymentPolicyTag` enum type represents the
 /// possible tag states with which the `DBTEAMPOLICIESPaperDeploymentPolicy`
 /// union can exist.
-typedef NS_ENUM(NSInteger, DBTEAMPOLICIESPaperDeploymentPolicyTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBTEAMPOLICIESPaperDeploymentPolicyTag) {
   /// All team members have access to Paper.
   DBTEAMPOLICIESPaperDeploymentPolicyFull,
 
@@ -123,7 +123,7 @@ typedef NS_ENUM(NSInteger, DBTEAMPOLICIESPaperDeploymentPolicyTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBTEAMPOLICIESPaperDeploymentPolicy` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBTEAMPOLICIESPaperDeploymentPolicy *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBTEAMPOLICIESPaperDeploymentPolicy *)instance;
 
 ///
 /// Deserializes `DBTEAMPOLICIESPaperDeploymentPolicy` instances.
@@ -134,7 +134,7 @@ typedef NS_ENUM(NSInteger, DBTEAMPOLICIESPaperDeploymentPolicyTag) {
 /// @return An instantiation of the `DBTEAMPOLICIESPaperDeploymentPolicy`
 /// object.
 ///
-+ (DBTEAMPOLICIESPaperDeploymentPolicy *)deserialize:(NSDictionary *)dict;
++ (DBTEAMPOLICIESPaperDeploymentPolicy *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

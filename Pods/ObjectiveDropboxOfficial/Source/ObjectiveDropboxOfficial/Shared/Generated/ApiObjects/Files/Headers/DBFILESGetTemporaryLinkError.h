@@ -28,9 +28,23 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// The `DBFILESGetTemporaryLinkErrorTag` enum type represents the possible tag
 /// states with which the `DBFILESGetTemporaryLinkError` union can exist.
-typedef NS_ENUM(NSInteger, DBFILESGetTemporaryLinkErrorTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBFILESGetTemporaryLinkErrorTag) {
   /// (no description).
   DBFILESGetTemporaryLinkErrorPath,
+
+  /// This user's email address is not verified. This functionality is only
+  /// available on accounts with a verified email address. Users can verify
+  /// their email address here https://www.dropbox.com/help/317.
+  DBFILESGetTemporaryLinkErrorEmailNotVerified,
+
+  /// Cannot get temporary link to this file type; use `export` instead.
+  DBFILESGetTemporaryLinkErrorUnsupportedFile,
+
+  /// The user is not allowed to request a temporary link to the specified
+  /// file. For example, this can occur if the file is restricted or if the
+  /// user's links are banned
+  /// https://help.dropbox.com/files-folders/share/banned-links.
+  DBFILESGetTemporaryLinkErrorNotAllowed,
 
   /// (no description).
   DBFILESGetTemporaryLinkErrorOther,
@@ -56,6 +70,40 @@ typedef NS_ENUM(NSInteger, DBFILESGetTemporaryLinkErrorTag) {
 - (instancetype)initWithPath:(DBFILESLookupError *)path;
 
 ///
+/// Initializes union class with tag state of "email_not_verified".
+///
+/// Description of the "email_not_verified" tag state: This user's email address
+/// is not verified. This functionality is only available on accounts with a
+/// verified email address. Users can verify their email address here
+/// https://www.dropbox.com/help/317.
+///
+/// @return An initialized instance.
+///
+- (instancetype)initWithEmailNotVerified;
+
+///
+/// Initializes union class with tag state of "unsupported_file".
+///
+/// Description of the "unsupported_file" tag state: Cannot get temporary link
+/// to this file type; use `export` instead.
+///
+/// @return An initialized instance.
+///
+- (instancetype)initWithUnsupportedFile;
+
+///
+/// Initializes union class with tag state of "not_allowed".
+///
+/// Description of the "not_allowed" tag state: The user is not allowed to
+/// request a temporary link to the specified file. For example, this can occur
+/// if the file is restricted or if the user's links are banned
+/// https://help.dropbox.com/files-folders/share/banned-links.
+///
+/// @return An initialized instance.
+///
+- (instancetype)initWithNotAllowed;
+
+///
 /// Initializes union class with tag state of "other".
 ///
 /// @return An initialized instance.
@@ -75,6 +123,30 @@ typedef NS_ENUM(NSInteger, DBFILESGetTemporaryLinkErrorTag) {
 /// @return Whether the union's current tag state has value "path".
 ///
 - (BOOL)isPath;
+
+///
+/// Retrieves whether the union's current tag state has value
+/// "email_not_verified".
+///
+/// @return Whether the union's current tag state has value
+/// "email_not_verified".
+///
+- (BOOL)isEmailNotVerified;
+
+///
+/// Retrieves whether the union's current tag state has value
+/// "unsupported_file".
+///
+/// @return Whether the union's current tag state has value "unsupported_file".
+///
+- (BOOL)isUnsupportedFile;
+
+///
+/// Retrieves whether the union's current tag state has value "not_allowed".
+///
+/// @return Whether the union's current tag state has value "not_allowed".
+///
+- (BOOL)isNotAllowed;
 
 ///
 /// Retrieves whether the union's current tag state has value "other".
@@ -108,7 +180,7 @@ typedef NS_ENUM(NSInteger, DBFILESGetTemporaryLinkErrorTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBFILESGetTemporaryLinkError` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBFILESGetTemporaryLinkError *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBFILESGetTemporaryLinkError *)instance;
 
 ///
 /// Deserializes `DBFILESGetTemporaryLinkError` instances.
@@ -118,7 +190,7 @@ typedef NS_ENUM(NSInteger, DBFILESGetTemporaryLinkErrorTag) {
 ///
 /// @return An instantiation of the `DBFILESGetTemporaryLinkError` object.
 ///
-+ (DBFILESGetTemporaryLinkError *)deserialize:(NSDictionary *)dict;
++ (DBFILESGetTemporaryLinkError *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

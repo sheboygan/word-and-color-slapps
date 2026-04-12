@@ -29,11 +29,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// The `DBSHARINGMemberSelectorTag` enum type represents the possible tag
 /// states with which the `DBSHARINGMemberSelector` union can exist.
-typedef NS_ENUM(NSInteger, DBSHARINGMemberSelectorTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBSHARINGMemberSelectorTag) {
   /// Dropbox account, team member, or group ID of member.
   DBSHARINGMemberSelectorDropboxId,
 
-  /// E-mail address of member.
+  /// Email address of member.
   DBSHARINGMemberSelectorEmail,
 
   /// (no description).
@@ -49,7 +49,7 @@ typedef NS_ENUM(NSInteger, DBSHARINGMemberSelectorTag) {
 /// exception will be raised.
 @property (nonatomic, readonly, copy) NSString *dropboxId;
 
-/// E-mail address of member. @note Ensure the `isEmail` method returns true
+/// Email address of member. @note Ensure the `isEmail` method returns true
 /// before accessing, otherwise a runtime exception will be raised.
 @property (nonatomic, readonly, copy) NSString *email;
 
@@ -70,9 +70,9 @@ typedef NS_ENUM(NSInteger, DBSHARINGMemberSelectorTag) {
 ///
 /// Initializes union class with tag state of "email".
 ///
-/// Description of the "email" tag state: E-mail address of member.
+/// Description of the "email" tag state: Email address of member.
 ///
-/// @param email E-mail address of member.
+/// @param email Email address of member.
 ///
 /// @return An initialized instance.
 ///
@@ -140,7 +140,7 @@ typedef NS_ENUM(NSInteger, DBSHARINGMemberSelectorTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBSHARINGMemberSelector` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBSHARINGMemberSelector *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBSHARINGMemberSelector *)instance;
 
 ///
 /// Deserializes `DBSHARINGMemberSelector` instances.
@@ -150,7 +150,7 @@ typedef NS_ENUM(NSInteger, DBSHARINGMemberSelectorTag) {
 ///
 /// @return An instantiation of the `DBSHARINGMemberSelector` object.
 ///
-+ (DBSHARINGMemberSelector *)deserialize:(NSDictionary *)dict;
++ (DBSHARINGMemberSelector *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

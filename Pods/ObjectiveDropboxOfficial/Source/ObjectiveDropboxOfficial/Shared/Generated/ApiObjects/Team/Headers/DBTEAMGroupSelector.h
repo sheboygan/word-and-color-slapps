@@ -30,7 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// The `DBTEAMGroupSelectorTag` enum type represents the possible tag states
 /// with which the `DBTEAMGroupSelector` union can exist.
-typedef NS_ENUM(NSInteger, DBTEAMGroupSelectorTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBTEAMGroupSelectorTag) {
   /// Group ID.
   DBTEAMGroupSelectorGroupId,
 
@@ -123,7 +123,7 @@ typedef NS_ENUM(NSInteger, DBTEAMGroupSelectorTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBTEAMGroupSelector` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBTEAMGroupSelector *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBTEAMGroupSelector *)instance;
 
 ///
 /// Deserializes `DBTEAMGroupSelector` instances.
@@ -133,7 +133,7 @@ typedef NS_ENUM(NSInteger, DBTEAMGroupSelectorTag) {
 ///
 /// @return An instantiation of the `DBTEAMGroupSelector` object.
 ///
-+ (DBTEAMGroupSelector *)deserialize:(NSDictionary *)dict;
++ (DBTEAMGroupSelector *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

@@ -27,7 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// The `DBTEAMListTeamDevicesErrorTag` enum type represents the possible tag
 /// states with which the `DBTEAMListTeamDevicesError` union can exist.
-typedef NS_ENUM(NSInteger, DBTEAMListTeamDevicesErrorTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBTEAMListTeamDevicesErrorTag) {
   /// Indicates that the cursor has been invalidated. Call
   /// `devicesListTeamDevices` again with an empty cursor to obtain a new
   /// cursor.
@@ -103,7 +103,7 @@ typedef NS_ENUM(NSInteger, DBTEAMListTeamDevicesErrorTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBTEAMListTeamDevicesError` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBTEAMListTeamDevicesError *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBTEAMListTeamDevicesError *)instance;
 
 ///
 /// Deserializes `DBTEAMListTeamDevicesError` instances.
@@ -113,7 +113,7 @@ typedef NS_ENUM(NSInteger, DBTEAMListTeamDevicesErrorTag) {
 ///
 /// @return An instantiation of the `DBTEAMListTeamDevicesError` object.
 ///
-+ (DBTEAMListTeamDevicesError *)deserialize:(NSDictionary *)dict;
++ (DBTEAMListTeamDevicesError *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

@@ -31,7 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// The `DBTEAMGroupSelectorWithTeamGroupErrorTag` enum type represents the
 /// possible tag states with which the `DBTEAMGroupSelectorWithTeamGroupError`
 /// union can exist.
-typedef NS_ENUM(NSInteger, DBTEAMGroupSelectorWithTeamGroupErrorTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBTEAMGroupSelectorWithTeamGroupErrorTag) {
   /// No matching group found. No groups match the specified group ID.
   DBTEAMGroupSelectorWithTeamGroupErrorGroupNotFound,
 
@@ -128,7 +128,7 @@ typedef NS_ENUM(NSInteger, DBTEAMGroupSelectorWithTeamGroupErrorTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBTEAMGroupSelectorWithTeamGroupError` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBTEAMGroupSelectorWithTeamGroupError *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBTEAMGroupSelectorWithTeamGroupError *)instance;
 
 ///
 /// Deserializes `DBTEAMGroupSelectorWithTeamGroupError` instances.
@@ -139,7 +139,7 @@ typedef NS_ENUM(NSInteger, DBTEAMGroupSelectorWithTeamGroupErrorTag) {
 /// @return An instantiation of the `DBTEAMGroupSelectorWithTeamGroupError`
 /// object.
 ///
-+ (DBTEAMGroupSelectorWithTeamGroupError *)deserialize:(NSDictionary *)dict;
++ (DBTEAMGroupSelectorWithTeamGroupError *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

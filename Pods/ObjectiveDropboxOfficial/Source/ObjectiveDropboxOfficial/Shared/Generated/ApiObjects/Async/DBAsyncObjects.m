@@ -54,17 +54,17 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBASYNCLaunchResultBaseSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBASYNCLaunchResultBaseSerializer deserialize:dict];
 }
 
-#pragma mark - Description method
+#pragma mark - Debug Description method
 
-- (NSString *)description {
+- (NSString *)debugDescription {
   return [[DBASYNCLaunchResultBaseSerializer serialize:self] description];
 }
 
@@ -85,6 +85,7 @@
   switch (_tag) {
   case DBASYNCLaunchResultBaseAsyncJobId:
     result = prime * result + [self.asyncJobId hash];
+    break;
   }
 
   return prime * result;
@@ -122,7 +123,7 @@
 
 @implementation DBASYNCLaunchResultBaseSerializer
 
-+ (NSDictionary *)serialize:(DBASYNCLaunchResultBase *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBASYNCLaunchResultBase *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isAsyncJobId]) {
@@ -134,10 +135,10 @@
                                  userInfo:nil]);
   }
 
-  return [jsonDict count] > 0 ? jsonDict : nil;
+  return jsonDict;
 }
 
-+ (DBASYNCLaunchResultBase *)deserialize:(NSDictionary *)valueDict {
++ (DBASYNCLaunchResultBase *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"async_job_id"]) {
@@ -216,17 +217,17 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBASYNCLaunchEmptyResultSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBASYNCLaunchEmptyResultSerializer deserialize:dict];
 }
 
-#pragma mark - Description method
+#pragma mark - Debug Description method
 
-- (NSString *)description {
+- (NSString *)debugDescription {
   return [[DBASYNCLaunchEmptyResultSerializer serialize:self] description];
 }
 
@@ -247,8 +248,10 @@
   switch (_tag) {
   case DBASYNCLaunchEmptyResultAsyncJobId:
     result = prime * result + [self.asyncJobId hash];
+    break;
   case DBASYNCLaunchEmptyResultComplete:
     result = prime * result + [[self tagName] hash];
+    break;
   }
 
   return prime * result;
@@ -288,7 +291,7 @@
 
 @implementation DBASYNCLaunchEmptyResultSerializer
 
-+ (NSDictionary *)serialize:(DBASYNCLaunchEmptyResult *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBASYNCLaunchEmptyResult *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isAsyncJobId]) {
@@ -302,10 +305,10 @@
                                  userInfo:nil]);
   }
 
-  return [jsonDict count] > 0 ? jsonDict : nil;
+  return jsonDict;
 }
 
-+ (DBASYNCLaunchEmptyResult *)deserialize:(NSDictionary *)valueDict {
++ (DBASYNCLaunchEmptyResult *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"async_job_id"]) {
@@ -345,17 +348,17 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBASYNCPollArgSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBASYNCPollArgSerializer deserialize:dict];
 }
 
-#pragma mark - Description method
+#pragma mark - Debug Description method
 
-- (NSString *)description {
+- (NSString *)debugDescription {
   return [[DBASYNCPollArgSerializer serialize:self] description];
 }
 
@@ -406,15 +409,15 @@
 
 @implementation DBASYNCPollArgSerializer
 
-+ (NSDictionary *)serialize:(DBASYNCPollArg *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBASYNCPollArg *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"async_job_id"] = valueObj.asyncJobId;
 
-  return [jsonDict count] > 0 ? jsonDict : nil;
+  return jsonDict;
 }
 
-+ (DBASYNCPollArg *)deserialize:(NSDictionary *)valueDict {
++ (DBASYNCPollArg *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *asyncJobId = valueDict[@"async_job_id"];
 
   return [[DBASYNCPollArg alloc] initWithAsyncJobId:asyncJobId];
@@ -459,17 +462,17 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBASYNCPollResultBaseSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBASYNCPollResultBaseSerializer deserialize:dict];
 }
 
-#pragma mark - Description method
+#pragma mark - Debug Description method
 
-- (NSString *)description {
+- (NSString *)debugDescription {
   return [[DBASYNCPollResultBaseSerializer serialize:self] description];
 }
 
@@ -490,6 +493,7 @@
   switch (_tag) {
   case DBASYNCPollResultBaseInProgress:
     result = prime * result + [[self tagName] hash];
+    break;
   }
 
   return prime * result;
@@ -527,7 +531,7 @@
 
 @implementation DBASYNCPollResultBaseSerializer
 
-+ (NSDictionary *)serialize:(DBASYNCPollResultBase *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBASYNCPollResultBase *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isInProgress]) {
@@ -538,10 +542,10 @@
                                  userInfo:nil]);
   }
 
-  return [jsonDict count] > 0 ? jsonDict : nil;
+  return jsonDict;
 }
 
-+ (DBASYNCPollResultBase *)deserialize:(NSDictionary *)valueDict {
++ (DBASYNCPollResultBase *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"in_progress"]) {
@@ -608,17 +612,17 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBASYNCPollEmptyResultSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBASYNCPollEmptyResultSerializer deserialize:dict];
 }
 
-#pragma mark - Description method
+#pragma mark - Debug Description method
 
-- (NSString *)description {
+- (NSString *)debugDescription {
   return [[DBASYNCPollEmptyResultSerializer serialize:self] description];
 }
 
@@ -639,8 +643,10 @@
   switch (_tag) {
   case DBASYNCPollEmptyResultInProgress:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBASYNCPollEmptyResultComplete:
     result = prime * result + [[self tagName] hash];
+    break;
   }
 
   return prime * result;
@@ -680,7 +686,7 @@
 
 @implementation DBASYNCPollEmptyResultSerializer
 
-+ (NSDictionary *)serialize:(DBASYNCPollEmptyResult *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBASYNCPollEmptyResult *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isInProgress]) {
@@ -693,10 +699,10 @@
                                  userInfo:nil]);
   }
 
-  return [jsonDict count] > 0 ? jsonDict : nil;
+  return jsonDict;
 }
 
-+ (DBASYNCPollEmptyResult *)deserialize:(NSDictionary *)valueDict {
++ (DBASYNCPollEmptyResult *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"in_progress"]) {
@@ -778,17 +784,17 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBASYNCPollErrorSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBASYNCPollErrorSerializer deserialize:dict];
 }
 
-#pragma mark - Description method
+#pragma mark - Debug Description method
 
-- (NSString *)description {
+- (NSString *)debugDescription {
   return [[DBASYNCPollErrorSerializer serialize:self] description];
 }
 
@@ -809,10 +815,13 @@
   switch (_tag) {
   case DBASYNCPollErrorInvalidAsyncJobId:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBASYNCPollErrorInternalError:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBASYNCPollErrorOther:
     result = prime * result + [[self tagName] hash];
+    break;
   }
 
   return prime * result;
@@ -854,7 +863,7 @@
 
 @implementation DBASYNCPollErrorSerializer
 
-+ (NSDictionary *)serialize:(DBASYNCPollError *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBASYNCPollError *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isInvalidAsyncJobId]) {
@@ -867,10 +876,10 @@
     jsonDict[@".tag"] = @"other";
   }
 
-  return [jsonDict count] > 0 ? jsonDict : nil;
+  return jsonDict;
 }
 
-+ (DBASYNCPollError *)deserialize:(NSDictionary *)valueDict {
++ (DBASYNCPollError *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"invalid_async_job_id"]) {

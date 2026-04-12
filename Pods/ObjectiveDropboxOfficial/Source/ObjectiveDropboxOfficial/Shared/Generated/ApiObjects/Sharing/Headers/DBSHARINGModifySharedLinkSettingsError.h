@@ -29,14 +29,14 @@ NS_ASSUME_NONNULL_BEGIN
 /// The `DBSHARINGModifySharedLinkSettingsErrorTag` enum type represents the
 /// possible tag states with which the `DBSHARINGModifySharedLinkSettingsError`
 /// union can exist.
-typedef NS_ENUM(NSInteger, DBSHARINGModifySharedLinkSettingsErrorTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBSHARINGModifySharedLinkSettingsErrorTag) {
   /// The shared link wasn't found.
   DBSHARINGModifySharedLinkSettingsErrorSharedLinkNotFound,
 
   /// The caller is not allowed to access this shared link.
   DBSHARINGModifySharedLinkSettingsErrorSharedLinkAccessDenied,
 
-  /// This type of link is not supported.
+  /// This type of link is not supported; use `files` instead.
   DBSHARINGModifySharedLinkSettingsErrorUnsupportedLinkType,
 
   /// (no description).
@@ -45,7 +45,9 @@ typedef NS_ENUM(NSInteger, DBSHARINGModifySharedLinkSettingsErrorTag) {
   /// There is an error with the given settings.
   DBSHARINGModifySharedLinkSettingsErrorSettingsError,
 
-  /// The caller's email should be verified.
+  /// This user's email address is not verified. This functionality is only
+  /// available on accounts with a verified email address. Users can verify
+  /// their email address here https://www.dropbox.com/help/317.
   DBSHARINGModifySharedLinkSettingsErrorEmailNotVerified,
 
 };
@@ -84,7 +86,7 @@ typedef NS_ENUM(NSInteger, DBSHARINGModifySharedLinkSettingsErrorTag) {
 /// Initializes union class with tag state of "unsupported_link_type".
 ///
 /// Description of the "unsupported_link_type" tag state: This type of link is
-/// not supported.
+/// not supported; use `files` instead.
 ///
 /// @return An initialized instance.
 ///
@@ -112,8 +114,10 @@ typedef NS_ENUM(NSInteger, DBSHARINGModifySharedLinkSettingsErrorTag) {
 ///
 /// Initializes union class with tag state of "email_not_verified".
 ///
-/// Description of the "email_not_verified" tag state: The caller's email should
-/// be verified.
+/// Description of the "email_not_verified" tag state: This user's email address
+/// is not verified. This functionality is only available on accounts with a
+/// verified email address. Users can verify their email address here
+/// https://www.dropbox.com/help/317.
 ///
 /// @return An initialized instance.
 ///
@@ -202,7 +206,7 @@ typedef NS_ENUM(NSInteger, DBSHARINGModifySharedLinkSettingsErrorTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBSHARINGModifySharedLinkSettingsError` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBSHARINGModifySharedLinkSettingsError *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBSHARINGModifySharedLinkSettingsError *)instance;
 
 ///
 /// Deserializes `DBSHARINGModifySharedLinkSettingsError` instances.
@@ -213,7 +217,7 @@ typedef NS_ENUM(NSInteger, DBSHARINGModifySharedLinkSettingsErrorTag) {
 /// @return An instantiation of the `DBSHARINGModifySharedLinkSettingsError`
 /// object.
 ///
-+ (DBSHARINGModifySharedLinkSettingsError *)deserialize:(NSDictionary *)dict;
++ (DBSHARINGModifySharedLinkSettingsError *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

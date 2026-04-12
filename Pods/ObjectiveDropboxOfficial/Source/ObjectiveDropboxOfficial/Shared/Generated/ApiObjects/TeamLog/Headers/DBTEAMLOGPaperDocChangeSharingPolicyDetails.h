@@ -17,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 ///
 /// The `PaperDocChangeSharingPolicyDetails` struct.
 ///
-/// Changed the sharing policy for Paper doc.
+/// Changed sharing setting for Paper doc.
 ///
 /// This class implements the `DBSerializable` protocol (serialize and
 /// deserialize instance methods), which is required for all Obj-C SDK API route
@@ -30,11 +30,10 @@ NS_ASSUME_NONNULL_BEGIN
 /// Event unique identifier.
 @property (nonatomic, readonly, copy) NSString *eventUuid;
 
-/// Sharing policy with external users. Might be missing due to historical data
-/// gap.
+/// Sharing policy with external users.
 @property (nonatomic, readonly, copy, nullable) NSString *publicSharingPolicy;
 
-/// Sharing policy with team. Might be missing due to historical data gap.
+/// Sharing policy with team.
 @property (nonatomic, readonly, copy, nullable) NSString *teamSharingPolicy;
 
 #pragma mark - Constructors
@@ -43,10 +42,8 @@ NS_ASSUME_NONNULL_BEGIN
 /// Full constructor for the struct (exposes all instance variables).
 ///
 /// @param eventUuid Event unique identifier.
-/// @param publicSharingPolicy Sharing policy with external users. Might be
-/// missing due to historical data gap.
-/// @param teamSharingPolicy Sharing policy with team. Might be missing due to
-/// historical data gap.
+/// @param publicSharingPolicy Sharing policy with external users.
+/// @param teamSharingPolicy Sharing policy with team.
 ///
 /// @return An initialized instance.
 ///
@@ -84,7 +81,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// @return A json-compatible dictionary representation of the
 /// `DBTEAMLOGPaperDocChangeSharingPolicyDetails` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBTEAMLOGPaperDocChangeSharingPolicyDetails *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBTEAMLOGPaperDocChangeSharingPolicyDetails *)instance;
 
 ///
 /// Deserializes `DBTEAMLOGPaperDocChangeSharingPolicyDetails` instances.
@@ -95,7 +92,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// @return An instantiation of the
 /// `DBTEAMLOGPaperDocChangeSharingPolicyDetails` object.
 ///
-+ (DBTEAMLOGPaperDocChangeSharingPolicyDetails *)deserialize:(NSDictionary *)dict;
++ (DBTEAMLOGPaperDocChangeSharingPolicyDetails *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

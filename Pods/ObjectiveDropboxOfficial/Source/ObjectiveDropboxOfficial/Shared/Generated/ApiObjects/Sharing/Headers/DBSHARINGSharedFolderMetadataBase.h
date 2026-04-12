@@ -51,9 +51,15 @@ NS_ASSUME_NONNULL_BEGIN
 /// is contained within another shared folder.
 @property (nonatomic, readonly, copy, nullable) NSString *parentSharedFolderId;
 
+/// The full path of this shared folder. Absent for unmounted folders.
+@property (nonatomic, readonly, copy, nullable) NSString *pathDisplay;
+
 /// The lower-cased full path of this shared folder. Absent for unmounted
 /// folders.
 @property (nonatomic, readonly, copy, nullable) NSString *pathLower;
+
+/// Display name for the parent folder.
+@property (nonatomic, readonly, copy, nullable) NSString *parentFolderName;
 
 #pragma mark - Constructors
 
@@ -71,8 +77,11 @@ NS_ASSUME_NONNULL_BEGIN
 /// the folder is not owned by a team.
 /// @param parentSharedFolderId The ID of the parent shared folder. This field
 /// is present only if the folder is contained within another shared folder.
+/// @param pathDisplay The full path of this shared folder. Absent for unmounted
+/// folders.
 /// @param pathLower The lower-cased full path of this shared folder. Absent for
 /// unmounted folders.
+/// @param parentFolderName Display name for the parent folder.
 ///
 /// @return An initialized instance.
 ///
@@ -82,7 +91,9 @@ NS_ASSUME_NONNULL_BEGIN
                  ownerDisplayNames:(nullable NSArray<NSString *> *)ownerDisplayNames
                          ownerTeam:(nullable DBUSERSTeam *)ownerTeam
               parentSharedFolderId:(nullable NSString *)parentSharedFolderId
-                         pathLower:(nullable NSString *)pathLower;
+                       pathDisplay:(nullable NSString *)pathDisplay
+                         pathLower:(nullable NSString *)pathLower
+                  parentFolderName:(nullable NSString *)parentFolderName;
 
 ///
 /// Convenience constructor (exposes only non-nullable instance variables with
@@ -119,7 +130,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// @return A json-compatible dictionary representation of the
 /// `DBSHARINGSharedFolderMetadataBase` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBSHARINGSharedFolderMetadataBase *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBSHARINGSharedFolderMetadataBase *)instance;
 
 ///
 /// Deserializes `DBSHARINGSharedFolderMetadataBase` instances.
@@ -129,7 +140,7 @@ NS_ASSUME_NONNULL_BEGIN
 ///
 /// @return An instantiation of the `DBSHARINGSharedFolderMetadataBase` object.
 ///
-+ (DBSHARINGSharedFolderMetadataBase *)deserialize:(NSDictionary *)dict;
++ (DBSHARINGSharedFolderMetadataBase *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

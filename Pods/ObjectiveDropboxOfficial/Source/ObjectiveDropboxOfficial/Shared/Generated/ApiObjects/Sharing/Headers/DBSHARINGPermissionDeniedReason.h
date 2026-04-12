@@ -30,7 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// The `DBSHARINGPermissionDeniedReasonTag` enum type represents the possible
 /// tag states with which the `DBSHARINGPermissionDeniedReason` union can exist.
-typedef NS_ENUM(NSInteger, DBSHARINGPermissionDeniedReasonTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBSHARINGPermissionDeniedReasonTag) {
   /// User is not on the same team as the folder owner.
   DBSHARINGPermissionDeniedReasonUserNotSameTeamAsOwner,
 
@@ -410,7 +410,7 @@ typedef NS_ENUM(NSInteger, DBSHARINGPermissionDeniedReasonTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBSHARINGPermissionDeniedReason` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBSHARINGPermissionDeniedReason *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBSHARINGPermissionDeniedReason *)instance;
 
 ///
 /// Deserializes `DBSHARINGPermissionDeniedReason` instances.
@@ -420,7 +420,7 @@ typedef NS_ENUM(NSInteger, DBSHARINGPermissionDeniedReasonTag) {
 ///
 /// @return An instantiation of the `DBSHARINGPermissionDeniedReason` object.
 ///
-+ (DBSHARINGPermissionDeniedReason *)deserialize:(NSDictionary *)dict;
++ (DBSHARINGPermissionDeniedReason *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

@@ -94,17 +94,17 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBAUTHAccessErrorSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBAUTHAccessErrorSerializer deserialize:dict];
 }
 
-#pragma mark - Description method
+#pragma mark - Debug Description method
 
-- (NSString *)description {
+- (NSString *)debugDescription {
   return [[DBAUTHAccessErrorSerializer serialize:self] description];
 }
 
@@ -125,10 +125,13 @@
   switch (_tag) {
   case DBAUTHAccessErrorInvalidAccountType:
     result = prime * result + [self.invalidAccountType hash];
+    break;
   case DBAUTHAccessErrorPaperAccessDenied:
     result = prime * result + [self.paperAccessDenied hash];
+    break;
   case DBAUTHAccessErrorOther:
     result = prime * result + [[self tagName] hash];
+    break;
   }
 
   return prime * result;
@@ -170,7 +173,7 @@
 
 @implementation DBAUTHAccessErrorSerializer
 
-+ (NSDictionary *)serialize:(DBAUTHAccessError *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBAUTHAccessError *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isInvalidAccountType]) {
@@ -187,10 +190,10 @@
     jsonDict[@".tag"] = @"other";
   }
 
-  return [jsonDict count] > 0 ? jsonDict : nil;
+  return jsonDict;
 }
 
-+ (DBAUTHAccessError *)deserialize:(NSDictionary *)valueDict {
++ (DBAUTHAccessError *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"invalid_account_type"]) {
@@ -211,12 +214,15 @@
 @end
 
 #import "DBAUTHAuthError.h"
+#import "DBAUTHTokenScopeError.h"
 #import "DBStoneSerializers.h"
 #import "DBStoneValidators.h"
 
 #pragma mark - API Object
 
 @implementation DBAUTHAuthError
+
+@synthesize missingScope = _missingScope;
 
 #pragma mark - Constructors
 
@@ -252,6 +258,31 @@
   return self;
 }
 
+- (instancetype)initWithExpiredAccessToken {
+  self = [super init];
+  if (self) {
+    _tag = DBAUTHAuthErrorExpiredAccessToken;
+  }
+  return self;
+}
+
+- (instancetype)initWithMissingScope:(DBAUTHTokenScopeError *)missingScope {
+  self = [super init];
+  if (self) {
+    _tag = DBAUTHAuthErrorMissingScope;
+    _missingScope = missingScope;
+  }
+  return self;
+}
+
+- (instancetype)initWithRouteAccessDenied {
+  self = [super init];
+  if (self) {
+    _tag = DBAUTHAuthErrorRouteAccessDenied;
+  }
+  return self;
+}
+
 - (instancetype)initWithOther {
   self = [super init];
   if (self) {
@@ -261,6 +292,14 @@
 }
 
 #pragma mark - Instance field accessors
+
+- (DBAUTHTokenScopeError *)missingScope {
+  if (![self isMissingScope]) {
+    [NSException raise:@"IllegalStateException"
+                format:@"Invalid tag: required DBAUTHAuthErrorMissingScope, but was %@.", [self tagName]];
+  }
+  return _missingScope;
+}
 
 #pragma mark - Tag state methods
 
@@ -280,6 +319,18 @@
   return _tag == DBAUTHAuthErrorUserSuspended;
 }
 
+- (BOOL)isExpiredAccessToken {
+  return _tag == DBAUTHAuthErrorExpiredAccessToken;
+}
+
+- (BOOL)isMissingScope {
+  return _tag == DBAUTHAuthErrorMissingScope;
+}
+
+- (BOOL)isRouteAccessDenied {
+  return _tag == DBAUTHAuthErrorRouteAccessDenied;
+}
+
 - (BOOL)isOther {
   return _tag == DBAUTHAuthErrorOther;
 }
@@ -294,6 +345,12 @@
     return @"DBAUTHAuthErrorInvalidSelectAdmin";
   case DBAUTHAuthErrorUserSuspended:
     return @"DBAUTHAuthErrorUserSuspended";
+  case DBAUTHAuthErrorExpiredAccessToken:
+    return @"DBAUTHAuthErrorExpiredAccessToken";
+  case DBAUTHAuthErrorMissingScope:
+    return @"DBAUTHAuthErrorMissingScope";
+  case DBAUTHAuthErrorRouteAccessDenied:
+    return @"DBAUTHAuthErrorRouteAccessDenied";
   case DBAUTHAuthErrorOther:
     return @"DBAUTHAuthErrorOther";
   }
@@ -303,17 +360,17 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBAUTHAuthErrorSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBAUTHAuthErrorSerializer deserialize:dict];
 }
 
-#pragma mark - Description method
+#pragma mark - Debug Description method
 
-- (NSString *)description {
+- (NSString *)debugDescription {
   return [[DBAUTHAuthErrorSerializer serialize:self] description];
 }
 
@@ -334,14 +391,28 @@
   switch (_tag) {
   case DBAUTHAuthErrorInvalidAccessToken:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBAUTHAuthErrorInvalidSelectUser:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBAUTHAuthErrorInvalidSelectAdmin:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBAUTHAuthErrorUserSuspended:
     result = prime * result + [[self tagName] hash];
+    break;
+  case DBAUTHAuthErrorExpiredAccessToken:
+    result = prime * result + [[self tagName] hash];
+    break;
+  case DBAUTHAuthErrorMissingScope:
+    result = prime * result + [self.missingScope hash];
+    break;
+  case DBAUTHAuthErrorRouteAccessDenied:
+    result = prime * result + [[self tagName] hash];
+    break;
   case DBAUTHAuthErrorOther:
     result = prime * result + [[self tagName] hash];
+    break;
   }
 
   return prime * result;
@@ -375,6 +446,12 @@
     return [[self tagName] isEqual:[anAuthError tagName]];
   case DBAUTHAuthErrorUserSuspended:
     return [[self tagName] isEqual:[anAuthError tagName]];
+  case DBAUTHAuthErrorExpiredAccessToken:
+    return [[self tagName] isEqual:[anAuthError tagName]];
+  case DBAUTHAuthErrorMissingScope:
+    return [self.missingScope isEqual:anAuthError.missingScope];
+  case DBAUTHAuthErrorRouteAccessDenied:
+    return [[self tagName] isEqual:[anAuthError tagName]];
   case DBAUTHAuthErrorOther:
     return [[self tagName] isEqual:[anAuthError tagName]];
   }
@@ -387,7 +464,7 @@
 
 @implementation DBAUTHAuthErrorSerializer
 
-+ (NSDictionary *)serialize:(DBAUTHAuthError *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBAUTHAuthError *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isInvalidAccessToken]) {
@@ -398,16 +475,23 @@
     jsonDict[@".tag"] = @"invalid_select_admin";
   } else if ([valueObj isUserSuspended]) {
     jsonDict[@".tag"] = @"user_suspended";
+  } else if ([valueObj isExpiredAccessToken]) {
+    jsonDict[@".tag"] = @"expired_access_token";
+  } else if ([valueObj isMissingScope]) {
+    [jsonDict addEntriesFromDictionary:[DBAUTHTokenScopeErrorSerializer serialize:valueObj.missingScope]];
+    jsonDict[@".tag"] = @"missing_scope";
+  } else if ([valueObj isRouteAccessDenied]) {
+    jsonDict[@".tag"] = @"route_access_denied";
   } else if ([valueObj isOther]) {
     jsonDict[@".tag"] = @"other";
   } else {
     jsonDict[@".tag"] = @"other";
   }
 
-  return [jsonDict count] > 0 ? jsonDict : nil;
+  return jsonDict;
 }
 
-+ (DBAUTHAuthError *)deserialize:(NSDictionary *)valueDict {
++ (DBAUTHAuthError *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"invalid_access_token"]) {
@@ -418,6 +502,13 @@
     return [[DBAUTHAuthError alloc] initWithInvalidSelectAdmin];
   } else if ([tag isEqualToString:@"user_suspended"]) {
     return [[DBAUTHAuthError alloc] initWithUserSuspended];
+  } else if ([tag isEqualToString:@"expired_access_token"]) {
+    return [[DBAUTHAuthError alloc] initWithExpiredAccessToken];
+  } else if ([tag isEqualToString:@"missing_scope"]) {
+    DBAUTHTokenScopeError *missingScope = [DBAUTHTokenScopeErrorSerializer deserialize:valueDict];
+    return [[DBAUTHAuthError alloc] initWithMissingScope:missingScope];
+  } else if ([tag isEqualToString:@"route_access_denied"]) {
+    return [[DBAUTHAuthError alloc] initWithRouteAccessDenied];
   } else if ([tag isEqualToString:@"other"]) {
     return [[DBAUTHAuthError alloc] initWithOther];
   } else {
@@ -492,17 +583,17 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBAUTHInvalidAccountTypeErrorSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBAUTHInvalidAccountTypeErrorSerializer deserialize:dict];
 }
 
-#pragma mark - Description method
+#pragma mark - Debug Description method
 
-- (NSString *)description {
+- (NSString *)debugDescription {
   return [[DBAUTHInvalidAccountTypeErrorSerializer serialize:self] description];
 }
 
@@ -523,10 +614,13 @@
   switch (_tag) {
   case DBAUTHInvalidAccountTypeErrorEndpoint:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBAUTHInvalidAccountTypeErrorFeature:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBAUTHInvalidAccountTypeErrorOther:
     result = prime * result + [[self tagName] hash];
+    break;
   }
 
   return prime * result;
@@ -568,7 +662,7 @@
 
 @implementation DBAUTHInvalidAccountTypeErrorSerializer
 
-+ (NSDictionary *)serialize:(DBAUTHInvalidAccountTypeError *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBAUTHInvalidAccountTypeError *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isEndpoint]) {
@@ -581,10 +675,10 @@
     jsonDict[@".tag"] = @"other";
   }
 
-  return [jsonDict count] > 0 ? jsonDict : nil;
+  return jsonDict;
 }
 
-+ (DBAUTHInvalidAccountTypeError *)deserialize:(NSDictionary *)valueDict {
++ (DBAUTHInvalidAccountTypeError *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"endpoint"]) {
@@ -665,17 +759,17 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBAUTHPaperAccessErrorSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBAUTHPaperAccessErrorSerializer deserialize:dict];
 }
 
-#pragma mark - Description method
+#pragma mark - Debug Description method
 
-- (NSString *)description {
+- (NSString *)debugDescription {
   return [[DBAUTHPaperAccessErrorSerializer serialize:self] description];
 }
 
@@ -696,10 +790,13 @@
   switch (_tag) {
   case DBAUTHPaperAccessErrorPaperDisabled:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBAUTHPaperAccessErrorNotPaperUser:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBAUTHPaperAccessErrorOther:
     result = prime * result + [[self tagName] hash];
+    break;
   }
 
   return prime * result;
@@ -741,7 +838,7 @@
 
 @implementation DBAUTHPaperAccessErrorSerializer
 
-+ (NSDictionary *)serialize:(DBAUTHPaperAccessError *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBAUTHPaperAccessError *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isPaperDisabled]) {
@@ -754,10 +851,10 @@
     jsonDict[@".tag"] = @"other";
   }
 
-  return [jsonDict count] > 0 ? jsonDict : nil;
+  return jsonDict;
 }
 
-+ (DBAUTHPaperAccessError *)deserialize:(NSDictionary *)valueDict {
++ (DBAUTHPaperAccessError *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"paper_disabled"]) {
@@ -801,17 +898,17 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBAUTHRateLimitErrorSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBAUTHRateLimitErrorSerializer deserialize:dict];
 }
 
-#pragma mark - Description method
+#pragma mark - Debug Description method
 
-- (NSString *)description {
+- (NSString *)debugDescription {
   return [[DBAUTHRateLimitErrorSerializer serialize:self] description];
 }
 
@@ -866,16 +963,16 @@
 
 @implementation DBAUTHRateLimitErrorSerializer
 
-+ (NSDictionary *)serialize:(DBAUTHRateLimitError *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBAUTHRateLimitError *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"reason"] = [DBAUTHRateLimitReasonSerializer serialize:valueObj.reason];
   jsonDict[@"retry_after"] = valueObj.retryAfter;
 
-  return [jsonDict count] > 0 ? jsonDict : nil;
+  return jsonDict;
 }
 
-+ (DBAUTHRateLimitError *)deserialize:(NSDictionary *)valueDict {
++ (DBAUTHRateLimitError *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   DBAUTHRateLimitReason *reason = [DBAUTHRateLimitReasonSerializer deserialize:valueDict[@"reason"]];
   NSNumber *retryAfter = valueDict[@"retry_after"] ?: @(1);
 
@@ -949,17 +1046,17 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBAUTHRateLimitReasonSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBAUTHRateLimitReasonSerializer deserialize:dict];
 }
 
-#pragma mark - Description method
+#pragma mark - Debug Description method
 
-- (NSString *)description {
+- (NSString *)debugDescription {
   return [[DBAUTHRateLimitReasonSerializer serialize:self] description];
 }
 
@@ -980,10 +1077,13 @@
   switch (_tag) {
   case DBAUTHRateLimitReasonTooManyRequests:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBAUTHRateLimitReasonTooManyWriteOperations:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBAUTHRateLimitReasonOther:
     result = prime * result + [[self tagName] hash];
+    break;
   }
 
   return prime * result;
@@ -1025,7 +1125,7 @@
 
 @implementation DBAUTHRateLimitReasonSerializer
 
-+ (NSDictionary *)serialize:(DBAUTHRateLimitReason *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBAUTHRateLimitReason *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isTooManyRequests]) {
@@ -1038,10 +1138,10 @@
     jsonDict[@".tag"] = @"other";
   }
 
-  return [jsonDict count] > 0 ? jsonDict : nil;
+  return jsonDict;
 }
 
-+ (DBAUTHRateLimitReason *)deserialize:(NSDictionary *)valueDict {
++ (DBAUTHRateLimitReason *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"too_many_requests"]) {
@@ -1069,8 +1169,8 @@
 
 - (instancetype)initWithOauth1Token:(NSString *)oauth1Token oauth1TokenSecret:(NSString *)oauth1TokenSecret {
   [DBStoneValidators nonnullValidator:[DBStoneValidators stringValidator:@(1) maxLength:nil pattern:nil]](oauth1Token);
-  [DBStoneValidators
-   nonnullValidator:[DBStoneValidators stringValidator:@(1) maxLength:nil pattern:nil]](oauth1TokenSecret);
+  [DBStoneValidators nonnullValidator:[DBStoneValidators stringValidator:@(1) maxLength:nil
+                                                                 pattern:nil]](oauth1TokenSecret);
 
   self = [super init];
   if (self) {
@@ -1082,17 +1182,17 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBAUTHTokenFromOAuth1ArgSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBAUTHTokenFromOAuth1ArgSerializer deserialize:dict];
 }
 
-#pragma mark - Description method
+#pragma mark - Debug Description method
 
-- (NSString *)description {
+- (NSString *)debugDescription {
   return [[DBAUTHTokenFromOAuth1ArgSerializer serialize:self] description];
 }
 
@@ -1147,16 +1247,16 @@
 
 @implementation DBAUTHTokenFromOAuth1ArgSerializer
 
-+ (NSDictionary *)serialize:(DBAUTHTokenFromOAuth1Arg *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBAUTHTokenFromOAuth1Arg *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"oauth1_token"] = valueObj.oauth1Token;
   jsonDict[@"oauth1_token_secret"] = valueObj.oauth1TokenSecret;
 
-  return [jsonDict count] > 0 ? jsonDict : nil;
+  return jsonDict;
 }
 
-+ (DBAUTHTokenFromOAuth1Arg *)deserialize:(NSDictionary *)valueDict {
++ (DBAUTHTokenFromOAuth1Arg *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *oauth1Token = valueDict[@"oauth1_token"];
   NSString *oauth1TokenSecret = valueDict[@"oauth1_token_secret"];
 
@@ -1230,17 +1330,17 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBAUTHTokenFromOAuth1ErrorSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBAUTHTokenFromOAuth1ErrorSerializer deserialize:dict];
 }
 
-#pragma mark - Description method
+#pragma mark - Debug Description method
 
-- (NSString *)description {
+- (NSString *)debugDescription {
   return [[DBAUTHTokenFromOAuth1ErrorSerializer serialize:self] description];
 }
 
@@ -1261,10 +1361,13 @@
   switch (_tag) {
   case DBAUTHTokenFromOAuth1ErrorInvalidOauth1TokenInfo:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBAUTHTokenFromOAuth1ErrorAppIdMismatch:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBAUTHTokenFromOAuth1ErrorOther:
     result = prime * result + [[self tagName] hash];
+    break;
   }
 
   return prime * result;
@@ -1306,7 +1409,7 @@
 
 @implementation DBAUTHTokenFromOAuth1ErrorSerializer
 
-+ (NSDictionary *)serialize:(DBAUTHTokenFromOAuth1Error *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBAUTHTokenFromOAuth1Error *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isInvalidOauth1TokenInfo]) {
@@ -1319,10 +1422,10 @@
     jsonDict[@".tag"] = @"other";
   }
 
-  return [jsonDict count] > 0 ? jsonDict : nil;
+  return jsonDict;
 }
 
-+ (DBAUTHTokenFromOAuth1Error *)deserialize:(NSDictionary *)valueDict {
++ (DBAUTHTokenFromOAuth1Error *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"invalid_oauth1_token_info"]) {
@@ -1360,17 +1463,17 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBAUTHTokenFromOAuth1ResultSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBAUTHTokenFromOAuth1ResultSerializer deserialize:dict];
 }
 
-#pragma mark - Description method
+#pragma mark - Debug Description method
 
-- (NSString *)description {
+- (NSString *)debugDescription {
   return [[DBAUTHTokenFromOAuth1ResultSerializer serialize:self] description];
 }
 
@@ -1421,18 +1524,117 @@
 
 @implementation DBAUTHTokenFromOAuth1ResultSerializer
 
-+ (NSDictionary *)serialize:(DBAUTHTokenFromOAuth1Result *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBAUTHTokenFromOAuth1Result *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"oauth2_token"] = valueObj.oauth2Token;
 
-  return [jsonDict count] > 0 ? jsonDict : nil;
+  return jsonDict;
 }
 
-+ (DBAUTHTokenFromOAuth1Result *)deserialize:(NSDictionary *)valueDict {
++ (DBAUTHTokenFromOAuth1Result *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *oauth2Token = valueDict[@"oauth2_token"];
 
   return [[DBAUTHTokenFromOAuth1Result alloc] initWithOauth2Token:oauth2Token];
+}
+
+@end
+
+#import "DBAUTHTokenScopeError.h"
+#import "DBStoneSerializers.h"
+#import "DBStoneValidators.h"
+
+#pragma mark - API Object
+
+@implementation DBAUTHTokenScopeError
+
+#pragma mark - Constructors
+
+- (instancetype)initWithRequiredScope:(NSString *)requiredScope {
+  [DBStoneValidators nonnullValidator:nil](requiredScope);
+
+  self = [super init];
+  if (self) {
+    _requiredScope = requiredScope;
+  }
+  return self;
+}
+
+#pragma mark - Serialization methods
+
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
+  return [DBAUTHTokenScopeErrorSerializer serialize:instance];
+}
+
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
+  return [DBAUTHTokenScopeErrorSerializer deserialize:dict];
+}
+
+#pragma mark - Debug Description method
+
+- (NSString *)debugDescription {
+  return [[DBAUTHTokenScopeErrorSerializer serialize:self] description];
+}
+
+#pragma mark - Copyable method
+
+- (instancetype)copyWithZone:(NSZone *)zone {
+#pragma unused(zone)
+  /// object is immutable
+  return self;
+}
+
+#pragma mark - Hash method
+
+- (NSUInteger)hash {
+  NSUInteger prime = 31;
+  NSUInteger result = 1;
+
+  result = prime * result + [self.requiredScope hash];
+
+  return prime * result;
+}
+
+#pragma mark - Equality method
+
+- (BOOL)isEqual:(id)other {
+  if (other == self) {
+    return YES;
+  }
+  if (!other || ![other isKindOfClass:[self class]]) {
+    return NO;
+  }
+  return [self isEqualToTokenScopeError:other];
+}
+
+- (BOOL)isEqualToTokenScopeError:(DBAUTHTokenScopeError *)aTokenScopeError {
+  if (self == aTokenScopeError) {
+    return YES;
+  }
+  if (![self.requiredScope isEqual:aTokenScopeError.requiredScope]) {
+    return NO;
+  }
+  return YES;
+}
+
+@end
+
+#pragma mark - Serializer Object
+
+@implementation DBAUTHTokenScopeErrorSerializer
+
++ (NSDictionary<NSString *, id> *)serialize:(DBAUTHTokenScopeError *)valueObj {
+  NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
+
+  jsonDict[@"required_scope"] = valueObj.requiredScope;
+
+  return jsonDict;
+}
+
++ (DBAUTHTokenScopeError *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
+  NSString *requiredScope = valueDict[@"required_scope"];
+
+  return [[DBAUTHTokenScopeError alloc] initWithRequiredScope:requiredScope];
 }
 
 @end

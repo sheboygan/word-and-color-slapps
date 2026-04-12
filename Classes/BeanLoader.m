@@ -100,14 +100,16 @@
     NSString *remoteFilename = [remoteItem.name stringByAppendingFormat:@".wsl"];
     
     DBFILESWriteMode *mode = [[DBFILESWriteMode alloc] initWithOverwrite];
-    [restClient.filesRoutes deleteV2: [NSString stringWithFormat:@"%@/%@",path, remoteFilename]];
-    
-    [[[restClient.filesRoutes uploadUrl: [NSString stringWithFormat:@"%@/%@",path, remoteFilename]
+    [restClient.filesRoutes delete_:[NSString stringWithFormat:@"%@/%@",path, remoteFilename]];
+
+    [[[restClient.filesRoutes uploadUrl:[NSString stringWithFormat:@"%@/%@",path, remoteFilename]
                                    mode:mode
                              autorename:@(YES)
                          clientModified:currentBean.lastModifiedDate
                                    mute:@(NO)
-                         propertyGroups:NULL
+                         propertyGroups:nil
+                         strictConflict:nil
+                            contentHash:nil
                                inputUrl:tmpFilePath] setResponseBlock:^(DBFILESFileMetadata * _Nullable result, DBFILESUploadError * _Nullable routeError, DBRequestError * _Nullable networkError) {
         [HUD hide:YES];
         if (networkError) {

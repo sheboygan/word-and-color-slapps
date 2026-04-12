@@ -29,7 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// The `DBTEAMListTeamAppsErrorTag` enum type represents the possible tag
 /// states with which the `DBTEAMListTeamAppsError` union can exist.
-typedef NS_ENUM(NSInteger, DBTEAMListTeamAppsErrorTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBTEAMListTeamAppsErrorTag) {
   /// Indicates that the cursor has been invalidated. Call
   /// `linkedAppsListTeamLinkedApps` again with an empty cursor to obtain a
   /// new cursor.
@@ -105,7 +105,7 @@ typedef NS_ENUM(NSInteger, DBTEAMListTeamAppsErrorTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBTEAMListTeamAppsError` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBTEAMListTeamAppsError *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBTEAMListTeamAppsError *)instance;
 
 ///
 /// Deserializes `DBTEAMListTeamAppsError` instances.
@@ -115,7 +115,7 @@ typedef NS_ENUM(NSInteger, DBTEAMListTeamAppsErrorTag) {
 ///
 /// @return An instantiation of the `DBTEAMListTeamAppsError` object.
 ///
-+ (DBTEAMListTeamAppsError *)deserialize:(NSDictionary *)dict;
++ (DBTEAMListTeamAppsError *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

@@ -27,7 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// The `DBTEAMPOLICIESSmartSyncPolicyTag` enum type represents the possible tag
 /// states with which the `DBTEAMPOLICIESSmartSyncPolicy` union can exist.
-typedef NS_ENUM(NSInteger, DBTEAMPOLICIESSmartSyncPolicyTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBTEAMPOLICIESSmartSyncPolicyTag) {
   /// The specified content will be synced as local files by default.
   DBTEAMPOLICIESSmartSyncPolicyLocal,
 
@@ -121,7 +121,7 @@ typedef NS_ENUM(NSInteger, DBTEAMPOLICIESSmartSyncPolicyTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBTEAMPOLICIESSmartSyncPolicy` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBTEAMPOLICIESSmartSyncPolicy *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBTEAMPOLICIESSmartSyncPolicy *)instance;
 
 ///
 /// Deserializes `DBTEAMPOLICIESSmartSyncPolicy` instances.
@@ -131,7 +131,7 @@ typedef NS_ENUM(NSInteger, DBTEAMPOLICIESSmartSyncPolicyTag) {
 ///
 /// @return An instantiation of the `DBTEAMPOLICIESSmartSyncPolicy` object.
 ///
-+ (DBTEAMPOLICIESSmartSyncPolicy *)deserialize:(NSDictionary *)dict;
++ (DBTEAMPOLICIESSmartSyncPolicy *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

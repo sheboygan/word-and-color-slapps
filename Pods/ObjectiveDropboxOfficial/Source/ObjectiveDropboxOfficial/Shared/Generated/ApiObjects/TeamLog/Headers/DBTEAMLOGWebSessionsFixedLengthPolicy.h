@@ -31,7 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// The `DBTEAMLOGWebSessionsFixedLengthPolicyTag` enum type represents the
 /// possible tag states with which the `DBTEAMLOGWebSessionsFixedLengthPolicy`
 /// union can exist.
-typedef NS_ENUM(NSInteger, DBTEAMLOGWebSessionsFixedLengthPolicyTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBTEAMLOGWebSessionsFixedLengthPolicyTag) {
   /// Defined fixed session length.
   DBTEAMLOGWebSessionsFixedLengthPolicyDefined,
 
@@ -133,7 +133,7 @@ typedef NS_ENUM(NSInteger, DBTEAMLOGWebSessionsFixedLengthPolicyTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBTEAMLOGWebSessionsFixedLengthPolicy` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBTEAMLOGWebSessionsFixedLengthPolicy *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBTEAMLOGWebSessionsFixedLengthPolicy *)instance;
 
 ///
 /// Deserializes `DBTEAMLOGWebSessionsFixedLengthPolicy` instances.
@@ -144,7 +144,7 @@ typedef NS_ENUM(NSInteger, DBTEAMLOGWebSessionsFixedLengthPolicyTag) {
 /// @return An instantiation of the `DBTEAMLOGWebSessionsFixedLengthPolicy`
 /// object.
 ///
-+ (DBTEAMLOGWebSessionsFixedLengthPolicy *)deserialize:(NSDictionary *)dict;
++ (DBTEAMLOGWebSessionsFixedLengthPolicy *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

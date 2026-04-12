@@ -9,6 +9,7 @@
 #import "DBSHARINGUserMembershipInfo.h"
 #import "DBSerializableProtocol.h"
 
+@class DBSEENSTATEPlatformType;
 @class DBSHARINGAccessLevel;
 @class DBSHARINGMemberPermission;
 @class DBSHARINGUserFileMembershipInfo;
@@ -32,22 +33,31 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Instance fields
 
-/// The UTC timestamp of when the user has last seen the content, if they have.
+/// The UTC timestamp of when the user has last seen the content. Only populated
+/// if the user has seen the content and the caller has a plan that includes
+/// viewer history.
 @property (nonatomic, readonly, nullable) NSDate *timeLastSeen;
+
+/// The platform on which the user has last seen the content, or unknown.
+@property (nonatomic, readonly, nullable) DBSEENSTATEPlatformType *platformType;
 
 #pragma mark - Constructors
 
 ///
 /// Full constructor for the struct (exposes all instance variables).
 ///
-/// @param accessType The access type for this member.
+/// @param accessType The access type for this member. It contains inherited
+/// access type from parent folder, and acquired access type from this folder.
 /// @param user The account information for the membership user.
 /// @param permissions The permissions that requesting user has on this member.
 /// The set of permissions corresponds to the MemberActions in the request.
-/// @param initials Suggested name initials for a member.
+/// @param initials Never set.
 /// @param isInherited True if the member has access from a parent folder.
 /// @param timeLastSeen The UTC timestamp of when the user has last seen the
-/// content, if they have.
+/// content. Only populated if the user has seen the content and the caller has
+/// a plan that includes viewer history.
+/// @param platformType The platform on which the user has last seen the
+/// content, or unknown.
 ///
 /// @return An initialized instance.
 ///
@@ -56,13 +66,15 @@ NS_ASSUME_NONNULL_BEGIN
                        permissions:(nullable NSArray<DBSHARINGMemberPermission *> *)permissions
                           initials:(nullable NSString *)initials
                        isInherited:(nullable NSNumber *)isInherited
-                      timeLastSeen:(nullable NSDate *)timeLastSeen;
+                      timeLastSeen:(nullable NSDate *)timeLastSeen
+                      platformType:(nullable DBSEENSTATEPlatformType *)platformType;
 
 ///
 /// Convenience constructor (exposes only non-nullable instance variables with
 /// no default value).
 ///
-/// @param accessType The access type for this member.
+/// @param accessType The access type for this member. It contains inherited
+/// access type from parent folder, and acquired access type from this folder.
 /// @param user The account information for the membership user.
 ///
 /// @return An initialized instance.
@@ -87,7 +99,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// @return A json-compatible dictionary representation of the
 /// `DBSHARINGUserFileMembershipInfo` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBSHARINGUserFileMembershipInfo *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBSHARINGUserFileMembershipInfo *)instance;
 
 ///
 /// Deserializes `DBSHARINGUserFileMembershipInfo` instances.
@@ -97,7 +109,7 @@ NS_ASSUME_NONNULL_BEGIN
 ///
 /// @return An instantiation of the `DBSHARINGUserFileMembershipInfo` object.
 ///
-+ (DBSHARINGUserFileMembershipInfo *)deserialize:(NSDictionary *)dict;
++ (DBSHARINGUserFileMembershipInfo *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

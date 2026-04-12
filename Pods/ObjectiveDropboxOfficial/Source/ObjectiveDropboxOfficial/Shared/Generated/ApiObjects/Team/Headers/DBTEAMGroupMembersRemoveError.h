@@ -27,7 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// The `DBTEAMGroupMembersRemoveErrorTag` enum type represents the possible tag
 /// states with which the `DBTEAMGroupMembersRemoveError` union can exist.
-typedef NS_ENUM(NSInteger, DBTEAMGroupMembersRemoveErrorTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBTEAMGroupMembersRemoveErrorTag) {
   /// No matching group found. No groups match the specified group ID.
   DBTEAMGroupMembersRemoveErrorGroupNotFound,
 
@@ -229,7 +229,7 @@ typedef NS_ENUM(NSInteger, DBTEAMGroupMembersRemoveErrorTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBTEAMGroupMembersRemoveError` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBTEAMGroupMembersRemoveError *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBTEAMGroupMembersRemoveError *)instance;
 
 ///
 /// Deserializes `DBTEAMGroupMembersRemoveError` instances.
@@ -239,7 +239,7 @@ typedef NS_ENUM(NSInteger, DBTEAMGroupMembersRemoveErrorTag) {
 ///
 /// @return An instantiation of the `DBTEAMGroupMembersRemoveError` object.
 ///
-+ (DBTEAMGroupMembersRemoveError *)deserialize:(NSDictionary *)dict;
++ (DBTEAMGroupMembersRemoveError *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

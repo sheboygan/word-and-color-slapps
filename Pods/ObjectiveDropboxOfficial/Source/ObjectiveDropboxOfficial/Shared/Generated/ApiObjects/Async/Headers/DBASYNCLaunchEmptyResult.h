@@ -31,7 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// The `DBASYNCLaunchEmptyResultTag` enum type represents the possible tag
 /// states with which the `DBASYNCLaunchEmptyResult` union can exist.
-typedef NS_ENUM(NSInteger, DBASYNCLaunchEmptyResultTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBASYNCLaunchEmptyResultTag) {
   /// This response indicates that the processing is asynchronous. The string
   /// is an id that can be used to obtain the status of the asynchronous job.
   DBASYNCLaunchEmptyResultAsyncJobId,
@@ -122,7 +122,7 @@ typedef NS_ENUM(NSInteger, DBASYNCLaunchEmptyResultTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBASYNCLaunchEmptyResult` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBASYNCLaunchEmptyResult *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBASYNCLaunchEmptyResult *)instance;
 
 ///
 /// Deserializes `DBASYNCLaunchEmptyResult` instances.
@@ -132,7 +132,7 @@ typedef NS_ENUM(NSInteger, DBASYNCLaunchEmptyResultTag) {
 ///
 /// @return An instantiation of the `DBASYNCLaunchEmptyResult` object.
 ///
-+ (DBASYNCLaunchEmptyResult *)deserialize:(NSDictionary *)dict;
++ (DBASYNCLaunchEmptyResult *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

@@ -31,7 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// The `DBUSERSSpaceAllocationTag` enum type represents the possible tag states
 /// with which the `DBUSERSSpaceAllocation` union can exist.
-typedef NS_ENUM(NSInteger, DBUSERSSpaceAllocationTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBUSERSSpaceAllocationTag) {
   /// The user's space allocation applies only to their individual account.
   DBUSERSSpaceAllocationIndividual,
 
@@ -145,7 +145,7 @@ typedef NS_ENUM(NSInteger, DBUSERSSpaceAllocationTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBUSERSSpaceAllocation` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBUSERSSpaceAllocation *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBUSERSSpaceAllocation *)instance;
 
 ///
 /// Deserializes `DBUSERSSpaceAllocation` instances.
@@ -155,7 +155,7 @@ typedef NS_ENUM(NSInteger, DBUSERSSpaceAllocationTag) {
 ///
 /// @return An instantiation of the `DBUSERSSpaceAllocation` object.
 ///
-+ (DBUSERSSpaceAllocation *)deserialize:(NSDictionary *)dict;
++ (DBUSERSSpaceAllocation *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

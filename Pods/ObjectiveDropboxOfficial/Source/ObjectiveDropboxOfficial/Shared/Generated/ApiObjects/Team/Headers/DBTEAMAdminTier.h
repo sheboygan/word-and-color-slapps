@@ -29,7 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// The `DBTEAMAdminTierTag` enum type represents the possible tag states with
 /// which the `DBTEAMAdminTier` union can exist.
-typedef NS_ENUM(NSInteger, DBTEAMAdminTierTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBTEAMAdminTierTag) {
   /// User is an administrator of the team - has all permissions.
   DBTEAMAdminTierTeamAdmin,
 
@@ -37,6 +37,8 @@ typedef NS_ENUM(NSInteger, DBTEAMAdminTierTag) {
   DBTEAMAdminTierUserManagementAdmin,
 
   /// User can do a limited set of common support tasks for existing users.
+  /// Note: Dropbox is adding new types of admin roles; these may display as
+  /// support_admin.
   DBTEAMAdminTierSupportAdmin,
 
   /// User is not an admin of the team.
@@ -73,7 +75,8 @@ typedef NS_ENUM(NSInteger, DBTEAMAdminTierTag) {
 /// Initializes union class with tag state of "support_admin".
 ///
 /// Description of the "support_admin" tag state: User can do a limited set of
-/// common support tasks for existing users.
+/// common support tasks for existing users. Note: Dropbox is adding new types
+/// of admin roles; these may display as support_admin.
 ///
 /// @return An initialized instance.
 ///
@@ -147,7 +150,7 @@ typedef NS_ENUM(NSInteger, DBTEAMAdminTierTag) {
 /// @return A json-compatible dictionary representation of the `DBTEAMAdminTier`
 /// API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBTEAMAdminTier *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBTEAMAdminTier *)instance;
 
 ///
 /// Deserializes `DBTEAMAdminTier` instances.
@@ -157,7 +160,7 @@ typedef NS_ENUM(NSInteger, DBTEAMAdminTierTag) {
 ///
 /// @return An instantiation of the `DBTEAMAdminTier` object.
 ///
-+ (DBTEAMAdminTier *)deserialize:(NSDictionary *)dict;
++ (DBTEAMAdminTier *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

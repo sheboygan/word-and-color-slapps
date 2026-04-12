@@ -28,7 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// The `DBTEAMFeaturesGetValuesBatchErrorTag` enum type represents the possible
 /// tag states with which the `DBTEAMFeaturesGetValuesBatchError` union can
 /// exist.
-typedef NS_ENUM(NSInteger, DBTEAMFeaturesGetValuesBatchErrorTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBTEAMFeaturesGetValuesBatchErrorTag) {
   /// At least one Feature must be included in the
   /// FeaturesGetValuesBatchArg.features list.
   DBTEAMFeaturesGetValuesBatchErrorEmptyFeaturesList,
@@ -105,7 +105,7 @@ typedef NS_ENUM(NSInteger, DBTEAMFeaturesGetValuesBatchErrorTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBTEAMFeaturesGetValuesBatchError` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBTEAMFeaturesGetValuesBatchError *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBTEAMFeaturesGetValuesBatchError *)instance;
 
 ///
 /// Deserializes `DBTEAMFeaturesGetValuesBatchError` instances.
@@ -115,7 +115,7 @@ typedef NS_ENUM(NSInteger, DBTEAMFeaturesGetValuesBatchErrorTag) {
 ///
 /// @return An instantiation of the `DBTEAMFeaturesGetValuesBatchError` object.
 ///
-+ (DBTEAMFeaturesGetValuesBatchError *)deserialize:(NSDictionary *)dict;
++ (DBTEAMFeaturesGetValuesBatchError *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

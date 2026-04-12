@@ -27,7 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// The `DBSHARINGViewerInfoPolicyTag` enum type represents the possible tag
 /// states with which the `DBSHARINGViewerInfoPolicy` union can exist.
-typedef NS_ENUM(NSInteger, DBSHARINGViewerInfoPolicyTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBSHARINGViewerInfoPolicyTag) {
   /// Viewer information is available on this file.
   DBSHARINGViewerInfoPolicyEnabled,
 
@@ -120,7 +120,7 @@ typedef NS_ENUM(NSInteger, DBSHARINGViewerInfoPolicyTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBSHARINGViewerInfoPolicy` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBSHARINGViewerInfoPolicy *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBSHARINGViewerInfoPolicy *)instance;
 
 ///
 /// Deserializes `DBSHARINGViewerInfoPolicy` instances.
@@ -130,7 +130,7 @@ typedef NS_ENUM(NSInteger, DBSHARINGViewerInfoPolicyTag) {
 ///
 /// @return An instantiation of the `DBSHARINGViewerInfoPolicy` object.
 ///
-+ (DBSHARINGViewerInfoPolicy *)deserialize:(NSDictionary *)dict;
++ (DBSHARINGViewerInfoPolicy *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

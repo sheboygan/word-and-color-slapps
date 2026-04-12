@@ -28,8 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Instance fields
 
-/// Fully qualified path relative to event's context. Might be missing due to
-/// historical data gap.
+/// Fully qualified path relative to event's context.
 @property (nonatomic, readonly, copy, nullable) NSString *contextual;
 
 /// Path relative to the namespace containing the content.
@@ -42,8 +41,7 @@ NS_ASSUME_NONNULL_BEGIN
 ///
 /// @param namespaceRelative Path relative to the namespace containing the
 /// content.
-/// @param contextual Fully qualified path relative to event's context. Might be
-/// missing due to historical data gap.
+/// @param contextual Fully qualified path relative to event's context.
 ///
 /// @return An initialized instance.
 ///
@@ -80,7 +78,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// @return A json-compatible dictionary representation of the
 /// `DBTEAMLOGPathLogInfo` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBTEAMLOGPathLogInfo *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBTEAMLOGPathLogInfo *)instance;
 
 ///
 /// Deserializes `DBTEAMLOGPathLogInfo` instances.
@@ -90,7 +88,7 @@ NS_ASSUME_NONNULL_BEGIN
 ///
 /// @return An instantiation of the `DBTEAMLOGPathLogInfo` object.
 ///
-+ (DBTEAMLOGPathLogInfo *)deserialize:(NSDictionary *)dict;
++ (DBTEAMLOGPathLogInfo *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

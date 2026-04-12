@@ -1,0 +1,6 @@
+module Pods_Lite {
+  umbrella header "Pods-Lite-umbrella.h"
+
+  export *
+  module * { export * }
+}

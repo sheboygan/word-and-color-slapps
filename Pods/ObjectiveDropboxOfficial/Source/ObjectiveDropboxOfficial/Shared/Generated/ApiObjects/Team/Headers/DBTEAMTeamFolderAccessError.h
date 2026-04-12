@@ -27,7 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// The `DBTEAMTeamFolderAccessErrorTag` enum type represents the possible tag
 /// states with which the `DBTEAMTeamFolderAccessError` union can exist.
-typedef NS_ENUM(NSInteger, DBTEAMTeamFolderAccessErrorTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBTEAMTeamFolderAccessErrorTag) {
   /// The team folder ID is invalid.
   DBTEAMTeamFolderAccessErrorInvalidTeamFolderId,
 
@@ -123,7 +123,7 @@ typedef NS_ENUM(NSInteger, DBTEAMTeamFolderAccessErrorTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBTEAMTeamFolderAccessError` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBTEAMTeamFolderAccessError *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBTEAMTeamFolderAccessError *)instance;
 
 ///
 /// Deserializes `DBTEAMTeamFolderAccessError` instances.
@@ -133,7 +133,7 @@ typedef NS_ENUM(NSInteger, DBTEAMTeamFolderAccessErrorTag) {
 ///
 /// @return An instantiation of the `DBTEAMTeamFolderAccessError` object.
 ///
-+ (DBTEAMTeamFolderAccessError *)deserialize:(NSDictionary *)dict;
++ (DBTEAMTeamFolderAccessError *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

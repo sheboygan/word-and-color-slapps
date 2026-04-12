@@ -33,7 +33,7 @@ NS_ASSUME_NONNULL_BEGIN
 ///
 /// Full constructor for the struct (exposes all instance variables).
 ///
-/// @param sessionId Session ID. Might be missing due to historical data gap.
+/// @param sessionId Session ID.
 ///
 /// @return An initialized instance.
 ///
@@ -66,7 +66,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// @return A json-compatible dictionary representation of the
 /// `DBTEAMLOGMobileSessionLogInfo` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBTEAMLOGMobileSessionLogInfo *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBTEAMLOGMobileSessionLogInfo *)instance;
 
 ///
 /// Deserializes `DBTEAMLOGMobileSessionLogInfo` instances.
@@ -76,7 +76,7 @@ NS_ASSUME_NONNULL_BEGIN
 ///
 /// @return An instantiation of the `DBTEAMLOGMobileSessionLogInfo` object.
 ///
-+ (DBTEAMLOGMobileSessionLogInfo *)deserialize:(NSDictionary *)dict;
++ (DBTEAMLOGMobileSessionLogInfo *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

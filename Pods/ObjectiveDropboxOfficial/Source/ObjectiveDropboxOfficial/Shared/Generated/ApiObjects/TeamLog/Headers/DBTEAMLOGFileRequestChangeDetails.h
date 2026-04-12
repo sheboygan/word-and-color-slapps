@@ -18,7 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 ///
 /// The `FileRequestChangeDetails` struct.
 ///
-/// Change a file request.
+/// Changed file request.
 ///
 /// This class implements the `DBSerializable` protocol (serialize and
 /// deserialize instance methods), which is required for all Obj-C SDK API route
@@ -84,7 +84,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// @return A json-compatible dictionary representation of the
 /// `DBTEAMLOGFileRequestChangeDetails` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBTEAMLOGFileRequestChangeDetails *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBTEAMLOGFileRequestChangeDetails *)instance;
 
 ///
 /// Deserializes `DBTEAMLOGFileRequestChangeDetails` instances.
@@ -94,7 +94,7 @@ NS_ASSUME_NONNULL_BEGIN
 ///
 /// @return An instantiation of the `DBTEAMLOGFileRequestChangeDetails` object.
 ///
-+ (DBTEAMLOGFileRequestChangeDetails *)deserialize:(NSDictionary *)dict;
++ (DBTEAMLOGFileRequestChangeDetails *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

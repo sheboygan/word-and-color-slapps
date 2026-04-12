@@ -32,7 +32,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// The `DBASYNCPollResultBaseTag` enum type represents the possible tag states
 /// with which the `DBASYNCPollResultBase` union can exist.
-typedef NS_ENUM(NSInteger, DBASYNCPollResultBaseTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBASYNCPollResultBaseTag) {
   /// The asynchronous job is still in progress.
   DBASYNCPollResultBaseInProgress,
 
@@ -88,7 +88,7 @@ typedef NS_ENUM(NSInteger, DBASYNCPollResultBaseTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBASYNCPollResultBase` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBASYNCPollResultBase *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBASYNCPollResultBase *)instance;
 
 ///
 /// Deserializes `DBASYNCPollResultBase` instances.
@@ -98,7 +98,7 @@ typedef NS_ENUM(NSInteger, DBASYNCPollResultBaseTag) {
 ///
 /// @return An instantiation of the `DBASYNCPollResultBase` object.
 ///
-+ (DBASYNCPollResultBase *)deserialize:(NSDictionary *)dict;
++ (DBASYNCPollResultBase *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

@@ -8,7 +8,7 @@
 
 #import "DBSerializableProtocol.h"
 
-@class DBTEAMLOGJoinTeamDetails;
+@class DBTEAMLOGActionDetails;
 @class DBTEAMLOGMemberChangeStatusDetails;
 @class DBTEAMLOGMemberStatus;
 
@@ -19,7 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 ///
 /// The `MemberChangeStatusDetails` struct.
 ///
-/// Changed the membership status of a team member.
+/// Changed member status (invited, joined, suspended, etc.).
 ///
 /// This class implements the `DBSerializable` protocol (serialize and
 /// deserialize instance methods), which is required for all Obj-C SDK API route
@@ -35,8 +35,17 @@ NS_ASSUME_NONNULL_BEGIN
 /// New member status.
 @property (nonatomic, readonly) DBTEAMLOGMemberStatus *dNewValue;
 
-/// Additional information relevant when a new member joins the team.
-@property (nonatomic, readonly, nullable) DBTEAMLOGJoinTeamDetails *teamJoinDetails;
+/// Additional information indicating the action taken that caused status
+/// change.
+@property (nonatomic, readonly, nullable) DBTEAMLOGActionDetails *action;
+
+/// The user's new team name. This field is relevant when the user is
+/// transferred off the team.
+@property (nonatomic, readonly, copy, nullable) NSString *dNewTeam;
+
+/// The user's previous team name. This field is relevant when the user is
+/// transferred onto the team.
+@property (nonatomic, readonly, copy, nullable) NSString *previousTeam;
 
 #pragma mark - Constructors
 
@@ -46,14 +55,20 @@ NS_ASSUME_NONNULL_BEGIN
 /// @param dNewValue New member status.
 /// @param previousValue Previous member status. Might be missing due to
 /// historical data gap.
-/// @param teamJoinDetails Additional information relevant when a new member
-/// joins the team.
+/// @param action Additional information indicating the action taken that caused
+/// status change.
+/// @param dNewTeam The user's new team name. This field is relevant when the
+/// user is transferred off the team.
+/// @param previousTeam The user's previous team name. This field is relevant
+/// when the user is transferred onto the team.
 ///
 /// @return An initialized instance.
 ///
 - (instancetype)initWithDNewValue:(DBTEAMLOGMemberStatus *)dNewValue
                     previousValue:(nullable DBTEAMLOGMemberStatus *)previousValue
-                  teamJoinDetails:(nullable DBTEAMLOGJoinTeamDetails *)teamJoinDetails;
+                           action:(nullable DBTEAMLOGActionDetails *)action
+                         dNewTeam:(nullable NSString *)dNewTeam
+                     previousTeam:(nullable NSString *)previousTeam;
 
 ///
 /// Convenience constructor (exposes only non-nullable instance variables with
@@ -85,7 +100,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// @return A json-compatible dictionary representation of the
 /// `DBTEAMLOGMemberChangeStatusDetails` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBTEAMLOGMemberChangeStatusDetails *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBTEAMLOGMemberChangeStatusDetails *)instance;
 
 ///
 /// Deserializes `DBTEAMLOGMemberChangeStatusDetails` instances.
@@ -95,7 +110,7 @@ NS_ASSUME_NONNULL_BEGIN
 ///
 /// @return An instantiation of the `DBTEAMLOGMemberChangeStatusDetails` object.
 ///
-+ (DBTEAMLOGMemberChangeStatusDetails *)deserialize:(NSDictionary *)dict;
++ (DBTEAMLOGMemberChangeStatusDetails *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

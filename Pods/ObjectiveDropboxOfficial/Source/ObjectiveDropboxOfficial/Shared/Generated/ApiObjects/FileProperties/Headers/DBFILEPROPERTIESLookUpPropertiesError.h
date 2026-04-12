@@ -28,7 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// The `DBFILEPROPERTIESLookUpPropertiesErrorTag` enum type represents the
 /// possible tag states with which the `DBFILEPROPERTIESLookUpPropertiesError`
 /// union can exist.
-typedef NS_ENUM(NSInteger, DBFILEPROPERTIESLookUpPropertiesErrorTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBFILEPROPERTIESLookUpPropertiesErrorTag) {
   /// No property group was found.
   DBFILEPROPERTIESLookUpPropertiesErrorPropertyGroupNotFound,
 
@@ -105,7 +105,7 @@ typedef NS_ENUM(NSInteger, DBFILEPROPERTIESLookUpPropertiesErrorTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBFILEPROPERTIESLookUpPropertiesError` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBFILEPROPERTIESLookUpPropertiesError *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBFILEPROPERTIESLookUpPropertiesError *)instance;
 
 ///
 /// Deserializes `DBFILEPROPERTIESLookUpPropertiesError` instances.
@@ -116,7 +116,7 @@ typedef NS_ENUM(NSInteger, DBFILEPROPERTIESLookUpPropertiesErrorTag) {
 /// @return An instantiation of the `DBFILEPROPERTIESLookUpPropertiesError`
 /// object.
 ///
-+ (DBFILEPROPERTIESLookUpPropertiesError *)deserialize:(NSDictionary *)dict;
++ (DBFILEPROPERTIESLookUpPropertiesError *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

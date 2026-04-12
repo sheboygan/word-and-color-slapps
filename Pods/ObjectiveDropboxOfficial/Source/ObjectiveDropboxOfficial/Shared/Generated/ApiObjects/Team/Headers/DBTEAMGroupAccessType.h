@@ -29,7 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// The `DBTEAMGroupAccessTypeTag` enum type represents the possible tag states
 /// with which the `DBTEAMGroupAccessType` union can exist.
-typedef NS_ENUM(NSInteger, DBTEAMGroupAccessTypeTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBTEAMGroupAccessTypeTag) {
   /// User is a member of the group, but has no special permissions.
   DBTEAMGroupAccessTypeMember,
 
@@ -105,7 +105,7 @@ typedef NS_ENUM(NSInteger, DBTEAMGroupAccessTypeTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBTEAMGroupAccessType` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBTEAMGroupAccessType *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBTEAMGroupAccessType *)instance;
 
 ///
 /// Deserializes `DBTEAMGroupAccessType` instances.
@@ -115,7 +115,7 @@ typedef NS_ENUM(NSInteger, DBTEAMGroupAccessTypeTag) {
 ///
 /// @return An instantiation of the `DBTEAMGroupAccessType` object.
 ///
-+ (DBTEAMGroupAccessType *)deserialize:(NSDictionary *)dict;
++ (DBTEAMGroupAccessType *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

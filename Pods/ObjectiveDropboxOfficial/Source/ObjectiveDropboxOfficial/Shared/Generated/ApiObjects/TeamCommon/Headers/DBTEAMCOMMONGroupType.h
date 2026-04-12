@@ -29,7 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// The `DBTEAMCOMMONGroupTypeTag` enum type represents the possible tag states
 /// with which the `DBTEAMCOMMONGroupType` union can exist.
-typedef NS_ENUM(NSInteger, DBTEAMCOMMONGroupTypeTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBTEAMCOMMONGroupTypeTag) {
   /// A group to which team members are automatically added. Applicable to
   /// team folders https://www.dropbox.com/help/986 only.
   DBTEAMCOMMONGroupTypeTeam,
@@ -124,7 +124,7 @@ typedef NS_ENUM(NSInteger, DBTEAMCOMMONGroupTypeTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBTEAMCOMMONGroupType` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBTEAMCOMMONGroupType *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBTEAMCOMMONGroupType *)instance;
 
 ///
 /// Deserializes `DBTEAMCOMMONGroupType` instances.
@@ -134,7 +134,7 @@ typedef NS_ENUM(NSInteger, DBTEAMCOMMONGroupTypeTag) {
 ///
 /// @return An instantiation of the `DBTEAMCOMMONGroupType` object.
 ///
-+ (DBTEAMCOMMONGroupType *)deserialize:(NSDictionary *)dict;
++ (DBTEAMCOMMONGroupType *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

@@ -27,8 +27,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// The `DBPAPERDocLookupErrorTag` enum type represents the possible tag states
 /// with which the `DBPAPERDocLookupError` union can exist.
-typedef NS_ENUM(NSInteger, DBPAPERDocLookupErrorTag) {
-  /// Your account does not have permissions to perform this action.
+typedef NS_CLOSED_ENUM(NSInteger, DBPAPERDocLookupErrorTag) {
+  /// Your account does not have permissions to perform this action. This may
+  /// be due to it only having access to Paper as files in the Dropbox
+  /// filesystem. For more information, refer to the Paper Migration Guide
+  /// https://www.dropbox.com/lp/developers/reference/paper-migration-guide.
   DBPAPERDocLookupErrorInsufficientPermissions,
 
   /// (no description).
@@ -48,7 +51,10 @@ typedef NS_ENUM(NSInteger, DBPAPERDocLookupErrorTag) {
 /// Initializes union class with tag state of "insufficient_permissions".
 ///
 /// Description of the "insufficient_permissions" tag state: Your account does
-/// not have permissions to perform this action.
+/// not have permissions to perform this action. This may be due to it only
+/// having access to Paper as files in the Dropbox filesystem. For more
+/// information, refer to the Paper Migration Guide
+/// https://www.dropbox.com/lp/developers/reference/paper-migration-guide.
 ///
 /// @return An initialized instance.
 ///
@@ -122,7 +128,7 @@ typedef NS_ENUM(NSInteger, DBPAPERDocLookupErrorTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBPAPERDocLookupError` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBPAPERDocLookupError *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBPAPERDocLookupError *)instance;
 
 ///
 /// Deserializes `DBPAPERDocLookupError` instances.
@@ -132,7 +138,7 @@ typedef NS_ENUM(NSInteger, DBPAPERDocLookupErrorTag) {
 ///
 /// @return An instantiation of the `DBPAPERDocLookupError` object.
 ///
-+ (DBPAPERDocLookupError *)deserialize:(NSDictionary *)dict;
++ (DBPAPERDocLookupError *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

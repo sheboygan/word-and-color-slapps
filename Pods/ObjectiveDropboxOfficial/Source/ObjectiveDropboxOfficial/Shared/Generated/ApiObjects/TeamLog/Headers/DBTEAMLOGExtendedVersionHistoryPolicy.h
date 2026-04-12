@@ -28,7 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// The `DBTEAMLOGExtendedVersionHistoryPolicyTag` enum type represents the
 /// possible tag states with which the `DBTEAMLOGExtendedVersionHistoryPolicy`
 /// union can exist.
-typedef NS_ENUM(NSInteger, DBTEAMLOGExtendedVersionHistoryPolicyTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBTEAMLOGExtendedVersionHistoryPolicyTag) {
   /// (no description).
   DBTEAMLOGExtendedVersionHistoryPolicyExplicitlyLimited,
 
@@ -37,6 +37,9 @@ typedef NS_ENUM(NSInteger, DBTEAMLOGExtendedVersionHistoryPolicyTag) {
 
   /// (no description).
   DBTEAMLOGExtendedVersionHistoryPolicyImplicitlyLimited,
+
+  /// (no description).
+  DBTEAMLOGExtendedVersionHistoryPolicyImplicitlyUnlimited,
 
   /// (no description).
   DBTEAMLOGExtendedVersionHistoryPolicyOther,
@@ -68,6 +71,13 @@ typedef NS_ENUM(NSInteger, DBTEAMLOGExtendedVersionHistoryPolicyTag) {
 /// @return An initialized instance.
 ///
 - (instancetype)initWithImplicitlyLimited;
+
+///
+/// Initializes union class with tag state of "implicitly_unlimited".
+///
+/// @return An initialized instance.
+///
+- (instancetype)initWithImplicitlyUnlimited;
 
 ///
 /// Initializes union class with tag state of "other".
@@ -108,6 +118,15 @@ typedef NS_ENUM(NSInteger, DBTEAMLOGExtendedVersionHistoryPolicyTag) {
 - (BOOL)isImplicitlyLimited;
 
 ///
+/// Retrieves whether the union's current tag state has value
+/// "implicitly_unlimited".
+///
+/// @return Whether the union's current tag state has value
+/// "implicitly_unlimited".
+///
+- (BOOL)isImplicitlyUnlimited;
+
+///
 /// Retrieves whether the union's current tag state has value "other".
 ///
 /// @return Whether the union's current tag state has value "other".
@@ -140,7 +159,7 @@ typedef NS_ENUM(NSInteger, DBTEAMLOGExtendedVersionHistoryPolicyTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBTEAMLOGExtendedVersionHistoryPolicy` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBTEAMLOGExtendedVersionHistoryPolicy *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBTEAMLOGExtendedVersionHistoryPolicy *)instance;
 
 ///
 /// Deserializes `DBTEAMLOGExtendedVersionHistoryPolicy` instances.
@@ -151,7 +170,7 @@ typedef NS_ENUM(NSInteger, DBTEAMLOGExtendedVersionHistoryPolicyTag) {
 /// @return An instantiation of the `DBTEAMLOGExtendedVersionHistoryPolicy`
 /// object.
 ///
-+ (DBTEAMLOGExtendedVersionHistoryPolicy *)deserialize:(NSDictionary *)dict;
++ (DBTEAMLOGExtendedVersionHistoryPolicy *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

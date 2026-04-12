@@ -30,8 +30,11 @@ NS_ASSUME_NONNULL_BEGIN
 /// The `DBSHARINGFileMemberActionIndividualResultTag` enum type represents the
 /// possible tag states with which the
 /// `DBSHARINGFileMemberActionIndividualResult` union can exist.
-typedef NS_ENUM(NSInteger, DBSHARINGFileMemberActionIndividualResultTag) {
-  /// Member was successfully removed from this file. If AccessLevel is given,
+typedef NS_CLOSED_ENUM(NSInteger, DBSHARINGFileMemberActionIndividualResultTag) {
+  /// Part of the response for both add_file_member and remove_file_member_v1
+  /// (deprecated). For add_file_member, indicates giving access was
+  /// successful and at what AccessLevel. For remove_file_member_v1, indicates
+  /// member was successfully removed from the file. If AccessLevel is given,
   /// the member still has access via a parent shared folder.
   DBSHARINGFileMemberActionIndividualResultSuccess,
 
@@ -43,10 +46,13 @@ typedef NS_ENUM(NSInteger, DBSHARINGFileMemberActionIndividualResultTag) {
 /// Represents the union's current tag state.
 @property (nonatomic, readonly) DBSHARINGFileMemberActionIndividualResultTag tag;
 
-/// Member was successfully removed from this file. If AccessLevel is given, the
-/// member still has access via a parent shared folder. @note Ensure the
-/// `isSuccess` method returns true before accessing, otherwise a runtime
-/// exception will be raised.
+/// Part of the response for both add_file_member and remove_file_member_v1
+/// (deprecated). For add_file_member, indicates giving access was successful
+/// and at what AccessLevel. For remove_file_member_v1, indicates member was
+/// successfully removed from the file. If AccessLevel is given, the member
+/// still has access via a parent shared folder. @note Ensure the `isSuccess`
+/// method returns true before accessing, otherwise a runtime exception will be
+/// raised.
 @property (nonatomic, readonly, nullable) DBSHARINGAccessLevel *success;
 
 /// User was not able to perform this action. @note Ensure the `isMemberError`
@@ -59,13 +65,18 @@ typedef NS_ENUM(NSInteger, DBSHARINGFileMemberActionIndividualResultTag) {
 ///
 /// Initializes union class with tag state of "success".
 ///
-/// Description of the "success" tag state: Member was successfully removed from
-/// this file. If AccessLevel is given, the member still has access via a parent
+/// Description of the "success" tag state: Part of the response for both
+/// add_file_member and remove_file_member_v1 (deprecated). For add_file_member,
+/// indicates giving access was successful and at what AccessLevel. For
+/// remove_file_member_v1, indicates member was successfully removed from the
+/// file. If AccessLevel is given, the member still has access via a parent
 /// shared folder.
 ///
-/// @param success Member was successfully removed from this file. If
-/// AccessLevel is given, the member still has access via a parent shared
-/// folder.
+/// @param success Part of the response for both add_file_member and
+/// remove_file_member_v1 (deprecated). For add_file_member, indicates giving
+/// access was successful and at what AccessLevel. For remove_file_member_v1,
+/// indicates member was successfully removed from the file. If AccessLevel is
+/// given, the member still has access via a parent shared folder.
 ///
 /// @return An initialized instance.
 ///
@@ -133,7 +144,7 @@ typedef NS_ENUM(NSInteger, DBSHARINGFileMemberActionIndividualResultTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBSHARINGFileMemberActionIndividualResult` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBSHARINGFileMemberActionIndividualResult *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBSHARINGFileMemberActionIndividualResult *)instance;
 
 ///
 /// Deserializes `DBSHARINGFileMemberActionIndividualResult` instances.
@@ -144,7 +155,7 @@ typedef NS_ENUM(NSInteger, DBSHARINGFileMemberActionIndividualResultTag) {
 /// @return An instantiation of the `DBSHARINGFileMemberActionIndividualResult`
 /// object.
 ///
-+ (DBSHARINGFileMemberActionIndividualResult *)deserialize:(NSDictionary *)dict;
++ (DBSHARINGFileMemberActionIndividualResult *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

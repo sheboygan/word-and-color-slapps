@@ -27,8 +27,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// The `DBPAPERPaperApiBaseErrorTag` enum type represents the possible tag
 /// states with which the `DBPAPERPaperApiBaseError` union can exist.
-typedef NS_ENUM(NSInteger, DBPAPERPaperApiBaseErrorTag) {
-  /// Your account does not have permissions to perform this action.
+typedef NS_CLOSED_ENUM(NSInteger, DBPAPERPaperApiBaseErrorTag) {
+  /// Your account does not have permissions to perform this action. This may
+  /// be due to it only having access to Paper as files in the Dropbox
+  /// filesystem. For more information, refer to the Paper Migration Guide
+  /// https://www.dropbox.com/lp/developers/reference/paper-migration-guide.
   DBPAPERPaperApiBaseErrorInsufficientPermissions,
 
   /// (no description).
@@ -45,7 +48,10 @@ typedef NS_ENUM(NSInteger, DBPAPERPaperApiBaseErrorTag) {
 /// Initializes union class with tag state of "insufficient_permissions".
 ///
 /// Description of the "insufficient_permissions" tag state: Your account does
-/// not have permissions to perform this action.
+/// not have permissions to perform this action. This may be due to it only
+/// having access to Paper as files in the Dropbox filesystem. For more
+/// information, refer to the Paper Migration Guide
+/// https://www.dropbox.com/lp/developers/reference/paper-migration-guide.
 ///
 /// @return An initialized instance.
 ///
@@ -102,7 +108,7 @@ typedef NS_ENUM(NSInteger, DBPAPERPaperApiBaseErrorTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBPAPERPaperApiBaseError` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBPAPERPaperApiBaseError *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBPAPERPaperApiBaseError *)instance;
 
 ///
 /// Deserializes `DBPAPERPaperApiBaseError` instances.
@@ -112,7 +118,7 @@ typedef NS_ENUM(NSInteger, DBPAPERPaperApiBaseErrorTag) {
 ///
 /// @return An instantiation of the `DBPAPERPaperApiBaseError` object.
 ///
-+ (DBPAPERPaperApiBaseError *)deserialize:(NSDictionary *)dict;
++ (DBPAPERPaperApiBaseError *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

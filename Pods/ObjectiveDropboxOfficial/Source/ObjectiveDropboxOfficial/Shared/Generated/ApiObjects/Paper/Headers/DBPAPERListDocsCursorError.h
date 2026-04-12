@@ -28,7 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// The `DBPAPERListDocsCursorErrorTag` enum type represents the possible tag
 /// states with which the `DBPAPERListDocsCursorError` union can exist.
-typedef NS_ENUM(NSInteger, DBPAPERListDocsCursorErrorTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBPAPERListDocsCursorErrorTag) {
   /// (no description).
   DBPAPERListDocsCursorErrorCursorError,
 
@@ -107,7 +107,7 @@ typedef NS_ENUM(NSInteger, DBPAPERListDocsCursorErrorTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBPAPERListDocsCursorError` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBPAPERListDocsCursorError *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBPAPERListDocsCursorError *)instance;
 
 ///
 /// Deserializes `DBPAPERListDocsCursorError` instances.
@@ -117,7 +117,7 @@ typedef NS_ENUM(NSInteger, DBPAPERListDocsCursorErrorTag) {
 ///
 /// @return An instantiation of the `DBPAPERListDocsCursorError` object.
 ///
-+ (DBPAPERListDocsCursorError *)deserialize:(NSDictionary *)dict;
++ (DBPAPERListDocsCursorError *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

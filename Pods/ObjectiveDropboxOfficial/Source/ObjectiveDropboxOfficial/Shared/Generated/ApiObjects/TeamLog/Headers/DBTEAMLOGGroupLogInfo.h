@@ -27,13 +27,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Instance fields
 
-/// The unique id of this group. Might be missing due to historical data gap.
+/// The unique id of this group.
 @property (nonatomic, readonly, copy, nullable) NSString *groupId;
 
 /// The name of this group.
 @property (nonatomic, readonly, copy) NSString *displayName;
 
-/// External group ID. Might be missing due to historical data gap.
+/// External group ID.
 @property (nonatomic, readonly, copy, nullable) NSString *externalId;
 
 #pragma mark - Constructors
@@ -42,10 +42,8 @@ NS_ASSUME_NONNULL_BEGIN
 /// Full constructor for the struct (exposes all instance variables).
 ///
 /// @param displayName The name of this group.
-/// @param groupId The unique id of this group. Might be missing due to
-/// historical data gap.
-/// @param externalId External group ID. Might be missing due to historical data
-/// gap.
+/// @param groupId The unique id of this group.
+/// @param externalId External group ID.
 ///
 /// @return An initialized instance.
 ///
@@ -82,7 +80,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// @return A json-compatible dictionary representation of the
 /// `DBTEAMLOGGroupLogInfo` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBTEAMLOGGroupLogInfo *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBTEAMLOGGroupLogInfo *)instance;
 
 ///
 /// Deserializes `DBTEAMLOGGroupLogInfo` instances.
@@ -92,7 +90,7 @@ NS_ASSUME_NONNULL_BEGIN
 ///
 /// @return An instantiation of the `DBTEAMLOGGroupLogInfo` object.
 ///
-+ (DBTEAMLOGGroupLogInfo *)deserialize:(NSDictionary *)dict;
++ (DBTEAMLOGGroupLogInfo *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

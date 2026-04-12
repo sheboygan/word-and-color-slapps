@@ -17,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 ///
 /// The `SfAddGroupDetails` struct.
 ///
-/// Added the team to a shared folder.
+/// Added team to shared folder.
 ///
 /// This class implements the `DBSerializable` protocol (serialize and
 /// deserialize instance methods), which is required for all Obj-C SDK API route
@@ -33,7 +33,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// Original shared folder name.
 @property (nonatomic, readonly, copy) NSString *originalFolderName;
 
-/// Sharing permission. Might be missing due to historical data gap.
+/// Sharing permission.
 @property (nonatomic, readonly, copy, nullable) NSString *sharingPermission;
 
 /// Team name.
@@ -47,8 +47,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// @param targetAssetIndex Target asset position in the Assets list.
 /// @param originalFolderName Original shared folder name.
 /// @param teamName Team name.
-/// @param sharingPermission Sharing permission. Might be missing due to
-/// historical data gap.
+/// @param sharingPermission Sharing permission.
 ///
 /// @return An initialized instance.
 ///
@@ -90,7 +89,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// @return A json-compatible dictionary representation of the
 /// `DBTEAMLOGSfAddGroupDetails` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBTEAMLOGSfAddGroupDetails *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBTEAMLOGSfAddGroupDetails *)instance;
 
 ///
 /// Deserializes `DBTEAMLOGSfAddGroupDetails` instances.
@@ -100,7 +99,7 @@ NS_ASSUME_NONNULL_BEGIN
 ///
 /// @return An instantiation of the `DBTEAMLOGSfAddGroupDetails` object.
 ///
-+ (DBTEAMLOGSfAddGroupDetails *)deserialize:(NSDictionary *)dict;
++ (DBTEAMLOGSfAddGroupDetails *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

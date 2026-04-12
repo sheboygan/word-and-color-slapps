@@ -32,7 +32,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// The `DBFILESUploadSessionFinishBatchLaunchTag` enum type represents the
 /// possible tag states with which the `DBFILESUploadSessionFinishBatchLaunch`
 /// union can exist.
-typedef NS_ENUM(NSInteger, DBFILESUploadSessionFinishBatchLaunchTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBFILESUploadSessionFinishBatchLaunchTag) {
   /// This response indicates that the processing is asynchronous. The string
   /// is an id that can be used to obtain the status of the asynchronous job.
   DBFILESUploadSessionFinishBatchLaunchAsyncJobId,
@@ -148,7 +148,7 @@ typedef NS_ENUM(NSInteger, DBFILESUploadSessionFinishBatchLaunchTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBFILESUploadSessionFinishBatchLaunch` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBFILESUploadSessionFinishBatchLaunch *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBFILESUploadSessionFinishBatchLaunch *)instance;
 
 ///
 /// Deserializes `DBFILESUploadSessionFinishBatchLaunch` instances.
@@ -159,7 +159,7 @@ typedef NS_ENUM(NSInteger, DBFILESUploadSessionFinishBatchLaunchTag) {
 /// @return An instantiation of the `DBFILESUploadSessionFinishBatchLaunch`
 /// object.
 ///
-+ (DBFILESUploadSessionFinishBatchLaunch *)deserialize:(NSDictionary *)dict;
++ (DBFILESUploadSessionFinishBatchLaunch *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

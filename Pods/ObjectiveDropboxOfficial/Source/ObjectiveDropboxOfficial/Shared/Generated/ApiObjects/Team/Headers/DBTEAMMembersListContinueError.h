@@ -27,7 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// The `DBTEAMMembersListContinueErrorTag` enum type represents the possible
 /// tag states with which the `DBTEAMMembersListContinueError` union can exist.
-typedef NS_ENUM(NSInteger, DBTEAMMembersListContinueErrorTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBTEAMMembersListContinueErrorTag) {
   /// The cursor is invalid.
   DBTEAMMembersListContinueErrorInvalidCursor,
 
@@ -100,7 +100,7 @@ typedef NS_ENUM(NSInteger, DBTEAMMembersListContinueErrorTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBTEAMMembersListContinueError` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBTEAMMembersListContinueError *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBTEAMMembersListContinueError *)instance;
 
 ///
 /// Deserializes `DBTEAMMembersListContinueError` instances.
@@ -110,7 +110,7 @@ typedef NS_ENUM(NSInteger, DBTEAMMembersListContinueErrorTag) {
 ///
 /// @return An instantiation of the `DBTEAMMembersListContinueError` object.
 ///
-+ (DBTEAMMembersListContinueError *)deserialize:(NSDictionary *)dict;
++ (DBTEAMMembersListContinueError *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

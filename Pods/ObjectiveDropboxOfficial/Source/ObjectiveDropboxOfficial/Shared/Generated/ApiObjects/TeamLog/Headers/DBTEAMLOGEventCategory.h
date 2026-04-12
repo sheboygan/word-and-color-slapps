@@ -29,50 +29,29 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// The `DBTEAMLOGEventCategoryTag` enum type represents the possible tag states
 /// with which the `DBTEAMLOGEventCategory` union can exist.
-typedef NS_ENUM(NSInteger, DBTEAMLOGEventCategoryTag) {
-  /// Events that have to do with account capture and invite enforcement on
-  /// team-owned domains.
-  DBTEAMLOGEventCategoryAccountCapture,
-
-  /// Events that relate to team and team member account administration or
-  /// team administration. Note that these actions are not necessarily
-  /// performed by team admins. They might also be performed by Dropbox
-  /// Support or System or by team members on their own accounts.
-  DBTEAMLOGEventCategoryAdministration,
+typedef NS_CLOSED_ENUM(NSInteger, DBTEAMLOGEventCategoryTag) {
+  /// Events that involve team related alerts.
+  DBTEAMLOGEventCategoryAdminAlerting,
 
   /// Events that apply to management of linked apps.
   DBTEAMLOGEventCategoryApps,
 
-  /// Events that apply to user authentication in some way.
-  DBTEAMLOGEventCategoryAuthentication,
-
   /// Events that have to do with comments on files and Paper documents.
   DBTEAMLOGEventCategoryComments,
 
-  /// Events that apply to changes how people can access content on Dropbox as
-  /// well as actions that represent actually accessing content.
-  DBTEAMLOGEventCategoryContentAccess,
+  /// Events that involve data governance actions
+  DBTEAMLOGEventCategoryDataGovernance,
 
   /// Events that apply to linked devices on mobile, desktop and Web
   /// platforms.
   DBTEAMLOGEventCategoryDevices,
 
-  /// Events that concern device approvals and device management.
-  DBTEAMLOGEventCategoryDeviceApprovals,
-
   /// Events that involve domain management feature: domain verification,
   /// invite enforcement and account capture.
   DBTEAMLOGEventCategoryDomains,
 
-  /// Events that involve enterprise mobility management and the Dropbox EMM
-  /// app.
-  DBTEAMLOGEventCategoryEmm,
-
-  /// Events that mark some type of unexpected outcome.
-  DBTEAMLOGEventCategoryErrors,
-
-  /// Events that mark a user's interaction with files and folders on Dropbox.
-  DBTEAMLOGEventCategoryFiles,
+  /// Events that involve encryption.
+  DBTEAMLOGEventCategoryEncryption,
 
   /// Events that have to do with filesystem operations on files and folders:
   /// copy, move, delete, etc.
@@ -100,25 +79,11 @@ typedef NS_ENUM(NSInteger, DBTEAMLOGEventCategoryTag) {
   /// and device usage.
   DBTEAMLOGEventCategoryReports,
 
-  /// Events that mark the beginning or end of sessions as well as those that
-  /// apply to an ongoing session.
-  DBTEAMLOGEventCategorySessions,
-
-  /// Events that specifically apply to shared files.
-  DBTEAMLOGEventCategorySharedFiles,
-
-  /// Events that specifically apply to shared folders.
-  DBTEAMLOGEventCategorySharedFolders,
-
-  /// Events that specifically apply to link sharing.
-  DBTEAMLOGEventCategorySharedLinks,
-
   /// Events that apply to all types of sharing and collaboration.
   DBTEAMLOGEventCategorySharing,
 
-  /// Events that concern policies that affect sharing - both at the team
-  /// level and at the folder level.
-  DBTEAMLOGEventCategorySharingPolicies,
+  /// Events that apply to Dropbox Showcase.
+  DBTEAMLOGEventCategoryShowcase,
 
   /// Events that involve using or configuring single sign-on as well as
   /// administrative policies concerning single sign-on.
@@ -137,6 +102,9 @@ typedef NS_ENUM(NSInteger, DBTEAMLOGEventCategoryTag) {
   /// well as administrative policies concerning two factor authentication.
   DBTEAMLOGEventCategoryTfa,
 
+  /// Events that apply to cross-team trust establishment.
+  DBTEAMLOGEventCategoryTrustedTeams,
+
   /// (no description).
   DBTEAMLOGEventCategoryOther,
 
@@ -148,27 +116,14 @@ typedef NS_ENUM(NSInteger, DBTEAMLOGEventCategoryTag) {
 #pragma mark - Constructors
 
 ///
-/// Initializes union class with tag state of "account_capture".
+/// Initializes union class with tag state of "admin_alerting".
 ///
-/// Description of the "account_capture" tag state: Events that have to do with
-/// account capture and invite enforcement on team-owned domains.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithAccountCapture;
-
-///
-/// Initializes union class with tag state of "administration".
-///
-/// Description of the "administration" tag state: Events that relate to team
-/// and team member account administration or team administration. Note that
-/// these actions are not necessarily performed by team admins. They might also
-/// be performed by Dropbox Support or System or by team members on their own
-/// accounts.
+/// Description of the "admin_alerting" tag state: Events that involve team
+/// related alerts.
 ///
 /// @return An initialized instance.
 ///
-- (instancetype)initWithAdministration;
+- (instancetype)initWithAdminAlerting;
 
 ///
 /// Initializes union class with tag state of "apps".
@@ -181,16 +136,6 @@ typedef NS_ENUM(NSInteger, DBTEAMLOGEventCategoryTag) {
 - (instancetype)initWithApps;
 
 ///
-/// Initializes union class with tag state of "authentication".
-///
-/// Description of the "authentication" tag state: Events that apply to user
-/// authentication in some way.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithAuthentication;
-
-///
 /// Initializes union class with tag state of "comments".
 ///
 /// Description of the "comments" tag state: Events that have to do with
@@ -201,15 +146,14 @@ typedef NS_ENUM(NSInteger, DBTEAMLOGEventCategoryTag) {
 - (instancetype)initWithComments;
 
 ///
-/// Initializes union class with tag state of "content_access".
+/// Initializes union class with tag state of "data_governance".
 ///
-/// Description of the "content_access" tag state: Events that apply to changes
-/// how people can access content on Dropbox as well as actions that represent
-/// actually accessing content.
+/// Description of the "data_governance" tag state: Events that involve data
+/// governance actions
 ///
 /// @return An initialized instance.
 ///
-- (instancetype)initWithContentAccess;
+- (instancetype)initWithDataGovernance;
 
 ///
 /// Initializes union class with tag state of "devices".
@@ -220,16 +164,6 @@ typedef NS_ENUM(NSInteger, DBTEAMLOGEventCategoryTag) {
 /// @return An initialized instance.
 ///
 - (instancetype)initWithDevices;
-
-///
-/// Initializes union class with tag state of "device_approvals".
-///
-/// Description of the "device_approvals" tag state: Events that concern device
-/// approvals and device management.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithDeviceApprovals;
 
 ///
 /// Initializes union class with tag state of "domains".
@@ -243,34 +177,13 @@ typedef NS_ENUM(NSInteger, DBTEAMLOGEventCategoryTag) {
 - (instancetype)initWithDomains;
 
 ///
-/// Initializes union class with tag state of "emm".
+/// Initializes union class with tag state of "encryption".
 ///
-/// Description of the "emm" tag state: Events that involve enterprise mobility
-/// management and the Dropbox EMM app.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithEmm;
-
-///
-/// Initializes union class with tag state of "errors".
-///
-/// Description of the "errors" tag state: Events that mark some type of
-/// unexpected outcome.
+/// Description of the "encryption" tag state: Events that involve encryption.
 ///
 /// @return An initialized instance.
 ///
-- (instancetype)initWithErrors;
-
-///
-/// Initializes union class with tag state of "files".
-///
-/// Description of the "files" tag state: Events that mark a user's interaction
-/// with files and folders on Dropbox.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithFiles;
+- (instancetype)initWithEncryption;
 
 ///
 /// Initializes union class with tag state of "file_operations".
@@ -351,46 +264,6 @@ typedef NS_ENUM(NSInteger, DBTEAMLOGEventCategoryTag) {
 - (instancetype)initWithReports;
 
 ///
-/// Initializes union class with tag state of "sessions".
-///
-/// Description of the "sessions" tag state: Events that mark the beginning or
-/// end of sessions as well as those that apply to an ongoing session.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithSessions;
-
-///
-/// Initializes union class with tag state of "shared_files".
-///
-/// Description of the "shared_files" tag state: Events that specifically apply
-/// to shared files.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithSharedFiles;
-
-///
-/// Initializes union class with tag state of "shared_folders".
-///
-/// Description of the "shared_folders" tag state: Events that specifically
-/// apply to shared folders.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithSharedFolders;
-
-///
-/// Initializes union class with tag state of "shared_links".
-///
-/// Description of the "shared_links" tag state: Events that specifically apply
-/// to link sharing.
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithSharedLinks;
-
-///
 /// Initializes union class with tag state of "sharing".
 ///
 /// Description of the "sharing" tag state: Events that apply to all types of
@@ -401,15 +274,14 @@ typedef NS_ENUM(NSInteger, DBTEAMLOGEventCategoryTag) {
 - (instancetype)initWithSharing;
 
 ///
-/// Initializes union class with tag state of "sharing_policies".
+/// Initializes union class with tag state of "showcase".
 ///
-/// Description of the "sharing_policies" tag state: Events that concern
-/// policies that affect sharing - both at the team level and at the folder
-/// level.
+/// Description of the "showcase" tag state: Events that apply to Dropbox
+/// Showcase.
 ///
 /// @return An initialized instance.
 ///
-- (instancetype)initWithSharingPolicies;
+- (instancetype)initWithShowcase;
 
 ///
 /// Initializes union class with tag state of "sso".
@@ -463,6 +335,16 @@ typedef NS_ENUM(NSInteger, DBTEAMLOGEventCategoryTag) {
 - (instancetype)initWithTfa;
 
 ///
+/// Initializes union class with tag state of "trusted_teams".
+///
+/// Description of the "trusted_teams" tag state: Events that apply to
+/// cross-team trust establishment.
+///
+/// @return An initialized instance.
+///
+- (instancetype)initWithTrustedTeams;
+
+///
 /// Initializes union class with tag state of "other".
 ///
 /// @return An initialized instance.
@@ -474,18 +356,11 @@ typedef NS_ENUM(NSInteger, DBTEAMLOGEventCategoryTag) {
 #pragma mark - Tag state methods
 
 ///
-/// Retrieves whether the union's current tag state has value "account_capture".
+/// Retrieves whether the union's current tag state has value "admin_alerting".
 ///
-/// @return Whether the union's current tag state has value "account_capture".
+/// @return Whether the union's current tag state has value "admin_alerting".
 ///
-- (BOOL)isAccountCapture;
-
-///
-/// Retrieves whether the union's current tag state has value "administration".
-///
-/// @return Whether the union's current tag state has value "administration".
-///
-- (BOOL)isAdministration;
+- (BOOL)isAdminAlerting;
 
 ///
 /// Retrieves whether the union's current tag state has value "apps".
@@ -495,13 +370,6 @@ typedef NS_ENUM(NSInteger, DBTEAMLOGEventCategoryTag) {
 - (BOOL)isApps;
 
 ///
-/// Retrieves whether the union's current tag state has value "authentication".
-///
-/// @return Whether the union's current tag state has value "authentication".
-///
-- (BOOL)isAuthentication;
-
-///
 /// Retrieves whether the union's current tag state has value "comments".
 ///
 /// @return Whether the union's current tag state has value "comments".
@@ -509,11 +377,11 @@ typedef NS_ENUM(NSInteger, DBTEAMLOGEventCategoryTag) {
 - (BOOL)isComments;
 
 ///
-/// Retrieves whether the union's current tag state has value "content_access".
+/// Retrieves whether the union's current tag state has value "data_governance".
 ///
-/// @return Whether the union's current tag state has value "content_access".
+/// @return Whether the union's current tag state has value "data_governance".
 ///
-- (BOOL)isContentAccess;
+- (BOOL)isDataGovernance;
 
 ///
 /// Retrieves whether the union's current tag state has value "devices".
@@ -523,14 +391,6 @@ typedef NS_ENUM(NSInteger, DBTEAMLOGEventCategoryTag) {
 - (BOOL)isDevices;
 
 ///
-/// Retrieves whether the union's current tag state has value
-/// "device_approvals".
-///
-/// @return Whether the union's current tag state has value "device_approvals".
-///
-- (BOOL)isDeviceApprovals;
-
-///
 /// Retrieves whether the union's current tag state has value "domains".
 ///
 /// @return Whether the union's current tag state has value "domains".
@@ -538,25 +398,11 @@ typedef NS_ENUM(NSInteger, DBTEAMLOGEventCategoryTag) {
 - (BOOL)isDomains;
 
 ///
-/// Retrieves whether the union's current tag state has value "emm".
+/// Retrieves whether the union's current tag state has value "encryption".
 ///
-/// @return Whether the union's current tag state has value "emm".
+/// @return Whether the union's current tag state has value "encryption".
 ///
-- (BOOL)isEmm;
-
-///
-/// Retrieves whether the union's current tag state has value "errors".
-///
-/// @return Whether the union's current tag state has value "errors".
-///
-- (BOOL)isErrors;
-
-///
-/// Retrieves whether the union's current tag state has value "files".
-///
-/// @return Whether the union's current tag state has value "files".
-///
-- (BOOL)isFiles;
+- (BOOL)isEncryption;
 
 ///
 /// Retrieves whether the union's current tag state has value "file_operations".
@@ -615,34 +461,6 @@ typedef NS_ENUM(NSInteger, DBTEAMLOGEventCategoryTag) {
 - (BOOL)isReports;
 
 ///
-/// Retrieves whether the union's current tag state has value "sessions".
-///
-/// @return Whether the union's current tag state has value "sessions".
-///
-- (BOOL)isSessions;
-
-///
-/// Retrieves whether the union's current tag state has value "shared_files".
-///
-/// @return Whether the union's current tag state has value "shared_files".
-///
-- (BOOL)isSharedFiles;
-
-///
-/// Retrieves whether the union's current tag state has value "shared_folders".
-///
-/// @return Whether the union's current tag state has value "shared_folders".
-///
-- (BOOL)isSharedFolders;
-
-///
-/// Retrieves whether the union's current tag state has value "shared_links".
-///
-/// @return Whether the union's current tag state has value "shared_links".
-///
-- (BOOL)isSharedLinks;
-
-///
 /// Retrieves whether the union's current tag state has value "sharing".
 ///
 /// @return Whether the union's current tag state has value "sharing".
@@ -650,12 +468,11 @@ typedef NS_ENUM(NSInteger, DBTEAMLOGEventCategoryTag) {
 - (BOOL)isSharing;
 
 ///
-/// Retrieves whether the union's current tag state has value
-/// "sharing_policies".
+/// Retrieves whether the union's current tag state has value "showcase".
 ///
-/// @return Whether the union's current tag state has value "sharing_policies".
+/// @return Whether the union's current tag state has value "showcase".
 ///
-- (BOOL)isSharingPolicies;
+- (BOOL)isShowcase;
 
 ///
 /// Retrieves whether the union's current tag state has value "sso".
@@ -693,6 +510,13 @@ typedef NS_ENUM(NSInteger, DBTEAMLOGEventCategoryTag) {
 - (BOOL)isTfa;
 
 ///
+/// Retrieves whether the union's current tag state has value "trusted_teams".
+///
+/// @return Whether the union's current tag state has value "trusted_teams".
+///
+- (BOOL)isTrustedTeams;
+
+///
 /// Retrieves whether the union's current tag state has value "other".
 ///
 /// @return Whether the union's current tag state has value "other".
@@ -723,7 +547,7 @@ typedef NS_ENUM(NSInteger, DBTEAMLOGEventCategoryTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBTEAMLOGEventCategory` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBTEAMLOGEventCategory *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBTEAMLOGEventCategory *)instance;
 
 ///
 /// Deserializes `DBTEAMLOGEventCategory` instances.
@@ -733,7 +557,7 @@ typedef NS_ENUM(NSInteger, DBTEAMLOGEventCategoryTag) {
 ///
 /// @return An instantiation of the `DBTEAMLOGEventCategory` object.
 ///
-+ (DBTEAMLOGEventCategory *)deserialize:(NSDictionary *)dict;
++ (DBTEAMLOGEventCategory *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

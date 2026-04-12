@@ -28,7 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// The `DBFILESListRevisionsErrorTag` enum type represents the possible tag
 /// states with which the `DBFILESListRevisionsError` union can exist.
-typedef NS_ENUM(NSInteger, DBFILESListRevisionsErrorTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBFILESListRevisionsErrorTag) {
   /// (no description).
   DBFILESListRevisionsErrorPath,
 
@@ -107,7 +107,7 @@ typedef NS_ENUM(NSInteger, DBFILESListRevisionsErrorTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBFILESListRevisionsError` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBFILESListRevisionsError *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBFILESListRevisionsError *)instance;
 
 ///
 /// Deserializes `DBFILESListRevisionsError` instances.
@@ -117,7 +117,7 @@ typedef NS_ENUM(NSInteger, DBFILESListRevisionsErrorTag) {
 ///
 /// @return An instantiation of the `DBFILESListRevisionsError` object.
 ///
-+ (DBFILESListRevisionsError *)deserialize:(NSDictionary *)dict;
++ (DBFILESListRevisionsError *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

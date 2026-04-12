@@ -26,9 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Instance fields
 
-/// If true, `dCopy` will copy contents in shared folder, otherwise
-/// `cantCopySharedFolder` in `DBFILESRelocationError` will be returned if
-/// fromPath contains shared folder. This field is always true for `move`.
+/// This flag has no effect.
 @property (nonatomic, readonly) NSNumber *allowSharedFolder;
 
 /// If there's a conflict, have the Dropbox server try to autorename the file to
@@ -46,10 +44,7 @@ NS_ASSUME_NONNULL_BEGIN
 ///
 /// @param fromPath Path in the user's Dropbox to be copied or moved.
 /// @param toPath Path in the user's Dropbox that is the destination.
-/// @param allowSharedFolder If true, `dCopy` will copy contents in shared
-/// folder, otherwise `cantCopySharedFolder` in `DBFILESRelocationError` will be
-/// returned if fromPath contains shared folder. This field is always true for
-/// `move`.
+/// @param allowSharedFolder This flag has no effect.
 /// @param autorename If there's a conflict, have the Dropbox server try to
 /// autorename the file to avoid the conflict.
 /// @param allowOwnershipTransfer Allow moves by owner even if it would result
@@ -92,7 +87,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// @return A json-compatible dictionary representation of the
 /// `DBFILESRelocationArg` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBFILESRelocationArg *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBFILESRelocationArg *)instance;
 
 ///
 /// Deserializes `DBFILESRelocationArg` instances.
@@ -102,7 +97,7 @@ NS_ASSUME_NONNULL_BEGIN
 ///
 /// @return An instantiation of the `DBFILESRelocationArg` object.
 ///
-+ (DBFILESRelocationArg *)deserialize:(NSDictionary *)dict;
++ (DBFILESRelocationArg *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

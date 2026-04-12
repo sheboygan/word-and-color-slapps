@@ -27,7 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// The `DBTEAMMobileClientPlatformTag` enum type represents the possible tag
 /// states with which the `DBTEAMMobileClientPlatform` union can exist.
-typedef NS_ENUM(NSInteger, DBTEAMMobileClientPlatformTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBTEAMMobileClientPlatformTag) {
   /// Official Dropbox iPhone client.
   DBTEAMMobileClientPlatformIphone,
 
@@ -177,7 +177,7 @@ typedef NS_ENUM(NSInteger, DBTEAMMobileClientPlatformTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBTEAMMobileClientPlatform` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBTEAMMobileClientPlatform *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBTEAMMobileClientPlatform *)instance;
 
 ///
 /// Deserializes `DBTEAMMobileClientPlatform` instances.
@@ -187,7 +187,7 @@ typedef NS_ENUM(NSInteger, DBTEAMMobileClientPlatformTag) {
 ///
 /// @return An instantiation of the `DBTEAMMobileClientPlatform` object.
 ///
-+ (DBTEAMMobileClientPlatform *)deserialize:(NSDictionary *)dict;
++ (DBTEAMMobileClientPlatform *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

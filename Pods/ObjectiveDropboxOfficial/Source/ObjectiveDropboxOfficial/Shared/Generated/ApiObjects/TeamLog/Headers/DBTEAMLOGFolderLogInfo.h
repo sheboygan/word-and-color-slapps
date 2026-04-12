@@ -29,21 +29,27 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Instance fields
 
+/// Number of files within the folder.
+@property (nonatomic, readonly, nullable) NSNumber *fileCount;
+
 #pragma mark - Constructors
 
 ///
 /// Full constructor for the struct (exposes all instance variables).
 ///
 /// @param path Path relative to event context.
-/// @param displayName Display name. Might be missing due to historical data
-/// gap.
-/// @param fileId Unique ID. Might be missing due to historical data gap.
+/// @param displayName Display name.
+/// @param fileId Unique ID.
+/// @param fileSize File or folder size in bytes.
+/// @param fileCount Number of files within the folder.
 ///
 /// @return An initialized instance.
 ///
 - (instancetype)initWithPath:(DBTEAMLOGPathLogInfo *)path
                  displayName:(nullable NSString *)displayName
-                      fileId:(nullable NSString *)fileId;
+                      fileId:(nullable NSString *)fileId
+                    fileSize:(nullable NSNumber *)fileSize
+                   fileCount:(nullable NSNumber *)fileCount;
 
 ///
 /// Convenience constructor (exposes only non-nullable instance variables with
@@ -72,7 +78,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// @return A json-compatible dictionary representation of the
 /// `DBTEAMLOGFolderLogInfo` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBTEAMLOGFolderLogInfo *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBTEAMLOGFolderLogInfo *)instance;
 
 ///
 /// Deserializes `DBTEAMLOGFolderLogInfo` instances.
@@ -82,7 +88,7 @@ NS_ASSUME_NONNULL_BEGIN
 ///
 /// @return An instantiation of the `DBTEAMLOGFolderLogInfo` object.
 ///
-+ (DBTEAMLOGFolderLogInfo *)deserialize:(NSDictionary *)dict;
++ (DBTEAMLOGFolderLogInfo *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

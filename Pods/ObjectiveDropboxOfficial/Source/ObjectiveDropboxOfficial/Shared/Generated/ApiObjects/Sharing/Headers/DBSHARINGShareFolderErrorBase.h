@@ -28,8 +28,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// The `DBSHARINGShareFolderErrorBaseTag` enum type represents the possible tag
 /// states with which the `DBSHARINGShareFolderErrorBase` union can exist.
-typedef NS_ENUM(NSInteger, DBSHARINGShareFolderErrorBaseTag) {
-  /// The current user's e-mail address is unverified.
+typedef NS_CLOSED_ENUM(NSInteger, DBSHARINGShareFolderErrorBaseTag) {
+  /// This user's email address is not verified. This functionality is only
+  /// available on accounts with a verified email address. Users can verify
+  /// their email address here https://www.dropbox.com/help/317.
   DBSHARINGShareFolderErrorBaseEmailUnverified,
 
   /// `path` in `DBSHARINGShareFolderArg` is invalid.
@@ -61,8 +63,10 @@ typedef NS_ENUM(NSInteger, DBSHARINGShareFolderErrorBaseTag) {
 ///
 /// Initializes union class with tag state of "email_unverified".
 ///
-/// Description of the "email_unverified" tag state: The current user's e-mail
-/// address is unverified.
+/// Description of the "email_unverified" tag state: This user's email address
+/// is not verified. This functionality is only available on accounts with a
+/// verified email address. Users can verify their email address here
+/// https://www.dropbox.com/help/317.
 ///
 /// @return An initialized instance.
 ///
@@ -181,7 +185,7 @@ typedef NS_ENUM(NSInteger, DBSHARINGShareFolderErrorBaseTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBSHARINGShareFolderErrorBase` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBSHARINGShareFolderErrorBase *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBSHARINGShareFolderErrorBase *)instance;
 
 ///
 /// Deserializes `DBSHARINGShareFolderErrorBase` instances.
@@ -191,7 +195,7 @@ typedef NS_ENUM(NSInteger, DBSHARINGShareFolderErrorBaseTag) {
 ///
 /// @return An instantiation of the `DBSHARINGShareFolderErrorBase` object.
 ///
-+ (DBSHARINGShareFolderErrorBase *)deserialize:(NSDictionary *)dict;
++ (DBSHARINGShareFolderErrorBase *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

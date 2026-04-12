@@ -27,7 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// The `DBPAPERAddPaperDocUserResultTag` enum type represents the possible tag
 /// states with which the `DBPAPERAddPaperDocUserResult` union can exist.
-typedef NS_ENUM(NSInteger, DBPAPERAddPaperDocUserResultTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBPAPERAddPaperDocUserResultTag) {
   /// User was successfully added to the Paper doc.
   DBPAPERAddPaperDocUserResultSuccess,
 
@@ -231,7 +231,7 @@ typedef NS_ENUM(NSInteger, DBPAPERAddPaperDocUserResultTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBPAPERAddPaperDocUserResult` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBPAPERAddPaperDocUserResult *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBPAPERAddPaperDocUserResult *)instance;
 
 ///
 /// Deserializes `DBPAPERAddPaperDocUserResult` instances.
@@ -241,7 +241,7 @@ typedef NS_ENUM(NSInteger, DBPAPERAddPaperDocUserResultTag) {
 ///
 /// @return An instantiation of the `DBPAPERAddPaperDocUserResult` object.
 ///
-+ (DBPAPERAddPaperDocUserResult *)deserialize:(NSDictionary *)dict;
++ (DBPAPERAddPaperDocUserResult *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

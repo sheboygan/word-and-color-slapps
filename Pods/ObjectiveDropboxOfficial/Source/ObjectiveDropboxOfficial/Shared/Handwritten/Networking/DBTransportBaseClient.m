@@ -7,12 +7,14 @@
 #import "DBAUTHAccessError.h"
 #import "DBAUTHAuthError.h"
 #import "DBAUTHRateLimitError.h"
+#import "DBAccessTokenProvider+Internal.h"
 #import "DBCOMMONPathRootError.h"
 #import "DBRequestErrors.h"
 #import "DBSDKConstants.h"
 #import "DBStoneBase.h"
 #import "DBTransportBaseClient.h"
 #import "DBTransportBaseConfig.h"
+#import "DBTransportBaseHostnameConfig.h"
 
 #pragma mark - Internal serialization helpers
 
@@ -22,20 +24,42 @@
 
 @implementation DBTransportBaseClient
 
+static BOOL kUseFastAsciiEncoding;
+static NSLock *kAsciiEscapeSelectorLock;
+
++ (void)initialize {
+  [super initialize];
+  if (self == [DBTransportBaseClient class]) {
+    kUseFastAsciiEncoding = NO;
+    kAsciiEscapeSelectorLock = [[NSLock alloc] init];
+  }
+}
+
 - (instancetype)initWithAccessToken:(NSString *)accessToken
                            tokenUid:(NSString *)tokenUid
                     transportConfig:(DBTransportBaseConfig *)transportConfig {
+  DBLongLivedAccessTokenProvider *provider = nil;
+  if (accessToken) {
+    provider = [[DBLongLivedAccessTokenProvider alloc] initWithTokenString:accessToken];
+  }
+  return [self initWithAccessTokenProvider:provider tokenUid:tokenUid transportConfig:transportConfig];
+}
+
+- (instancetype)initWithAccessTokenProvider:(id<DBAccessTokenProvider>)accessTokenProvider
+                                   tokenUid:(NSString *)tokenUid
+                            transportConfig:(DBTransportBaseConfig *)transportConfig {
   if (self = [super init]) {
-    _accessToken = accessToken;
+    _accessTokenProvider = accessTokenProvider;
     _tokenUid = [tokenUid copy];
     _appKey = transportConfig.appKey;
     _appSecret = transportConfig.appSecret;
     _hostnameConfig = transportConfig.hostnameConfig ?: [[DBTransportBaseHostnameConfig alloc] init];
-    NSString *defaultUserAgent = [NSString stringWithFormat:@"%@/%@", kV2SDKDefaultUserAgentPrefix, kV2SDKVersion];
+    NSString *defaultUserAgent = [DBTransportBaseConfig defaultUserAgent];
     _userAgent = transportConfig.userAgent ? [[transportConfig.userAgent stringByAppendingString:@"/"]
                                                  stringByAppendingString:defaultUserAgent]
                                            : defaultUserAgent;
     _asMemberId = transportConfig.asMemberId;
+    _pathRoot = transportConfig.pathRoot;
     _additionalHeaders = transportConfig.additionalHeaders;
   }
   return self;
@@ -51,29 +75,43 @@
                        byteOffsetStart:(NSNumber *)byteOffsetStart
                          byteOffsetEnd:(NSNumber *)byteOffsetEnd {
   NSString *routeStyle = routeAttributes[@"style"];
-  NSString *routeHost = routeAttributes[@"host"];
-  NSString *routeAuth = routeAttributes[@"auth"];
+
+  // routeAuthStr is one of user|team|app|noauth|app, user
+  NSString *routeAuthStr = routeAttributes[@"auth"];
+  NSArray *routeAuthsSplit = [routeAuthStr componentsSeparatedByString:@","];
+  NSMutableArray<NSString *> *routeAuths = [NSMutableArray array];
+  [routeAuthsSplit enumerateObjectsUsingBlock:^(NSString *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
+#pragma unused(idx)
+#pragma unused(stop)
+    [routeAuths addObject:[obj stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]];
+  }];
 
   NSMutableDictionary<NSString *, NSString *> *headers = [[NSMutableDictionary alloc] init];
   [headers setObject:_userAgent forKey:@"User-Agent"];
 
-  BOOL noauth = [routeHost isEqualToString:@"notify"];
+  BOOL noauth = [routeAuths containsObject:@"noauth"];
 
   if (!noauth) {
     if (_asMemberId) {
       [headers setObject:_asMemberId forKey:@"Dropbox-Api-Select-User"];
     }
 
-    if (routeAuth && [routeAuth isEqualToString:@"app"]) {
-      if (!_appKey || !_appSecret) {
-        NSLog(@"App key and/or secret not properly configured. Use custom `DBTransportDefaultConfig` instance to set.");
-      }
+    if (_pathRoot) {
+      NSString *pathRootStr = [[self class] serializeStringWithRoute:nil routeArg:_pathRoot];
+      [headers setObject:pathRootStr forKey:@"Dropbox-Api-Path-Root"];
+    }
+
+    // Order is important here. Route may support multiple auth types, so check from most specific to least.
+    if (([routeAuths containsObject:@"user"] || [routeAuths containsObject:@"team"]) && (_accessTokenProvider != nil)) {
+      [headers setObject:[NSString stringWithFormat:@"Bearer %@", _accessTokenProvider.accessToken]
+                  forKey:@"Authorization"];
+    } else if ([routeAuths containsObject:@"app"] && (_appKey != nil) && (_appSecret != nil)) {
       NSString *authString = [NSString stringWithFormat:@"%@:%@", _appKey, _appSecret];
       NSData *authData = [authString dataUsingEncoding:NSUTF8StringEncoding];
       [headers setObject:[NSString stringWithFormat:@"Basic %@", [authData base64EncodedStringWithOptions:0]]
                   forKey:@"Authorization"];
     } else {
-      [headers setObject:[NSString stringWithFormat:@"Bearer %@", _accessToken] forKey:@"Authorization"];
+      NSLog(@"Auth info not properly configured. Use custom `DBTransportDefaultConfig` instance to set.");
     }
   }
 
@@ -124,7 +162,7 @@
 }
 
 - (NSURL *)urlWithRoute:(DBRoute *)route {
-  NSString *routePrefix = [_hostnameConfig apiV2PrefixWithRouteType:route.attrs[@"host"]];
+  NSString *routePrefix = [_hostnameConfig apiV2PrefixWithRoute:route];
   return [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@", routePrefix, route.namespace_, route.name]];
 }
 
@@ -133,7 +171,7 @@
     return nil;
   }
 
-  if (route.dataStructSerialBlock) {
+  if (route != nil && route.dataStructSerialBlock) {
     return [[self class] jsonDataWithJsonObj:route.dataStructSerialBlock(arg)];
   }
 
@@ -178,7 +216,37 @@
   return [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
 }
 
++ (BOOL)useFastAsciiEncoding {
+  BOOL result;
+
+  [kAsciiEscapeSelectorLock lock];
+  result = kUseFastAsciiEncoding;
+  [kAsciiEscapeSelectorLock unlock];
+  return result;
+}
+
++ (void)setUseFastAsciiEncoding:(BOOL)useFastAsciiEncoding {
+  [kAsciiEscapeSelectorLock lock];
+  kUseFastAsciiEncoding = useFastAsciiEncoding;
+  [kAsciiEscapeSelectorLock unlock];
+}
+
 + (NSString *)asciiEscapeWithString:(NSString *)string {
+  BOOL useFastEncoding = NO;
+  [kAsciiEscapeSelectorLock lock];
+  useFastEncoding = kUseFastAsciiEncoding;
+  [kAsciiEscapeSelectorLock unlock];
+
+  NSString *result;
+  if (useFastEncoding) {
+    result = [self fast_asciiEscapeWithString:string];
+  } else {
+    result = [self slow_asciiEscapeWithString:string];
+  }
+  return result;
+}
+
++ (NSString *)slow_asciiEscapeWithString:(NSString *)string {
   NSMutableString *result = [[NSMutableString alloc] init];
   for (NSUInteger i = 0; i < string.length; i++) {
     NSString *substring = [string substringWithRange:NSMakeRange(i, 1)];
@@ -189,6 +257,27 @@
     }
   }
   return result;
+}
+
++ (NSString *)fast_asciiEscapeWithString:(NSString *)string {
+  // if the string is already ascii, return immediately
+  if ([string canBeConvertedToEncoding:NSASCIIStringEncoding]) {
+    return [string copy];
+  }
+
+  NSMutableString *encoded = [NSMutableString stringWithCapacity:[string length]];
+  for (NSUInteger i = 0; i < [string length]; i++) {
+    unichar character = [string characterAtIndex:i];
+    // Anything that is raw ASCII (not extended) can be applied as a regular old character.
+    if (character < 128) {
+      [encoded appendFormat:@"%c", character];
+    } else {
+      // Everything else needs to be encoded, including the extended ascii set.
+      [encoded appendFormat:@"\\u%04x", character];
+    }
+  }
+
+  return [encoded copy];
 }
 
 + (DBRequestError *)dBRequestErrorWithErrorData:(NSData *)errorData
@@ -220,7 +309,15 @@
   } else {
     errorContent = errorData ? [[NSString alloc] initWithData:errorData encoding:NSUTF8StringEncoding] : nil;
   }
-  NSString *userMessage = deserializedData[@"user_message"];
+  DBLocalizedUserMessage *userMessage = nil;
+  NSDictionary *userMessageDict = deserializedData[@"user_message"];
+  if ([userMessageDict isKindOfClass:[NSDictionary class]]) {
+    NSString *text = userMessageDict[@"text"];
+    NSString *locale = userMessageDict[@"locale"];
+    if ([text isKindOfClass:[NSString class]] && [locale isKindOfClass:[NSString class]]) {
+      userMessage = [[DBLocalizedUserMessage alloc] initWithText:text locale:locale];
+    }
+  }
 
   if (statusCode >= 500 && statusCode < 600) {
     dbxError = [[DBRequestError alloc] initAsInternalServerError:requestId
@@ -306,8 +403,9 @@
   if (!route.resultType) {
     return nil;
   }
-  id jsonData =
-      [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:serializationError];
+  id jsonData = [NSJSONSerialization JSONObjectWithData:data
+                                                options:NSJSONReadingMutableContainers
+                                                  error:serializationError];
   if (*serializationError) {
     return nil;
   }
@@ -338,14 +436,6 @@
     }
   }
   return nil;
-}
-
-+ (NSString *)sdkVersion {
-  return kV2SDKVersion;
-}
-
-+ (NSString *)defaultUserAgent {
-  return kV2SDKDefaultUserAgentPrefix;
 }
 
 @end

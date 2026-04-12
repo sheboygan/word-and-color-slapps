@@ -28,7 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// The `DBTEAMGroupsGetInfoItemTag` enum type represents the possible tag
 /// states with which the `DBTEAMGroupsGetInfoItem` union can exist.
-typedef NS_ENUM(NSInteger, DBTEAMGroupsGetInfoItemTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBTEAMGroupsGetInfoItemTag) {
   /// An ID that was provided as a parameter to `groupsGetInfo`, and did not
   /// match a corresponding group. The ID can be a group ID, or an external
   /// ID, depending on how the method was called.
@@ -130,7 +130,7 @@ typedef NS_ENUM(NSInteger, DBTEAMGroupsGetInfoItemTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBTEAMGroupsGetInfoItem` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBTEAMGroupsGetInfoItem *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBTEAMGroupsGetInfoItem *)instance;
 
 ///
 /// Deserializes `DBTEAMGroupsGetInfoItem` instances.
@@ -140,7 +140,7 @@ typedef NS_ENUM(NSInteger, DBTEAMGroupsGetInfoItemTag) {
 ///
 /// @return An instantiation of the `DBTEAMGroupsGetInfoItem` object.
 ///
-+ (DBTEAMGroupsGetInfoItem *)deserialize:(NSDictionary *)dict;
++ (DBTEAMGroupsGetInfoItem *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

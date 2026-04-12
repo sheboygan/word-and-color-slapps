@@ -30,7 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// The `DBSHARINGFileMemberRemoveActionResultTag` enum type represents the
 /// possible tag states with which the `DBSHARINGFileMemberRemoveActionResult`
 /// union can exist.
-typedef NS_ENUM(NSInteger, DBSHARINGFileMemberRemoveActionResultTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBSHARINGFileMemberRemoveActionResultTag) {
   /// Member was successfully removed from this file.
   DBSHARINGFileMemberRemoveActionResultSuccess,
 
@@ -145,7 +145,7 @@ typedef NS_ENUM(NSInteger, DBSHARINGFileMemberRemoveActionResultTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBSHARINGFileMemberRemoveActionResult` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBSHARINGFileMemberRemoveActionResult *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBSHARINGFileMemberRemoveActionResult *)instance;
 
 ///
 /// Deserializes `DBSHARINGFileMemberRemoveActionResult` instances.
@@ -156,7 +156,7 @@ typedef NS_ENUM(NSInteger, DBSHARINGFileMemberRemoveActionResultTag) {
 /// @return An instantiation of the `DBSHARINGFileMemberRemoveActionResult`
 /// object.
 ///
-+ (DBSHARINGFileMemberRemoveActionResult *)deserialize:(NSDictionary *)dict;
++ (DBSHARINGFileMemberRemoveActionResult *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

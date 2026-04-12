@@ -27,12 +27,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// The `DBTEAMLOGDeviceUnlinkPolicyTag` enum type represents the possible tag
 /// states with which the `DBTEAMLOGDeviceUnlinkPolicy` union can exist.
-typedef NS_ENUM(NSInteger, DBTEAMLOGDeviceUnlinkPolicyTag) {
-  /// (no description).
-  DBTEAMLOGDeviceUnlinkPolicyRemove,
-
+typedef NS_CLOSED_ENUM(NSInteger, DBTEAMLOGDeviceUnlinkPolicyTag) {
   /// (no description).
   DBTEAMLOGDeviceUnlinkPolicyKeep,
+
+  /// (no description).
+  DBTEAMLOGDeviceUnlinkPolicyRemove,
 
   /// (no description).
   DBTEAMLOGDeviceUnlinkPolicyOther,
@@ -45,18 +45,18 @@ typedef NS_ENUM(NSInteger, DBTEAMLOGDeviceUnlinkPolicyTag) {
 #pragma mark - Constructors
 
 ///
-/// Initializes union class with tag state of "remove".
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithRemove;
-
-///
 /// Initializes union class with tag state of "keep".
 ///
 /// @return An initialized instance.
 ///
 - (instancetype)initWithKeep;
+
+///
+/// Initializes union class with tag state of "remove".
+///
+/// @return An initialized instance.
+///
+- (instancetype)initWithRemove;
 
 ///
 /// Initializes union class with tag state of "other".
@@ -70,18 +70,18 @@ typedef NS_ENUM(NSInteger, DBTEAMLOGDeviceUnlinkPolicyTag) {
 #pragma mark - Tag state methods
 
 ///
-/// Retrieves whether the union's current tag state has value "remove".
-///
-/// @return Whether the union's current tag state has value "remove".
-///
-- (BOOL)isRemove;
-
-///
 /// Retrieves whether the union's current tag state has value "keep".
 ///
 /// @return Whether the union's current tag state has value "keep".
 ///
 - (BOOL)isKeep;
+
+///
+/// Retrieves whether the union's current tag state has value "remove".
+///
+/// @return Whether the union's current tag state has value "remove".
+///
+- (BOOL)isRemove;
 
 ///
 /// Retrieves whether the union's current tag state has value "other".
@@ -114,7 +114,7 @@ typedef NS_ENUM(NSInteger, DBTEAMLOGDeviceUnlinkPolicyTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBTEAMLOGDeviceUnlinkPolicy` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBTEAMLOGDeviceUnlinkPolicy *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBTEAMLOGDeviceUnlinkPolicy *)instance;
 
 ///
 /// Deserializes `DBTEAMLOGDeviceUnlinkPolicy` instances.
@@ -124,7 +124,7 @@ typedef NS_ENUM(NSInteger, DBTEAMLOGDeviceUnlinkPolicyTag) {
 ///
 /// @return An instantiation of the `DBTEAMLOGDeviceUnlinkPolicy` object.
 ///
-+ (DBTEAMLOGDeviceUnlinkPolicy *)deserialize:(NSDictionary *)dict;
++ (DBTEAMLOGDeviceUnlinkPolicy *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

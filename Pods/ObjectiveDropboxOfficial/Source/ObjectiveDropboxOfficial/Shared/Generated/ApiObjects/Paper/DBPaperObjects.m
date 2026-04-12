@@ -36,17 +36,17 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBPAPERAddMemberSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBPAPERAddMemberSerializer deserialize:dict];
 }
 
-#pragma mark - Description method
+#pragma mark - Debug Description method
 
-- (NSString *)description {
+- (NSString *)debugDescription {
   return [[DBPAPERAddMemberSerializer serialize:self] description];
 }
 
@@ -101,16 +101,16 @@
 
 @implementation DBPAPERAddMemberSerializer
 
-+ (NSDictionary *)serialize:(DBPAPERAddMember *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBPAPERAddMember *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"member"] = [DBSHARINGMemberSelectorSerializer serialize:valueObj.member];
   jsonDict[@"permission_level"] = [DBPAPERPaperDocPermissionLevelSerializer serialize:valueObj.permissionLevel];
 
-  return [jsonDict count] > 0 ? jsonDict : nil;
+  return jsonDict;
 }
 
-+ (DBPAPERAddMember *)deserialize:(NSDictionary *)valueDict {
++ (DBPAPERAddMember *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   DBSHARINGMemberSelector *member = [DBSHARINGMemberSelectorSerializer deserialize:valueDict[@"member"]];
   DBPAPERPaperDocPermissionLevel *permissionLevel =
       valueDict[@"permission_level"]
@@ -144,17 +144,17 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBPAPERRefPaperDocSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBPAPERRefPaperDocSerializer deserialize:dict];
 }
 
-#pragma mark - Description method
+#pragma mark - Debug Description method
 
-- (NSString *)description {
+- (NSString *)debugDescription {
   return [[DBPAPERRefPaperDocSerializer serialize:self] description];
 }
 
@@ -205,15 +205,15 @@
 
 @implementation DBPAPERRefPaperDocSerializer
 
-+ (NSDictionary *)serialize:(DBPAPERRefPaperDoc *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBPAPERRefPaperDoc *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"doc_id"] = valueObj.docId;
 
-  return [jsonDict count] > 0 ? jsonDict : nil;
+  return jsonDict;
 }
 
-+ (DBPAPERRefPaperDoc *)deserialize:(NSDictionary *)valueDict {
++ (DBPAPERRefPaperDoc *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *docId = valueDict[@"doc_id"];
 
   return [[DBPAPERRefPaperDoc alloc] initWithDocId:docId];
@@ -258,17 +258,17 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBPAPERAddPaperDocUserSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBPAPERAddPaperDocUserSerializer deserialize:dict];
 }
 
-#pragma mark - Description method
+#pragma mark - Debug Description method
 
-- (NSString *)description {
+- (NSString *)debugDescription {
   return [[DBPAPERAddPaperDocUserSerializer serialize:self] description];
 }
 
@@ -335,7 +335,7 @@
 
 @implementation DBPAPERAddPaperDocUserSerializer
 
-+ (NSDictionary *)serialize:(DBPAPERAddPaperDocUser *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBPAPERAddPaperDocUser *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"doc_id"] = valueObj.docId;
@@ -348,10 +348,10 @@
   }
   jsonDict[@"quiet"] = valueObj.quiet;
 
-  return [jsonDict count] > 0 ? jsonDict : nil;
+  return jsonDict;
 }
 
-+ (DBPAPERAddPaperDocUser *)deserialize:(NSDictionary *)valueDict {
++ (DBPAPERAddPaperDocUser *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *docId = valueDict[@"doc_id"];
   NSArray<DBPAPERAddMember *> *members = [DBArraySerializer deserialize:valueDict[@"members"]
                                                               withBlock:^id(id elem0) {
@@ -391,17 +391,17 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBPAPERAddPaperDocUserMemberResultSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBPAPERAddPaperDocUserMemberResultSerializer deserialize:dict];
 }
 
-#pragma mark - Description method
+#pragma mark - Debug Description method
 
-- (NSString *)description {
+- (NSString *)debugDescription {
   return [[DBPAPERAddPaperDocUserMemberResultSerializer serialize:self] description];
 }
 
@@ -456,16 +456,16 @@
 
 @implementation DBPAPERAddPaperDocUserMemberResultSerializer
 
-+ (NSDictionary *)serialize:(DBPAPERAddPaperDocUserMemberResult *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBPAPERAddPaperDocUserMemberResult *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"member"] = [DBSHARINGMemberSelectorSerializer serialize:valueObj.member];
   jsonDict[@"result"] = [DBPAPERAddPaperDocUserResultSerializer serialize:valueObj.result];
 
-  return [jsonDict count] > 0 ? jsonDict : nil;
+  return jsonDict;
 }
 
-+ (DBPAPERAddPaperDocUserMemberResult *)deserialize:(NSDictionary *)valueDict {
++ (DBPAPERAddPaperDocUserMemberResult *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   DBSHARINGMemberSelector *member = [DBSHARINGMemberSelectorSerializer deserialize:valueDict[@"member"]];
   DBPAPERAddPaperDocUserResult *result = [DBPAPERAddPaperDocUserResultSerializer deserialize:valueDict[@"result"]];
 
@@ -609,17 +609,17 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBPAPERAddPaperDocUserResultSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBPAPERAddPaperDocUserResultSerializer deserialize:dict];
 }
 
-#pragma mark - Description method
+#pragma mark - Debug Description method
 
-- (NSString *)description {
+- (NSString *)debugDescription {
   return [[DBPAPERAddPaperDocUserResultSerializer serialize:self] description];
 }
 
@@ -640,20 +640,28 @@
   switch (_tag) {
   case DBPAPERAddPaperDocUserResultSuccess:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBPAPERAddPaperDocUserResultUnknownError:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBPAPERAddPaperDocUserResultSharingOutsideTeamDisabled:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBPAPERAddPaperDocUserResultDailyLimitReached:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBPAPERAddPaperDocUserResultUserIsOwner:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBPAPERAddPaperDocUserResultFailedUserDataRetrieval:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBPAPERAddPaperDocUserResultPermissionAlreadyGranted:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBPAPERAddPaperDocUserResultOther:
     result = prime * result + [[self tagName] hash];
+    break;
   }
 
   return prime * result;
@@ -705,7 +713,7 @@
 
 @implementation DBPAPERAddPaperDocUserResultSerializer
 
-+ (NSDictionary *)serialize:(DBPAPERAddPaperDocUserResult *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBPAPERAddPaperDocUserResult *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isSuccess]) {
@@ -728,10 +736,10 @@
     jsonDict[@".tag"] = @"other";
   }
 
-  return [jsonDict count] > 0 ? jsonDict : nil;
+  return jsonDict;
 }
 
-+ (DBPAPERAddPaperDocUserResult *)deserialize:(NSDictionary *)valueDict {
++ (DBPAPERAddPaperDocUserResult *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"success"]) {
@@ -784,17 +792,17 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBPAPERCursorSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBPAPERCursorSerializer deserialize:dict];
 }
 
-#pragma mark - Description method
+#pragma mark - Debug Description method
 
-- (NSString *)description {
+- (NSString *)debugDescription {
   return [[DBPAPERCursorSerializer serialize:self] description];
 }
 
@@ -853,7 +861,7 @@
 
 @implementation DBPAPERCursorSerializer
 
-+ (NSDictionary *)serialize:(DBPAPERCursor *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBPAPERCursor *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"value"] = valueObj.value;
@@ -861,10 +869,10 @@
     jsonDict[@"expiration"] = [DBNSDateSerializer serialize:valueObj.expiration dateFormat:@"%Y-%m-%dT%H:%M:%SZ"];
   }
 
-  return [jsonDict count] > 0 ? jsonDict : nil;
+  return jsonDict;
 }
 
-+ (DBPAPERCursor *)deserialize:(NSDictionary *)valueDict {
++ (DBPAPERCursor *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *value = valueDict[@"value"];
   NSDate *expiration = valueDict[@"expiration"]
                            ? [DBNSDateSerializer deserialize:valueDict[@"expiration"] dateFormat:@"%Y-%m-%dT%H:%M:%SZ"]
@@ -926,17 +934,17 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBPAPERPaperApiBaseErrorSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBPAPERPaperApiBaseErrorSerializer deserialize:dict];
 }
 
-#pragma mark - Description method
+#pragma mark - Debug Description method
 
-- (NSString *)description {
+- (NSString *)debugDescription {
   return [[DBPAPERPaperApiBaseErrorSerializer serialize:self] description];
 }
 
@@ -957,8 +965,10 @@
   switch (_tag) {
   case DBPAPERPaperApiBaseErrorInsufficientPermissions:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBPAPERPaperApiBaseErrorOther:
     result = prime * result + [[self tagName] hash];
+    break;
   }
 
   return prime * result;
@@ -998,7 +1008,7 @@
 
 @implementation DBPAPERPaperApiBaseErrorSerializer
 
-+ (NSDictionary *)serialize:(DBPAPERPaperApiBaseError *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBPAPERPaperApiBaseError *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isInsufficientPermissions]) {
@@ -1009,10 +1019,10 @@
     jsonDict[@".tag"] = @"other";
   }
 
-  return [jsonDict count] > 0 ? jsonDict : nil;
+  return jsonDict;
 }
 
-+ (DBPAPERPaperApiBaseError *)deserialize:(NSDictionary *)valueDict {
++ (DBPAPERPaperApiBaseError *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"insufficient_permissions"]) {
@@ -1092,17 +1102,17 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBPAPERDocLookupErrorSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBPAPERDocLookupErrorSerializer deserialize:dict];
 }
 
-#pragma mark - Description method
+#pragma mark - Debug Description method
 
-- (NSString *)description {
+- (NSString *)debugDescription {
   return [[DBPAPERDocLookupErrorSerializer serialize:self] description];
 }
 
@@ -1123,10 +1133,13 @@
   switch (_tag) {
   case DBPAPERDocLookupErrorInsufficientPermissions:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBPAPERDocLookupErrorOther:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBPAPERDocLookupErrorDocNotFound:
     result = prime * result + [[self tagName] hash];
+    break;
   }
 
   return prime * result;
@@ -1168,7 +1181,7 @@
 
 @implementation DBPAPERDocLookupErrorSerializer
 
-+ (NSDictionary *)serialize:(DBPAPERDocLookupError *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBPAPERDocLookupError *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isInsufficientPermissions]) {
@@ -1181,10 +1194,10 @@
     jsonDict[@".tag"] = @"other";
   }
 
-  return [jsonDict count] > 0 ? jsonDict : nil;
+  return jsonDict;
 }
 
-+ (DBPAPERDocLookupError *)deserialize:(NSDictionary *)valueDict {
++ (DBPAPERDocLookupError *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"insufficient_permissions"]) {
@@ -1279,17 +1292,17 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBPAPERDocSubscriptionLevelSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBPAPERDocSubscriptionLevelSerializer deserialize:dict];
 }
 
-#pragma mark - Description method
+#pragma mark - Debug Description method
 
-- (NSString *)description {
+- (NSString *)debugDescription {
   return [[DBPAPERDocSubscriptionLevelSerializer serialize:self] description];
 }
 
@@ -1310,12 +1323,16 @@
   switch (_tag) {
   case DBPAPERDocSubscriptionLevelDefault_:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBPAPERDocSubscriptionLevelIgnore:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBPAPERDocSubscriptionLevelEvery:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBPAPERDocSubscriptionLevelNoEmail:
     result = prime * result + [[self tagName] hash];
+    break;
   }
 
   return prime * result;
@@ -1359,7 +1376,7 @@
 
 @implementation DBPAPERDocSubscriptionLevelSerializer
 
-+ (NSDictionary *)serialize:(DBPAPERDocSubscriptionLevel *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBPAPERDocSubscriptionLevel *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isDefault_]) {
@@ -1376,10 +1393,10 @@
                                  userInfo:nil]);
   }
 
-  return [jsonDict count] > 0 ? jsonDict : nil;
+  return jsonDict;
 }
 
-+ (DBPAPERDocSubscriptionLevel *)deserialize:(NSDictionary *)valueDict {
++ (DBPAPERDocSubscriptionLevel *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"default"]) {
@@ -1465,17 +1482,17 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBPAPERExportFormatSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBPAPERExportFormatSerializer deserialize:dict];
 }
 
-#pragma mark - Description method
+#pragma mark - Debug Description method
 
-- (NSString *)description {
+- (NSString *)debugDescription {
   return [[DBPAPERExportFormatSerializer serialize:self] description];
 }
 
@@ -1496,10 +1513,13 @@
   switch (_tag) {
   case DBPAPERExportFormatHtml:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBPAPERExportFormatMarkdown:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBPAPERExportFormatOther:
     result = prime * result + [[self tagName] hash];
+    break;
   }
 
   return prime * result;
@@ -1541,7 +1561,7 @@
 
 @implementation DBPAPERExportFormatSerializer
 
-+ (NSDictionary *)serialize:(DBPAPERExportFormat *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBPAPERExportFormat *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isHtml]) {
@@ -1554,10 +1574,10 @@
     jsonDict[@".tag"] = @"other";
   }
 
-  return [jsonDict count] > 0 ? jsonDict : nil;
+  return jsonDict;
 }
 
-+ (DBPAPERExportFormat *)deserialize:(NSDictionary *)valueDict {
++ (DBPAPERExportFormat *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"html"]) {
@@ -1597,17 +1617,17 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBPAPERFolderSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBPAPERFolderSerializer deserialize:dict];
 }
 
-#pragma mark - Description method
+#pragma mark - Debug Description method
 
-- (NSString *)description {
+- (NSString *)debugDescription {
   return [[DBPAPERFolderSerializer serialize:self] description];
 }
 
@@ -1662,16 +1682,16 @@
 
 @implementation DBPAPERFolderSerializer
 
-+ (NSDictionary *)serialize:(DBPAPERFolder *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBPAPERFolder *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"id"] = valueObj.id_;
   jsonDict[@"name"] = valueObj.name;
 
-  return [jsonDict count] > 0 ? jsonDict : nil;
+  return jsonDict;
 }
 
-+ (DBPAPERFolder *)deserialize:(NSDictionary *)valueDict {
++ (DBPAPERFolder *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *id_ = valueDict[@"id"];
   NSString *name = valueDict[@"name"];
 
@@ -1731,17 +1751,17 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBPAPERFolderSharingPolicyTypeSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBPAPERFolderSharingPolicyTypeSerializer deserialize:dict];
 }
 
-#pragma mark - Description method
+#pragma mark - Debug Description method
 
-- (NSString *)description {
+- (NSString *)debugDescription {
   return [[DBPAPERFolderSharingPolicyTypeSerializer serialize:self] description];
 }
 
@@ -1762,8 +1782,10 @@
   switch (_tag) {
   case DBPAPERFolderSharingPolicyTypeTeam:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBPAPERFolderSharingPolicyTypeInviteOnly:
     result = prime * result + [[self tagName] hash];
+    break;
   }
 
   return prime * result;
@@ -1803,7 +1825,7 @@
 
 @implementation DBPAPERFolderSharingPolicyTypeSerializer
 
-+ (NSDictionary *)serialize:(DBPAPERFolderSharingPolicyType *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBPAPERFolderSharingPolicyType *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isTeam]) {
@@ -1816,10 +1838,10 @@
                                  userInfo:nil]);
   }
 
-  return [jsonDict count] > 0 ? jsonDict : nil;
+  return jsonDict;
 }
 
-+ (DBPAPERFolderSharingPolicyType *)deserialize:(NSDictionary *)valueDict {
++ (DBPAPERFolderSharingPolicyType *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"team"]) {
@@ -1915,17 +1937,17 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBPAPERFolderSubscriptionLevelSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBPAPERFolderSubscriptionLevelSerializer deserialize:dict];
 }
 
-#pragma mark - Description method
+#pragma mark - Debug Description method
 
-- (NSString *)description {
+- (NSString *)debugDescription {
   return [[DBPAPERFolderSubscriptionLevelSerializer serialize:self] description];
 }
 
@@ -1946,12 +1968,16 @@
   switch (_tag) {
   case DBPAPERFolderSubscriptionLevelNone:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBPAPERFolderSubscriptionLevelActivityOnly:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBPAPERFolderSubscriptionLevelDailyEmails:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBPAPERFolderSubscriptionLevelWeeklyEmails:
     result = prime * result + [[self tagName] hash];
+    break;
   }
 
   return prime * result;
@@ -1995,7 +2021,7 @@
 
 @implementation DBPAPERFolderSubscriptionLevelSerializer
 
-+ (NSDictionary *)serialize:(DBPAPERFolderSubscriptionLevel *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBPAPERFolderSubscriptionLevel *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isNone]) {
@@ -2012,10 +2038,10 @@
                                  userInfo:nil]);
   }
 
-  return [jsonDict count] > 0 ? jsonDict : nil;
+  return jsonDict;
 }
 
-+ (DBPAPERFolderSubscriptionLevel *)deserialize:(NSDictionary *)valueDict {
++ (DBPAPERFolderSubscriptionLevel *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"none"]) {
@@ -2069,17 +2095,17 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBPAPERFoldersContainingPaperDocSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBPAPERFoldersContainingPaperDocSerializer deserialize:dict];
 }
 
-#pragma mark - Description method
+#pragma mark - Debug Description method
 
-- (NSString *)description {
+- (NSString *)debugDescription {
   return [[DBPAPERFoldersContainingPaperDocSerializer serialize:self] description];
 }
 
@@ -2142,7 +2168,7 @@
 
 @implementation DBPAPERFoldersContainingPaperDocSerializer
 
-+ (NSDictionary *)serialize:(DBPAPERFoldersContainingPaperDoc *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBPAPERFoldersContainingPaperDoc *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if (valueObj.folderSharingPolicyType) {
@@ -2156,10 +2182,10 @@
                                               }];
   }
 
-  return [jsonDict count] > 0 ? jsonDict : nil;
+  return jsonDict;
 }
 
-+ (DBPAPERFoldersContainingPaperDoc *)deserialize:(NSDictionary *)valueDict {
++ (DBPAPERFoldersContainingPaperDoc *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   DBPAPERFolderSharingPolicyType *folderSharingPolicyType =
       valueDict[@"folder_sharing_policy_type"]
           ? [DBPAPERFolderSharingPolicyTypeSerializer deserialize:valueDict[@"folder_sharing_policy_type"]]
@@ -2256,17 +2282,17 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBPAPERImportFormatSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBPAPERImportFormatSerializer deserialize:dict];
 }
 
-#pragma mark - Description method
+#pragma mark - Debug Description method
 
-- (NSString *)description {
+- (NSString *)debugDescription {
   return [[DBPAPERImportFormatSerializer serialize:self] description];
 }
 
@@ -2287,12 +2313,16 @@
   switch (_tag) {
   case DBPAPERImportFormatHtml:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBPAPERImportFormatMarkdown:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBPAPERImportFormatPlainText:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBPAPERImportFormatOther:
     result = prime * result + [[self tagName] hash];
+    break;
   }
 
   return prime * result;
@@ -2336,7 +2366,7 @@
 
 @implementation DBPAPERImportFormatSerializer
 
-+ (NSDictionary *)serialize:(DBPAPERImportFormat *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBPAPERImportFormat *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isHtml]) {
@@ -2351,10 +2381,10 @@
     jsonDict[@".tag"] = @"other";
   }
 
-  return [jsonDict count] > 0 ? jsonDict : nil;
+  return jsonDict;
 }
 
-+ (DBPAPERImportFormat *)deserialize:(NSDictionary *)valueDict {
++ (DBPAPERImportFormat *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"html"]) {
@@ -2399,17 +2429,17 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBPAPERInviteeInfoWithPermissionLevelSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBPAPERInviteeInfoWithPermissionLevelSerializer deserialize:dict];
 }
 
-#pragma mark - Description method
+#pragma mark - Debug Description method
 
-- (NSString *)description {
+- (NSString *)debugDescription {
   return [[DBPAPERInviteeInfoWithPermissionLevelSerializer serialize:self] description];
 }
 
@@ -2465,16 +2495,16 @@
 
 @implementation DBPAPERInviteeInfoWithPermissionLevelSerializer
 
-+ (NSDictionary *)serialize:(DBPAPERInviteeInfoWithPermissionLevel *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBPAPERInviteeInfoWithPermissionLevel *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"invitee"] = [DBSHARINGInviteeInfoSerializer serialize:valueObj.invitee];
   jsonDict[@"permission_level"] = [DBPAPERPaperDocPermissionLevelSerializer serialize:valueObj.permissionLevel];
 
-  return [jsonDict count] > 0 ? jsonDict : nil;
+  return jsonDict;
 }
 
-+ (DBPAPERInviteeInfoWithPermissionLevel *)deserialize:(NSDictionary *)valueDict {
++ (DBPAPERInviteeInfoWithPermissionLevel *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   DBSHARINGInviteeInfo *invitee = [DBSHARINGInviteeInfoSerializer deserialize:valueDict[@"invitee"]];
   DBPAPERPaperDocPermissionLevel *permissionLevel =
       [DBPAPERPaperDocPermissionLevelSerializer deserialize:valueDict[@"permission_level"]];
@@ -2547,17 +2577,17 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBPAPERListDocsCursorErrorSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBPAPERListDocsCursorErrorSerializer deserialize:dict];
 }
 
-#pragma mark - Description method
+#pragma mark - Debug Description method
 
-- (NSString *)description {
+- (NSString *)debugDescription {
   return [[DBPAPERListDocsCursorErrorSerializer serialize:self] description];
 }
 
@@ -2578,8 +2608,10 @@
   switch (_tag) {
   case DBPAPERListDocsCursorErrorCursorError:
     result = prime * result + [self.cursorError hash];
+    break;
   case DBPAPERListDocsCursorErrorOther:
     result = prime * result + [[self tagName] hash];
+    break;
   }
 
   return prime * result;
@@ -2619,7 +2651,7 @@
 
 @implementation DBPAPERListDocsCursorErrorSerializer
 
-+ (NSDictionary *)serialize:(DBPAPERListDocsCursorError *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBPAPERListDocsCursorError *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isCursorError]) {
@@ -2631,10 +2663,10 @@
     jsonDict[@".tag"] = @"other";
   }
 
-  return [jsonDict count] > 0 ? jsonDict : nil;
+  return jsonDict;
 }
 
-+ (DBPAPERListDocsCursorError *)deserialize:(NSDictionary *)valueDict {
++ (DBPAPERListDocsCursorError *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"cursor_error"]) {
@@ -2684,17 +2716,17 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBPAPERListPaperDocsArgsSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBPAPERListPaperDocsArgsSerializer deserialize:dict];
 }
 
-#pragma mark - Description method
+#pragma mark - Debug Description method
 
-- (NSString *)description {
+- (NSString *)debugDescription {
   return [[DBPAPERListPaperDocsArgsSerializer serialize:self] description];
 }
 
@@ -2757,7 +2789,7 @@
 
 @implementation DBPAPERListPaperDocsArgsSerializer
 
-+ (NSDictionary *)serialize:(DBPAPERListPaperDocsArgs *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBPAPERListPaperDocsArgs *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"filter_by"] = [DBPAPERListPaperDocsFilterBySerializer serialize:valueObj.filterBy];
@@ -2765,10 +2797,10 @@
   jsonDict[@"sort_order"] = [DBPAPERListPaperDocsSortOrderSerializer serialize:valueObj.sortOrder];
   jsonDict[@"limit"] = valueObj.limit;
 
-  return [jsonDict count] > 0 ? jsonDict : nil;
+  return jsonDict;
 }
 
-+ (DBPAPERListPaperDocsArgs *)deserialize:(NSDictionary *)valueDict {
++ (DBPAPERListPaperDocsArgs *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   DBPAPERListPaperDocsFilterBy *filterBy =
       valueDict[@"filter_by"] ? [DBPAPERListPaperDocsFilterBySerializer deserialize:valueDict[@"filter_by"]]
                               : [[DBPAPERListPaperDocsFilterBy alloc] initWithDocsAccessed];
@@ -2807,17 +2839,17 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBPAPERListPaperDocsContinueArgsSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBPAPERListPaperDocsContinueArgsSerializer deserialize:dict];
 }
 
-#pragma mark - Description method
+#pragma mark - Debug Description method
 
-- (NSString *)description {
+- (NSString *)debugDescription {
   return [[DBPAPERListPaperDocsContinueArgsSerializer serialize:self] description];
 }
 
@@ -2868,15 +2900,15 @@
 
 @implementation DBPAPERListPaperDocsContinueArgsSerializer
 
-+ (NSDictionary *)serialize:(DBPAPERListPaperDocsContinueArgs *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBPAPERListPaperDocsContinueArgs *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"cursor"] = valueObj.cursor;
 
-  return [jsonDict count] > 0 ? jsonDict : nil;
+  return jsonDict;
 }
 
-+ (DBPAPERListPaperDocsContinueArgs *)deserialize:(NSDictionary *)valueDict {
++ (DBPAPERListPaperDocsContinueArgs *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *cursor = valueDict[@"cursor"];
 
   return [[DBPAPERListPaperDocsContinueArgs alloc] initWithCursor:cursor];
@@ -2949,17 +2981,17 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBPAPERListPaperDocsFilterBySerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBPAPERListPaperDocsFilterBySerializer deserialize:dict];
 }
 
-#pragma mark - Description method
+#pragma mark - Debug Description method
 
-- (NSString *)description {
+- (NSString *)debugDescription {
   return [[DBPAPERListPaperDocsFilterBySerializer serialize:self] description];
 }
 
@@ -2980,10 +3012,13 @@
   switch (_tag) {
   case DBPAPERListPaperDocsFilterByDocsAccessed:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBPAPERListPaperDocsFilterByDocsCreated:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBPAPERListPaperDocsFilterByOther:
     result = prime * result + [[self tagName] hash];
+    break;
   }
 
   return prime * result;
@@ -3025,7 +3060,7 @@
 
 @implementation DBPAPERListPaperDocsFilterBySerializer
 
-+ (NSDictionary *)serialize:(DBPAPERListPaperDocsFilterBy *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBPAPERListPaperDocsFilterBy *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isDocsAccessed]) {
@@ -3038,10 +3073,10 @@
     jsonDict[@".tag"] = @"other";
   }
 
-  return [jsonDict count] > 0 ? jsonDict : nil;
+  return jsonDict;
 }
 
-+ (DBPAPERListPaperDocsFilterBy *)deserialize:(NSDictionary *)valueDict {
++ (DBPAPERListPaperDocsFilterBy *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"docs_accessed"]) {
@@ -3089,17 +3124,17 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBPAPERListPaperDocsResponseSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBPAPERListPaperDocsResponseSerializer deserialize:dict];
 }
 
-#pragma mark - Description method
+#pragma mark - Debug Description method
 
-- (NSString *)description {
+- (NSString *)debugDescription {
   return [[DBPAPERListPaperDocsResponseSerializer serialize:self] description];
 }
 
@@ -3158,7 +3193,7 @@
 
 @implementation DBPAPERListPaperDocsResponseSerializer
 
-+ (NSDictionary *)serialize:(DBPAPERListPaperDocsResponse *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBPAPERListPaperDocsResponse *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"doc_ids"] = [DBArraySerializer serialize:valueObj.docIds
@@ -3168,10 +3203,10 @@
   jsonDict[@"cursor"] = [DBPAPERCursorSerializer serialize:valueObj.cursor];
   jsonDict[@"has_more"] = valueObj.hasMore;
 
-  return [jsonDict count] > 0 ? jsonDict : nil;
+  return jsonDict;
 }
 
-+ (DBPAPERListPaperDocsResponse *)deserialize:(NSDictionary *)valueDict {
++ (DBPAPERListPaperDocsResponse *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSArray<NSString *> *docIds = [DBArraySerializer deserialize:valueDict[@"doc_ids"]
                                                      withBlock:^id(id elem0) {
                                                        return elem0;
@@ -3263,17 +3298,17 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBPAPERListPaperDocsSortBySerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBPAPERListPaperDocsSortBySerializer deserialize:dict];
 }
 
-#pragma mark - Description method
+#pragma mark - Debug Description method
 
-- (NSString *)description {
+- (NSString *)debugDescription {
   return [[DBPAPERListPaperDocsSortBySerializer serialize:self] description];
 }
 
@@ -3294,12 +3329,16 @@
   switch (_tag) {
   case DBPAPERListPaperDocsSortByAccessed:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBPAPERListPaperDocsSortByModified:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBPAPERListPaperDocsSortByCreated:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBPAPERListPaperDocsSortByOther:
     result = prime * result + [[self tagName] hash];
+    break;
   }
 
   return prime * result;
@@ -3343,7 +3382,7 @@
 
 @implementation DBPAPERListPaperDocsSortBySerializer
 
-+ (NSDictionary *)serialize:(DBPAPERListPaperDocsSortBy *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBPAPERListPaperDocsSortBy *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isAccessed]) {
@@ -3358,10 +3397,10 @@
     jsonDict[@".tag"] = @"other";
   }
 
-  return [jsonDict count] > 0 ? jsonDict : nil;
+  return jsonDict;
 }
 
-+ (DBPAPERListPaperDocsSortBy *)deserialize:(NSDictionary *)valueDict {
++ (DBPAPERListPaperDocsSortBy *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"accessed"]) {
@@ -3444,17 +3483,17 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBPAPERListPaperDocsSortOrderSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBPAPERListPaperDocsSortOrderSerializer deserialize:dict];
 }
 
-#pragma mark - Description method
+#pragma mark - Debug Description method
 
-- (NSString *)description {
+- (NSString *)debugDescription {
   return [[DBPAPERListPaperDocsSortOrderSerializer serialize:self] description];
 }
 
@@ -3475,10 +3514,13 @@
   switch (_tag) {
   case DBPAPERListPaperDocsSortOrderAscending:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBPAPERListPaperDocsSortOrderDescending:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBPAPERListPaperDocsSortOrderOther:
     result = prime * result + [[self tagName] hash];
+    break;
   }
 
   return prime * result;
@@ -3520,7 +3562,7 @@
 
 @implementation DBPAPERListPaperDocsSortOrderSerializer
 
-+ (NSDictionary *)serialize:(DBPAPERListPaperDocsSortOrder *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBPAPERListPaperDocsSortOrder *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isAscending]) {
@@ -3533,10 +3575,10 @@
     jsonDict[@".tag"] = @"other";
   }
 
-  return [jsonDict count] > 0 ? jsonDict : nil;
+  return jsonDict;
 }
 
-+ (DBPAPERListPaperDocsSortOrder *)deserialize:(NSDictionary *)valueDict {
++ (DBPAPERListPaperDocsSortOrder *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"ascending"]) {
@@ -3644,17 +3686,17 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBPAPERListUsersCursorErrorSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBPAPERListUsersCursorErrorSerializer deserialize:dict];
 }
 
-#pragma mark - Description method
+#pragma mark - Debug Description method
 
-- (NSString *)description {
+- (NSString *)debugDescription {
   return [[DBPAPERListUsersCursorErrorSerializer serialize:self] description];
 }
 
@@ -3675,12 +3717,16 @@
   switch (_tag) {
   case DBPAPERListUsersCursorErrorInsufficientPermissions:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBPAPERListUsersCursorErrorOther:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBPAPERListUsersCursorErrorDocNotFound:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBPAPERListUsersCursorErrorCursorError:
     result = prime * result + [self.cursorError hash];
+    break;
   }
 
   return prime * result;
@@ -3724,7 +3770,7 @@
 
 @implementation DBPAPERListUsersCursorErrorSerializer
 
-+ (NSDictionary *)serialize:(DBPAPERListUsersCursorError *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBPAPERListUsersCursorError *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isInsufficientPermissions]) {
@@ -3740,10 +3786,10 @@
     jsonDict[@".tag"] = @"other";
   }
 
-  return [jsonDict count] > 0 ? jsonDict : nil;
+  return jsonDict;
 }
 
-+ (DBPAPERListUsersCursorError *)deserialize:(NSDictionary *)valueDict {
++ (DBPAPERListUsersCursorError *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"insufficient_permissions"]) {
@@ -3790,17 +3836,17 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBPAPERListUsersOnFolderArgsSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBPAPERListUsersOnFolderArgsSerializer deserialize:dict];
 }
 
-#pragma mark - Description method
+#pragma mark - Debug Description method
 
-- (NSString *)description {
+- (NSString *)debugDescription {
   return [[DBPAPERListUsersOnFolderArgsSerializer serialize:self] description];
 }
 
@@ -3855,16 +3901,16 @@
 
 @implementation DBPAPERListUsersOnFolderArgsSerializer
 
-+ (NSDictionary *)serialize:(DBPAPERListUsersOnFolderArgs *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBPAPERListUsersOnFolderArgs *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"doc_id"] = valueObj.docId;
   jsonDict[@"limit"] = valueObj.limit;
 
-  return [jsonDict count] > 0 ? jsonDict : nil;
+  return jsonDict;
 }
 
-+ (DBPAPERListUsersOnFolderArgs *)deserialize:(NSDictionary *)valueDict {
++ (DBPAPERListUsersOnFolderArgs *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *docId = valueDict[@"doc_id"];
   NSNumber *limit = valueDict[@"limit"] ?: @(1000);
 
@@ -3897,17 +3943,17 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBPAPERListUsersOnFolderContinueArgsSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBPAPERListUsersOnFolderContinueArgsSerializer deserialize:dict];
 }
 
-#pragma mark - Description method
+#pragma mark - Debug Description method
 
-- (NSString *)description {
+- (NSString *)debugDescription {
   return [[DBPAPERListUsersOnFolderContinueArgsSerializer serialize:self] description];
 }
 
@@ -3962,16 +4008,16 @@
 
 @implementation DBPAPERListUsersOnFolderContinueArgsSerializer
 
-+ (NSDictionary *)serialize:(DBPAPERListUsersOnFolderContinueArgs *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBPAPERListUsersOnFolderContinueArgs *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"doc_id"] = valueObj.docId;
   jsonDict[@"cursor"] = valueObj.cursor;
 
-  return [jsonDict count] > 0 ? jsonDict : nil;
+  return jsonDict;
 }
 
-+ (DBPAPERListUsersOnFolderContinueArgs *)deserialize:(NSDictionary *)valueDict {
++ (DBPAPERListUsersOnFolderContinueArgs *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *docId = valueDict[@"doc_id"];
   NSString *cursor = valueDict[@"cursor"];
 
@@ -4020,17 +4066,17 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBPAPERListUsersOnFolderResponseSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBPAPERListUsersOnFolderResponseSerializer deserialize:dict];
 }
 
-#pragma mark - Description method
+#pragma mark - Debug Description method
 
-- (NSString *)description {
+- (NSString *)debugDescription {
   return [[DBPAPERListUsersOnFolderResponseSerializer serialize:self] description];
 }
 
@@ -4093,7 +4139,7 @@
 
 @implementation DBPAPERListUsersOnFolderResponseSerializer
 
-+ (NSDictionary *)serialize:(DBPAPERListUsersOnFolderResponse *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBPAPERListUsersOnFolderResponse *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"invitees"] = [DBArraySerializer serialize:valueObj.invitees
@@ -4107,10 +4153,10 @@
   jsonDict[@"cursor"] = [DBPAPERCursorSerializer serialize:valueObj.cursor];
   jsonDict[@"has_more"] = valueObj.hasMore;
 
-  return [jsonDict count] > 0 ? jsonDict : nil;
+  return jsonDict;
 }
 
-+ (DBPAPERListUsersOnFolderResponse *)deserialize:(NSDictionary *)valueDict {
++ (DBPAPERListUsersOnFolderResponse *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSArray<DBSHARINGInviteeInfo *> *invitees =
       [DBArraySerializer deserialize:valueDict[@"invitees"]
                            withBlock:^id(id elem0) {
@@ -4159,17 +4205,17 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBPAPERListUsersOnPaperDocArgsSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBPAPERListUsersOnPaperDocArgsSerializer deserialize:dict];
 }
 
-#pragma mark - Description method
+#pragma mark - Debug Description method
 
-- (NSString *)description {
+- (NSString *)debugDescription {
   return [[DBPAPERListUsersOnPaperDocArgsSerializer serialize:self] description];
 }
 
@@ -4228,17 +4274,17 @@
 
 @implementation DBPAPERListUsersOnPaperDocArgsSerializer
 
-+ (NSDictionary *)serialize:(DBPAPERListUsersOnPaperDocArgs *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBPAPERListUsersOnPaperDocArgs *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"doc_id"] = valueObj.docId;
   jsonDict[@"limit"] = valueObj.limit;
   jsonDict[@"filter_by"] = [DBPAPERUserOnPaperDocFilterSerializer serialize:valueObj.filterBy];
 
-  return [jsonDict count] > 0 ? jsonDict : nil;
+  return jsonDict;
 }
 
-+ (DBPAPERListUsersOnPaperDocArgs *)deserialize:(NSDictionary *)valueDict {
++ (DBPAPERListUsersOnPaperDocArgs *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *docId = valueDict[@"doc_id"];
   NSNumber *limit = valueDict[@"limit"] ?: @(1000);
   DBPAPERUserOnPaperDocFilter *filterBy =
@@ -4274,17 +4320,17 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBPAPERListUsersOnPaperDocContinueArgsSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBPAPERListUsersOnPaperDocContinueArgsSerializer deserialize:dict];
 }
 
-#pragma mark - Description method
+#pragma mark - Debug Description method
 
-- (NSString *)description {
+- (NSString *)debugDescription {
   return [[DBPAPERListUsersOnPaperDocContinueArgsSerializer serialize:self] description];
 }
 
@@ -4340,16 +4386,16 @@
 
 @implementation DBPAPERListUsersOnPaperDocContinueArgsSerializer
 
-+ (NSDictionary *)serialize:(DBPAPERListUsersOnPaperDocContinueArgs *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBPAPERListUsersOnPaperDocContinueArgs *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"doc_id"] = valueObj.docId;
   jsonDict[@"cursor"] = valueObj.cursor;
 
-  return [jsonDict count] > 0 ? jsonDict : nil;
+  return jsonDict;
 }
 
-+ (DBPAPERListUsersOnPaperDocContinueArgs *)deserialize:(NSDictionary *)valueDict {
++ (DBPAPERListUsersOnPaperDocContinueArgs *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *docId = valueDict[@"doc_id"];
   NSString *cursor = valueDict[@"cursor"];
 
@@ -4402,17 +4448,17 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBPAPERListUsersOnPaperDocResponseSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBPAPERListUsersOnPaperDocResponseSerializer deserialize:dict];
 }
 
-#pragma mark - Description method
+#pragma mark - Debug Description method
 
-- (NSString *)description {
+- (NSString *)debugDescription {
   return [[DBPAPERListUsersOnPaperDocResponseSerializer serialize:self] description];
 }
 
@@ -4479,7 +4525,7 @@
 
 @implementation DBPAPERListUsersOnPaperDocResponseSerializer
 
-+ (NSDictionary *)serialize:(DBPAPERListUsersOnPaperDocResponse *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBPAPERListUsersOnPaperDocResponse *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"invitees"] = [DBArraySerializer serialize:valueObj.invitees
@@ -4494,10 +4540,10 @@
   jsonDict[@"cursor"] = [DBPAPERCursorSerializer serialize:valueObj.cursor];
   jsonDict[@"has_more"] = valueObj.hasMore;
 
-  return [jsonDict count] > 0 ? jsonDict : nil;
+  return jsonDict;
 }
 
-+ (DBPAPERListUsersOnPaperDocResponse *)deserialize:(NSDictionary *)valueDict {
++ (DBPAPERListUsersOnPaperDocResponse *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSArray<DBPAPERInviteeInfoWithPermissionLevel *> *invitees =
       [DBArraySerializer deserialize:valueDict[@"invitees"]
                            withBlock:^id(id elem0) {
@@ -4614,17 +4660,17 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBPAPERPaperApiCursorErrorSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBPAPERPaperApiCursorErrorSerializer deserialize:dict];
 }
 
-#pragma mark - Description method
+#pragma mark - Debug Description method
 
-- (NSString *)description {
+- (NSString *)debugDescription {
   return [[DBPAPERPaperApiCursorErrorSerializer serialize:self] description];
 }
 
@@ -4645,14 +4691,19 @@
   switch (_tag) {
   case DBPAPERPaperApiCursorErrorExpiredCursor:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBPAPERPaperApiCursorErrorInvalidCursor:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBPAPERPaperApiCursorErrorWrongUserInCursor:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBPAPERPaperApiCursorErrorReset:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBPAPERPaperApiCursorErrorOther:
     result = prime * result + [[self tagName] hash];
+    break;
   }
 
   return prime * result;
@@ -4698,7 +4749,7 @@
 
 @implementation DBPAPERPaperApiCursorErrorSerializer
 
-+ (NSDictionary *)serialize:(DBPAPERPaperApiCursorError *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBPAPERPaperApiCursorError *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isExpiredCursor]) {
@@ -4715,10 +4766,10 @@
     jsonDict[@".tag"] = @"other";
   }
 
-  return [jsonDict count] > 0 ? jsonDict : nil;
+  return jsonDict;
 }
 
-+ (DBPAPERPaperApiCursorError *)deserialize:(NSDictionary *)valueDict {
++ (DBPAPERPaperApiCursorError *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"expired_cursor"]) {
@@ -4766,17 +4817,17 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBPAPERPaperDocCreateArgsSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBPAPERPaperDocCreateArgsSerializer deserialize:dict];
 }
 
-#pragma mark - Description method
+#pragma mark - Debug Description method
 
-- (NSString *)description {
+- (NSString *)debugDescription {
   return [[DBPAPERPaperDocCreateArgsSerializer serialize:self] description];
 }
 
@@ -4835,7 +4886,7 @@
 
 @implementation DBPAPERPaperDocCreateArgsSerializer
 
-+ (NSDictionary *)serialize:(DBPAPERPaperDocCreateArgs *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBPAPERPaperDocCreateArgs *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"import_format"] = [DBPAPERImportFormatSerializer serialize:valueObj.importFormat];
@@ -4843,10 +4894,10 @@
     jsonDict[@"parent_folder_id"] = valueObj.parentFolderId;
   }
 
-  return [jsonDict count] > 0 ? jsonDict : nil;
+  return jsonDict;
 }
 
-+ (DBPAPERPaperDocCreateArgs *)deserialize:(NSDictionary *)valueDict {
++ (DBPAPERPaperDocCreateArgs *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   DBPAPERImportFormat *importFormat = [DBPAPERImportFormatSerializer deserialize:valueDict[@"import_format"]];
   NSString *parentFolderId = valueDict[@"parent_folder_id"] ?: nil;
 
@@ -4963,17 +5014,17 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBPAPERPaperDocCreateErrorSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBPAPERPaperDocCreateErrorSerializer deserialize:dict];
 }
 
-#pragma mark - Description method
+#pragma mark - Debug Description method
 
-- (NSString *)description {
+- (NSString *)debugDescription {
   return [[DBPAPERPaperDocCreateErrorSerializer serialize:self] description];
 }
 
@@ -4994,16 +5045,22 @@
   switch (_tag) {
   case DBPAPERPaperDocCreateErrorInsufficientPermissions:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBPAPERPaperDocCreateErrorOther:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBPAPERPaperDocCreateErrorContentMalformed:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBPAPERPaperDocCreateErrorFolderNotFound:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBPAPERPaperDocCreateErrorDocLengthExceeded:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBPAPERPaperDocCreateErrorImageSizeExceeded:
     result = prime * result + [[self tagName] hash];
+    break;
   }
 
   return prime * result;
@@ -5051,7 +5108,7 @@
 
 @implementation DBPAPERPaperDocCreateErrorSerializer
 
-+ (NSDictionary *)serialize:(DBPAPERPaperDocCreateError *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBPAPERPaperDocCreateError *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isInsufficientPermissions]) {
@@ -5070,10 +5127,10 @@
     jsonDict[@".tag"] = @"other";
   }
 
-  return [jsonDict count] > 0 ? jsonDict : nil;
+  return jsonDict;
 }
 
-+ (DBPAPERPaperDocCreateError *)deserialize:(NSDictionary *)valueDict {
++ (DBPAPERPaperDocCreateError *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"insufficient_permissions"]) {
@@ -5121,17 +5178,17 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBPAPERPaperDocCreateUpdateResultSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBPAPERPaperDocCreateUpdateResultSerializer deserialize:dict];
 }
 
-#pragma mark - Description method
+#pragma mark - Debug Description method
 
-- (NSString *)description {
+- (NSString *)debugDescription {
   return [[DBPAPERPaperDocCreateUpdateResultSerializer serialize:self] description];
 }
 
@@ -5190,17 +5247,17 @@
 
 @implementation DBPAPERPaperDocCreateUpdateResultSerializer
 
-+ (NSDictionary *)serialize:(DBPAPERPaperDocCreateUpdateResult *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBPAPERPaperDocCreateUpdateResult *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"doc_id"] = valueObj.docId;
   jsonDict[@"revision"] = valueObj.revision;
   jsonDict[@"title"] = valueObj.title;
 
-  return [jsonDict count] > 0 ? jsonDict : nil;
+  return jsonDict;
 }
 
-+ (DBPAPERPaperDocCreateUpdateResult *)deserialize:(NSDictionary *)valueDict {
++ (DBPAPERPaperDocCreateUpdateResult *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *docId = valueDict[@"doc_id"];
   NSNumber *revision = valueDict[@"revision"];
   NSString *title = valueDict[@"title"];
@@ -5235,17 +5292,17 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBPAPERPaperDocExportSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBPAPERPaperDocExportSerializer deserialize:dict];
 }
 
-#pragma mark - Description method
+#pragma mark - Debug Description method
 
-- (NSString *)description {
+- (NSString *)debugDescription {
   return [[DBPAPERPaperDocExportSerializer serialize:self] description];
 }
 
@@ -5300,16 +5357,16 @@
 
 @implementation DBPAPERPaperDocExportSerializer
 
-+ (NSDictionary *)serialize:(DBPAPERPaperDocExport *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBPAPERPaperDocExport *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"doc_id"] = valueObj.docId;
   jsonDict[@"export_format"] = [DBPAPERExportFormatSerializer serialize:valueObj.exportFormat];
 
-  return [jsonDict count] > 0 ? jsonDict : nil;
+  return jsonDict;
 }
 
-+ (DBPAPERPaperDocExport *)deserialize:(NSDictionary *)valueDict {
++ (DBPAPERPaperDocExport *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *docId = valueDict[@"doc_id"];
   DBPAPERExportFormat *exportFormat = [DBPAPERExportFormatSerializer deserialize:valueDict[@"export_format"]];
 
@@ -5349,17 +5406,17 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBPAPERPaperDocExportResultSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBPAPERPaperDocExportResultSerializer deserialize:dict];
 }
 
-#pragma mark - Description method
+#pragma mark - Debug Description method
 
-- (NSString *)description {
+- (NSString *)debugDescription {
   return [[DBPAPERPaperDocExportResultSerializer serialize:self] description];
 }
 
@@ -5422,7 +5479,7 @@
 
 @implementation DBPAPERPaperDocExportResultSerializer
 
-+ (NSDictionary *)serialize:(DBPAPERPaperDocExportResult *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBPAPERPaperDocExportResult *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"owner"] = valueObj.owner;
@@ -5430,10 +5487,10 @@
   jsonDict[@"revision"] = valueObj.revision;
   jsonDict[@"mime_type"] = valueObj.mimeType;
 
-  return [jsonDict count] > 0 ? jsonDict : nil;
+  return jsonDict;
 }
 
-+ (DBPAPERPaperDocExportResult *)deserialize:(NSDictionary *)valueDict {
++ (DBPAPERPaperDocExportResult *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *owner = valueDict[@"owner"];
   NSString *title = valueDict[@"title"];
   NSNumber *revision = valueDict[@"revision"];
@@ -5509,17 +5566,17 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBPAPERPaperDocPermissionLevelSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBPAPERPaperDocPermissionLevelSerializer deserialize:dict];
 }
 
-#pragma mark - Description method
+#pragma mark - Debug Description method
 
-- (NSString *)description {
+- (NSString *)debugDescription {
   return [[DBPAPERPaperDocPermissionLevelSerializer serialize:self] description];
 }
 
@@ -5540,10 +5597,13 @@
   switch (_tag) {
   case DBPAPERPaperDocPermissionLevelEdit:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBPAPERPaperDocPermissionLevelViewAndComment:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBPAPERPaperDocPermissionLevelOther:
     result = prime * result + [[self tagName] hash];
+    break;
   }
 
   return prime * result;
@@ -5585,7 +5645,7 @@
 
 @implementation DBPAPERPaperDocPermissionLevelSerializer
 
-+ (NSDictionary *)serialize:(DBPAPERPaperDocPermissionLevel *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBPAPERPaperDocPermissionLevel *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isEdit]) {
@@ -5598,10 +5658,10 @@
     jsonDict[@".tag"] = @"other";
   }
 
-  return [jsonDict count] > 0 ? jsonDict : nil;
+  return jsonDict;
 }
 
-+ (DBPAPERPaperDocPermissionLevel *)deserialize:(NSDictionary *)valueDict {
++ (DBPAPERPaperDocPermissionLevel *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"edit"]) {
@@ -5642,17 +5702,17 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBPAPERPaperDocSharingPolicySerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBPAPERPaperDocSharingPolicySerializer deserialize:dict];
 }
 
-#pragma mark - Description method
+#pragma mark - Debug Description method
 
-- (NSString *)description {
+- (NSString *)debugDescription {
   return [[DBPAPERPaperDocSharingPolicySerializer serialize:self] description];
 }
 
@@ -5707,16 +5767,16 @@
 
 @implementation DBPAPERPaperDocSharingPolicySerializer
 
-+ (NSDictionary *)serialize:(DBPAPERPaperDocSharingPolicy *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBPAPERPaperDocSharingPolicy *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"doc_id"] = valueObj.docId;
   jsonDict[@"sharing_policy"] = [DBPAPERSharingPolicySerializer serialize:valueObj.sharingPolicy];
 
-  return [jsonDict count] > 0 ? jsonDict : nil;
+  return jsonDict;
 }
 
-+ (DBPAPERPaperDocSharingPolicy *)deserialize:(NSDictionary *)valueDict {
++ (DBPAPERPaperDocSharingPolicy *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *docId = valueDict[@"doc_id"];
   DBPAPERSharingPolicy *sharingPolicy = [DBPAPERSharingPolicySerializer deserialize:valueDict[@"sharing_policy"]];
 
@@ -5758,17 +5818,17 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBPAPERPaperDocUpdateArgsSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBPAPERPaperDocUpdateArgsSerializer deserialize:dict];
 }
 
-#pragma mark - Description method
+#pragma mark - Debug Description method
 
-- (NSString *)description {
+- (NSString *)debugDescription {
   return [[DBPAPERPaperDocUpdateArgsSerializer serialize:self] description];
 }
 
@@ -5831,7 +5891,7 @@
 
 @implementation DBPAPERPaperDocUpdateArgsSerializer
 
-+ (NSDictionary *)serialize:(DBPAPERPaperDocUpdateArgs *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBPAPERPaperDocUpdateArgs *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"doc_id"] = valueObj.docId;
@@ -5839,10 +5899,10 @@
   jsonDict[@"revision"] = valueObj.revision;
   jsonDict[@"import_format"] = [DBPAPERImportFormatSerializer serialize:valueObj.importFormat];
 
-  return [jsonDict count] > 0 ? jsonDict : nil;
+  return jsonDict;
 }
 
-+ (DBPAPERPaperDocUpdateArgs *)deserialize:(NSDictionary *)valueDict {
++ (DBPAPERPaperDocUpdateArgs *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *docId = valueDict[@"doc_id"];
   DBPAPERPaperDocUpdatePolicy *docUpdatePolicy =
       [DBPAPERPaperDocUpdatePolicySerializer deserialize:valueDict[@"doc_update_policy"]];
@@ -6007,17 +6067,17 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBPAPERPaperDocUpdateErrorSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBPAPERPaperDocUpdateErrorSerializer deserialize:dict];
 }
 
-#pragma mark - Description method
+#pragma mark - Debug Description method
 
-- (NSString *)description {
+- (NSString *)debugDescription {
   return [[DBPAPERPaperDocUpdateErrorSerializer serialize:self] description];
 }
 
@@ -6038,22 +6098,31 @@
   switch (_tag) {
   case DBPAPERPaperDocUpdateErrorInsufficientPermissions:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBPAPERPaperDocUpdateErrorOther:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBPAPERPaperDocUpdateErrorDocNotFound:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBPAPERPaperDocUpdateErrorContentMalformed:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBPAPERPaperDocUpdateErrorRevisionMismatch:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBPAPERPaperDocUpdateErrorDocLengthExceeded:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBPAPERPaperDocUpdateErrorImageSizeExceeded:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBPAPERPaperDocUpdateErrorDocArchived:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBPAPERPaperDocUpdateErrorDocDeleted:
     result = prime * result + [[self tagName] hash];
+    break;
   }
 
   return prime * result;
@@ -6107,7 +6176,7 @@
 
 @implementation DBPAPERPaperDocUpdateErrorSerializer
 
-+ (NSDictionary *)serialize:(DBPAPERPaperDocUpdateError *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBPAPERPaperDocUpdateError *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isInsufficientPermissions]) {
@@ -6132,10 +6201,10 @@
     jsonDict[@".tag"] = @"other";
   }
 
-  return [jsonDict count] > 0 ? jsonDict : nil;
+  return jsonDict;
 }
 
-+ (DBPAPERPaperDocUpdateError *)deserialize:(NSDictionary *)valueDict {
++ (DBPAPERPaperDocUpdateError *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"insufficient_permissions"]) {
@@ -6242,17 +6311,17 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBPAPERPaperDocUpdatePolicySerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBPAPERPaperDocUpdatePolicySerializer deserialize:dict];
 }
 
-#pragma mark - Description method
+#pragma mark - Debug Description method
 
-- (NSString *)description {
+- (NSString *)debugDescription {
   return [[DBPAPERPaperDocUpdatePolicySerializer serialize:self] description];
 }
 
@@ -6273,12 +6342,16 @@
   switch (_tag) {
   case DBPAPERPaperDocUpdatePolicyAppend:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBPAPERPaperDocUpdatePolicyPrepend:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBPAPERPaperDocUpdatePolicyOverwriteAll:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBPAPERPaperDocUpdatePolicyOther:
     result = prime * result + [[self tagName] hash];
+    break;
   }
 
   return prime * result;
@@ -6322,7 +6395,7 @@
 
 @implementation DBPAPERPaperDocUpdatePolicySerializer
 
-+ (NSDictionary *)serialize:(DBPAPERPaperDocUpdatePolicy *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBPAPERPaperDocUpdatePolicy *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isAppend]) {
@@ -6337,10 +6410,10 @@
     jsonDict[@".tag"] = @"other";
   }
 
-  return [jsonDict count] > 0 ? jsonDict : nil;
+  return jsonDict;
 }
 
-+ (DBPAPERPaperDocUpdatePolicy *)deserialize:(NSDictionary *)valueDict {
++ (DBPAPERPaperDocUpdatePolicy *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"append"]) {
@@ -6354,6 +6427,438 @@
   } else {
     return [[DBPAPERPaperDocUpdatePolicy alloc] initWithOther];
   }
+}
+
+@end
+
+#import "DBPAPERPaperFolderCreateArg.h"
+#import "DBStoneSerializers.h"
+#import "DBStoneValidators.h"
+
+#pragma mark - API Object
+
+@implementation DBPAPERPaperFolderCreateArg
+
+#pragma mark - Constructors
+
+- (instancetype)initWithName:(NSString *)name
+              parentFolderId:(NSString *)parentFolderId
+                isTeamFolder:(NSNumber *)isTeamFolder {
+  [DBStoneValidators nonnullValidator:nil](name);
+
+  self = [super init];
+  if (self) {
+    _name = name;
+    _parentFolderId = parentFolderId;
+    _isTeamFolder = isTeamFolder;
+  }
+  return self;
+}
+
+- (instancetype)initWithName:(NSString *)name {
+  return [self initWithName:name parentFolderId:nil isTeamFolder:nil];
+}
+
+#pragma mark - Serialization methods
+
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
+  return [DBPAPERPaperFolderCreateArgSerializer serialize:instance];
+}
+
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
+  return [DBPAPERPaperFolderCreateArgSerializer deserialize:dict];
+}
+
+#pragma mark - Debug Description method
+
+- (NSString *)debugDescription {
+  return [[DBPAPERPaperFolderCreateArgSerializer serialize:self] description];
+}
+
+#pragma mark - Copyable method
+
+- (instancetype)copyWithZone:(NSZone *)zone {
+#pragma unused(zone)
+  /// object is immutable
+  return self;
+}
+
+#pragma mark - Hash method
+
+- (NSUInteger)hash {
+  NSUInteger prime = 31;
+  NSUInteger result = 1;
+
+  result = prime * result + [self.name hash];
+  if (self.parentFolderId != nil) {
+    result = prime * result + [self.parentFolderId hash];
+  }
+  if (self.isTeamFolder != nil) {
+    result = prime * result + [self.isTeamFolder hash];
+  }
+
+  return prime * result;
+}
+
+#pragma mark - Equality method
+
+- (BOOL)isEqual:(id)other {
+  if (other == self) {
+    return YES;
+  }
+  if (!other || ![other isKindOfClass:[self class]]) {
+    return NO;
+  }
+  return [self isEqualToPaperFolderCreateArg:other];
+}
+
+- (BOOL)isEqualToPaperFolderCreateArg:(DBPAPERPaperFolderCreateArg *)aPaperFolderCreateArg {
+  if (self == aPaperFolderCreateArg) {
+    return YES;
+  }
+  if (![self.name isEqual:aPaperFolderCreateArg.name]) {
+    return NO;
+  }
+  if (self.parentFolderId) {
+    if (![self.parentFolderId isEqual:aPaperFolderCreateArg.parentFolderId]) {
+      return NO;
+    }
+  }
+  if (self.isTeamFolder) {
+    if (![self.isTeamFolder isEqual:aPaperFolderCreateArg.isTeamFolder]) {
+      return NO;
+    }
+  }
+  return YES;
+}
+
+@end
+
+#pragma mark - Serializer Object
+
+@implementation DBPAPERPaperFolderCreateArgSerializer
+
++ (NSDictionary<NSString *, id> *)serialize:(DBPAPERPaperFolderCreateArg *)valueObj {
+  NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
+
+  jsonDict[@"name"] = valueObj.name;
+  if (valueObj.parentFolderId) {
+    jsonDict[@"parent_folder_id"] = valueObj.parentFolderId;
+  }
+  if (valueObj.isTeamFolder) {
+    jsonDict[@"is_team_folder"] = valueObj.isTeamFolder;
+  }
+
+  return jsonDict;
+}
+
++ (DBPAPERPaperFolderCreateArg *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
+  NSString *name = valueDict[@"name"];
+  NSString *parentFolderId = valueDict[@"parent_folder_id"] ?: nil;
+  NSNumber *isTeamFolder = valueDict[@"is_team_folder"] ?: nil;
+
+  return [[DBPAPERPaperFolderCreateArg alloc] initWithName:name
+                                            parentFolderId:parentFolderId
+                                              isTeamFolder:isTeamFolder];
+}
+
+@end
+
+#import "DBPAPERPaperApiBaseError.h"
+#import "DBPAPERPaperFolderCreateError.h"
+#import "DBStoneSerializers.h"
+#import "DBStoneValidators.h"
+
+#pragma mark - API Object
+
+@implementation DBPAPERPaperFolderCreateError
+
+#pragma mark - Constructors
+
+- (instancetype)initWithInsufficientPermissions {
+  self = [super init];
+  if (self) {
+    _tag = DBPAPERPaperFolderCreateErrorInsufficientPermissions;
+  }
+  return self;
+}
+
+- (instancetype)initWithOther {
+  self = [super init];
+  if (self) {
+    _tag = DBPAPERPaperFolderCreateErrorOther;
+  }
+  return self;
+}
+
+- (instancetype)initWithFolderNotFound {
+  self = [super init];
+  if (self) {
+    _tag = DBPAPERPaperFolderCreateErrorFolderNotFound;
+  }
+  return self;
+}
+
+- (instancetype)initWithInvalidFolderId {
+  self = [super init];
+  if (self) {
+    _tag = DBPAPERPaperFolderCreateErrorInvalidFolderId;
+  }
+  return self;
+}
+
+#pragma mark - Instance field accessors
+
+#pragma mark - Tag state methods
+
+- (BOOL)isInsufficientPermissions {
+  return _tag == DBPAPERPaperFolderCreateErrorInsufficientPermissions;
+}
+
+- (BOOL)isOther {
+  return _tag == DBPAPERPaperFolderCreateErrorOther;
+}
+
+- (BOOL)isFolderNotFound {
+  return _tag == DBPAPERPaperFolderCreateErrorFolderNotFound;
+}
+
+- (BOOL)isInvalidFolderId {
+  return _tag == DBPAPERPaperFolderCreateErrorInvalidFolderId;
+}
+
+- (NSString *)tagName {
+  switch (_tag) {
+  case DBPAPERPaperFolderCreateErrorInsufficientPermissions:
+    return @"DBPAPERPaperFolderCreateErrorInsufficientPermissions";
+  case DBPAPERPaperFolderCreateErrorOther:
+    return @"DBPAPERPaperFolderCreateErrorOther";
+  case DBPAPERPaperFolderCreateErrorFolderNotFound:
+    return @"DBPAPERPaperFolderCreateErrorFolderNotFound";
+  case DBPAPERPaperFolderCreateErrorInvalidFolderId:
+    return @"DBPAPERPaperFolderCreateErrorInvalidFolderId";
+  }
+
+  @throw([NSException exceptionWithName:@"InvalidTag" reason:@"Tag has an unknown value." userInfo:nil]);
+}
+
+#pragma mark - Serialization methods
+
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
+  return [DBPAPERPaperFolderCreateErrorSerializer serialize:instance];
+}
+
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
+  return [DBPAPERPaperFolderCreateErrorSerializer deserialize:dict];
+}
+
+#pragma mark - Debug Description method
+
+- (NSString *)debugDescription {
+  return [[DBPAPERPaperFolderCreateErrorSerializer serialize:self] description];
+}
+
+#pragma mark - Copyable method
+
+- (instancetype)copyWithZone:(NSZone *)zone {
+#pragma unused(zone)
+  /// object is immutable
+  return self;
+}
+
+#pragma mark - Hash method
+
+- (NSUInteger)hash {
+  NSUInteger prime = 31;
+  NSUInteger result = 1;
+
+  switch (_tag) {
+  case DBPAPERPaperFolderCreateErrorInsufficientPermissions:
+    result = prime * result + [[self tagName] hash];
+    break;
+  case DBPAPERPaperFolderCreateErrorOther:
+    result = prime * result + [[self tagName] hash];
+    break;
+  case DBPAPERPaperFolderCreateErrorFolderNotFound:
+    result = prime * result + [[self tagName] hash];
+    break;
+  case DBPAPERPaperFolderCreateErrorInvalidFolderId:
+    result = prime * result + [[self tagName] hash];
+    break;
+  }
+
+  return prime * result;
+}
+
+#pragma mark - Equality method
+
+- (BOOL)isEqual:(id)other {
+  if (other == self) {
+    return YES;
+  }
+  if (!other || ![other isKindOfClass:[self class]]) {
+    return NO;
+  }
+  return [self isEqualToPaperFolderCreateError:other];
+}
+
+- (BOOL)isEqualToPaperFolderCreateError:(DBPAPERPaperFolderCreateError *)aPaperFolderCreateError {
+  if (self == aPaperFolderCreateError) {
+    return YES;
+  }
+  if (self.tag != aPaperFolderCreateError.tag) {
+    return NO;
+  }
+  switch (_tag) {
+  case DBPAPERPaperFolderCreateErrorInsufficientPermissions:
+    return [[self tagName] isEqual:[aPaperFolderCreateError tagName]];
+  case DBPAPERPaperFolderCreateErrorOther:
+    return [[self tagName] isEqual:[aPaperFolderCreateError tagName]];
+  case DBPAPERPaperFolderCreateErrorFolderNotFound:
+    return [[self tagName] isEqual:[aPaperFolderCreateError tagName]];
+  case DBPAPERPaperFolderCreateErrorInvalidFolderId:
+    return [[self tagName] isEqual:[aPaperFolderCreateError tagName]];
+  }
+  return YES;
+}
+
+@end
+
+#pragma mark - Serializer Object
+
+@implementation DBPAPERPaperFolderCreateErrorSerializer
+
++ (NSDictionary<NSString *, id> *)serialize:(DBPAPERPaperFolderCreateError *)valueObj {
+  NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
+
+  if ([valueObj isInsufficientPermissions]) {
+    jsonDict[@".tag"] = @"insufficient_permissions";
+  } else if ([valueObj isOther]) {
+    jsonDict[@".tag"] = @"other";
+  } else if ([valueObj isFolderNotFound]) {
+    jsonDict[@".tag"] = @"folder_not_found";
+  } else if ([valueObj isInvalidFolderId]) {
+    jsonDict[@".tag"] = @"invalid_folder_id";
+  } else {
+    jsonDict[@".tag"] = @"other";
+  }
+
+  return jsonDict;
+}
+
++ (DBPAPERPaperFolderCreateError *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
+  NSString *tag = valueDict[@".tag"];
+
+  if ([tag isEqualToString:@"insufficient_permissions"]) {
+    return [[DBPAPERPaperFolderCreateError alloc] initWithInsufficientPermissions];
+  } else if ([tag isEqualToString:@"other"]) {
+    return [[DBPAPERPaperFolderCreateError alloc] initWithOther];
+  } else if ([tag isEqualToString:@"folder_not_found"]) {
+    return [[DBPAPERPaperFolderCreateError alloc] initWithFolderNotFound];
+  } else if ([tag isEqualToString:@"invalid_folder_id"]) {
+    return [[DBPAPERPaperFolderCreateError alloc] initWithInvalidFolderId];
+  } else {
+    return [[DBPAPERPaperFolderCreateError alloc] initWithOther];
+  }
+}
+
+@end
+
+#import "DBPAPERPaperFolderCreateResult.h"
+#import "DBStoneSerializers.h"
+#import "DBStoneValidators.h"
+
+#pragma mark - API Object
+
+@implementation DBPAPERPaperFolderCreateResult
+
+#pragma mark - Constructors
+
+- (instancetype)initWithFolderId:(NSString *)folderId {
+  [DBStoneValidators nonnullValidator:nil](folderId);
+
+  self = [super init];
+  if (self) {
+    _folderId = folderId;
+  }
+  return self;
+}
+
+#pragma mark - Serialization methods
+
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
+  return [DBPAPERPaperFolderCreateResultSerializer serialize:instance];
+}
+
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
+  return [DBPAPERPaperFolderCreateResultSerializer deserialize:dict];
+}
+
+#pragma mark - Debug Description method
+
+- (NSString *)debugDescription {
+  return [[DBPAPERPaperFolderCreateResultSerializer serialize:self] description];
+}
+
+#pragma mark - Copyable method
+
+- (instancetype)copyWithZone:(NSZone *)zone {
+#pragma unused(zone)
+  /// object is immutable
+  return self;
+}
+
+#pragma mark - Hash method
+
+- (NSUInteger)hash {
+  NSUInteger prime = 31;
+  NSUInteger result = 1;
+
+  result = prime * result + [self.folderId hash];
+
+  return prime * result;
+}
+
+#pragma mark - Equality method
+
+- (BOOL)isEqual:(id)other {
+  if (other == self) {
+    return YES;
+  }
+  if (!other || ![other isKindOfClass:[self class]]) {
+    return NO;
+  }
+  return [self isEqualToPaperFolderCreateResult:other];
+}
+
+- (BOOL)isEqualToPaperFolderCreateResult:(DBPAPERPaperFolderCreateResult *)aPaperFolderCreateResult {
+  if (self == aPaperFolderCreateResult) {
+    return YES;
+  }
+  if (![self.folderId isEqual:aPaperFolderCreateResult.folderId]) {
+    return NO;
+  }
+  return YES;
+}
+
+@end
+
+#pragma mark - Serializer Object
+
+@implementation DBPAPERPaperFolderCreateResultSerializer
+
++ (NSDictionary<NSString *, id> *)serialize:(DBPAPERPaperFolderCreateResult *)valueObj {
+  NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
+
+  jsonDict[@"folder_id"] = valueObj.folderId;
+
+  return jsonDict;
+}
+
++ (DBPAPERPaperFolderCreateResult *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
+  NSString *folderId = valueDict[@"folder_id"];
+
+  return [[DBPAPERPaperFolderCreateResult alloc] initWithFolderId:folderId];
 }
 
 @end
@@ -6383,17 +6888,17 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBPAPERRemovePaperDocUserSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBPAPERRemovePaperDocUserSerializer deserialize:dict];
 }
 
-#pragma mark - Description method
+#pragma mark - Debug Description method
 
-- (NSString *)description {
+- (NSString *)debugDescription {
   return [[DBPAPERRemovePaperDocUserSerializer serialize:self] description];
 }
 
@@ -6448,16 +6953,16 @@
 
 @implementation DBPAPERRemovePaperDocUserSerializer
 
-+ (NSDictionary *)serialize:(DBPAPERRemovePaperDocUser *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBPAPERRemovePaperDocUser *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"doc_id"] = valueObj.docId;
   jsonDict[@"member"] = [DBSHARINGMemberSelectorSerializer serialize:valueObj.member];
 
-  return [jsonDict count] > 0 ? jsonDict : nil;
+  return jsonDict;
 }
 
-+ (DBPAPERRemovePaperDocUser *)deserialize:(NSDictionary *)valueDict {
++ (DBPAPERRemovePaperDocUser *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *docId = valueDict[@"doc_id"];
   DBSHARINGMemberSelector *member = [DBSHARINGMemberSelectorSerializer deserialize:valueDict[@"member"]];
 
@@ -6495,17 +7000,17 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBPAPERSharingPolicySerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBPAPERSharingPolicySerializer deserialize:dict];
 }
 
-#pragma mark - Description method
+#pragma mark - Debug Description method
 
-- (NSString *)description {
+- (NSString *)debugDescription {
   return [[DBPAPERSharingPolicySerializer serialize:self] description];
 }
 
@@ -6568,7 +7073,7 @@
 
 @implementation DBPAPERSharingPolicySerializer
 
-+ (NSDictionary *)serialize:(DBPAPERSharingPolicy *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBPAPERSharingPolicy *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if (valueObj.publicSharingPolicy) {
@@ -6579,10 +7084,10 @@
     jsonDict[@"team_sharing_policy"] = [DBPAPERSharingTeamPolicyTypeSerializer serialize:valueObj.teamSharingPolicy];
   }
 
-  return [jsonDict count] > 0 ? jsonDict : nil;
+  return jsonDict;
 }
 
-+ (DBPAPERSharingPolicy *)deserialize:(NSDictionary *)valueDict {
++ (DBPAPERSharingPolicy *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   DBPAPERSharingPublicPolicyType *publicSharingPolicy =
       valueDict[@"public_sharing_policy"]
           ? [DBPAPERSharingPublicPolicyTypeSerializer deserialize:valueDict[@"public_sharing_policy"]]
@@ -6663,17 +7168,17 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBPAPERSharingTeamPolicyTypeSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBPAPERSharingTeamPolicyTypeSerializer deserialize:dict];
 }
 
-#pragma mark - Description method
+#pragma mark - Debug Description method
 
-- (NSString *)description {
+- (NSString *)debugDescription {
   return [[DBPAPERSharingTeamPolicyTypeSerializer serialize:self] description];
 }
 
@@ -6694,10 +7199,13 @@
   switch (_tag) {
   case DBPAPERSharingTeamPolicyTypePeopleWithLinkCanEdit:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBPAPERSharingTeamPolicyTypePeopleWithLinkCanViewAndComment:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBPAPERSharingTeamPolicyTypeInviteOnly:
     result = prime * result + [[self tagName] hash];
+    break;
   }
 
   return prime * result;
@@ -6739,7 +7247,7 @@
 
 @implementation DBPAPERSharingTeamPolicyTypeSerializer
 
-+ (NSDictionary *)serialize:(DBPAPERSharingTeamPolicyType *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBPAPERSharingTeamPolicyType *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isPeopleWithLinkCanEdit]) {
@@ -6754,10 +7262,10 @@
                                  userInfo:nil]);
   }
 
-  return [jsonDict count] > 0 ? jsonDict : nil;
+  return jsonDict;
 }
 
-+ (DBPAPERSharingTeamPolicyType *)deserialize:(NSDictionary *)valueDict {
++ (DBPAPERSharingTeamPolicyType *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"people_with_link_can_edit"]) {
@@ -6856,17 +7364,17 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBPAPERSharingPublicPolicyTypeSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBPAPERSharingPublicPolicyTypeSerializer deserialize:dict];
 }
 
-#pragma mark - Description method
+#pragma mark - Debug Description method
 
-- (NSString *)description {
+- (NSString *)debugDescription {
   return [[DBPAPERSharingPublicPolicyTypeSerializer serialize:self] description];
 }
 
@@ -6887,12 +7395,16 @@
   switch (_tag) {
   case DBPAPERSharingPublicPolicyTypePeopleWithLinkCanEdit:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBPAPERSharingPublicPolicyTypePeopleWithLinkCanViewAndComment:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBPAPERSharingPublicPolicyTypeInviteOnly:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBPAPERSharingPublicPolicyTypeDisabled:
     result = prime * result + [[self tagName] hash];
+    break;
   }
 
   return prime * result;
@@ -6936,7 +7448,7 @@
 
 @implementation DBPAPERSharingPublicPolicyTypeSerializer
 
-+ (NSDictionary *)serialize:(DBPAPERSharingPublicPolicyType *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBPAPERSharingPublicPolicyType *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isPeopleWithLinkCanEdit]) {
@@ -6953,10 +7465,10 @@
                                  userInfo:nil]);
   }
 
-  return [jsonDict count] > 0 ? jsonDict : nil;
+  return jsonDict;
 }
 
-+ (DBPAPERSharingPublicPolicyType *)deserialize:(NSDictionary *)valueDict {
++ (DBPAPERSharingPublicPolicyType *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"people_with_link_can_edit"]) {
@@ -7004,17 +7516,17 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBPAPERUserInfoWithPermissionLevelSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBPAPERUserInfoWithPermissionLevelSerializer deserialize:dict];
 }
 
-#pragma mark - Description method
+#pragma mark - Debug Description method
 
-- (NSString *)description {
+- (NSString *)debugDescription {
   return [[DBPAPERUserInfoWithPermissionLevelSerializer serialize:self] description];
 }
 
@@ -7069,16 +7581,16 @@
 
 @implementation DBPAPERUserInfoWithPermissionLevelSerializer
 
-+ (NSDictionary *)serialize:(DBPAPERUserInfoWithPermissionLevel *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBPAPERUserInfoWithPermissionLevel *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"user"] = [DBSHARINGUserInfoSerializer serialize:valueObj.user];
   jsonDict[@"permission_level"] = [DBPAPERPaperDocPermissionLevelSerializer serialize:valueObj.permissionLevel];
 
-  return [jsonDict count] > 0 ? jsonDict : nil;
+  return jsonDict;
 }
 
-+ (DBPAPERUserInfoWithPermissionLevel *)deserialize:(NSDictionary *)valueDict {
++ (DBPAPERUserInfoWithPermissionLevel *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   DBSHARINGUserInfo *user = [DBSHARINGUserInfoSerializer deserialize:valueDict[@"user"]];
   DBPAPERPaperDocPermissionLevel *permissionLevel =
       [DBPAPERPaperDocPermissionLevelSerializer deserialize:valueDict[@"permission_level"]];
@@ -7153,17 +7665,17 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBPAPERUserOnPaperDocFilterSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBPAPERUserOnPaperDocFilterSerializer deserialize:dict];
 }
 
-#pragma mark - Description method
+#pragma mark - Debug Description method
 
-- (NSString *)description {
+- (NSString *)debugDescription {
   return [[DBPAPERUserOnPaperDocFilterSerializer serialize:self] description];
 }
 
@@ -7184,10 +7696,13 @@
   switch (_tag) {
   case DBPAPERUserOnPaperDocFilterVisited:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBPAPERUserOnPaperDocFilterShared:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBPAPERUserOnPaperDocFilterOther:
     result = prime * result + [[self tagName] hash];
+    break;
   }
 
   return prime * result;
@@ -7229,7 +7744,7 @@
 
 @implementation DBPAPERUserOnPaperDocFilterSerializer
 
-+ (NSDictionary *)serialize:(DBPAPERUserOnPaperDocFilter *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBPAPERUserOnPaperDocFilter *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isVisited]) {
@@ -7242,10 +7757,10 @@
     jsonDict[@".tag"] = @"other";
   }
 
-  return [jsonDict count] > 0 ? jsonDict : nil;
+  return jsonDict;
 }
 
-+ (DBPAPERUserOnPaperDocFilter *)deserialize:(NSDictionary *)valueDict {
++ (DBPAPERUserOnPaperDocFilter *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"visited"]) {

@@ -29,9 +29,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// The `DBSHARINGSharingUserErrorTag` enum type represents the possible tag
 /// states with which the `DBSHARINGSharingUserError` union can exist.
-typedef NS_ENUM(NSInteger, DBSHARINGSharingUserErrorTag) {
-  /// The current user must verify the account e-mail address before
-  /// performing this action.
+typedef NS_CLOSED_ENUM(NSInteger, DBSHARINGSharingUserErrorTag) {
+  /// This user's email address is not verified. This functionality is only
+  /// available on accounts with a verified email address. Users can verify
+  /// their email address here https://www.dropbox.com/help/317.
   DBSHARINGSharingUserErrorEmailUnverified,
 
   /// (no description).
@@ -47,8 +48,10 @@ typedef NS_ENUM(NSInteger, DBSHARINGSharingUserErrorTag) {
 ///
 /// Initializes union class with tag state of "email_unverified".
 ///
-/// Description of the "email_unverified" tag state: The current user must
-/// verify the account e-mail address before performing this action.
+/// Description of the "email_unverified" tag state: This user's email address
+/// is not verified. This functionality is only available on accounts with a
+/// verified email address. Users can verify their email address here
+/// https://www.dropbox.com/help/317.
 ///
 /// @return An initialized instance.
 ///
@@ -104,7 +107,7 @@ typedef NS_ENUM(NSInteger, DBSHARINGSharingUserErrorTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBSHARINGSharingUserError` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBSHARINGSharingUserError *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBSHARINGSharingUserError *)instance;
 
 ///
 /// Deserializes `DBSHARINGSharingUserError` instances.
@@ -114,7 +117,7 @@ typedef NS_ENUM(NSInteger, DBSHARINGSharingUserErrorTag) {
 ///
 /// @return An instantiation of the `DBSHARINGSharingUserError` object.
 ///
-+ (DBSHARINGSharingUserError *)deserialize:(NSDictionary *)dict;
++ (DBSHARINGSharingUserError *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

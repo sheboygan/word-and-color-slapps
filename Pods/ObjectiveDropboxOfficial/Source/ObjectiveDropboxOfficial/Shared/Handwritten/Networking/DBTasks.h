@@ -30,10 +30,14 @@ NS_ASSUME_NONNULL_BEGIN
 ///
 @interface DBTask : NSObject {
 @protected
-  /// Information about the route to which the request was made.
-  DBRoute *_route;
   NSOperationQueue *_queue;
 }
+
+/// Information about the route to which the request was made.
+@property (nonatomic, readonly) DBRoute *route;
+
+/// A unique string identifier for this task.
+@property (nonatomic, readonly, copy) NSString *taskIdentifier;
 
 /// Tracks the number of times this task has been retried.
 @property (nonatomic) int retryCount;
@@ -90,9 +94,10 @@ NS_ASSUME_NONNULL_BEGIN
 ///
 /// Response / error deserialization is performed with this class.
 ///
-@interface DBRpcTask <TResponse, TError> : DBTask
+@interface DBRpcTask<TResponse, TError> : DBTask
 
-typedef void (^DBRpcResponseBlock)(TResponse _Nullable result, TError _Nullable routeError, DBRequestError * _Nullable networkError);
+typedef void (^DBRpcResponseBlock)(TResponse _Nullable result, TError _Nullable routeError,
+                                   DBRequestError *_Nullable networkError);
 
 ///
 /// Installs a response handler for the current request.
@@ -174,9 +179,10 @@ typedef void (^DBRpcResponseBlock)(TResponse _Nullable result, TError _Nullable 
 ///
 /// Response / error deserialization is performed with this class.
 ///
-@interface DBUploadTask <TResponse, TError> : DBTask
+@interface DBUploadTask<TResponse, TError> : DBTask
 
-typedef void (^DBUploadResponseBlock)(TResponse _Nullable result, TError _Nullable routeError, DBRequestError * _Nullable networkError);
+typedef void (^DBUploadResponseBlock)(TResponse _Nullable result, TError _Nullable routeError,
+                                      DBRequestError *_Nullable networkError);
 
 ///
 /// Installs a response handler for the current request.
@@ -259,7 +265,7 @@ typedef void (^DBUploadResponseBlock)(TResponse _Nullable result, TError _Nullab
 ///
 /// Response / error deserialization is performed with this class.
 ///
-@interface DBDownloadUrlTask <TResponse, TError> : DBTask {
+@interface DBDownloadUrlTask<TResponse, TError> : DBTask {
 @protected
   NSURL *_destination;
   BOOL _overwrite;
@@ -352,9 +358,10 @@ typedef void (^DBDownloadUrlResponseBlock)(TResponse _Nullable result, TError _N
 ///
 /// Response / error deserialization is performed with this class.
 ///
-@interface DBDownloadDataTask <TResponse, TError> : DBTask
+@interface DBDownloadDataTask<TResponse, TError> : DBTask
 
-typedef void (^DBDownloadDataResponseBlock)(TResponse _Nullable result, TError _Nullable routeError, DBRequestError * _Nullable networkError, NSData * _Nullable fileData);
+typedef void (^DBDownloadDataResponseBlock)(TResponse _Nullable result, TError _Nullable routeError,
+                                            DBRequestError *_Nullable networkError, NSData *_Nullable fileData);
 
 ///
 /// Installs a response handler for the current request.

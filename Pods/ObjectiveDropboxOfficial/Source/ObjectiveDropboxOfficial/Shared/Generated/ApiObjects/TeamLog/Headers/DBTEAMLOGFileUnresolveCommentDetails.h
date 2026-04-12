@@ -17,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 ///
 /// The `FileUnresolveCommentDetails` struct.
 ///
-/// Unresolved a file comment.
+/// Unresolved file comment.
 ///
 /// This class implements the `DBSerializable` protocol (serialize and
 /// deserialize instance methods), which is required for all Obj-C SDK API route
@@ -27,7 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Instance fields
 
-/// Comment text. Might be missing due to historical data gap.
+/// Comment text.
 @property (nonatomic, readonly, copy, nullable) NSString *commentText;
 
 #pragma mark - Constructors
@@ -35,8 +35,7 @@ NS_ASSUME_NONNULL_BEGIN
 ///
 /// Full constructor for the struct (exposes all instance variables).
 ///
-/// @param commentText Comment text. Might be missing due to historical data
-/// gap.
+/// @param commentText Comment text.
 ///
 /// @return An initialized instance.
 ///
@@ -71,7 +70,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// @return A json-compatible dictionary representation of the
 /// `DBTEAMLOGFileUnresolveCommentDetails` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBTEAMLOGFileUnresolveCommentDetails *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBTEAMLOGFileUnresolveCommentDetails *)instance;
 
 ///
 /// Deserializes `DBTEAMLOGFileUnresolveCommentDetails` instances.
@@ -82,7 +81,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// @return An instantiation of the `DBTEAMLOGFileUnresolveCommentDetails`
 /// object.
 ///
-+ (DBTEAMLOGFileUnresolveCommentDetails *)deserialize:(NSDictionary *)dict;
++ (DBTEAMLOGFileUnresolveCommentDetails *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

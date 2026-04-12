@@ -9,6 +9,7 @@
 #import "DBSHARINGSharedFolderMetadataBase.h"
 #import "DBSerializableProtocol.h"
 
+@class DBSHARINGAccessInheritance;
 @class DBSHARINGAccessLevel;
 @class DBSHARINGFolderPermission;
 @class DBSHARINGFolderPolicy;
@@ -58,6 +59,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// folder.
 @property (nonatomic, readonly) NSDate *timeInvited;
 
+/// Whether the folder inherits its members from its parent.
+@property (nonatomic, readonly) DBSHARINGAccessInheritance *accessInheritance;
+
 #pragma mark - Constructors
 
 ///
@@ -80,14 +84,19 @@ NS_ASSUME_NONNULL_BEGIN
 /// the folder is not owned by a team.
 /// @param parentSharedFolderId The ID of the parent shared folder. This field
 /// is present only if the folder is contained within another shared folder.
+/// @param pathDisplay The full path of this shared folder. Absent for unmounted
+/// folders.
 /// @param pathLower The lower-cased full path of this shared folder. Absent for
 /// unmounted folders.
+/// @param parentFolderName Display name for the parent folder.
 /// @param linkMetadata The metadata of the shared content link to this shared
 /// folder. Absent if there is no link on the folder. This is for an unreleased
 /// feature so it may not be returned yet.
 /// @param permissions Actions the current user may perform on the folder and
 /// its contents. The set of permissions corresponds to the FolderActions in the
 /// request.
+/// @param accessInheritance Whether the folder inherits its members from its
+/// parent.
 ///
 /// @return An initialized instance.
 ///
@@ -102,9 +111,12 @@ NS_ASSUME_NONNULL_BEGIN
                  ownerDisplayNames:(nullable NSArray<NSString *> *)ownerDisplayNames
                          ownerTeam:(nullable DBUSERSTeam *)ownerTeam
               parentSharedFolderId:(nullable NSString *)parentSharedFolderId
+                       pathDisplay:(nullable NSString *)pathDisplay
                          pathLower:(nullable NSString *)pathLower
+                  parentFolderName:(nullable NSString *)parentFolderName
                       linkMetadata:(nullable DBSHARINGSharedContentLinkMetadata *)linkMetadata
-                       permissions:(nullable NSArray<DBSHARINGFolderPermission *> *)permissions;
+                       permissions:(nullable NSArray<DBSHARINGFolderPermission *> *)permissions
+                 accessInheritance:(nullable DBSHARINGAccessInheritance *)accessInheritance;
 
 ///
 /// Convenience constructor (exposes only non-nullable instance variables with
@@ -150,7 +162,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// @return A json-compatible dictionary representation of the
 /// `DBSHARINGSharedFolderMetadata` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBSHARINGSharedFolderMetadata *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBSHARINGSharedFolderMetadata *)instance;
 
 ///
 /// Deserializes `DBSHARINGSharedFolderMetadata` instances.
@@ -160,7 +172,7 @@ NS_ASSUME_NONNULL_BEGIN
 ///
 /// @return An instantiation of the `DBSHARINGSharedFolderMetadata` object.
 ///
-+ (DBSHARINGSharedFolderMetadata *)deserialize:(NSDictionary *)dict;
++ (DBSHARINGSharedFolderMetadata *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

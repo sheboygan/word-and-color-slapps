@@ -106,17 +106,17 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBCOMMONPathRootSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBCOMMONPathRootSerializer deserialize:dict];
 }
 
-#pragma mark - Description method
+#pragma mark - Debug Description method
 
-- (NSString *)description {
+- (NSString *)debugDescription {
   return [[DBCOMMONPathRootSerializer serialize:self] description];
 }
 
@@ -137,12 +137,16 @@
   switch (_tag) {
   case DBCOMMONPathRootHome:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBCOMMONPathRootRoot:
     result = prime * result + [self.root hash];
+    break;
   case DBCOMMONPathRootNamespaceId:
     result = prime * result + [self.namespaceId hash];
+    break;
   case DBCOMMONPathRootOther:
     result = prime * result + [[self tagName] hash];
+    break;
   }
 
   return prime * result;
@@ -186,7 +190,7 @@
 
 @implementation DBCOMMONPathRootSerializer
 
-+ (NSDictionary *)serialize:(DBCOMMONPathRoot *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBCOMMONPathRoot *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isHome]) {
@@ -203,10 +207,10 @@
     jsonDict[@".tag"] = @"other";
   }
 
-  return [jsonDict count] > 0 ? jsonDict : nil;
+  return jsonDict;
 }
 
-+ (DBCOMMONPathRoot *)deserialize:(NSDictionary *)valueDict {
++ (DBCOMMONPathRoot *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"home"]) {
@@ -303,17 +307,17 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBCOMMONPathRootErrorSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBCOMMONPathRootErrorSerializer deserialize:dict];
 }
 
-#pragma mark - Description method
+#pragma mark - Debug Description method
 
-- (NSString *)description {
+- (NSString *)debugDescription {
   return [[DBCOMMONPathRootErrorSerializer serialize:self] description];
 }
 
@@ -334,10 +338,13 @@
   switch (_tag) {
   case DBCOMMONPathRootErrorInvalidRoot:
     result = prime * result + [self.invalidRoot hash];
+    break;
   case DBCOMMONPathRootErrorNoPermission:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBCOMMONPathRootErrorOther:
     result = prime * result + [[self tagName] hash];
+    break;
   }
 
   return prime * result;
@@ -379,7 +386,7 @@
 
 @implementation DBCOMMONPathRootErrorSerializer
 
-+ (NSDictionary *)serialize:(DBCOMMONPathRootError *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBCOMMONPathRootError *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isInvalidRoot]) {
@@ -393,10 +400,10 @@
     jsonDict[@".tag"] = @"other";
   }
 
-  return [jsonDict count] > 0 ? jsonDict : nil;
+  return jsonDict;
 }
 
-+ (DBCOMMONPathRootError *)deserialize:(NSDictionary *)valueDict {
++ (DBCOMMONPathRootError *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"invalid_root"]) {
@@ -426,10 +433,10 @@
 #pragma mark - Constructors
 
 - (instancetype)initWithRootNamespaceId:(NSString *)rootNamespaceId homeNamespaceId:(NSString *)homeNamespaceId {
-  [DBStoneValidators
-   nonnullValidator:[DBStoneValidators stringValidator:nil maxLength:nil pattern:@"[-_0-9a-zA-Z:]+"]](rootNamespaceId);
-  [DBStoneValidators
-   nonnullValidator:[DBStoneValidators stringValidator:nil maxLength:nil pattern:@"[-_0-9a-zA-Z:]+"]](homeNamespaceId);
+  [DBStoneValidators nonnullValidator:[DBStoneValidators stringValidator:nil maxLength:nil
+                                                                 pattern:@"[-_0-9a-zA-Z:]+"]](rootNamespaceId);
+  [DBStoneValidators nonnullValidator:[DBStoneValidators stringValidator:nil maxLength:nil
+                                                                 pattern:@"[-_0-9a-zA-Z:]+"]](homeNamespaceId);
 
   self = [super init];
   if (self) {
@@ -441,17 +448,17 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBCOMMONRootInfoSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBCOMMONRootInfoSerializer deserialize:dict];
 }
 
-#pragma mark - Description method
+#pragma mark - Debug Description method
 
-- (NSString *)description {
+- (NSString *)debugDescription {
   return [[DBCOMMONRootInfoSerializer serialize:self] description];
 }
 
@@ -506,7 +513,7 @@
 
 @implementation DBCOMMONRootInfoSerializer
 
-+ (NSDictionary *)serialize:(DBCOMMONRootInfo *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBCOMMONRootInfo *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"root_namespace_id"] = valueObj.rootNamespaceId;
@@ -526,10 +533,10 @@
     jsonDict[@".tag"] = @"user";
   }
 
-  return [jsonDict count] > 0 ? jsonDict : nil;
+  return jsonDict;
 }
 
-+ (DBCOMMONRootInfo *)deserialize:(NSDictionary *)valueDict {
++ (DBCOMMONRootInfo *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   if ([valueDict[@".tag"] isEqualToString:@"team"]) {
     return [DBCOMMONTeamRootInfoSerializer deserialize:valueDict];
   }
@@ -537,10 +544,10 @@
     return [DBCOMMONUserRootInfoSerializer deserialize:valueDict];
   }
 
-  @throw([NSException
-      exceptionWithName:@"InvalidTag"
-                 reason:[NSString stringWithFormat:@"Tag has an invalid value: \"%@\".", valueDict[@".tag"]]
-               userInfo:nil]);
+  NSString *rootNamespaceId = valueDict[@"root_namespace_id"];
+  NSString *homeNamespaceId = valueDict[@"home_namespace_id"];
+
+  return [[DBCOMMONRootInfo alloc] initWithRootNamespaceId:rootNamespaceId homeNamespaceId:homeNamespaceId];
 }
 
 @end
@@ -559,10 +566,10 @@
 - (instancetype)initWithRootNamespaceId:(NSString *)rootNamespaceId
                         homeNamespaceId:(NSString *)homeNamespaceId
                                homePath:(NSString *)homePath {
-  [DBStoneValidators
-   nonnullValidator:[DBStoneValidators stringValidator:nil maxLength:nil pattern:@"[-_0-9a-zA-Z:]+"]](rootNamespaceId);
-  [DBStoneValidators
-   nonnullValidator:[DBStoneValidators stringValidator:nil maxLength:nil pattern:@"[-_0-9a-zA-Z:]+"]](homeNamespaceId);
+  [DBStoneValidators nonnullValidator:[DBStoneValidators stringValidator:nil maxLength:nil
+                                                                 pattern:@"[-_0-9a-zA-Z:]+"]](rootNamespaceId);
+  [DBStoneValidators nonnullValidator:[DBStoneValidators stringValidator:nil maxLength:nil
+                                                                 pattern:@"[-_0-9a-zA-Z:]+"]](homeNamespaceId);
   [DBStoneValidators nonnullValidator:nil](homePath);
 
   self = [super initWithRootNamespaceId:rootNamespaceId homeNamespaceId:homeNamespaceId];
@@ -574,17 +581,17 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBCOMMONTeamRootInfoSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBCOMMONTeamRootInfoSerializer deserialize:dict];
 }
 
-#pragma mark - Description method
+#pragma mark - Debug Description method
 
-- (NSString *)description {
+- (NSString *)debugDescription {
   return [[DBCOMMONTeamRootInfoSerializer serialize:self] description];
 }
 
@@ -643,17 +650,17 @@
 
 @implementation DBCOMMONTeamRootInfoSerializer
 
-+ (NSDictionary *)serialize:(DBCOMMONTeamRootInfo *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBCOMMONTeamRootInfo *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"root_namespace_id"] = valueObj.rootNamespaceId;
   jsonDict[@"home_namespace_id"] = valueObj.homeNamespaceId;
   jsonDict[@"home_path"] = valueObj.homePath;
 
-  return [jsonDict count] > 0 ? jsonDict : nil;
+  return jsonDict;
 }
 
-+ (DBCOMMONTeamRootInfo *)deserialize:(NSDictionary *)valueDict {
++ (DBCOMMONTeamRootInfo *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *rootNamespaceId = valueDict[@"root_namespace_id"];
   NSString *homeNamespaceId = valueDict[@"home_namespace_id"];
   NSString *homePath = valueDict[@"home_path"];
@@ -677,10 +684,10 @@
 #pragma mark - Constructors
 
 - (instancetype)initWithRootNamespaceId:(NSString *)rootNamespaceId homeNamespaceId:(NSString *)homeNamespaceId {
-  [DBStoneValidators
-   nonnullValidator:[DBStoneValidators stringValidator:nil maxLength:nil pattern:@"[-_0-9a-zA-Z:]+"]](rootNamespaceId);
-  [DBStoneValidators
-   nonnullValidator:[DBStoneValidators stringValidator:nil maxLength:nil pattern:@"[-_0-9a-zA-Z:]+"]](homeNamespaceId);
+  [DBStoneValidators nonnullValidator:[DBStoneValidators stringValidator:nil maxLength:nil
+                                                                 pattern:@"[-_0-9a-zA-Z:]+"]](rootNamespaceId);
+  [DBStoneValidators nonnullValidator:[DBStoneValidators stringValidator:nil maxLength:nil
+                                                                 pattern:@"[-_0-9a-zA-Z:]+"]](homeNamespaceId);
 
   self = [super initWithRootNamespaceId:rootNamespaceId homeNamespaceId:homeNamespaceId];
   if (self) {
@@ -690,17 +697,17 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBCOMMONUserRootInfoSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBCOMMONUserRootInfoSerializer deserialize:dict];
 }
 
-#pragma mark - Description method
+#pragma mark - Debug Description method
 
-- (NSString *)description {
+- (NSString *)debugDescription {
   return [[DBCOMMONUserRootInfoSerializer serialize:self] description];
 }
 
@@ -755,16 +762,16 @@
 
 @implementation DBCOMMONUserRootInfoSerializer
 
-+ (NSDictionary *)serialize:(DBCOMMONUserRootInfo *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBCOMMONUserRootInfo *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"root_namespace_id"] = valueObj.rootNamespaceId;
   jsonDict[@"home_namespace_id"] = valueObj.homeNamespaceId;
 
-  return [jsonDict count] > 0 ? jsonDict : nil;
+  return jsonDict;
 }
 
-+ (DBCOMMONUserRootInfo *)deserialize:(NSDictionary *)valueDict {
++ (DBCOMMONUserRootInfo *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *rootNamespaceId = valueDict[@"root_namespace_id"];
   NSString *homeNamespaceId = valueDict[@"home_namespace_id"];
 

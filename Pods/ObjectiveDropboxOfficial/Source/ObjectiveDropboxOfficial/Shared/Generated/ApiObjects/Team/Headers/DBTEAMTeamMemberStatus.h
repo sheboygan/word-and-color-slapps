@@ -30,7 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// The `DBTEAMTeamMemberStatusTag` enum type represents the possible tag states
 /// with which the `DBTEAMTeamMemberStatus` union can exist.
-typedef NS_ENUM(NSInteger, DBTEAMTeamMemberStatusTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBTEAMTeamMemberStatusTag) {
   /// User has successfully joined the team.
   DBTEAMTeamMemberStatusActive,
 
@@ -161,7 +161,7 @@ typedef NS_ENUM(NSInteger, DBTEAMTeamMemberStatusTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBTEAMTeamMemberStatus` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBTEAMTeamMemberStatus *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBTEAMTeamMemberStatus *)instance;
 
 ///
 /// Deserializes `DBTEAMTeamMemberStatus` instances.
@@ -171,7 +171,7 @@ typedef NS_ENUM(NSInteger, DBTEAMTeamMemberStatusTag) {
 ///
 /// @return An instantiation of the `DBTEAMTeamMemberStatus` object.
 ///
-+ (DBTEAMTeamMemberStatus *)deserialize:(NSDictionary *)dict;
++ (DBTEAMTeamMemberStatus *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

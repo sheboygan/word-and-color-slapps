@@ -27,7 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// The `DBTEAMMembersSendWelcomeErrorTag` enum type represents the possible tag
 /// states with which the `DBTEAMMembersSendWelcomeError` union can exist.
-typedef NS_ENUM(NSInteger, DBTEAMMembersSendWelcomeErrorTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBTEAMMembersSendWelcomeErrorTag) {
   /// No matching user found. The provided team_member_id, email, or
   /// external_id does not exist on this team.
   DBTEAMMembersSendWelcomeErrorUserNotFound,
@@ -123,7 +123,7 @@ typedef NS_ENUM(NSInteger, DBTEAMMembersSendWelcomeErrorTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBTEAMMembersSendWelcomeError` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBTEAMMembersSendWelcomeError *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBTEAMMembersSendWelcomeError *)instance;
 
 ///
 /// Deserializes `DBTEAMMembersSendWelcomeError` instances.
@@ -133,7 +133,7 @@ typedef NS_ENUM(NSInteger, DBTEAMMembersSendWelcomeErrorTag) {
 ///
 /// @return An instantiation of the `DBTEAMMembersSendWelcomeError` object.
 ///
-+ (DBTEAMMembersSendWelcomeError *)deserialize:(NSDictionary *)dict;
++ (DBTEAMMembersSendWelcomeError *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

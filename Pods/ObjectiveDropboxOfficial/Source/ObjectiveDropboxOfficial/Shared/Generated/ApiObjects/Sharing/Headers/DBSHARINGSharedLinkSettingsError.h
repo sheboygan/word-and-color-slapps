@@ -28,7 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// The `DBSHARINGSharedLinkSettingsErrorTag` enum type represents the possible
 /// tag states with which the `DBSHARINGSharedLinkSettingsError` union can
 /// exist.
-typedef NS_ENUM(NSInteger, DBSHARINGSharedLinkSettingsErrorTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBSHARINGSharedLinkSettingsErrorTag) {
   /// The given settings are invalid (for example, all attributes of the
   /// SharedLinkSettings are empty, the requested visibility is `password` in
   /// `DBSHARINGRequestedVisibility` but the `linkPassword` in
@@ -119,7 +119,7 @@ typedef NS_ENUM(NSInteger, DBSHARINGSharedLinkSettingsErrorTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBSHARINGSharedLinkSettingsError` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBSHARINGSharedLinkSettingsError *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBSHARINGSharedLinkSettingsError *)instance;
 
 ///
 /// Deserializes `DBSHARINGSharedLinkSettingsError` instances.
@@ -129,7 +129,7 @@ typedef NS_ENUM(NSInteger, DBSHARINGSharedLinkSettingsErrorTag) {
 ///
 /// @return An instantiation of the `DBSHARINGSharedLinkSettingsError` object.
 ///
-+ (DBSHARINGSharedLinkSettingsError *)deserialize:(NSDictionary *)dict;
++ (DBSHARINGSharedLinkSettingsError *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

@@ -29,7 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// The `DBTEAMLOGPaperMemberPolicyTag` enum type represents the possible tag
 /// states with which the `DBTEAMLOGPaperMemberPolicy` union can exist.
-typedef NS_ENUM(NSInteger, DBTEAMLOGPaperMemberPolicyTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBTEAMLOGPaperMemberPolicyTag) {
   /// (no description).
   DBTEAMLOGPaperMemberPolicyAnyoneWithLink,
 
@@ -136,7 +136,7 @@ typedef NS_ENUM(NSInteger, DBTEAMLOGPaperMemberPolicyTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBTEAMLOGPaperMemberPolicy` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBTEAMLOGPaperMemberPolicy *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBTEAMLOGPaperMemberPolicy *)instance;
 
 ///
 /// Deserializes `DBTEAMLOGPaperMemberPolicy` instances.
@@ -146,7 +146,7 @@ typedef NS_ENUM(NSInteger, DBTEAMLOGPaperMemberPolicyTag) {
 ///
 /// @return An instantiation of the `DBTEAMLOGPaperMemberPolicy` object.
 ///
-+ (DBTEAMLOGPaperMemberPolicy *)deserialize:(NSDictionary *)dict;
++ (DBTEAMLOGPaperMemberPolicy *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

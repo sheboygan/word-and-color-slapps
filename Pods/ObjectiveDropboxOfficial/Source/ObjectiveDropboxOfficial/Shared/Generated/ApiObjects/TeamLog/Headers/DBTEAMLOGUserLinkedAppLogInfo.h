@@ -33,9 +33,8 @@ NS_ASSUME_NONNULL_BEGIN
 ///
 /// Full constructor for the struct (exposes all instance variables).
 ///
-/// @param appId App unique ID. Might be missing due to historical data gap.
-/// @param displayName App display name. Might be missing due to historical data
-/// gap.
+/// @param appId App unique ID.
+/// @param displayName App display name.
 ///
 /// @return An initialized instance.
 ///
@@ -68,7 +67,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// @return A json-compatible dictionary representation of the
 /// `DBTEAMLOGUserLinkedAppLogInfo` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBTEAMLOGUserLinkedAppLogInfo *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBTEAMLOGUserLinkedAppLogInfo *)instance;
 
 ///
 /// Deserializes `DBTEAMLOGUserLinkedAppLogInfo` instances.
@@ -78,7 +77,7 @@ NS_ASSUME_NONNULL_BEGIN
 ///
 /// @return An instantiation of the `DBTEAMLOGUserLinkedAppLogInfo` object.
 ///
-+ (DBTEAMLOGUserLinkedAppLogInfo *)deserialize:(NSDictionary *)dict;
++ (DBTEAMLOGUserLinkedAppLogInfo *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

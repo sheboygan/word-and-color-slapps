@@ -27,7 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// The `DBTEAMGroupDeleteErrorTag` enum type represents the possible tag states
 /// with which the `DBTEAMGroupDeleteError` union can exist.
-typedef NS_ENUM(NSInteger, DBTEAMGroupDeleteErrorTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBTEAMGroupDeleteErrorTag) {
   /// No matching group found. No groups match the specified group ID.
   DBTEAMGroupDeleteErrorGroupNotFound,
 
@@ -144,7 +144,7 @@ typedef NS_ENUM(NSInteger, DBTEAMGroupDeleteErrorTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBTEAMGroupDeleteError` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBTEAMGroupDeleteError *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBTEAMGroupDeleteError *)instance;
 
 ///
 /// Deserializes `DBTEAMGroupDeleteError` instances.
@@ -154,7 +154,7 @@ typedef NS_ENUM(NSInteger, DBTEAMGroupDeleteErrorTag) {
 ///
 /// @return An instantiation of the `DBTEAMGroupDeleteError` object.
 ///
-+ (DBTEAMGroupDeleteError *)deserialize:(NSDictionary *)dict;
++ (DBTEAMGroupDeleteError *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

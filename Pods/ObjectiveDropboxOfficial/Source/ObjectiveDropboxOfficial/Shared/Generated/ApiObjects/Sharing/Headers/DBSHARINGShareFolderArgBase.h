@@ -8,6 +8,7 @@
 
 #import "DBSerializableProtocol.h"
 
+@class DBSHARINGAccessInheritance;
 @class DBSHARINGAclUpdatePolicy;
 @class DBSHARINGMemberPolicy;
 @class DBSHARINGShareFolderArgBase;
@@ -39,8 +40,8 @@ NS_ASSUME_NONNULL_BEGIN
 /// user is on a team.
 @property (nonatomic, readonly, nullable) DBSHARINGMemberPolicy *memberPolicy;
 
-/// The path to the folder to share. If it does not exist, then a new one is
-/// created.
+/// The path or the file id to the folder to share. If it does not exist, then a
+/// new one is created.
 @property (nonatomic, readonly, copy) NSString *path;
 
 /// The policy to apply to shared links created for content inside this shared
@@ -51,13 +52,16 @@ NS_ASSUME_NONNULL_BEGIN
 /// Who can enable/disable viewer info for this shared folder.
 @property (nonatomic, readonly, nullable) DBSHARINGViewerInfoPolicy *viewerInfoPolicy;
 
+/// The access inheritance settings for the folder.
+@property (nonatomic, readonly) DBSHARINGAccessInheritance *accessInheritance;
+
 #pragma mark - Constructors
 
 ///
 /// Full constructor for the struct (exposes all instance variables).
 ///
-/// @param path The path to the folder to share. If it does not exist, then a
-/// new one is created.
+/// @param path The path or the file id to the folder to share. If it does not
+/// exist, then a new one is created.
 /// @param aclUpdatePolicy Who can add and remove members of this shared folder.
 /// @param forceAsync Whether to force the share to happen asynchronously.
 /// @param memberPolicy Who can be a member of this shared folder. Only
@@ -67,6 +71,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// set this policy to `members` in `DBSHARINGSharedLinkPolicy`.
 /// @param viewerInfoPolicy Who can enable/disable viewer info for this shared
 /// folder.
+/// @param accessInheritance The access inheritance settings for the folder.
 ///
 /// @return An initialized instance.
 ///
@@ -75,14 +80,15 @@ NS_ASSUME_NONNULL_BEGIN
                   forceAsync:(nullable NSNumber *)forceAsync
                 memberPolicy:(nullable DBSHARINGMemberPolicy *)memberPolicy
             sharedLinkPolicy:(nullable DBSHARINGSharedLinkPolicy *)sharedLinkPolicy
-            viewerInfoPolicy:(nullable DBSHARINGViewerInfoPolicy *)viewerInfoPolicy;
+            viewerInfoPolicy:(nullable DBSHARINGViewerInfoPolicy *)viewerInfoPolicy
+           accessInheritance:(nullable DBSHARINGAccessInheritance *)accessInheritance;
 
 ///
 /// Convenience constructor (exposes only non-nullable instance variables with
 /// no default value).
 ///
-/// @param path The path to the folder to share. If it does not exist, then a
-/// new one is created.
+/// @param path The path or the file id to the folder to share. If it does not
+/// exist, then a new one is created.
 ///
 /// @return An initialized instance.
 ///
@@ -107,7 +113,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// @return A json-compatible dictionary representation of the
 /// `DBSHARINGShareFolderArgBase` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBSHARINGShareFolderArgBase *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBSHARINGShareFolderArgBase *)instance;
 
 ///
 /// Deserializes `DBSHARINGShareFolderArgBase` instances.
@@ -117,7 +123,7 @@ NS_ASSUME_NONNULL_BEGIN
 ///
 /// @return An instantiation of the `DBSHARINGShareFolderArgBase` object.
 ///
-+ (DBSHARINGShareFolderArgBase *)deserialize:(NSDictionary *)dict;
++ (DBSHARINGShareFolderArgBase *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

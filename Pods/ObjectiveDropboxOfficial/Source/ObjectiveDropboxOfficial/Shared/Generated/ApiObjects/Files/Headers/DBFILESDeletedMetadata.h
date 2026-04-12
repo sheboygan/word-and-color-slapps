@@ -48,13 +48,15 @@ NS_ASSUME_NONNULL_BEGIN
 /// @param parentSharedFolderId Please use `parentSharedFolderId` in
 /// `DBFILESFileSharingInfo` or `parentSharedFolderId` in
 /// `DBFILESFolderSharingInfo` instead.
+/// @param previewUrl The preview URL of the file.
 ///
 /// @return An initialized instance.
 ///
 - (instancetype)initWithName:(NSString *)name
                    pathLower:(nullable NSString *)pathLower
                  pathDisplay:(nullable NSString *)pathDisplay
-        parentSharedFolderId:(nullable NSString *)parentSharedFolderId;
+        parentSharedFolderId:(nullable NSString *)parentSharedFolderId
+                  previewUrl:(nullable NSString *)previewUrl;
 
 ///
 /// Convenience constructor (exposes only non-nullable instance variables with
@@ -84,7 +86,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// @return A json-compatible dictionary representation of the
 /// `DBFILESDeletedMetadata` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBFILESDeletedMetadata *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBFILESDeletedMetadata *)instance;
 
 ///
 /// Deserializes `DBFILESDeletedMetadata` instances.
@@ -94,7 +96,7 @@ NS_ASSUME_NONNULL_BEGIN
 ///
 /// @return An instantiation of the `DBFILESDeletedMetadata` object.
 ///
-+ (DBFILESDeletedMetadata *)deserialize:(NSDictionary *)dict;
++ (DBFILESDeletedMetadata *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

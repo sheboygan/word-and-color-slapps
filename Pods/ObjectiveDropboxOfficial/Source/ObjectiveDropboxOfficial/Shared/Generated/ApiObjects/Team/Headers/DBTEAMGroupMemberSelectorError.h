@@ -30,7 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// The `DBTEAMGroupMemberSelectorErrorTag` enum type represents the possible
 /// tag states with which the `DBTEAMGroupMemberSelectorError` union can exist.
-typedef NS_ENUM(NSInteger, DBTEAMGroupMemberSelectorErrorTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBTEAMGroupMemberSelectorErrorTag) {
   /// No matching group found. No groups match the specified group ID.
   DBTEAMGroupMemberSelectorErrorGroupNotFound,
 
@@ -148,7 +148,7 @@ typedef NS_ENUM(NSInteger, DBTEAMGroupMemberSelectorErrorTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBTEAMGroupMemberSelectorError` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBTEAMGroupMemberSelectorError *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBTEAMGroupMemberSelectorError *)instance;
 
 ///
 /// Deserializes `DBTEAMGroupMemberSelectorError` instances.
@@ -158,7 +158,7 @@ typedef NS_ENUM(NSInteger, DBTEAMGroupMemberSelectorErrorTag) {
 ///
 /// @return An instantiation of the `DBTEAMGroupMemberSelectorError` object.
 ///
-+ (DBTEAMGroupMemberSelectorError *)deserialize:(NSDictionary *)dict;
++ (DBTEAMGroupMemberSelectorError *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

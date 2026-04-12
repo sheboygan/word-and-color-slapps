@@ -27,7 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// The `DBCOMMONPathRootTag` enum type represents the possible tag states with
 /// which the `DBCOMMONPathRoot` union can exist.
-typedef NS_ENUM(NSInteger, DBCOMMONPathRootTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBCOMMONPathRootTag) {
   /// Paths are relative to the authenticating user's home namespace, whether
   /// or not that user belongs to a team.
   DBCOMMONPathRootHome,
@@ -173,7 +173,7 @@ typedef NS_ENUM(NSInteger, DBCOMMONPathRootTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBCOMMONPathRoot` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBCOMMONPathRoot *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBCOMMONPathRoot *)instance;
 
 ///
 /// Deserializes `DBCOMMONPathRoot` instances.
@@ -183,7 +183,7 @@ typedef NS_ENUM(NSInteger, DBCOMMONPathRootTag) {
 ///
 /// @return An instantiation of the `DBCOMMONPathRoot` object.
 ///
-+ (DBCOMMONPathRoot *)deserialize:(NSDictionary *)dict;
++ (DBCOMMONPathRoot *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

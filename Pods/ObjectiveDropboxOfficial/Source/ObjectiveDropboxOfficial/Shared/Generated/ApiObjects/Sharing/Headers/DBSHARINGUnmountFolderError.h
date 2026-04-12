@@ -28,7 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// The `DBSHARINGUnmountFolderErrorTag` enum type represents the possible tag
 /// states with which the `DBSHARINGUnmountFolderError` union can exist.
-typedef NS_ENUM(NSInteger, DBSHARINGUnmountFolderErrorTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBSHARINGUnmountFolderErrorTag) {
   /// (no description).
   DBSHARINGUnmountFolderErrorAccessError,
 
@@ -151,7 +151,7 @@ typedef NS_ENUM(NSInteger, DBSHARINGUnmountFolderErrorTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBSHARINGUnmountFolderError` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBSHARINGUnmountFolderError *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBSHARINGUnmountFolderError *)instance;
 
 ///
 /// Deserializes `DBSHARINGUnmountFolderError` instances.
@@ -161,7 +161,7 @@ typedef NS_ENUM(NSInteger, DBSHARINGUnmountFolderErrorTag) {
 ///
 /// @return An instantiation of the `DBSHARINGUnmountFolderError` object.
 ///
-+ (DBSHARINGUnmountFolderError *)deserialize:(NSDictionary *)dict;
++ (DBSHARINGUnmountFolderError *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

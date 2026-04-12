@@ -27,7 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// The `DBTEAMLOGMemberRequestsPolicyTag` enum type represents the possible tag
 /// states with which the `DBTEAMLOGMemberRequestsPolicy` union can exist.
-typedef NS_ENUM(NSInteger, DBTEAMLOGMemberRequestsPolicyTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBTEAMLOGMemberRequestsPolicyTag) {
   /// (no description).
   DBTEAMLOGMemberRequestsPolicyAutoAccept,
 
@@ -133,7 +133,7 @@ typedef NS_ENUM(NSInteger, DBTEAMLOGMemberRequestsPolicyTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBTEAMLOGMemberRequestsPolicy` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBTEAMLOGMemberRequestsPolicy *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBTEAMLOGMemberRequestsPolicy *)instance;
 
 ///
 /// Deserializes `DBTEAMLOGMemberRequestsPolicy` instances.
@@ -143,7 +143,7 @@ typedef NS_ENUM(NSInteger, DBTEAMLOGMemberRequestsPolicyTag) {
 ///
 /// @return An instantiation of the `DBTEAMLOGMemberRequestsPolicy` object.
 ///
-+ (DBTEAMLOGMemberRequestsPolicy *)deserialize:(NSDictionary *)dict;
++ (DBTEAMLOGMemberRequestsPolicy *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

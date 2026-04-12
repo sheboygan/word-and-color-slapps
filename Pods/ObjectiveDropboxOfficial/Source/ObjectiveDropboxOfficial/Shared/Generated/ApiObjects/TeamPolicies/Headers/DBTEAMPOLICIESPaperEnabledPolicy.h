@@ -28,7 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// The `DBTEAMPOLICIESPaperEnabledPolicyTag` enum type represents the possible
 /// tag states with which the `DBTEAMPOLICIESPaperEnabledPolicy` union can
 /// exist.
-typedef NS_ENUM(NSInteger, DBTEAMPOLICIESPaperEnabledPolicyTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBTEAMPOLICIESPaperEnabledPolicyTag) {
   /// Paper is disabled.
   DBTEAMPOLICIESPaperEnabledPolicyDisabled,
 
@@ -139,7 +139,7 @@ typedef NS_ENUM(NSInteger, DBTEAMPOLICIESPaperEnabledPolicyTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBTEAMPOLICIESPaperEnabledPolicy` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBTEAMPOLICIESPaperEnabledPolicy *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBTEAMPOLICIESPaperEnabledPolicy *)instance;
 
 ///
 /// Deserializes `DBTEAMPOLICIESPaperEnabledPolicy` instances.
@@ -149,7 +149,7 @@ typedef NS_ENUM(NSInteger, DBTEAMPOLICIESPaperEnabledPolicyTag) {
 ///
 /// @return An instantiation of the `DBTEAMPOLICIESPaperEnabledPolicy` object.
 ///
-+ (DBTEAMPOLICIESPaperEnabledPolicy *)deserialize:(NSDictionary *)dict;
++ (DBTEAMPOLICIESPaperEnabledPolicy *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

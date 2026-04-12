@@ -28,7 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// The `DBTEAMTeamFolderGetInfoItemTag` enum type represents the possible tag
 /// states with which the `DBTEAMTeamFolderGetInfoItem` union can exist.
-typedef NS_ENUM(NSInteger, DBTEAMTeamFolderGetInfoItemTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBTEAMTeamFolderGetInfoItemTag) {
   /// An ID that was provided as a parameter to `teamFolderGetInfo` did not
   /// match any of the team's team folders.
   DBTEAMTeamFolderGetInfoItemIdNotFound,
@@ -128,7 +128,7 @@ typedef NS_ENUM(NSInteger, DBTEAMTeamFolderGetInfoItemTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBTEAMTeamFolderGetInfoItem` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBTEAMTeamFolderGetInfoItem *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBTEAMTeamFolderGetInfoItem *)instance;
 
 ///
 /// Deserializes `DBTEAMTeamFolderGetInfoItem` instances.
@@ -138,7 +138,7 @@ typedef NS_ENUM(NSInteger, DBTEAMTeamFolderGetInfoItemTag) {
 ///
 /// @return An instantiation of the `DBTEAMTeamFolderGetInfoItem` object.
 ///
-+ (DBTEAMTeamFolderGetInfoItem *)deserialize:(NSDictionary *)dict;
++ (DBTEAMTeamFolderGetInfoItem *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

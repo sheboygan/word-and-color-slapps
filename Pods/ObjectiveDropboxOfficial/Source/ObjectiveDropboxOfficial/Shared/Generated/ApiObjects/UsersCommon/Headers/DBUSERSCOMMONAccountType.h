@@ -29,7 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// The `DBUSERSCOMMONAccountTypeTag` enum type represents the possible tag
 /// states with which the `DBUSERSCOMMONAccountType` union can exist.
-typedef NS_ENUM(NSInteger, DBUSERSCOMMONAccountTypeTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBUSERSCOMMONAccountTypeTag) {
   /// The basic account type.
   DBUSERSCOMMONAccountTypeBasic,
 
@@ -122,7 +122,7 @@ typedef NS_ENUM(NSInteger, DBUSERSCOMMONAccountTypeTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBUSERSCOMMONAccountType` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBUSERSCOMMONAccountType *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBUSERSCOMMONAccountType *)instance;
 
 ///
 /// Deserializes `DBUSERSCOMMONAccountType` instances.
@@ -132,7 +132,7 @@ typedef NS_ENUM(NSInteger, DBUSERSCOMMONAccountTypeTag) {
 ///
 /// @return An instantiation of the `DBUSERSCOMMONAccountType` object.
 ///
-+ (DBUSERSCOMMONAccountType *)deserialize:(NSDictionary *)dict;
++ (DBUSERSCOMMONAccountType *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

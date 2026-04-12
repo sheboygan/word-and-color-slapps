@@ -29,7 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// The `DBSHARINGLinkActionTag` enum type represents the possible tag states
 /// with which the `DBSHARINGLinkAction` union can exist.
-typedef NS_ENUM(NSInteger, DBSHARINGLinkActionTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBSHARINGLinkActionTag) {
   /// Change the access level of the link.
   DBSHARINGLinkActionChangeAccessLevel,
 
@@ -204,7 +204,7 @@ typedef NS_ENUM(NSInteger, DBSHARINGLinkActionTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBSHARINGLinkAction` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBSHARINGLinkAction *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBSHARINGLinkAction *)instance;
 
 ///
 /// Deserializes `DBSHARINGLinkAction` instances.
@@ -214,7 +214,7 @@ typedef NS_ENUM(NSInteger, DBSHARINGLinkActionTag) {
 ///
 /// @return An instantiation of the `DBSHARINGLinkAction` object.
 ///
-+ (DBSHARINGLinkAction *)deserialize:(NSDictionary *)dict;
++ (DBSHARINGLinkAction *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

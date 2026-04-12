@@ -28,7 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// The `DBTEAMGroupMemberSetAccessTypeErrorTag` enum type represents the
 /// possible tag states with which the `DBTEAMGroupMemberSetAccessTypeError`
 /// union can exist.
-typedef NS_ENUM(NSInteger, DBTEAMGroupMemberSetAccessTypeErrorTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBTEAMGroupMemberSetAccessTypeErrorTag) {
   /// No matching group found. No groups match the specified group ID.
   DBTEAMGroupMemberSetAccessTypeErrorGroupNotFound,
 
@@ -169,7 +169,7 @@ typedef NS_ENUM(NSInteger, DBTEAMGroupMemberSetAccessTypeErrorTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBTEAMGroupMemberSetAccessTypeError` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBTEAMGroupMemberSetAccessTypeError *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBTEAMGroupMemberSetAccessTypeError *)instance;
 
 ///
 /// Deserializes `DBTEAMGroupMemberSetAccessTypeError` instances.
@@ -180,7 +180,7 @@ typedef NS_ENUM(NSInteger, DBTEAMGroupMemberSetAccessTypeErrorTag) {
 /// @return An instantiation of the `DBTEAMGroupMemberSetAccessTypeError`
 /// object.
 ///
-+ (DBTEAMGroupMemberSetAccessTypeError *)deserialize:(NSDictionary *)dict;
++ (DBTEAMGroupMemberSetAccessTypeError *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

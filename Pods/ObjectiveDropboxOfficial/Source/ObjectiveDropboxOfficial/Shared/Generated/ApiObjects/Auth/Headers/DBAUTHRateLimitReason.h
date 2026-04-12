@@ -27,7 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// The `DBAUTHRateLimitReasonTag` enum type represents the possible tag states
 /// with which the `DBAUTHRateLimitReason` union can exist.
-typedef NS_ENUM(NSInteger, DBAUTHRateLimitReasonTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBAUTHRateLimitReasonTag) {
   /// You are making too many requests in the past few minutes.
   DBAUTHRateLimitReasonTooManyRequests,
 
@@ -124,7 +124,7 @@ typedef NS_ENUM(NSInteger, DBAUTHRateLimitReasonTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBAUTHRateLimitReason` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBAUTHRateLimitReason *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBAUTHRateLimitReason *)instance;
 
 ///
 /// Deserializes `DBAUTHRateLimitReason` instances.
@@ -134,7 +134,7 @@ typedef NS_ENUM(NSInteger, DBAUTHRateLimitReasonTag) {
 ///
 /// @return An instantiation of the `DBAUTHRateLimitReason` object.
 ///
-+ (DBAUTHRateLimitReason *)deserialize:(NSDictionary *)dict;
++ (DBAUTHRateLimitReason *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

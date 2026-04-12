@@ -29,7 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// The `DBSHARINGSharingFileAccessErrorTag` enum type represents the possible
 /// tag states with which the `DBSHARINGSharingFileAccessError` union can exist.
-typedef NS_ENUM(NSInteger, DBSHARINGSharingFileAccessErrorTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBSHARINGSharingFileAccessErrorTag) {
   /// Current user does not have sufficient privileges to perform the desired
   /// action.
   DBSHARINGSharingFileAccessErrorNoPermission,
@@ -189,7 +189,7 @@ typedef NS_ENUM(NSInteger, DBSHARINGSharingFileAccessErrorTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBSHARINGSharingFileAccessError` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBSHARINGSharingFileAccessError *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBSHARINGSharingFileAccessError *)instance;
 
 ///
 /// Deserializes `DBSHARINGSharingFileAccessError` instances.
@@ -199,7 +199,7 @@ typedef NS_ENUM(NSInteger, DBSHARINGSharingFileAccessErrorTag) {
 ///
 /// @return An instantiation of the `DBSHARINGSharingFileAccessError` object.
 ///
-+ (DBSHARINGSharingFileAccessError *)deserialize:(NSDictionary *)dict;
++ (DBSHARINGSharingFileAccessError *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

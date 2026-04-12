@@ -29,7 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// The `DBTEAMDateRangeErrorTag` enum type represents the possible tag states
 /// with which the `DBTEAMDateRangeError` union can exist.
-typedef NS_ENUM(NSInteger, DBTEAMDateRangeErrorTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBTEAMDateRangeErrorTag) {
   /// (no description).
   DBTEAMDateRangeErrorOther,
 
@@ -82,7 +82,7 @@ typedef NS_ENUM(NSInteger, DBTEAMDateRangeErrorTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBTEAMDateRangeError` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBTEAMDateRangeError *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBTEAMDateRangeError *)instance;
 
 ///
 /// Deserializes `DBTEAMDateRangeError` instances.
@@ -92,7 +92,7 @@ typedef NS_ENUM(NSInteger, DBTEAMDateRangeErrorTag) {
 ///
 /// @return An instantiation of the `DBTEAMDateRangeError` object.
 ///
-+ (DBTEAMDateRangeError *)deserialize:(NSDictionary *)dict;
++ (DBTEAMDateRangeError *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

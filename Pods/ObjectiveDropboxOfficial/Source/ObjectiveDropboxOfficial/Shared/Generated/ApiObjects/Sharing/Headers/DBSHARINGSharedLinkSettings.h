@@ -8,6 +8,8 @@
 
 #import "DBSerializableProtocol.h"
 
+@class DBSHARINGLinkAudience;
+@class DBSHARINGRequestedLinkAccessLevel;
 @class DBSHARINGRequestedVisibility;
 @class DBSHARINGSharedLinkSettings;
 
@@ -26,33 +28,65 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Instance fields
 
-/// The requested access for this shared link.
-@property (nonatomic, readonly, nullable) DBSHARINGRequestedVisibility *requestedVisibility;
+/// Boolean flag to enable or disable password protection.
+@property (nonatomic, readonly, nullable) NSNumber *requirePassword;
 
-/// If requestedVisibility is `password` in `DBSHARINGRequestedVisibility` this
-/// is needed to specify the password to access the link.
+/// If requirePassword is true, this is needed to specify the password to access
+/// the link.
 @property (nonatomic, readonly, copy, nullable) NSString *linkPassword;
 
 /// Expiration time of the shared link. By default the link won't expire.
 @property (nonatomic, readonly, nullable) NSDate *expires;
+
+/// The new audience who can benefit from the access level specified by the
+/// link's access level specified in the `link_access_level` field of
+/// `LinkPermissions`. This is used in conjunction with team policies and shared
+/// folder policies to determine the final effective audience type in the
+/// `effective_audience` field of `LinkPermissions.
+@property (nonatomic, readonly, nullable) DBSHARINGLinkAudience *audience;
+
+/// Requested access level you want the audience to gain from this link. Note,
+/// modifying access level for an existing link is not supported.
+@property (nonatomic, readonly, nullable) DBSHARINGRequestedLinkAccessLevel *access;
+
+/// Use audience instead.  The requested access for this shared link.
+@property (nonatomic, readonly, nullable) DBSHARINGRequestedVisibility *requestedVisibility;
+
+/// Boolean flag to allow or not download capabilities for shared links.
+@property (nonatomic, readonly, nullable) NSNumber *allowDownload;
 
 #pragma mark - Constructors
 
 ///
 /// Full constructor for the struct (exposes all instance variables).
 ///
-/// @param requestedVisibility The requested access for this shared link.
-/// @param linkPassword If requestedVisibility is `password` in
-/// `DBSHARINGRequestedVisibility` this is needed to specify the password to
-/// access the link.
+/// @param requirePassword Boolean flag to enable or disable password
+/// protection.
+/// @param linkPassword If requirePassword is true, this is needed to specify
+/// the password to access the link.
 /// @param expires Expiration time of the shared link. By default the link won't
 /// expire.
+/// @param audience The new audience who can benefit from the access level
+/// specified by the link's access level specified in the `link_access_level`
+/// field of `LinkPermissions`. This is used in conjunction with team policies
+/// and shared folder policies to determine the final effective audience type in
+/// the `effective_audience` field of `LinkPermissions.
+/// @param access Requested access level you want the audience to gain from this
+/// link. Note, modifying access level for an existing link is not supported.
+/// @param requestedVisibility Use audience instead.  The requested access for
+/// this shared link.
+/// @param allowDownload Boolean flag to allow or not download capabilities for
+/// shared links.
 ///
 /// @return An initialized instance.
 ///
-- (instancetype)initWithRequestedVisibility:(nullable DBSHARINGRequestedVisibility *)requestedVisibility
-                               linkPassword:(nullable NSString *)linkPassword
-                                    expires:(nullable NSDate *)expires;
+- (instancetype)initWithRequirePassword:(nullable NSNumber *)requirePassword
+                           linkPassword:(nullable NSString *)linkPassword
+                                expires:(nullable NSDate *)expires
+                               audience:(nullable DBSHARINGLinkAudience *)audience
+                                 access:(nullable DBSHARINGRequestedLinkAccessLevel *)access
+                    requestedVisibility:(nullable DBSHARINGRequestedVisibility *)requestedVisibility
+                          allowDownload:(nullable NSNumber *)allowDownload;
 
 ///
 /// Convenience constructor (exposes only non-nullable instance variables with
@@ -82,7 +116,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// @return A json-compatible dictionary representation of the
 /// `DBSHARINGSharedLinkSettings` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBSHARINGSharedLinkSettings *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBSHARINGSharedLinkSettings *)instance;
 
 ///
 /// Deserializes `DBSHARINGSharedLinkSettings` instances.
@@ -92,7 +126,7 @@ NS_ASSUME_NONNULL_BEGIN
 ///
 /// @return An instantiation of the `DBSHARINGSharedLinkSettings` object.
 ///
-+ (DBSHARINGSharedLinkSettings *)deserialize:(NSDictionary *)dict;
++ (DBSHARINGSharedLinkSettings *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

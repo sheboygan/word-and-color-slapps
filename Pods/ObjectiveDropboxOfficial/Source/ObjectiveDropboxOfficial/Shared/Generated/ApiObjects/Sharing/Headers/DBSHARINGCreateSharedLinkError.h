@@ -28,7 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// The `DBSHARINGCreateSharedLinkErrorTag` enum type represents the possible
 /// tag states with which the `DBSHARINGCreateSharedLinkError` union can exist.
-typedef NS_ENUM(NSInteger, DBSHARINGCreateSharedLinkErrorTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBSHARINGCreateSharedLinkErrorTag) {
   /// (no description).
   DBSHARINGCreateSharedLinkErrorPath,
 
@@ -108,7 +108,7 @@ typedef NS_ENUM(NSInteger, DBSHARINGCreateSharedLinkErrorTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBSHARINGCreateSharedLinkError` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBSHARINGCreateSharedLinkError *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBSHARINGCreateSharedLinkError *)instance;
 
 ///
 /// Deserializes `DBSHARINGCreateSharedLinkError` instances.
@@ -118,7 +118,7 @@ typedef NS_ENUM(NSInteger, DBSHARINGCreateSharedLinkErrorTag) {
 ///
 /// @return An instantiation of the `DBSHARINGCreateSharedLinkError` object.
 ///
-+ (DBSHARINGCreateSharedLinkError *)deserialize:(NSDictionary *)dict;
++ (DBSHARINGCreateSharedLinkError *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

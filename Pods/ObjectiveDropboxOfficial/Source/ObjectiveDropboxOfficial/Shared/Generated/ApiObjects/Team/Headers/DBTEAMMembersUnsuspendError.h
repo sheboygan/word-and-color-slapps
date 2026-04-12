@@ -27,7 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// The `DBTEAMMembersUnsuspendErrorTag` enum type represents the possible tag
 /// states with which the `DBTEAMMembersUnsuspendError` union can exist.
-typedef NS_ENUM(NSInteger, DBTEAMMembersUnsuspendErrorTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBTEAMMembersUnsuspendErrorTag) {
   /// No matching user found. The provided team_member_id, email, or
   /// external_id does not exist on this team.
   DBTEAMMembersUnsuspendErrorUserNotFound,
@@ -166,7 +166,7 @@ typedef NS_ENUM(NSInteger, DBTEAMMembersUnsuspendErrorTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBTEAMMembersUnsuspendError` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBTEAMMembersUnsuspendError *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBTEAMMembersUnsuspendError *)instance;
 
 ///
 /// Deserializes `DBTEAMMembersUnsuspendError` instances.
@@ -176,7 +176,7 @@ typedef NS_ENUM(NSInteger, DBTEAMMembersUnsuspendErrorTag) {
 ///
 /// @return An instantiation of the `DBTEAMMembersUnsuspendError` object.
 ///
-+ (DBTEAMMembersUnsuspendError *)deserialize:(NSDictionary *)dict;
++ (DBTEAMMembersUnsuspendError *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

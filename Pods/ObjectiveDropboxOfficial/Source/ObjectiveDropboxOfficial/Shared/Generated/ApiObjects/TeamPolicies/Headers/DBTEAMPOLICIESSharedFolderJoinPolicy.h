@@ -30,7 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// The `DBTEAMPOLICIESSharedFolderJoinPolicyTag` enum type represents the
 /// possible tag states with which the `DBTEAMPOLICIESSharedFolderJoinPolicy`
 /// union can exist.
-typedef NS_ENUM(NSInteger, DBTEAMPOLICIESSharedFolderJoinPolicyTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBTEAMPOLICIESSharedFolderJoinPolicyTag) {
   /// Team members can only join folders shared by teammates.
   DBTEAMPOLICIESSharedFolderJoinPolicyFromTeamOnly,
 
@@ -126,7 +126,7 @@ typedef NS_ENUM(NSInteger, DBTEAMPOLICIESSharedFolderJoinPolicyTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBTEAMPOLICIESSharedFolderJoinPolicy` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBTEAMPOLICIESSharedFolderJoinPolicy *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBTEAMPOLICIESSharedFolderJoinPolicy *)instance;
 
 ///
 /// Deserializes `DBTEAMPOLICIESSharedFolderJoinPolicy` instances.
@@ -137,7 +137,7 @@ typedef NS_ENUM(NSInteger, DBTEAMPOLICIESSharedFolderJoinPolicyTag) {
 /// @return An instantiation of the `DBTEAMPOLICIESSharedFolderJoinPolicy`
 /// object.
 ///
-+ (DBTEAMPOLICIESSharedFolderJoinPolicy *)deserialize:(NSDictionary *)dict;
++ (DBTEAMPOLICIESSharedFolderJoinPolicy *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

@@ -27,12 +27,24 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// The `DBTEAMLOGPlacementRestrictionTag` enum type represents the possible tag
 /// states with which the `DBTEAMLOGPlacementRestriction` union can exist.
-typedef NS_ENUM(NSInteger, DBTEAMLOGPlacementRestrictionTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBTEAMLOGPlacementRestrictionTag) {
+  /// (no description).
+  DBTEAMLOGPlacementRestrictionAustraliaOnly,
+
   /// (no description).
   DBTEAMLOGPlacementRestrictionEuropeOnly,
 
   /// (no description).
+  DBTEAMLOGPlacementRestrictionJapanOnly,
+
+  /// (no description).
   DBTEAMLOGPlacementRestrictionNone,
+
+  /// (no description).
+  DBTEAMLOGPlacementRestrictionUkOnly,
+
+  /// (no description).
+  DBTEAMLOGPlacementRestrictionUsS3Only,
 
   /// (no description).
   DBTEAMLOGPlacementRestrictionOther,
@@ -45,6 +57,13 @@ typedef NS_ENUM(NSInteger, DBTEAMLOGPlacementRestrictionTag) {
 #pragma mark - Constructors
 
 ///
+/// Initializes union class with tag state of "australia_only".
+///
+/// @return An initialized instance.
+///
+- (instancetype)initWithAustraliaOnly;
+
+///
 /// Initializes union class with tag state of "europe_only".
 ///
 /// @return An initialized instance.
@@ -52,11 +71,32 @@ typedef NS_ENUM(NSInteger, DBTEAMLOGPlacementRestrictionTag) {
 - (instancetype)initWithEuropeOnly;
 
 ///
+/// Initializes union class with tag state of "japan_only".
+///
+/// @return An initialized instance.
+///
+- (instancetype)initWithJapanOnly;
+
+///
 /// Initializes union class with tag state of "none".
 ///
 /// @return An initialized instance.
 ///
 - (instancetype)initWithNone;
+
+///
+/// Initializes union class with tag state of "uk_only".
+///
+/// @return An initialized instance.
+///
+- (instancetype)initWithUkOnly;
+
+///
+/// Initializes union class with tag state of "us_s3_only".
+///
+/// @return An initialized instance.
+///
+- (instancetype)initWithUsS3Only;
 
 ///
 /// Initializes union class with tag state of "other".
@@ -70,6 +110,13 @@ typedef NS_ENUM(NSInteger, DBTEAMLOGPlacementRestrictionTag) {
 #pragma mark - Tag state methods
 
 ///
+/// Retrieves whether the union's current tag state has value "australia_only".
+///
+/// @return Whether the union's current tag state has value "australia_only".
+///
+- (BOOL)isAustraliaOnly;
+
+///
 /// Retrieves whether the union's current tag state has value "europe_only".
 ///
 /// @return Whether the union's current tag state has value "europe_only".
@@ -77,11 +124,32 @@ typedef NS_ENUM(NSInteger, DBTEAMLOGPlacementRestrictionTag) {
 - (BOOL)isEuropeOnly;
 
 ///
+/// Retrieves whether the union's current tag state has value "japan_only".
+///
+/// @return Whether the union's current tag state has value "japan_only".
+///
+- (BOOL)isJapanOnly;
+
+///
 /// Retrieves whether the union's current tag state has value "none".
 ///
 /// @return Whether the union's current tag state has value "none".
 ///
 - (BOOL)isNone;
+
+///
+/// Retrieves whether the union's current tag state has value "uk_only".
+///
+/// @return Whether the union's current tag state has value "uk_only".
+///
+- (BOOL)isUkOnly;
+
+///
+/// Retrieves whether the union's current tag state has value "us_s3_only".
+///
+/// @return Whether the union's current tag state has value "us_s3_only".
+///
+- (BOOL)isUsS3Only;
 
 ///
 /// Retrieves whether the union's current tag state has value "other".
@@ -115,7 +183,7 @@ typedef NS_ENUM(NSInteger, DBTEAMLOGPlacementRestrictionTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBTEAMLOGPlacementRestriction` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBTEAMLOGPlacementRestriction *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBTEAMLOGPlacementRestriction *)instance;
 
 ///
 /// Deserializes `DBTEAMLOGPlacementRestriction` instances.
@@ -125,7 +193,7 @@ typedef NS_ENUM(NSInteger, DBTEAMLOGPlacementRestrictionTag) {
 ///
 /// @return An instantiation of the `DBTEAMLOGPlacementRestriction` object.
 ///
-+ (DBTEAMLOGPlacementRestriction *)deserialize:(NSDictionary *)dict;
++ (DBTEAMLOGPlacementRestriction *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

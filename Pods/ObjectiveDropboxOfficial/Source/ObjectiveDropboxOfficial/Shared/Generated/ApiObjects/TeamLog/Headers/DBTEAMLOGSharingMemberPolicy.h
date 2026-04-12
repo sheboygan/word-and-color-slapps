@@ -29,12 +29,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// The `DBTEAMLOGSharingMemberPolicyTag` enum type represents the possible tag
 /// states with which the `DBTEAMLOGSharingMemberPolicy` union can exist.
-typedef NS_ENUM(NSInteger, DBTEAMLOGSharingMemberPolicyTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBTEAMLOGSharingMemberPolicyTag) {
   /// (no description).
   DBTEAMLOGSharingMemberPolicyAllow,
 
   /// (no description).
   DBTEAMLOGSharingMemberPolicyForbid,
+
+  /// (no description).
+  DBTEAMLOGSharingMemberPolicyForbidWithExclusions,
 
   /// (no description).
   DBTEAMLOGSharingMemberPolicyOther,
@@ -61,6 +64,13 @@ typedef NS_ENUM(NSInteger, DBTEAMLOGSharingMemberPolicyTag) {
 - (instancetype)initWithForbid;
 
 ///
+/// Initializes union class with tag state of "forbid_with_exclusions".
+///
+/// @return An initialized instance.
+///
+- (instancetype)initWithForbidWithExclusions;
+
+///
 /// Initializes union class with tag state of "other".
 ///
 /// @return An initialized instance.
@@ -84,6 +94,15 @@ typedef NS_ENUM(NSInteger, DBTEAMLOGSharingMemberPolicyTag) {
 /// @return Whether the union's current tag state has value "forbid".
 ///
 - (BOOL)isForbid;
+
+///
+/// Retrieves whether the union's current tag state has value
+/// "forbid_with_exclusions".
+///
+/// @return Whether the union's current tag state has value
+/// "forbid_with_exclusions".
+///
+- (BOOL)isForbidWithExclusions;
 
 ///
 /// Retrieves whether the union's current tag state has value "other".
@@ -117,7 +136,7 @@ typedef NS_ENUM(NSInteger, DBTEAMLOGSharingMemberPolicyTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBTEAMLOGSharingMemberPolicy` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBTEAMLOGSharingMemberPolicy *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBTEAMLOGSharingMemberPolicy *)instance;
 
 ///
 /// Deserializes `DBTEAMLOGSharingMemberPolicy` instances.
@@ -127,7 +146,7 @@ typedef NS_ENUM(NSInteger, DBTEAMLOGSharingMemberPolicyTag) {
 ///
 /// @return An instantiation of the `DBTEAMLOGSharingMemberPolicy` object.
 ///
-+ (DBTEAMLOGSharingMemberPolicy *)deserialize:(NSDictionary *)dict;
++ (DBTEAMLOGSharingMemberPolicy *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

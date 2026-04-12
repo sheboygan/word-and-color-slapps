@@ -6,146 +6,6 @@
 
 /// Arguments, results, and errors for the `FileRequests` namespace.
 
-#import "DBFILEREQUESTSCreateFileRequestArgs.h"
-#import "DBFILEREQUESTSFileRequestDeadline.h"
-#import "DBStoneSerializers.h"
-#import "DBStoneValidators.h"
-
-#pragma mark - API Object
-
-@implementation DBFILEREQUESTSCreateFileRequestArgs
-
-#pragma mark - Constructors
-
-- (instancetype)initWithTitle:(NSString *)title
-                  destination:(NSString *)destination
-                     deadline:(DBFILEREQUESTSFileRequestDeadline *)deadline
-                         open:(NSNumber *)open {
-  [DBStoneValidators nonnullValidator:[DBStoneValidators stringValidator:@(1) maxLength:nil pattern:nil]](title);
-  [DBStoneValidators
-   nonnullValidator:[DBStoneValidators stringValidator:nil maxLength:nil pattern:@"/(.|[\\r\\n])*"]](destination);
-
-  self = [super init];
-  if (self) {
-    _title = title;
-    _destination = destination;
-    _deadline = deadline;
-    _open = open ?: @YES;
-  }
-  return self;
-}
-
-- (instancetype)initWithTitle:(NSString *)title destination:(NSString *)destination {
-  return [self initWithTitle:title destination:destination deadline:nil open:nil];
-}
-
-#pragma mark - Serialization methods
-
-+ (nullable NSDictionary *)serialize:(id)instance {
-  return [DBFILEREQUESTSCreateFileRequestArgsSerializer serialize:instance];
-}
-
-+ (id)deserialize:(NSDictionary *)dict {
-  return [DBFILEREQUESTSCreateFileRequestArgsSerializer deserialize:dict];
-}
-
-#pragma mark - Description method
-
-- (NSString *)description {
-  return [[DBFILEREQUESTSCreateFileRequestArgsSerializer serialize:self] description];
-}
-
-#pragma mark - Copyable method
-
-- (instancetype)copyWithZone:(NSZone *)zone {
-#pragma unused(zone)
-  /// object is immutable
-  return self;
-}
-
-#pragma mark - Hash method
-
-- (NSUInteger)hash {
-  NSUInteger prime = 31;
-  NSUInteger result = 1;
-
-  result = prime * result + [self.title hash];
-  result = prime * result + [self.destination hash];
-  if (self.deadline != nil) {
-    result = prime * result + [self.deadline hash];
-  }
-  result = prime * result + [self.open hash];
-
-  return prime * result;
-}
-
-#pragma mark - Equality method
-
-- (BOOL)isEqual:(id)other {
-  if (other == self) {
-    return YES;
-  }
-  if (!other || ![other isKindOfClass:[self class]]) {
-    return NO;
-  }
-  return [self isEqualToCreateFileRequestArgs:other];
-}
-
-- (BOOL)isEqualToCreateFileRequestArgs:(DBFILEREQUESTSCreateFileRequestArgs *)aCreateFileRequestArgs {
-  if (self == aCreateFileRequestArgs) {
-    return YES;
-  }
-  if (![self.title isEqual:aCreateFileRequestArgs.title]) {
-    return NO;
-  }
-  if (![self.destination isEqual:aCreateFileRequestArgs.destination]) {
-    return NO;
-  }
-  if (self.deadline) {
-    if (![self.deadline isEqual:aCreateFileRequestArgs.deadline]) {
-      return NO;
-    }
-  }
-  if (![self.open isEqual:aCreateFileRequestArgs.open]) {
-    return NO;
-  }
-  return YES;
-}
-
-@end
-
-#pragma mark - Serializer Object
-
-@implementation DBFILEREQUESTSCreateFileRequestArgsSerializer
-
-+ (NSDictionary *)serialize:(DBFILEREQUESTSCreateFileRequestArgs *)valueObj {
-  NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
-
-  jsonDict[@"title"] = valueObj.title;
-  jsonDict[@"destination"] = valueObj.destination;
-  if (valueObj.deadline) {
-    jsonDict[@"deadline"] = [DBFILEREQUESTSFileRequestDeadlineSerializer serialize:valueObj.deadline];
-  }
-  jsonDict[@"open"] = valueObj.open;
-
-  return [jsonDict count] > 0 ? jsonDict : nil;
-}
-
-+ (DBFILEREQUESTSCreateFileRequestArgs *)deserialize:(NSDictionary *)valueDict {
-  NSString *title = valueDict[@"title"];
-  NSString *destination = valueDict[@"destination"];
-  DBFILEREQUESTSFileRequestDeadline *deadline =
-      valueDict[@"deadline"] ? [DBFILEREQUESTSFileRequestDeadlineSerializer deserialize:valueDict[@"deadline"]] : nil;
-  NSNumber *open = valueDict[@"open"] ?: @YES;
-
-  return [[DBFILEREQUESTSCreateFileRequestArgs alloc] initWithTitle:title
-                                                        destination:destination
-                                                           deadline:deadline
-                                                               open:open];
-}
-
-@end
-
 #import "DBFILEREQUESTSGeneralFileRequestsError.h"
 #import "DBStoneSerializers.h"
 #import "DBStoneValidators.h"
@@ -197,17 +57,17 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBFILEREQUESTSGeneralFileRequestsErrorSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBFILEREQUESTSGeneralFileRequestsErrorSerializer deserialize:dict];
 }
 
-#pragma mark - Description method
+#pragma mark - Debug Description method
 
-- (NSString *)description {
+- (NSString *)debugDescription {
   return [[DBFILEREQUESTSGeneralFileRequestsErrorSerializer serialize:self] description];
 }
 
@@ -228,8 +88,10 @@
   switch (_tag) {
   case DBFILEREQUESTSGeneralFileRequestsErrorDisabledForTeam:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBFILEREQUESTSGeneralFileRequestsErrorOther:
     result = prime * result + [[self tagName] hash];
+    break;
   }
 
   return prime * result;
@@ -269,7 +131,7 @@
 
 @implementation DBFILEREQUESTSGeneralFileRequestsErrorSerializer
 
-+ (NSDictionary *)serialize:(DBFILEREQUESTSGeneralFileRequestsError *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBFILEREQUESTSGeneralFileRequestsError *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isDisabledForTeam]) {
@@ -280,10 +142,10 @@
     jsonDict[@".tag"] = @"other";
   }
 
-  return [jsonDict count] > 0 ? jsonDict : nil;
+  return jsonDict;
 }
 
-+ (DBFILEREQUESTSGeneralFileRequestsError *)deserialize:(NSDictionary *)valueDict {
++ (DBFILEREQUESTSGeneralFileRequestsError *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"disabled_for_team"]) {
@@ -293,6 +155,414 @@
   } else {
     return [[DBFILEREQUESTSGeneralFileRequestsError alloc] initWithOther];
   }
+}
+
+@end
+
+#import "DBFILEREQUESTSCountFileRequestsError.h"
+#import "DBFILEREQUESTSGeneralFileRequestsError.h"
+#import "DBStoneSerializers.h"
+#import "DBStoneValidators.h"
+
+#pragma mark - API Object
+
+@implementation DBFILEREQUESTSCountFileRequestsError
+
+#pragma mark - Constructors
+
+- (instancetype)initWithDisabledForTeam {
+  self = [super init];
+  if (self) {
+    _tag = DBFILEREQUESTSCountFileRequestsErrorDisabledForTeam;
+  }
+  return self;
+}
+
+- (instancetype)initWithOther {
+  self = [super init];
+  if (self) {
+    _tag = DBFILEREQUESTSCountFileRequestsErrorOther;
+  }
+  return self;
+}
+
+#pragma mark - Instance field accessors
+
+#pragma mark - Tag state methods
+
+- (BOOL)isDisabledForTeam {
+  return _tag == DBFILEREQUESTSCountFileRequestsErrorDisabledForTeam;
+}
+
+- (BOOL)isOther {
+  return _tag == DBFILEREQUESTSCountFileRequestsErrorOther;
+}
+
+- (NSString *)tagName {
+  switch (_tag) {
+  case DBFILEREQUESTSCountFileRequestsErrorDisabledForTeam:
+    return @"DBFILEREQUESTSCountFileRequestsErrorDisabledForTeam";
+  case DBFILEREQUESTSCountFileRequestsErrorOther:
+    return @"DBFILEREQUESTSCountFileRequestsErrorOther";
+  }
+
+  @throw([NSException exceptionWithName:@"InvalidTag" reason:@"Tag has an unknown value." userInfo:nil]);
+}
+
+#pragma mark - Serialization methods
+
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
+  return [DBFILEREQUESTSCountFileRequestsErrorSerializer serialize:instance];
+}
+
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
+  return [DBFILEREQUESTSCountFileRequestsErrorSerializer deserialize:dict];
+}
+
+#pragma mark - Debug Description method
+
+- (NSString *)debugDescription {
+  return [[DBFILEREQUESTSCountFileRequestsErrorSerializer serialize:self] description];
+}
+
+#pragma mark - Copyable method
+
+- (instancetype)copyWithZone:(NSZone *)zone {
+#pragma unused(zone)
+  /// object is immutable
+  return self;
+}
+
+#pragma mark - Hash method
+
+- (NSUInteger)hash {
+  NSUInteger prime = 31;
+  NSUInteger result = 1;
+
+  switch (_tag) {
+  case DBFILEREQUESTSCountFileRequestsErrorDisabledForTeam:
+    result = prime * result + [[self tagName] hash];
+    break;
+  case DBFILEREQUESTSCountFileRequestsErrorOther:
+    result = prime * result + [[self tagName] hash];
+    break;
+  }
+
+  return prime * result;
+}
+
+#pragma mark - Equality method
+
+- (BOOL)isEqual:(id)other {
+  if (other == self) {
+    return YES;
+  }
+  if (!other || ![other isKindOfClass:[self class]]) {
+    return NO;
+  }
+  return [self isEqualToCountFileRequestsError:other];
+}
+
+- (BOOL)isEqualToCountFileRequestsError:(DBFILEREQUESTSCountFileRequestsError *)aCountFileRequestsError {
+  if (self == aCountFileRequestsError) {
+    return YES;
+  }
+  if (self.tag != aCountFileRequestsError.tag) {
+    return NO;
+  }
+  switch (_tag) {
+  case DBFILEREQUESTSCountFileRequestsErrorDisabledForTeam:
+    return [[self tagName] isEqual:[aCountFileRequestsError tagName]];
+  case DBFILEREQUESTSCountFileRequestsErrorOther:
+    return [[self tagName] isEqual:[aCountFileRequestsError tagName]];
+  }
+  return YES;
+}
+
+@end
+
+#pragma mark - Serializer Object
+
+@implementation DBFILEREQUESTSCountFileRequestsErrorSerializer
+
++ (NSDictionary<NSString *, id> *)serialize:(DBFILEREQUESTSCountFileRequestsError *)valueObj {
+  NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
+
+  if ([valueObj isDisabledForTeam]) {
+    jsonDict[@".tag"] = @"disabled_for_team";
+  } else if ([valueObj isOther]) {
+    jsonDict[@".tag"] = @"other";
+  } else {
+    jsonDict[@".tag"] = @"other";
+  }
+
+  return jsonDict;
+}
+
++ (DBFILEREQUESTSCountFileRequestsError *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
+  NSString *tag = valueDict[@".tag"];
+
+  if ([tag isEqualToString:@"disabled_for_team"]) {
+    return [[DBFILEREQUESTSCountFileRequestsError alloc] initWithDisabledForTeam];
+  } else if ([tag isEqualToString:@"other"]) {
+    return [[DBFILEREQUESTSCountFileRequestsError alloc] initWithOther];
+  } else {
+    return [[DBFILEREQUESTSCountFileRequestsError alloc] initWithOther];
+  }
+}
+
+@end
+
+#import "DBFILEREQUESTSCountFileRequestsResult.h"
+#import "DBStoneSerializers.h"
+#import "DBStoneValidators.h"
+
+#pragma mark - API Object
+
+@implementation DBFILEREQUESTSCountFileRequestsResult
+
+#pragma mark - Constructors
+
+- (instancetype)initWithFileRequestCount:(NSNumber *)fileRequestCount {
+  [DBStoneValidators nonnullValidator:nil](fileRequestCount);
+
+  self = [super init];
+  if (self) {
+    _fileRequestCount = fileRequestCount;
+  }
+  return self;
+}
+
+#pragma mark - Serialization methods
+
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
+  return [DBFILEREQUESTSCountFileRequestsResultSerializer serialize:instance];
+}
+
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
+  return [DBFILEREQUESTSCountFileRequestsResultSerializer deserialize:dict];
+}
+
+#pragma mark - Debug Description method
+
+- (NSString *)debugDescription {
+  return [[DBFILEREQUESTSCountFileRequestsResultSerializer serialize:self] description];
+}
+
+#pragma mark - Copyable method
+
+- (instancetype)copyWithZone:(NSZone *)zone {
+#pragma unused(zone)
+  /// object is immutable
+  return self;
+}
+
+#pragma mark - Hash method
+
+- (NSUInteger)hash {
+  NSUInteger prime = 31;
+  NSUInteger result = 1;
+
+  result = prime * result + [self.fileRequestCount hash];
+
+  return prime * result;
+}
+
+#pragma mark - Equality method
+
+- (BOOL)isEqual:(id)other {
+  if (other == self) {
+    return YES;
+  }
+  if (!other || ![other isKindOfClass:[self class]]) {
+    return NO;
+  }
+  return [self isEqualToCountFileRequestsResult:other];
+}
+
+- (BOOL)isEqualToCountFileRequestsResult:(DBFILEREQUESTSCountFileRequestsResult *)aCountFileRequestsResult {
+  if (self == aCountFileRequestsResult) {
+    return YES;
+  }
+  if (![self.fileRequestCount isEqual:aCountFileRequestsResult.fileRequestCount]) {
+    return NO;
+  }
+  return YES;
+}
+
+@end
+
+#pragma mark - Serializer Object
+
+@implementation DBFILEREQUESTSCountFileRequestsResultSerializer
+
++ (NSDictionary<NSString *, id> *)serialize:(DBFILEREQUESTSCountFileRequestsResult *)valueObj {
+  NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
+
+  jsonDict[@"file_request_count"] = valueObj.fileRequestCount;
+
+  return jsonDict;
+}
+
++ (DBFILEREQUESTSCountFileRequestsResult *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
+  NSNumber *fileRequestCount = valueDict[@"file_request_count"];
+
+  return [[DBFILEREQUESTSCountFileRequestsResult alloc] initWithFileRequestCount:fileRequestCount];
+}
+
+@end
+
+#import "DBFILEREQUESTSCreateFileRequestArgs.h"
+#import "DBFILEREQUESTSFileRequestDeadline.h"
+#import "DBStoneSerializers.h"
+#import "DBStoneValidators.h"
+
+#pragma mark - API Object
+
+@implementation DBFILEREQUESTSCreateFileRequestArgs
+
+#pragma mark - Constructors
+
+- (instancetype)initWithTitle:(NSString *)title
+                  destination:(NSString *)destination
+                     deadline:(DBFILEREQUESTSFileRequestDeadline *)deadline
+                         open:(NSNumber *)open
+                 description_:(NSString *)description_ {
+  [DBStoneValidators nonnullValidator:[DBStoneValidators stringValidator:@(1) maxLength:nil pattern:nil]](title);
+  [DBStoneValidators nonnullValidator:[DBStoneValidators stringValidator:nil maxLength:nil
+                                                                 pattern:@"/(.|[\\r\\n])*"]](destination);
+
+  self = [super init];
+  if (self) {
+    _title = title;
+    _destination = destination;
+    _deadline = deadline;
+    _open = open ?: @YES;
+    _description_ = description_;
+  }
+  return self;
+}
+
+- (instancetype)initWithTitle:(NSString *)title destination:(NSString *)destination {
+  return [self initWithTitle:title destination:destination deadline:nil open:nil description_:nil];
+}
+
+#pragma mark - Serialization methods
+
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
+  return [DBFILEREQUESTSCreateFileRequestArgsSerializer serialize:instance];
+}
+
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
+  return [DBFILEREQUESTSCreateFileRequestArgsSerializer deserialize:dict];
+}
+
+#pragma mark - Debug Description method
+
+- (NSString *)debugDescription {
+  return [[DBFILEREQUESTSCreateFileRequestArgsSerializer serialize:self] description];
+}
+
+#pragma mark - Copyable method
+
+- (instancetype)copyWithZone:(NSZone *)zone {
+#pragma unused(zone)
+  /// object is immutable
+  return self;
+}
+
+#pragma mark - Hash method
+
+- (NSUInteger)hash {
+  NSUInteger prime = 31;
+  NSUInteger result = 1;
+
+  result = prime * result + [self.title hash];
+  result = prime * result + [self.destination hash];
+  if (self.deadline != nil) {
+    result = prime * result + [self.deadline hash];
+  }
+  result = prime * result + [self.open hash];
+  if (self.description_ != nil) {
+    result = prime * result + [self.description_ hash];
+  }
+
+  return prime * result;
+}
+
+#pragma mark - Equality method
+
+- (BOOL)isEqual:(id)other {
+  if (other == self) {
+    return YES;
+  }
+  if (!other || ![other isKindOfClass:[self class]]) {
+    return NO;
+  }
+  return [self isEqualToCreateFileRequestArgs:other];
+}
+
+- (BOOL)isEqualToCreateFileRequestArgs:(DBFILEREQUESTSCreateFileRequestArgs *)aCreateFileRequestArgs {
+  if (self == aCreateFileRequestArgs) {
+    return YES;
+  }
+  if (![self.title isEqual:aCreateFileRequestArgs.title]) {
+    return NO;
+  }
+  if (![self.destination isEqual:aCreateFileRequestArgs.destination]) {
+    return NO;
+  }
+  if (self.deadline) {
+    if (![self.deadline isEqual:aCreateFileRequestArgs.deadline]) {
+      return NO;
+    }
+  }
+  if (![self.open isEqual:aCreateFileRequestArgs.open]) {
+    return NO;
+  }
+  if (self.description_) {
+    if (![self.description_ isEqual:aCreateFileRequestArgs.description_]) {
+      return NO;
+    }
+  }
+  return YES;
+}
+
+@end
+
+#pragma mark - Serializer Object
+
+@implementation DBFILEREQUESTSCreateFileRequestArgsSerializer
+
++ (NSDictionary<NSString *, id> *)serialize:(DBFILEREQUESTSCreateFileRequestArgs *)valueObj {
+  NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
+
+  jsonDict[@"title"] = valueObj.title;
+  jsonDict[@"destination"] = valueObj.destination;
+  if (valueObj.deadline) {
+    jsonDict[@"deadline"] = [DBFILEREQUESTSFileRequestDeadlineSerializer serialize:valueObj.deadline];
+  }
+  jsonDict[@"open"] = valueObj.open;
+  if (valueObj.description_) {
+    jsonDict[@"description"] = valueObj.description_;
+  }
+
+  return jsonDict;
+}
+
++ (DBFILEREQUESTSCreateFileRequestArgs *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
+  NSString *title = valueDict[@"title"];
+  NSString *destination = valueDict[@"destination"];
+  DBFILEREQUESTSFileRequestDeadline *deadline =
+      valueDict[@"deadline"] ? [DBFILEREQUESTSFileRequestDeadlineSerializer deserialize:valueDict[@"deadline"]] : nil;
+  NSNumber *open = valueDict[@"open"] ?: @YES;
+  NSString *description_ = valueDict[@"description"] ?: nil;
+
+  return [[DBFILEREQUESTSCreateFileRequestArgs alloc] initWithTitle:title
+                                                        destination:destination
+                                                           deadline:deadline
+                                                               open:open
+                                                       description_:description_];
 }
 
 @end
@@ -433,17 +703,17 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBFILEREQUESTSFileRequestErrorSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBFILEREQUESTSFileRequestErrorSerializer deserialize:dict];
 }
 
-#pragma mark - Description method
+#pragma mark - Debug Description method
 
-- (NSString *)description {
+- (NSString *)debugDescription {
   return [[DBFILEREQUESTSFileRequestErrorSerializer serialize:self] description];
 }
 
@@ -464,20 +734,28 @@
   switch (_tag) {
   case DBFILEREQUESTSFileRequestErrorDisabledForTeam:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBFILEREQUESTSFileRequestErrorOther:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBFILEREQUESTSFileRequestErrorNotFound:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBFILEREQUESTSFileRequestErrorNotAFolder:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBFILEREQUESTSFileRequestErrorAppLacksAccess:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBFILEREQUESTSFileRequestErrorNoPermission:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBFILEREQUESTSFileRequestErrorEmailUnverified:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBFILEREQUESTSFileRequestErrorValidationError:
     result = prime * result + [[self tagName] hash];
+    break;
   }
 
   return prime * result;
@@ -529,7 +807,7 @@
 
 @implementation DBFILEREQUESTSFileRequestErrorSerializer
 
-+ (NSDictionary *)serialize:(DBFILEREQUESTSFileRequestError *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBFILEREQUESTSFileRequestError *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isDisabledForTeam]) {
@@ -552,10 +830,10 @@
     jsonDict[@".tag"] = @"other";
   }
 
-  return [jsonDict count] > 0 ? jsonDict : nil;
+  return jsonDict;
 }
 
-+ (DBFILEREQUESTSFileRequestError *)deserialize:(NSDictionary *)valueDict {
++ (DBFILEREQUESTSFileRequestError *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"disabled_for_team"]) {
@@ -745,17 +1023,17 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBFILEREQUESTSCreateFileRequestErrorSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBFILEREQUESTSCreateFileRequestErrorSerializer deserialize:dict];
 }
 
-#pragma mark - Description method
+#pragma mark - Debug Description method
 
-- (NSString *)description {
+- (NSString *)debugDescription {
   return [[DBFILEREQUESTSCreateFileRequestErrorSerializer serialize:self] description];
 }
 
@@ -776,24 +1054,34 @@
   switch (_tag) {
   case DBFILEREQUESTSCreateFileRequestErrorDisabledForTeam:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBFILEREQUESTSCreateFileRequestErrorOther:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBFILEREQUESTSCreateFileRequestErrorNotFound:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBFILEREQUESTSCreateFileRequestErrorNotAFolder:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBFILEREQUESTSCreateFileRequestErrorAppLacksAccess:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBFILEREQUESTSCreateFileRequestErrorNoPermission:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBFILEREQUESTSCreateFileRequestErrorEmailUnverified:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBFILEREQUESTSCreateFileRequestErrorValidationError:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBFILEREQUESTSCreateFileRequestErrorInvalidLocation:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBFILEREQUESTSCreateFileRequestErrorRateLimit:
     result = prime * result + [[self tagName] hash];
+    break;
   }
 
   return prime * result;
@@ -849,7 +1137,7 @@
 
 @implementation DBFILEREQUESTSCreateFileRequestErrorSerializer
 
-+ (NSDictionary *)serialize:(DBFILEREQUESTSCreateFileRequestError *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBFILEREQUESTSCreateFileRequestError *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isDisabledForTeam]) {
@@ -876,10 +1164,10 @@
     jsonDict[@".tag"] = @"other";
   }
 
-  return [jsonDict count] > 0 ? jsonDict : nil;
+  return jsonDict;
 }
 
-+ (DBFILEREQUESTSCreateFileRequestError *)deserialize:(NSDictionary *)valueDict {
++ (DBFILEREQUESTSCreateFileRequestError *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"disabled_for_team"]) {
@@ -909,6 +1197,948 @@
 
 @end
 
+#import "DBFILEREQUESTSDeleteAllClosedFileRequestsError.h"
+#import "DBFILEREQUESTSFileRequestError.h"
+#import "DBStoneSerializers.h"
+#import "DBStoneValidators.h"
+
+#pragma mark - API Object
+
+@implementation DBFILEREQUESTSDeleteAllClosedFileRequestsError
+
+#pragma mark - Constructors
+
+- (instancetype)initWithDisabledForTeam {
+  self = [super init];
+  if (self) {
+    _tag = DBFILEREQUESTSDeleteAllClosedFileRequestsErrorDisabledForTeam;
+  }
+  return self;
+}
+
+- (instancetype)initWithOther {
+  self = [super init];
+  if (self) {
+    _tag = DBFILEREQUESTSDeleteAllClosedFileRequestsErrorOther;
+  }
+  return self;
+}
+
+- (instancetype)initWithNotFound {
+  self = [super init];
+  if (self) {
+    _tag = DBFILEREQUESTSDeleteAllClosedFileRequestsErrorNotFound;
+  }
+  return self;
+}
+
+- (instancetype)initWithNotAFolder {
+  self = [super init];
+  if (self) {
+    _tag = DBFILEREQUESTSDeleteAllClosedFileRequestsErrorNotAFolder;
+  }
+  return self;
+}
+
+- (instancetype)initWithAppLacksAccess {
+  self = [super init];
+  if (self) {
+    _tag = DBFILEREQUESTSDeleteAllClosedFileRequestsErrorAppLacksAccess;
+  }
+  return self;
+}
+
+- (instancetype)initWithNoPermission {
+  self = [super init];
+  if (self) {
+    _tag = DBFILEREQUESTSDeleteAllClosedFileRequestsErrorNoPermission;
+  }
+  return self;
+}
+
+- (instancetype)initWithEmailUnverified {
+  self = [super init];
+  if (self) {
+    _tag = DBFILEREQUESTSDeleteAllClosedFileRequestsErrorEmailUnverified;
+  }
+  return self;
+}
+
+- (instancetype)initWithValidationError {
+  self = [super init];
+  if (self) {
+    _tag = DBFILEREQUESTSDeleteAllClosedFileRequestsErrorValidationError;
+  }
+  return self;
+}
+
+#pragma mark - Instance field accessors
+
+#pragma mark - Tag state methods
+
+- (BOOL)isDisabledForTeam {
+  return _tag == DBFILEREQUESTSDeleteAllClosedFileRequestsErrorDisabledForTeam;
+}
+
+- (BOOL)isOther {
+  return _tag == DBFILEREQUESTSDeleteAllClosedFileRequestsErrorOther;
+}
+
+- (BOOL)isNotFound {
+  return _tag == DBFILEREQUESTSDeleteAllClosedFileRequestsErrorNotFound;
+}
+
+- (BOOL)isNotAFolder {
+  return _tag == DBFILEREQUESTSDeleteAllClosedFileRequestsErrorNotAFolder;
+}
+
+- (BOOL)isAppLacksAccess {
+  return _tag == DBFILEREQUESTSDeleteAllClosedFileRequestsErrorAppLacksAccess;
+}
+
+- (BOOL)isNoPermission {
+  return _tag == DBFILEREQUESTSDeleteAllClosedFileRequestsErrorNoPermission;
+}
+
+- (BOOL)isEmailUnverified {
+  return _tag == DBFILEREQUESTSDeleteAllClosedFileRequestsErrorEmailUnverified;
+}
+
+- (BOOL)isValidationError {
+  return _tag == DBFILEREQUESTSDeleteAllClosedFileRequestsErrorValidationError;
+}
+
+- (NSString *)tagName {
+  switch (_tag) {
+  case DBFILEREQUESTSDeleteAllClosedFileRequestsErrorDisabledForTeam:
+    return @"DBFILEREQUESTSDeleteAllClosedFileRequestsErrorDisabledForTeam";
+  case DBFILEREQUESTSDeleteAllClosedFileRequestsErrorOther:
+    return @"DBFILEREQUESTSDeleteAllClosedFileRequestsErrorOther";
+  case DBFILEREQUESTSDeleteAllClosedFileRequestsErrorNotFound:
+    return @"DBFILEREQUESTSDeleteAllClosedFileRequestsErrorNotFound";
+  case DBFILEREQUESTSDeleteAllClosedFileRequestsErrorNotAFolder:
+    return @"DBFILEREQUESTSDeleteAllClosedFileRequestsErrorNotAFolder";
+  case DBFILEREQUESTSDeleteAllClosedFileRequestsErrorAppLacksAccess:
+    return @"DBFILEREQUESTSDeleteAllClosedFileRequestsErrorAppLacksAccess";
+  case DBFILEREQUESTSDeleteAllClosedFileRequestsErrorNoPermission:
+    return @"DBFILEREQUESTSDeleteAllClosedFileRequestsErrorNoPermission";
+  case DBFILEREQUESTSDeleteAllClosedFileRequestsErrorEmailUnverified:
+    return @"DBFILEREQUESTSDeleteAllClosedFileRequestsErrorEmailUnverified";
+  case DBFILEREQUESTSDeleteAllClosedFileRequestsErrorValidationError:
+    return @"DBFILEREQUESTSDeleteAllClosedFileRequestsErrorValidationError";
+  }
+
+  @throw([NSException exceptionWithName:@"InvalidTag" reason:@"Tag has an unknown value." userInfo:nil]);
+}
+
+#pragma mark - Serialization methods
+
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
+  return [DBFILEREQUESTSDeleteAllClosedFileRequestsErrorSerializer serialize:instance];
+}
+
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
+  return [DBFILEREQUESTSDeleteAllClosedFileRequestsErrorSerializer deserialize:dict];
+}
+
+#pragma mark - Debug Description method
+
+- (NSString *)debugDescription {
+  return [[DBFILEREQUESTSDeleteAllClosedFileRequestsErrorSerializer serialize:self] description];
+}
+
+#pragma mark - Copyable method
+
+- (instancetype)copyWithZone:(NSZone *)zone {
+#pragma unused(zone)
+  /// object is immutable
+  return self;
+}
+
+#pragma mark - Hash method
+
+- (NSUInteger)hash {
+  NSUInteger prime = 31;
+  NSUInteger result = 1;
+
+  switch (_tag) {
+  case DBFILEREQUESTSDeleteAllClosedFileRequestsErrorDisabledForTeam:
+    result = prime * result + [[self tagName] hash];
+    break;
+  case DBFILEREQUESTSDeleteAllClosedFileRequestsErrorOther:
+    result = prime * result + [[self tagName] hash];
+    break;
+  case DBFILEREQUESTSDeleteAllClosedFileRequestsErrorNotFound:
+    result = prime * result + [[self tagName] hash];
+    break;
+  case DBFILEREQUESTSDeleteAllClosedFileRequestsErrorNotAFolder:
+    result = prime * result + [[self tagName] hash];
+    break;
+  case DBFILEREQUESTSDeleteAllClosedFileRequestsErrorAppLacksAccess:
+    result = prime * result + [[self tagName] hash];
+    break;
+  case DBFILEREQUESTSDeleteAllClosedFileRequestsErrorNoPermission:
+    result = prime * result + [[self tagName] hash];
+    break;
+  case DBFILEREQUESTSDeleteAllClosedFileRequestsErrorEmailUnverified:
+    result = prime * result + [[self tagName] hash];
+    break;
+  case DBFILEREQUESTSDeleteAllClosedFileRequestsErrorValidationError:
+    result = prime * result + [[self tagName] hash];
+    break;
+  }
+
+  return prime * result;
+}
+
+#pragma mark - Equality method
+
+- (BOOL)isEqual:(id)other {
+  if (other == self) {
+    return YES;
+  }
+  if (!other || ![other isKindOfClass:[self class]]) {
+    return NO;
+  }
+  return [self isEqualToDeleteAllClosedFileRequestsError:other];
+}
+
+- (BOOL)isEqualToDeleteAllClosedFileRequestsError:
+    (DBFILEREQUESTSDeleteAllClosedFileRequestsError *)aDeleteAllClosedFileRequestsError {
+  if (self == aDeleteAllClosedFileRequestsError) {
+    return YES;
+  }
+  if (self.tag != aDeleteAllClosedFileRequestsError.tag) {
+    return NO;
+  }
+  switch (_tag) {
+  case DBFILEREQUESTSDeleteAllClosedFileRequestsErrorDisabledForTeam:
+    return [[self tagName] isEqual:[aDeleteAllClosedFileRequestsError tagName]];
+  case DBFILEREQUESTSDeleteAllClosedFileRequestsErrorOther:
+    return [[self tagName] isEqual:[aDeleteAllClosedFileRequestsError tagName]];
+  case DBFILEREQUESTSDeleteAllClosedFileRequestsErrorNotFound:
+    return [[self tagName] isEqual:[aDeleteAllClosedFileRequestsError tagName]];
+  case DBFILEREQUESTSDeleteAllClosedFileRequestsErrorNotAFolder:
+    return [[self tagName] isEqual:[aDeleteAllClosedFileRequestsError tagName]];
+  case DBFILEREQUESTSDeleteAllClosedFileRequestsErrorAppLacksAccess:
+    return [[self tagName] isEqual:[aDeleteAllClosedFileRequestsError tagName]];
+  case DBFILEREQUESTSDeleteAllClosedFileRequestsErrorNoPermission:
+    return [[self tagName] isEqual:[aDeleteAllClosedFileRequestsError tagName]];
+  case DBFILEREQUESTSDeleteAllClosedFileRequestsErrorEmailUnverified:
+    return [[self tagName] isEqual:[aDeleteAllClosedFileRequestsError tagName]];
+  case DBFILEREQUESTSDeleteAllClosedFileRequestsErrorValidationError:
+    return [[self tagName] isEqual:[aDeleteAllClosedFileRequestsError tagName]];
+  }
+  return YES;
+}
+
+@end
+
+#pragma mark - Serializer Object
+
+@implementation DBFILEREQUESTSDeleteAllClosedFileRequestsErrorSerializer
+
++ (NSDictionary<NSString *, id> *)serialize:(DBFILEREQUESTSDeleteAllClosedFileRequestsError *)valueObj {
+  NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
+
+  if ([valueObj isDisabledForTeam]) {
+    jsonDict[@".tag"] = @"disabled_for_team";
+  } else if ([valueObj isOther]) {
+    jsonDict[@".tag"] = @"other";
+  } else if ([valueObj isNotFound]) {
+    jsonDict[@".tag"] = @"not_found";
+  } else if ([valueObj isNotAFolder]) {
+    jsonDict[@".tag"] = @"not_a_folder";
+  } else if ([valueObj isAppLacksAccess]) {
+    jsonDict[@".tag"] = @"app_lacks_access";
+  } else if ([valueObj isNoPermission]) {
+    jsonDict[@".tag"] = @"no_permission";
+  } else if ([valueObj isEmailUnverified]) {
+    jsonDict[@".tag"] = @"email_unverified";
+  } else if ([valueObj isValidationError]) {
+    jsonDict[@".tag"] = @"validation_error";
+  } else {
+    jsonDict[@".tag"] = @"other";
+  }
+
+  return jsonDict;
+}
+
++ (DBFILEREQUESTSDeleteAllClosedFileRequestsError *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
+  NSString *tag = valueDict[@".tag"];
+
+  if ([tag isEqualToString:@"disabled_for_team"]) {
+    return [[DBFILEREQUESTSDeleteAllClosedFileRequestsError alloc] initWithDisabledForTeam];
+  } else if ([tag isEqualToString:@"other"]) {
+    return [[DBFILEREQUESTSDeleteAllClosedFileRequestsError alloc] initWithOther];
+  } else if ([tag isEqualToString:@"not_found"]) {
+    return [[DBFILEREQUESTSDeleteAllClosedFileRequestsError alloc] initWithNotFound];
+  } else if ([tag isEqualToString:@"not_a_folder"]) {
+    return [[DBFILEREQUESTSDeleteAllClosedFileRequestsError alloc] initWithNotAFolder];
+  } else if ([tag isEqualToString:@"app_lacks_access"]) {
+    return [[DBFILEREQUESTSDeleteAllClosedFileRequestsError alloc] initWithAppLacksAccess];
+  } else if ([tag isEqualToString:@"no_permission"]) {
+    return [[DBFILEREQUESTSDeleteAllClosedFileRequestsError alloc] initWithNoPermission];
+  } else if ([tag isEqualToString:@"email_unverified"]) {
+    return [[DBFILEREQUESTSDeleteAllClosedFileRequestsError alloc] initWithEmailUnverified];
+  } else if ([tag isEqualToString:@"validation_error"]) {
+    return [[DBFILEREQUESTSDeleteAllClosedFileRequestsError alloc] initWithValidationError];
+  } else {
+    return [[DBFILEREQUESTSDeleteAllClosedFileRequestsError alloc] initWithOther];
+  }
+}
+
+@end
+
+#import "DBFILEREQUESTSDeleteAllClosedFileRequestsResult.h"
+#import "DBFILEREQUESTSFileRequest.h"
+#import "DBStoneSerializers.h"
+#import "DBStoneValidators.h"
+
+#pragma mark - API Object
+
+@implementation DBFILEREQUESTSDeleteAllClosedFileRequestsResult
+
+#pragma mark - Constructors
+
+- (instancetype)initWithFileRequests:(NSArray<DBFILEREQUESTSFileRequest *> *)fileRequests {
+  [DBStoneValidators
+   nonnullValidator:[DBStoneValidators arrayValidator:nil
+                                             maxItems:nil
+                                        itemValidator:[DBStoneValidators nonnullValidator:nil]]](fileRequests);
+
+  self = [super init];
+  if (self) {
+    _fileRequests = fileRequests;
+  }
+  return self;
+}
+
+#pragma mark - Serialization methods
+
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
+  return [DBFILEREQUESTSDeleteAllClosedFileRequestsResultSerializer serialize:instance];
+}
+
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
+  return [DBFILEREQUESTSDeleteAllClosedFileRequestsResultSerializer deserialize:dict];
+}
+
+#pragma mark - Debug Description method
+
+- (NSString *)debugDescription {
+  return [[DBFILEREQUESTSDeleteAllClosedFileRequestsResultSerializer serialize:self] description];
+}
+
+#pragma mark - Copyable method
+
+- (instancetype)copyWithZone:(NSZone *)zone {
+#pragma unused(zone)
+  /// object is immutable
+  return self;
+}
+
+#pragma mark - Hash method
+
+- (NSUInteger)hash {
+  NSUInteger prime = 31;
+  NSUInteger result = 1;
+
+  result = prime * result + [self.fileRequests hash];
+
+  return prime * result;
+}
+
+#pragma mark - Equality method
+
+- (BOOL)isEqual:(id)other {
+  if (other == self) {
+    return YES;
+  }
+  if (!other || ![other isKindOfClass:[self class]]) {
+    return NO;
+  }
+  return [self isEqualToDeleteAllClosedFileRequestsResult:other];
+}
+
+- (BOOL)isEqualToDeleteAllClosedFileRequestsResult:
+    (DBFILEREQUESTSDeleteAllClosedFileRequestsResult *)aDeleteAllClosedFileRequestsResult {
+  if (self == aDeleteAllClosedFileRequestsResult) {
+    return YES;
+  }
+  if (![self.fileRequests isEqual:aDeleteAllClosedFileRequestsResult.fileRequests]) {
+    return NO;
+  }
+  return YES;
+}
+
+@end
+
+#pragma mark - Serializer Object
+
+@implementation DBFILEREQUESTSDeleteAllClosedFileRequestsResultSerializer
+
++ (NSDictionary<NSString *, id> *)serialize:(DBFILEREQUESTSDeleteAllClosedFileRequestsResult *)valueObj {
+  NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
+
+  jsonDict[@"file_requests"] = [DBArraySerializer serialize:valueObj.fileRequests
+                                                  withBlock:^id(id elem0) {
+                                                    return [DBFILEREQUESTSFileRequestSerializer serialize:elem0];
+                                                  }];
+
+  return jsonDict;
+}
+
++ (DBFILEREQUESTSDeleteAllClosedFileRequestsResult *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
+  NSArray<DBFILEREQUESTSFileRequest *> *fileRequests =
+      [DBArraySerializer deserialize:valueDict[@"file_requests"]
+                           withBlock:^id(id elem0) {
+                             return [DBFILEREQUESTSFileRequestSerializer deserialize:elem0];
+                           }];
+
+  return [[DBFILEREQUESTSDeleteAllClosedFileRequestsResult alloc] initWithFileRequests:fileRequests];
+}
+
+@end
+
+#import "DBFILEREQUESTSDeleteFileRequestArgs.h"
+#import "DBStoneSerializers.h"
+#import "DBStoneValidators.h"
+
+#pragma mark - API Object
+
+@implementation DBFILEREQUESTSDeleteFileRequestArgs
+
+#pragma mark - Constructors
+
+- (instancetype)initWithIds:(NSArray<NSString *> *)ids {
+  [DBStoneValidators
+   nonnullValidator:[DBStoneValidators
+                        arrayValidator:nil
+                              maxItems:nil
+                         itemValidator:[DBStoneValidators
+                                           nonnullValidator:[DBStoneValidators stringValidator:@(1)
+                                                                                     maxLength:nil
+                                                                                       pattern:@"[-_0-9a-zA-Z]+"]]]](
+      ids);
+
+  self = [super init];
+  if (self) {
+    _ids = ids;
+  }
+  return self;
+}
+
+#pragma mark - Serialization methods
+
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
+  return [DBFILEREQUESTSDeleteFileRequestArgsSerializer serialize:instance];
+}
+
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
+  return [DBFILEREQUESTSDeleteFileRequestArgsSerializer deserialize:dict];
+}
+
+#pragma mark - Debug Description method
+
+- (NSString *)debugDescription {
+  return [[DBFILEREQUESTSDeleteFileRequestArgsSerializer serialize:self] description];
+}
+
+#pragma mark - Copyable method
+
+- (instancetype)copyWithZone:(NSZone *)zone {
+#pragma unused(zone)
+  /// object is immutable
+  return self;
+}
+
+#pragma mark - Hash method
+
+- (NSUInteger)hash {
+  NSUInteger prime = 31;
+  NSUInteger result = 1;
+
+  result = prime * result + [self.ids hash];
+
+  return prime * result;
+}
+
+#pragma mark - Equality method
+
+- (BOOL)isEqual:(id)other {
+  if (other == self) {
+    return YES;
+  }
+  if (!other || ![other isKindOfClass:[self class]]) {
+    return NO;
+  }
+  return [self isEqualToDeleteFileRequestArgs:other];
+}
+
+- (BOOL)isEqualToDeleteFileRequestArgs:(DBFILEREQUESTSDeleteFileRequestArgs *)aDeleteFileRequestArgs {
+  if (self == aDeleteFileRequestArgs) {
+    return YES;
+  }
+  if (![self.ids isEqual:aDeleteFileRequestArgs.ids]) {
+    return NO;
+  }
+  return YES;
+}
+
+@end
+
+#pragma mark - Serializer Object
+
+@implementation DBFILEREQUESTSDeleteFileRequestArgsSerializer
+
++ (NSDictionary<NSString *, id> *)serialize:(DBFILEREQUESTSDeleteFileRequestArgs *)valueObj {
+  NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
+
+  jsonDict[@"ids"] = [DBArraySerializer serialize:valueObj.ids
+                                        withBlock:^id(id elem0) {
+                                          return elem0;
+                                        }];
+
+  return jsonDict;
+}
+
++ (DBFILEREQUESTSDeleteFileRequestArgs *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
+  NSArray<NSString *> *ids = [DBArraySerializer deserialize:valueDict[@"ids"]
+                                                  withBlock:^id(id elem0) {
+                                                    return elem0;
+                                                  }];
+
+  return [[DBFILEREQUESTSDeleteFileRequestArgs alloc] initWithIds:ids];
+}
+
+@end
+
+#import "DBFILEREQUESTSDeleteFileRequestError.h"
+#import "DBFILEREQUESTSFileRequestError.h"
+#import "DBStoneSerializers.h"
+#import "DBStoneValidators.h"
+
+#pragma mark - API Object
+
+@implementation DBFILEREQUESTSDeleteFileRequestError
+
+#pragma mark - Constructors
+
+- (instancetype)initWithDisabledForTeam {
+  self = [super init];
+  if (self) {
+    _tag = DBFILEREQUESTSDeleteFileRequestErrorDisabledForTeam;
+  }
+  return self;
+}
+
+- (instancetype)initWithOther {
+  self = [super init];
+  if (self) {
+    _tag = DBFILEREQUESTSDeleteFileRequestErrorOther;
+  }
+  return self;
+}
+
+- (instancetype)initWithNotFound {
+  self = [super init];
+  if (self) {
+    _tag = DBFILEREQUESTSDeleteFileRequestErrorNotFound;
+  }
+  return self;
+}
+
+- (instancetype)initWithNotAFolder {
+  self = [super init];
+  if (self) {
+    _tag = DBFILEREQUESTSDeleteFileRequestErrorNotAFolder;
+  }
+  return self;
+}
+
+- (instancetype)initWithAppLacksAccess {
+  self = [super init];
+  if (self) {
+    _tag = DBFILEREQUESTSDeleteFileRequestErrorAppLacksAccess;
+  }
+  return self;
+}
+
+- (instancetype)initWithNoPermission {
+  self = [super init];
+  if (self) {
+    _tag = DBFILEREQUESTSDeleteFileRequestErrorNoPermission;
+  }
+  return self;
+}
+
+- (instancetype)initWithEmailUnverified {
+  self = [super init];
+  if (self) {
+    _tag = DBFILEREQUESTSDeleteFileRequestErrorEmailUnverified;
+  }
+  return self;
+}
+
+- (instancetype)initWithValidationError {
+  self = [super init];
+  if (self) {
+    _tag = DBFILEREQUESTSDeleteFileRequestErrorValidationError;
+  }
+  return self;
+}
+
+- (instancetype)initWithFileRequestOpen {
+  self = [super init];
+  if (self) {
+    _tag = DBFILEREQUESTSDeleteFileRequestErrorFileRequestOpen;
+  }
+  return self;
+}
+
+#pragma mark - Instance field accessors
+
+#pragma mark - Tag state methods
+
+- (BOOL)isDisabledForTeam {
+  return _tag == DBFILEREQUESTSDeleteFileRequestErrorDisabledForTeam;
+}
+
+- (BOOL)isOther {
+  return _tag == DBFILEREQUESTSDeleteFileRequestErrorOther;
+}
+
+- (BOOL)isNotFound {
+  return _tag == DBFILEREQUESTSDeleteFileRequestErrorNotFound;
+}
+
+- (BOOL)isNotAFolder {
+  return _tag == DBFILEREQUESTSDeleteFileRequestErrorNotAFolder;
+}
+
+- (BOOL)isAppLacksAccess {
+  return _tag == DBFILEREQUESTSDeleteFileRequestErrorAppLacksAccess;
+}
+
+- (BOOL)isNoPermission {
+  return _tag == DBFILEREQUESTSDeleteFileRequestErrorNoPermission;
+}
+
+- (BOOL)isEmailUnverified {
+  return _tag == DBFILEREQUESTSDeleteFileRequestErrorEmailUnverified;
+}
+
+- (BOOL)isValidationError {
+  return _tag == DBFILEREQUESTSDeleteFileRequestErrorValidationError;
+}
+
+- (BOOL)isFileRequestOpen {
+  return _tag == DBFILEREQUESTSDeleteFileRequestErrorFileRequestOpen;
+}
+
+- (NSString *)tagName {
+  switch (_tag) {
+  case DBFILEREQUESTSDeleteFileRequestErrorDisabledForTeam:
+    return @"DBFILEREQUESTSDeleteFileRequestErrorDisabledForTeam";
+  case DBFILEREQUESTSDeleteFileRequestErrorOther:
+    return @"DBFILEREQUESTSDeleteFileRequestErrorOther";
+  case DBFILEREQUESTSDeleteFileRequestErrorNotFound:
+    return @"DBFILEREQUESTSDeleteFileRequestErrorNotFound";
+  case DBFILEREQUESTSDeleteFileRequestErrorNotAFolder:
+    return @"DBFILEREQUESTSDeleteFileRequestErrorNotAFolder";
+  case DBFILEREQUESTSDeleteFileRequestErrorAppLacksAccess:
+    return @"DBFILEREQUESTSDeleteFileRequestErrorAppLacksAccess";
+  case DBFILEREQUESTSDeleteFileRequestErrorNoPermission:
+    return @"DBFILEREQUESTSDeleteFileRequestErrorNoPermission";
+  case DBFILEREQUESTSDeleteFileRequestErrorEmailUnverified:
+    return @"DBFILEREQUESTSDeleteFileRequestErrorEmailUnverified";
+  case DBFILEREQUESTSDeleteFileRequestErrorValidationError:
+    return @"DBFILEREQUESTSDeleteFileRequestErrorValidationError";
+  case DBFILEREQUESTSDeleteFileRequestErrorFileRequestOpen:
+    return @"DBFILEREQUESTSDeleteFileRequestErrorFileRequestOpen";
+  }
+
+  @throw([NSException exceptionWithName:@"InvalidTag" reason:@"Tag has an unknown value." userInfo:nil]);
+}
+
+#pragma mark - Serialization methods
+
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
+  return [DBFILEREQUESTSDeleteFileRequestErrorSerializer serialize:instance];
+}
+
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
+  return [DBFILEREQUESTSDeleteFileRequestErrorSerializer deserialize:dict];
+}
+
+#pragma mark - Debug Description method
+
+- (NSString *)debugDescription {
+  return [[DBFILEREQUESTSDeleteFileRequestErrorSerializer serialize:self] description];
+}
+
+#pragma mark - Copyable method
+
+- (instancetype)copyWithZone:(NSZone *)zone {
+#pragma unused(zone)
+  /// object is immutable
+  return self;
+}
+
+#pragma mark - Hash method
+
+- (NSUInteger)hash {
+  NSUInteger prime = 31;
+  NSUInteger result = 1;
+
+  switch (_tag) {
+  case DBFILEREQUESTSDeleteFileRequestErrorDisabledForTeam:
+    result = prime * result + [[self tagName] hash];
+    break;
+  case DBFILEREQUESTSDeleteFileRequestErrorOther:
+    result = prime * result + [[self tagName] hash];
+    break;
+  case DBFILEREQUESTSDeleteFileRequestErrorNotFound:
+    result = prime * result + [[self tagName] hash];
+    break;
+  case DBFILEREQUESTSDeleteFileRequestErrorNotAFolder:
+    result = prime * result + [[self tagName] hash];
+    break;
+  case DBFILEREQUESTSDeleteFileRequestErrorAppLacksAccess:
+    result = prime * result + [[self tagName] hash];
+    break;
+  case DBFILEREQUESTSDeleteFileRequestErrorNoPermission:
+    result = prime * result + [[self tagName] hash];
+    break;
+  case DBFILEREQUESTSDeleteFileRequestErrorEmailUnverified:
+    result = prime * result + [[self tagName] hash];
+    break;
+  case DBFILEREQUESTSDeleteFileRequestErrorValidationError:
+    result = prime * result + [[self tagName] hash];
+    break;
+  case DBFILEREQUESTSDeleteFileRequestErrorFileRequestOpen:
+    result = prime * result + [[self tagName] hash];
+    break;
+  }
+
+  return prime * result;
+}
+
+#pragma mark - Equality method
+
+- (BOOL)isEqual:(id)other {
+  if (other == self) {
+    return YES;
+  }
+  if (!other || ![other isKindOfClass:[self class]]) {
+    return NO;
+  }
+  return [self isEqualToDeleteFileRequestError:other];
+}
+
+- (BOOL)isEqualToDeleteFileRequestError:(DBFILEREQUESTSDeleteFileRequestError *)aDeleteFileRequestError {
+  if (self == aDeleteFileRequestError) {
+    return YES;
+  }
+  if (self.tag != aDeleteFileRequestError.tag) {
+    return NO;
+  }
+  switch (_tag) {
+  case DBFILEREQUESTSDeleteFileRequestErrorDisabledForTeam:
+    return [[self tagName] isEqual:[aDeleteFileRequestError tagName]];
+  case DBFILEREQUESTSDeleteFileRequestErrorOther:
+    return [[self tagName] isEqual:[aDeleteFileRequestError tagName]];
+  case DBFILEREQUESTSDeleteFileRequestErrorNotFound:
+    return [[self tagName] isEqual:[aDeleteFileRequestError tagName]];
+  case DBFILEREQUESTSDeleteFileRequestErrorNotAFolder:
+    return [[self tagName] isEqual:[aDeleteFileRequestError tagName]];
+  case DBFILEREQUESTSDeleteFileRequestErrorAppLacksAccess:
+    return [[self tagName] isEqual:[aDeleteFileRequestError tagName]];
+  case DBFILEREQUESTSDeleteFileRequestErrorNoPermission:
+    return [[self tagName] isEqual:[aDeleteFileRequestError tagName]];
+  case DBFILEREQUESTSDeleteFileRequestErrorEmailUnverified:
+    return [[self tagName] isEqual:[aDeleteFileRequestError tagName]];
+  case DBFILEREQUESTSDeleteFileRequestErrorValidationError:
+    return [[self tagName] isEqual:[aDeleteFileRequestError tagName]];
+  case DBFILEREQUESTSDeleteFileRequestErrorFileRequestOpen:
+    return [[self tagName] isEqual:[aDeleteFileRequestError tagName]];
+  }
+  return YES;
+}
+
+@end
+
+#pragma mark - Serializer Object
+
+@implementation DBFILEREQUESTSDeleteFileRequestErrorSerializer
+
++ (NSDictionary<NSString *, id> *)serialize:(DBFILEREQUESTSDeleteFileRequestError *)valueObj {
+  NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
+
+  if ([valueObj isDisabledForTeam]) {
+    jsonDict[@".tag"] = @"disabled_for_team";
+  } else if ([valueObj isOther]) {
+    jsonDict[@".tag"] = @"other";
+  } else if ([valueObj isNotFound]) {
+    jsonDict[@".tag"] = @"not_found";
+  } else if ([valueObj isNotAFolder]) {
+    jsonDict[@".tag"] = @"not_a_folder";
+  } else if ([valueObj isAppLacksAccess]) {
+    jsonDict[@".tag"] = @"app_lacks_access";
+  } else if ([valueObj isNoPermission]) {
+    jsonDict[@".tag"] = @"no_permission";
+  } else if ([valueObj isEmailUnverified]) {
+    jsonDict[@".tag"] = @"email_unverified";
+  } else if ([valueObj isValidationError]) {
+    jsonDict[@".tag"] = @"validation_error";
+  } else if ([valueObj isFileRequestOpen]) {
+    jsonDict[@".tag"] = @"file_request_open";
+  } else {
+    jsonDict[@".tag"] = @"other";
+  }
+
+  return jsonDict;
+}
+
++ (DBFILEREQUESTSDeleteFileRequestError *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
+  NSString *tag = valueDict[@".tag"];
+
+  if ([tag isEqualToString:@"disabled_for_team"]) {
+    return [[DBFILEREQUESTSDeleteFileRequestError alloc] initWithDisabledForTeam];
+  } else if ([tag isEqualToString:@"other"]) {
+    return [[DBFILEREQUESTSDeleteFileRequestError alloc] initWithOther];
+  } else if ([tag isEqualToString:@"not_found"]) {
+    return [[DBFILEREQUESTSDeleteFileRequestError alloc] initWithNotFound];
+  } else if ([tag isEqualToString:@"not_a_folder"]) {
+    return [[DBFILEREQUESTSDeleteFileRequestError alloc] initWithNotAFolder];
+  } else if ([tag isEqualToString:@"app_lacks_access"]) {
+    return [[DBFILEREQUESTSDeleteFileRequestError alloc] initWithAppLacksAccess];
+  } else if ([tag isEqualToString:@"no_permission"]) {
+    return [[DBFILEREQUESTSDeleteFileRequestError alloc] initWithNoPermission];
+  } else if ([tag isEqualToString:@"email_unverified"]) {
+    return [[DBFILEREQUESTSDeleteFileRequestError alloc] initWithEmailUnverified];
+  } else if ([tag isEqualToString:@"validation_error"]) {
+    return [[DBFILEREQUESTSDeleteFileRequestError alloc] initWithValidationError];
+  } else if ([tag isEqualToString:@"file_request_open"]) {
+    return [[DBFILEREQUESTSDeleteFileRequestError alloc] initWithFileRequestOpen];
+  } else {
+    return [[DBFILEREQUESTSDeleteFileRequestError alloc] initWithOther];
+  }
+}
+
+@end
+
+#import "DBFILEREQUESTSDeleteFileRequestsResult.h"
+#import "DBFILEREQUESTSFileRequest.h"
+#import "DBStoneSerializers.h"
+#import "DBStoneValidators.h"
+
+#pragma mark - API Object
+
+@implementation DBFILEREQUESTSDeleteFileRequestsResult
+
+#pragma mark - Constructors
+
+- (instancetype)initWithFileRequests:(NSArray<DBFILEREQUESTSFileRequest *> *)fileRequests {
+  [DBStoneValidators
+   nonnullValidator:[DBStoneValidators arrayValidator:nil
+                                             maxItems:nil
+                                        itemValidator:[DBStoneValidators nonnullValidator:nil]]](fileRequests);
+
+  self = [super init];
+  if (self) {
+    _fileRequests = fileRequests;
+  }
+  return self;
+}
+
+#pragma mark - Serialization methods
+
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
+  return [DBFILEREQUESTSDeleteFileRequestsResultSerializer serialize:instance];
+}
+
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
+  return [DBFILEREQUESTSDeleteFileRequestsResultSerializer deserialize:dict];
+}
+
+#pragma mark - Debug Description method
+
+- (NSString *)debugDescription {
+  return [[DBFILEREQUESTSDeleteFileRequestsResultSerializer serialize:self] description];
+}
+
+#pragma mark - Copyable method
+
+- (instancetype)copyWithZone:(NSZone *)zone {
+#pragma unused(zone)
+  /// object is immutable
+  return self;
+}
+
+#pragma mark - Hash method
+
+- (NSUInteger)hash {
+  NSUInteger prime = 31;
+  NSUInteger result = 1;
+
+  result = prime * result + [self.fileRequests hash];
+
+  return prime * result;
+}
+
+#pragma mark - Equality method
+
+- (BOOL)isEqual:(id)other {
+  if (other == self) {
+    return YES;
+  }
+  if (!other || ![other isKindOfClass:[self class]]) {
+    return NO;
+  }
+  return [self isEqualToDeleteFileRequestsResult:other];
+}
+
+- (BOOL)isEqualToDeleteFileRequestsResult:(DBFILEREQUESTSDeleteFileRequestsResult *)aDeleteFileRequestsResult {
+  if (self == aDeleteFileRequestsResult) {
+    return YES;
+  }
+  if (![self.fileRequests isEqual:aDeleteFileRequestsResult.fileRequests]) {
+    return NO;
+  }
+  return YES;
+}
+
+@end
+
+#pragma mark - Serializer Object
+
+@implementation DBFILEREQUESTSDeleteFileRequestsResultSerializer
+
++ (NSDictionary<NSString *, id> *)serialize:(DBFILEREQUESTSDeleteFileRequestsResult *)valueObj {
+  NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
+
+  jsonDict[@"file_requests"] = [DBArraySerializer serialize:valueObj.fileRequests
+                                                  withBlock:^id(id elem0) {
+                                                    return [DBFILEREQUESTSFileRequestSerializer serialize:elem0];
+                                                  }];
+
+  return jsonDict;
+}
+
++ (DBFILEREQUESTSDeleteFileRequestsResult *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
+  NSArray<DBFILEREQUESTSFileRequest *> *fileRequests =
+      [DBArraySerializer deserialize:valueDict[@"file_requests"]
+                           withBlock:^id(id elem0) {
+                             return [DBFILEREQUESTSFileRequestSerializer deserialize:elem0];
+                           }];
+
+  return [[DBFILEREQUESTSDeleteFileRequestsResult alloc] initWithFileRequests:fileRequests];
+}
+
+@end
+
 #import "DBFILEREQUESTSFileRequest.h"
 #import "DBFILEREQUESTSFileRequestDeadline.h"
 #import "DBStoneSerializers.h"
@@ -927,16 +2157,17 @@
                      isOpen:(NSNumber *)isOpen
                   fileCount:(NSNumber *)fileCount
                 destination:(NSString *)destination
-                   deadline:(DBFILEREQUESTSFileRequestDeadline *)deadline {
-  [DBStoneValidators
-   nonnullValidator:[DBStoneValidators stringValidator:@(1) maxLength:nil pattern:@"[-_0-9a-zA-Z]+"]](id_);
+                   deadline:(DBFILEREQUESTSFileRequestDeadline *)deadline
+               description_:(NSString *)description_ {
+  [DBStoneValidators nonnullValidator:[DBStoneValidators stringValidator:@(1) maxLength:nil
+                                                                 pattern:@"[-_0-9a-zA-Z]+"]](id_);
   [DBStoneValidators nonnullValidator:[DBStoneValidators stringValidator:@(1) maxLength:nil pattern:nil]](url);
   [DBStoneValidators nonnullValidator:[DBStoneValidators stringValidator:@(1) maxLength:nil pattern:nil]](title);
   [DBStoneValidators nonnullValidator:nil](created);
   [DBStoneValidators nonnullValidator:nil](isOpen);
   [DBStoneValidators nonnullValidator:nil](fileCount);
-  [DBStoneValidators
-   nullableValidator:[DBStoneValidators stringValidator:nil maxLength:nil pattern:@"/(.|[\\r\\n])*"]](destination);
+  [DBStoneValidators nullableValidator:[DBStoneValidators stringValidator:nil maxLength:nil
+                                                                  pattern:@"/(.|[\\r\\n])*"]](destination);
 
   self = [super init];
   if (self) {
@@ -948,6 +2179,7 @@
     _deadline = deadline;
     _isOpen = isOpen;
     _fileCount = fileCount;
+    _description_ = description_;
   }
   return self;
 }
@@ -965,22 +2197,23 @@
                     isOpen:isOpen
                  fileCount:fileCount
                destination:nil
-                  deadline:nil];
+                  deadline:nil
+              description_:nil];
 }
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBFILEREQUESTSFileRequestSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBFILEREQUESTSFileRequestSerializer deserialize:dict];
 }
 
-#pragma mark - Description method
+#pragma mark - Debug Description method
 
-- (NSString *)description {
+- (NSString *)debugDescription {
   return [[DBFILEREQUESTSFileRequestSerializer serialize:self] description];
 }
 
@@ -1009,6 +2242,9 @@
   }
   if (self.deadline != nil) {
     result = prime * result + [self.deadline hash];
+  }
+  if (self.description_ != nil) {
+    result = prime * result + [self.description_ hash];
   }
 
   return prime * result;
@@ -1058,6 +2294,11 @@
       return NO;
     }
   }
+  if (self.description_) {
+    if (![self.description_ isEqual:aFileRequest.description_]) {
+      return NO;
+    }
+  }
   return YES;
 }
 
@@ -1067,7 +2308,7 @@
 
 @implementation DBFILEREQUESTSFileRequestSerializer
 
-+ (NSDictionary *)serialize:(DBFILEREQUESTSFileRequest *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBFILEREQUESTSFileRequest *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"id"] = valueObj.id_;
@@ -1082,11 +2323,14 @@
   if (valueObj.deadline) {
     jsonDict[@"deadline"] = [DBFILEREQUESTSFileRequestDeadlineSerializer serialize:valueObj.deadline];
   }
+  if (valueObj.description_) {
+    jsonDict[@"description"] = valueObj.description_;
+  }
 
-  return [jsonDict count] > 0 ? jsonDict : nil;
+  return jsonDict;
 }
 
-+ (DBFILEREQUESTSFileRequest *)deserialize:(NSDictionary *)valueDict {
++ (DBFILEREQUESTSFileRequest *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *id_ = valueDict[@"id"];
   NSString *url = valueDict[@"url"];
   NSString *title = valueDict[@"title"];
@@ -1096,6 +2340,7 @@
   NSString *destination = valueDict[@"destination"] ?: nil;
   DBFILEREQUESTSFileRequestDeadline *deadline =
       valueDict[@"deadline"] ? [DBFILEREQUESTSFileRequestDeadlineSerializer deserialize:valueDict[@"deadline"]] : nil;
+  NSString *description_ = valueDict[@"description"] ?: nil;
 
   return [[DBFILEREQUESTSFileRequest alloc] initWithId_:id_
                                                     url:url
@@ -1104,7 +2349,8 @@
                                                  isOpen:isOpen
                                               fileCount:fileCount
                                             destination:destination
-                                               deadline:deadline];
+                                               deadline:deadline
+                                           description_:description_];
 }
 
 @end
@@ -1137,17 +2383,17 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBFILEREQUESTSFileRequestDeadlineSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBFILEREQUESTSFileRequestDeadlineSerializer deserialize:dict];
 }
 
-#pragma mark - Description method
+#pragma mark - Debug Description method
 
-- (NSString *)description {
+- (NSString *)debugDescription {
   return [[DBFILEREQUESTSFileRequestDeadlineSerializer serialize:self] description];
 }
 
@@ -1206,7 +2452,7 @@
 
 @implementation DBFILEREQUESTSFileRequestDeadlineSerializer
 
-+ (NSDictionary *)serialize:(DBFILEREQUESTSFileRequestDeadline *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBFILEREQUESTSFileRequestDeadline *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"deadline"] = [DBNSDateSerializer serialize:valueObj.deadline dateFormat:@"%Y-%m-%dT%H:%M:%SZ"];
@@ -1214,10 +2460,10 @@
     jsonDict[@"allow_late_uploads"] = [DBFILEREQUESTSGracePeriodSerializer serialize:valueObj.allowLateUploads];
   }
 
-  return [jsonDict count] > 0 ? jsonDict : nil;
+  return jsonDict;
 }
 
-+ (DBFILEREQUESTSFileRequestDeadline *)deserialize:(NSDictionary *)valueDict {
++ (DBFILEREQUESTSFileRequestDeadline *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSDate *deadline = [DBNSDateSerializer deserialize:valueDict[@"deadline"] dateFormat:@"%Y-%m-%dT%H:%M:%SZ"];
   DBFILEREQUESTSGracePeriod *allowLateUploads =
       valueDict[@"allow_late_uploads"]
@@ -1240,8 +2486,8 @@
 #pragma mark - Constructors
 
 - (instancetype)initWithId_:(NSString *)id_ {
-  [DBStoneValidators
-   nonnullValidator:[DBStoneValidators stringValidator:@(1) maxLength:nil pattern:@"[-_0-9a-zA-Z]+"]](id_);
+  [DBStoneValidators nonnullValidator:[DBStoneValidators stringValidator:@(1) maxLength:nil
+                                                                 pattern:@"[-_0-9a-zA-Z]+"]](id_);
 
   self = [super init];
   if (self) {
@@ -1252,17 +2498,17 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBFILEREQUESTSGetFileRequestArgsSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBFILEREQUESTSGetFileRequestArgsSerializer deserialize:dict];
 }
 
-#pragma mark - Description method
+#pragma mark - Debug Description method
 
-- (NSString *)description {
+- (NSString *)debugDescription {
   return [[DBFILEREQUESTSGetFileRequestArgsSerializer serialize:self] description];
 }
 
@@ -1313,15 +2559,15 @@
 
 @implementation DBFILEREQUESTSGetFileRequestArgsSerializer
 
-+ (NSDictionary *)serialize:(DBFILEREQUESTSGetFileRequestArgs *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBFILEREQUESTSGetFileRequestArgs *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"id"] = valueObj.id_;
 
-  return [jsonDict count] > 0 ? jsonDict : nil;
+  return jsonDict;
 }
 
-+ (DBFILEREQUESTSGetFileRequestArgs *)deserialize:(NSDictionary *)valueDict {
++ (DBFILEREQUESTSGetFileRequestArgs *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *id_ = valueDict[@"id"];
 
   return [[DBFILEREQUESTSGetFileRequestArgs alloc] initWithId_:id_];
@@ -1465,17 +2711,17 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBFILEREQUESTSGetFileRequestErrorSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBFILEREQUESTSGetFileRequestErrorSerializer deserialize:dict];
 }
 
-#pragma mark - Description method
+#pragma mark - Debug Description method
 
-- (NSString *)description {
+- (NSString *)debugDescription {
   return [[DBFILEREQUESTSGetFileRequestErrorSerializer serialize:self] description];
 }
 
@@ -1496,20 +2742,28 @@
   switch (_tag) {
   case DBFILEREQUESTSGetFileRequestErrorDisabledForTeam:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBFILEREQUESTSGetFileRequestErrorOther:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBFILEREQUESTSGetFileRequestErrorNotFound:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBFILEREQUESTSGetFileRequestErrorNotAFolder:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBFILEREQUESTSGetFileRequestErrorAppLacksAccess:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBFILEREQUESTSGetFileRequestErrorNoPermission:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBFILEREQUESTSGetFileRequestErrorEmailUnverified:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBFILEREQUESTSGetFileRequestErrorValidationError:
     result = prime * result + [[self tagName] hash];
+    break;
   }
 
   return prime * result;
@@ -1561,7 +2815,7 @@
 
 @implementation DBFILEREQUESTSGetFileRequestErrorSerializer
 
-+ (NSDictionary *)serialize:(DBFILEREQUESTSGetFileRequestError *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBFILEREQUESTSGetFileRequestError *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isDisabledForTeam]) {
@@ -1584,10 +2838,10 @@
     jsonDict[@".tag"] = @"other";
   }
 
-  return [jsonDict count] > 0 ? jsonDict : nil;
+  return jsonDict;
 }
 
-+ (DBFILEREQUESTSGetFileRequestError *)deserialize:(NSDictionary *)valueDict {
++ (DBFILEREQUESTSGetFileRequestError *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"disabled_for_team"]) {
@@ -1720,17 +2974,17 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBFILEREQUESTSGracePeriodSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBFILEREQUESTSGracePeriodSerializer deserialize:dict];
 }
 
-#pragma mark - Description method
+#pragma mark - Debug Description method
 
-- (NSString *)description {
+- (NSString *)debugDescription {
   return [[DBFILEREQUESTSGracePeriodSerializer serialize:self] description];
 }
 
@@ -1751,16 +3005,22 @@
   switch (_tag) {
   case DBFILEREQUESTSGracePeriodOneDay:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBFILEREQUESTSGracePeriodTwoDays:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBFILEREQUESTSGracePeriodSevenDays:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBFILEREQUESTSGracePeriodThirtyDays:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBFILEREQUESTSGracePeriodAlways:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBFILEREQUESTSGracePeriodOther:
     result = prime * result + [[self tagName] hash];
+    break;
   }
 
   return prime * result;
@@ -1808,7 +3068,7 @@
 
 @implementation DBFILEREQUESTSGracePeriodSerializer
 
-+ (NSDictionary *)serialize:(DBFILEREQUESTSGracePeriod *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBFILEREQUESTSGracePeriod *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isOneDay]) {
@@ -1827,10 +3087,10 @@
     jsonDict[@".tag"] = @"other";
   }
 
-  return [jsonDict count] > 0 ? jsonDict : nil;
+  return jsonDict;
 }
 
-+ (DBFILEREQUESTSGracePeriod *)deserialize:(NSDictionary *)valueDict {
++ (DBFILEREQUESTSGracePeriod *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"one_day"]) {
@@ -1847,6 +3107,385 @@
     return [[DBFILEREQUESTSGracePeriod alloc] initWithOther];
   } else {
     return [[DBFILEREQUESTSGracePeriod alloc] initWithOther];
+  }
+}
+
+@end
+
+#import "DBFILEREQUESTSListFileRequestsArg.h"
+#import "DBStoneSerializers.h"
+#import "DBStoneValidators.h"
+
+#pragma mark - API Object
+
+@implementation DBFILEREQUESTSListFileRequestsArg
+
+#pragma mark - Constructors
+
+- (instancetype)initWithLimit:(NSNumber *)limit {
+
+  self = [super init];
+  if (self) {
+    _limit = limit ?: @(1000);
+  }
+  return self;
+}
+
+- (instancetype)initDefault {
+  return [self initWithLimit:nil];
+}
+
+#pragma mark - Serialization methods
+
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
+  return [DBFILEREQUESTSListFileRequestsArgSerializer serialize:instance];
+}
+
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
+  return [DBFILEREQUESTSListFileRequestsArgSerializer deserialize:dict];
+}
+
+#pragma mark - Debug Description method
+
+- (NSString *)debugDescription {
+  return [[DBFILEREQUESTSListFileRequestsArgSerializer serialize:self] description];
+}
+
+#pragma mark - Copyable method
+
+- (instancetype)copyWithZone:(NSZone *)zone {
+#pragma unused(zone)
+  /// object is immutable
+  return self;
+}
+
+#pragma mark - Hash method
+
+- (NSUInteger)hash {
+  NSUInteger prime = 31;
+  NSUInteger result = 1;
+
+  result = prime * result + [self.limit hash];
+
+  return prime * result;
+}
+
+#pragma mark - Equality method
+
+- (BOOL)isEqual:(id)other {
+  if (other == self) {
+    return YES;
+  }
+  if (!other || ![other isKindOfClass:[self class]]) {
+    return NO;
+  }
+  return [self isEqualToListFileRequestsArg:other];
+}
+
+- (BOOL)isEqualToListFileRequestsArg:(DBFILEREQUESTSListFileRequestsArg *)aListFileRequestsArg {
+  if (self == aListFileRequestsArg) {
+    return YES;
+  }
+  if (![self.limit isEqual:aListFileRequestsArg.limit]) {
+    return NO;
+  }
+  return YES;
+}
+
+@end
+
+#pragma mark - Serializer Object
+
+@implementation DBFILEREQUESTSListFileRequestsArgSerializer
+
++ (NSDictionary<NSString *, id> *)serialize:(DBFILEREQUESTSListFileRequestsArg *)valueObj {
+  NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
+
+  jsonDict[@"limit"] = valueObj.limit;
+
+  return jsonDict;
+}
+
++ (DBFILEREQUESTSListFileRequestsArg *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
+  NSNumber *limit = valueDict[@"limit"] ?: @(1000);
+
+  return [[DBFILEREQUESTSListFileRequestsArg alloc] initWithLimit:limit];
+}
+
+@end
+
+#import "DBFILEREQUESTSListFileRequestsContinueArg.h"
+#import "DBStoneSerializers.h"
+#import "DBStoneValidators.h"
+
+#pragma mark - API Object
+
+@implementation DBFILEREQUESTSListFileRequestsContinueArg
+
+#pragma mark - Constructors
+
+- (instancetype)initWithCursor:(NSString *)cursor {
+  [DBStoneValidators nonnullValidator:nil](cursor);
+
+  self = [super init];
+  if (self) {
+    _cursor = cursor;
+  }
+  return self;
+}
+
+#pragma mark - Serialization methods
+
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
+  return [DBFILEREQUESTSListFileRequestsContinueArgSerializer serialize:instance];
+}
+
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
+  return [DBFILEREQUESTSListFileRequestsContinueArgSerializer deserialize:dict];
+}
+
+#pragma mark - Debug Description method
+
+- (NSString *)debugDescription {
+  return [[DBFILEREQUESTSListFileRequestsContinueArgSerializer serialize:self] description];
+}
+
+#pragma mark - Copyable method
+
+- (instancetype)copyWithZone:(NSZone *)zone {
+#pragma unused(zone)
+  /// object is immutable
+  return self;
+}
+
+#pragma mark - Hash method
+
+- (NSUInteger)hash {
+  NSUInteger prime = 31;
+  NSUInteger result = 1;
+
+  result = prime * result + [self.cursor hash];
+
+  return prime * result;
+}
+
+#pragma mark - Equality method
+
+- (BOOL)isEqual:(id)other {
+  if (other == self) {
+    return YES;
+  }
+  if (!other || ![other isKindOfClass:[self class]]) {
+    return NO;
+  }
+  return [self isEqualToListFileRequestsContinueArg:other];
+}
+
+- (BOOL)isEqualToListFileRequestsContinueArg:(DBFILEREQUESTSListFileRequestsContinueArg *)aListFileRequestsContinueArg {
+  if (self == aListFileRequestsContinueArg) {
+    return YES;
+  }
+  if (![self.cursor isEqual:aListFileRequestsContinueArg.cursor]) {
+    return NO;
+  }
+  return YES;
+}
+
+@end
+
+#pragma mark - Serializer Object
+
+@implementation DBFILEREQUESTSListFileRequestsContinueArgSerializer
+
++ (NSDictionary<NSString *, id> *)serialize:(DBFILEREQUESTSListFileRequestsContinueArg *)valueObj {
+  NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
+
+  jsonDict[@"cursor"] = valueObj.cursor;
+
+  return jsonDict;
+}
+
++ (DBFILEREQUESTSListFileRequestsContinueArg *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
+  NSString *cursor = valueDict[@"cursor"];
+
+  return [[DBFILEREQUESTSListFileRequestsContinueArg alloc] initWithCursor:cursor];
+}
+
+@end
+
+#import "DBFILEREQUESTSGeneralFileRequestsError.h"
+#import "DBFILEREQUESTSListFileRequestsContinueError.h"
+#import "DBStoneSerializers.h"
+#import "DBStoneValidators.h"
+
+#pragma mark - API Object
+
+@implementation DBFILEREQUESTSListFileRequestsContinueError
+
+#pragma mark - Constructors
+
+- (instancetype)initWithDisabledForTeam {
+  self = [super init];
+  if (self) {
+    _tag = DBFILEREQUESTSListFileRequestsContinueErrorDisabledForTeam;
+  }
+  return self;
+}
+
+- (instancetype)initWithOther {
+  self = [super init];
+  if (self) {
+    _tag = DBFILEREQUESTSListFileRequestsContinueErrorOther;
+  }
+  return self;
+}
+
+- (instancetype)initWithInvalidCursor {
+  self = [super init];
+  if (self) {
+    _tag = DBFILEREQUESTSListFileRequestsContinueErrorInvalidCursor;
+  }
+  return self;
+}
+
+#pragma mark - Instance field accessors
+
+#pragma mark - Tag state methods
+
+- (BOOL)isDisabledForTeam {
+  return _tag == DBFILEREQUESTSListFileRequestsContinueErrorDisabledForTeam;
+}
+
+- (BOOL)isOther {
+  return _tag == DBFILEREQUESTSListFileRequestsContinueErrorOther;
+}
+
+- (BOOL)isInvalidCursor {
+  return _tag == DBFILEREQUESTSListFileRequestsContinueErrorInvalidCursor;
+}
+
+- (NSString *)tagName {
+  switch (_tag) {
+  case DBFILEREQUESTSListFileRequestsContinueErrorDisabledForTeam:
+    return @"DBFILEREQUESTSListFileRequestsContinueErrorDisabledForTeam";
+  case DBFILEREQUESTSListFileRequestsContinueErrorOther:
+    return @"DBFILEREQUESTSListFileRequestsContinueErrorOther";
+  case DBFILEREQUESTSListFileRequestsContinueErrorInvalidCursor:
+    return @"DBFILEREQUESTSListFileRequestsContinueErrorInvalidCursor";
+  }
+
+  @throw([NSException exceptionWithName:@"InvalidTag" reason:@"Tag has an unknown value." userInfo:nil]);
+}
+
+#pragma mark - Serialization methods
+
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
+  return [DBFILEREQUESTSListFileRequestsContinueErrorSerializer serialize:instance];
+}
+
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
+  return [DBFILEREQUESTSListFileRequestsContinueErrorSerializer deserialize:dict];
+}
+
+#pragma mark - Debug Description method
+
+- (NSString *)debugDescription {
+  return [[DBFILEREQUESTSListFileRequestsContinueErrorSerializer serialize:self] description];
+}
+
+#pragma mark - Copyable method
+
+- (instancetype)copyWithZone:(NSZone *)zone {
+#pragma unused(zone)
+  /// object is immutable
+  return self;
+}
+
+#pragma mark - Hash method
+
+- (NSUInteger)hash {
+  NSUInteger prime = 31;
+  NSUInteger result = 1;
+
+  switch (_tag) {
+  case DBFILEREQUESTSListFileRequestsContinueErrorDisabledForTeam:
+    result = prime * result + [[self tagName] hash];
+    break;
+  case DBFILEREQUESTSListFileRequestsContinueErrorOther:
+    result = prime * result + [[self tagName] hash];
+    break;
+  case DBFILEREQUESTSListFileRequestsContinueErrorInvalidCursor:
+    result = prime * result + [[self tagName] hash];
+    break;
+  }
+
+  return prime * result;
+}
+
+#pragma mark - Equality method
+
+- (BOOL)isEqual:(id)other {
+  if (other == self) {
+    return YES;
+  }
+  if (!other || ![other isKindOfClass:[self class]]) {
+    return NO;
+  }
+  return [self isEqualToListFileRequestsContinueError:other];
+}
+
+- (BOOL)isEqualToListFileRequestsContinueError:
+    (DBFILEREQUESTSListFileRequestsContinueError *)aListFileRequestsContinueError {
+  if (self == aListFileRequestsContinueError) {
+    return YES;
+  }
+  if (self.tag != aListFileRequestsContinueError.tag) {
+    return NO;
+  }
+  switch (_tag) {
+  case DBFILEREQUESTSListFileRequestsContinueErrorDisabledForTeam:
+    return [[self tagName] isEqual:[aListFileRequestsContinueError tagName]];
+  case DBFILEREQUESTSListFileRequestsContinueErrorOther:
+    return [[self tagName] isEqual:[aListFileRequestsContinueError tagName]];
+  case DBFILEREQUESTSListFileRequestsContinueErrorInvalidCursor:
+    return [[self tagName] isEqual:[aListFileRequestsContinueError tagName]];
+  }
+  return YES;
+}
+
+@end
+
+#pragma mark - Serializer Object
+
+@implementation DBFILEREQUESTSListFileRequestsContinueErrorSerializer
+
++ (NSDictionary<NSString *, id> *)serialize:(DBFILEREQUESTSListFileRequestsContinueError *)valueObj {
+  NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
+
+  if ([valueObj isDisabledForTeam]) {
+    jsonDict[@".tag"] = @"disabled_for_team";
+  } else if ([valueObj isOther]) {
+    jsonDict[@".tag"] = @"other";
+  } else if ([valueObj isInvalidCursor]) {
+    jsonDict[@".tag"] = @"invalid_cursor";
+  } else {
+    jsonDict[@".tag"] = @"other";
+  }
+
+  return jsonDict;
+}
+
++ (DBFILEREQUESTSListFileRequestsContinueError *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
+  NSString *tag = valueDict[@".tag"];
+
+  if ([tag isEqualToString:@"disabled_for_team"]) {
+    return [[DBFILEREQUESTSListFileRequestsContinueError alloc] initWithDisabledForTeam];
+  } else if ([tag isEqualToString:@"other"]) {
+    return [[DBFILEREQUESTSListFileRequestsContinueError alloc] initWithOther];
+  } else if ([tag isEqualToString:@"invalid_cursor"]) {
+    return [[DBFILEREQUESTSListFileRequestsContinueError alloc] initWithInvalidCursor];
+  } else {
+    return [[DBFILEREQUESTSListFileRequestsContinueError alloc] initWithOther];
   }
 }
 
@@ -1904,17 +3543,17 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBFILEREQUESTSListFileRequestsErrorSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBFILEREQUESTSListFileRequestsErrorSerializer deserialize:dict];
 }
 
-#pragma mark - Description method
+#pragma mark - Debug Description method
 
-- (NSString *)description {
+- (NSString *)debugDescription {
   return [[DBFILEREQUESTSListFileRequestsErrorSerializer serialize:self] description];
 }
 
@@ -1935,8 +3574,10 @@
   switch (_tag) {
   case DBFILEREQUESTSListFileRequestsErrorDisabledForTeam:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBFILEREQUESTSListFileRequestsErrorOther:
     result = prime * result + [[self tagName] hash];
+    break;
   }
 
   return prime * result;
@@ -1976,7 +3617,7 @@
 
 @implementation DBFILEREQUESTSListFileRequestsErrorSerializer
 
-+ (NSDictionary *)serialize:(DBFILEREQUESTSListFileRequestsError *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBFILEREQUESTSListFileRequestsError *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isDisabledForTeam]) {
@@ -1987,10 +3628,10 @@
     jsonDict[@".tag"] = @"other";
   }
 
-  return [jsonDict count] > 0 ? jsonDict : nil;
+  return jsonDict;
 }
 
-+ (DBFILEREQUESTSListFileRequestsError *)deserialize:(NSDictionary *)valueDict {
++ (DBFILEREQUESTSListFileRequestsError *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"disabled_for_team"]) {
@@ -2030,17 +3671,17 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBFILEREQUESTSListFileRequestsResultSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBFILEREQUESTSListFileRequestsResultSerializer deserialize:dict];
 }
 
-#pragma mark - Description method
+#pragma mark - Debug Description method
 
-- (NSString *)description {
+- (NSString *)debugDescription {
   return [[DBFILEREQUESTSListFileRequestsResultSerializer serialize:self] description];
 }
 
@@ -2091,7 +3732,7 @@
 
 @implementation DBFILEREQUESTSListFileRequestsResultSerializer
 
-+ (NSDictionary *)serialize:(DBFILEREQUESTSListFileRequestsResult *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBFILEREQUESTSListFileRequestsResult *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"file_requests"] = [DBArraySerializer serialize:valueObj.fileRequests
@@ -2099,10 +3740,10 @@
                                                     return [DBFILEREQUESTSFileRequestSerializer serialize:elem0];
                                                   }];
 
-  return [jsonDict count] > 0 ? jsonDict : nil;
+  return jsonDict;
 }
 
-+ (DBFILEREQUESTSListFileRequestsResult *)deserialize:(NSDictionary *)valueDict {
++ (DBFILEREQUESTSListFileRequestsResult *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSArray<DBFILEREQUESTSFileRequest *> *fileRequests =
       [DBArraySerializer deserialize:valueDict[@"file_requests"]
                            withBlock:^id(id elem0) {
@@ -2110,6 +3751,136 @@
                            }];
 
   return [[DBFILEREQUESTSListFileRequestsResult alloc] initWithFileRequests:fileRequests];
+}
+
+@end
+
+#import "DBFILEREQUESTSFileRequest.h"
+#import "DBFILEREQUESTSListFileRequestsV2Result.h"
+#import "DBStoneSerializers.h"
+#import "DBStoneValidators.h"
+
+#pragma mark - API Object
+
+@implementation DBFILEREQUESTSListFileRequestsV2Result
+
+#pragma mark - Constructors
+
+- (instancetype)initWithFileRequests:(NSArray<DBFILEREQUESTSFileRequest *> *)fileRequests
+                              cursor:(NSString *)cursor
+                             hasMore:(NSNumber *)hasMore {
+  [DBStoneValidators
+   nonnullValidator:[DBStoneValidators arrayValidator:nil
+                                             maxItems:nil
+                                        itemValidator:[DBStoneValidators nonnullValidator:nil]]](fileRequests);
+  [DBStoneValidators nonnullValidator:nil](cursor);
+  [DBStoneValidators nonnullValidator:nil](hasMore);
+
+  self = [super init];
+  if (self) {
+    _fileRequests = fileRequests;
+    _cursor = cursor;
+    _hasMore = hasMore;
+  }
+  return self;
+}
+
+#pragma mark - Serialization methods
+
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
+  return [DBFILEREQUESTSListFileRequestsV2ResultSerializer serialize:instance];
+}
+
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
+  return [DBFILEREQUESTSListFileRequestsV2ResultSerializer deserialize:dict];
+}
+
+#pragma mark - Debug Description method
+
+- (NSString *)debugDescription {
+  return [[DBFILEREQUESTSListFileRequestsV2ResultSerializer serialize:self] description];
+}
+
+#pragma mark - Copyable method
+
+- (instancetype)copyWithZone:(NSZone *)zone {
+#pragma unused(zone)
+  /// object is immutable
+  return self;
+}
+
+#pragma mark - Hash method
+
+- (NSUInteger)hash {
+  NSUInteger prime = 31;
+  NSUInteger result = 1;
+
+  result = prime * result + [self.fileRequests hash];
+  result = prime * result + [self.cursor hash];
+  result = prime * result + [self.hasMore hash];
+
+  return prime * result;
+}
+
+#pragma mark - Equality method
+
+- (BOOL)isEqual:(id)other {
+  if (other == self) {
+    return YES;
+  }
+  if (!other || ![other isKindOfClass:[self class]]) {
+    return NO;
+  }
+  return [self isEqualToListFileRequestsV2Result:other];
+}
+
+- (BOOL)isEqualToListFileRequestsV2Result:(DBFILEREQUESTSListFileRequestsV2Result *)aListFileRequestsV2Result {
+  if (self == aListFileRequestsV2Result) {
+    return YES;
+  }
+  if (![self.fileRequests isEqual:aListFileRequestsV2Result.fileRequests]) {
+    return NO;
+  }
+  if (![self.cursor isEqual:aListFileRequestsV2Result.cursor]) {
+    return NO;
+  }
+  if (![self.hasMore isEqual:aListFileRequestsV2Result.hasMore]) {
+    return NO;
+  }
+  return YES;
+}
+
+@end
+
+#pragma mark - Serializer Object
+
+@implementation DBFILEREQUESTSListFileRequestsV2ResultSerializer
+
++ (NSDictionary<NSString *, id> *)serialize:(DBFILEREQUESTSListFileRequestsV2Result *)valueObj {
+  NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
+
+  jsonDict[@"file_requests"] = [DBArraySerializer serialize:valueObj.fileRequests
+                                                  withBlock:^id(id elem0) {
+                                                    return [DBFILEREQUESTSFileRequestSerializer serialize:elem0];
+                                                  }];
+  jsonDict[@"cursor"] = valueObj.cursor;
+  jsonDict[@"has_more"] = valueObj.hasMore;
+
+  return jsonDict;
+}
+
++ (DBFILEREQUESTSListFileRequestsV2Result *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
+  NSArray<DBFILEREQUESTSFileRequest *> *fileRequests =
+      [DBArraySerializer deserialize:valueDict[@"file_requests"]
+                           withBlock:^id(id elem0) {
+                             return [DBFILEREQUESTSFileRequestSerializer deserialize:elem0];
+                           }];
+  NSString *cursor = valueDict[@"cursor"];
+  NSNumber *hasMore = valueDict[@"has_more"];
+
+  return [[DBFILEREQUESTSListFileRequestsV2Result alloc] initWithFileRequests:fileRequests
+                                                                       cursor:cursor
+                                                                      hasMore:hasMore];
 }
 
 @end
@@ -2129,12 +3900,13 @@
                       title:(NSString *)title
                 destination:(NSString *)destination
                    deadline:(DBFILEREQUESTSUpdateFileRequestDeadline *)deadline
-                       open:(NSNumber *)open {
-  [DBStoneValidators
-   nonnullValidator:[DBStoneValidators stringValidator:@(1) maxLength:nil pattern:@"[-_0-9a-zA-Z]+"]](id_);
+                       open:(NSNumber *)open
+               description_:(NSString *)description_ {
+  [DBStoneValidators nonnullValidator:[DBStoneValidators stringValidator:@(1) maxLength:nil
+                                                                 pattern:@"[-_0-9a-zA-Z]+"]](id_);
   [DBStoneValidators nullableValidator:[DBStoneValidators stringValidator:@(1) maxLength:nil pattern:nil]](title);
-  [DBStoneValidators
-   nullableValidator:[DBStoneValidators stringValidator:nil maxLength:nil pattern:@"/(.|[\\r\\n])*"]](destination);
+  [DBStoneValidators nullableValidator:[DBStoneValidators stringValidator:nil maxLength:nil
+                                                                  pattern:@"/(.|[\\r\\n])*"]](destination);
 
   self = [super init];
   if (self) {
@@ -2143,27 +3915,28 @@
     _destination = destination;
     _deadline = deadline ?: [[DBFILEREQUESTSUpdateFileRequestDeadline alloc] initWithNoUpdate];
     _open = open;
+    _description_ = description_;
   }
   return self;
 }
 
 - (instancetype)initWithId_:(NSString *)id_ {
-  return [self initWithId_:id_ title:nil destination:nil deadline:nil open:nil];
+  return [self initWithId_:id_ title:nil destination:nil deadline:nil open:nil description_:nil];
 }
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBFILEREQUESTSUpdateFileRequestArgsSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBFILEREQUESTSUpdateFileRequestArgsSerializer deserialize:dict];
 }
 
-#pragma mark - Description method
+#pragma mark - Debug Description method
 
-- (NSString *)description {
+- (NSString *)debugDescription {
   return [[DBFILEREQUESTSUpdateFileRequestArgsSerializer serialize:self] description];
 }
 
@@ -2191,6 +3964,9 @@
   result = prime * result + [self.deadline hash];
   if (self.open != nil) {
     result = prime * result + [self.open hash];
+  }
+  if (self.description_ != nil) {
+    result = prime * result + [self.description_ hash];
   }
 
   return prime * result;
@@ -2233,6 +4009,11 @@
       return NO;
     }
   }
+  if (self.description_) {
+    if (![self.description_ isEqual:anUpdateFileRequestArgs.description_]) {
+      return NO;
+    }
+  }
   return YES;
 }
 
@@ -2242,7 +4023,7 @@
 
 @implementation DBFILEREQUESTSUpdateFileRequestArgsSerializer
 
-+ (NSDictionary *)serialize:(DBFILEREQUESTSUpdateFileRequestArgs *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBFILEREQUESTSUpdateFileRequestArgs *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"id"] = valueObj.id_;
@@ -2256,11 +4037,14 @@
   if (valueObj.open) {
     jsonDict[@"open"] = valueObj.open;
   }
+  if (valueObj.description_) {
+    jsonDict[@"description"] = valueObj.description_;
+  }
 
-  return [jsonDict count] > 0 ? jsonDict : nil;
+  return jsonDict;
 }
 
-+ (DBFILEREQUESTSUpdateFileRequestArgs *)deserialize:(NSDictionary *)valueDict {
++ (DBFILEREQUESTSUpdateFileRequestArgs *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *id_ = valueDict[@"id"];
   NSString *title = valueDict[@"title"] ?: nil;
   NSString *destination = valueDict[@"destination"] ?: nil;
@@ -2268,12 +4052,14 @@
       valueDict[@"deadline"] ? [DBFILEREQUESTSUpdateFileRequestDeadlineSerializer deserialize:valueDict[@"deadline"]]
                              : [[DBFILEREQUESTSUpdateFileRequestDeadline alloc] initWithNoUpdate];
   NSNumber *open = valueDict[@"open"] ?: nil;
+  NSString *description_ = valueDict[@"description"] ?: nil;
 
   return [[DBFILEREQUESTSUpdateFileRequestArgs alloc] initWithId_:id_
                                                             title:title
                                                       destination:destination
                                                          deadline:deadline
-                                                             open:open];
+                                                             open:open
+                                                     description_:description_];
 }
 
 @end
@@ -2356,17 +4142,17 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBFILEREQUESTSUpdateFileRequestDeadlineSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBFILEREQUESTSUpdateFileRequestDeadlineSerializer deserialize:dict];
 }
 
-#pragma mark - Description method
+#pragma mark - Debug Description method
 
-- (NSString *)description {
+- (NSString *)debugDescription {
   return [[DBFILEREQUESTSUpdateFileRequestDeadlineSerializer serialize:self] description];
 }
 
@@ -2387,12 +4173,15 @@
   switch (_tag) {
   case DBFILEREQUESTSUpdateFileRequestDeadlineNoUpdate:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBFILEREQUESTSUpdateFileRequestDeadlineUpdate:
     if (self.update != nil) {
       result = prime * result + [self.update hash];
     }
+    break;
   case DBFILEREQUESTSUpdateFileRequestDeadlineOther:
     result = prime * result + [[self tagName] hash];
+    break;
   }
 
   return prime * result;
@@ -2436,14 +4225,14 @@
 
 @implementation DBFILEREQUESTSUpdateFileRequestDeadlineSerializer
 
-+ (NSDictionary *)serialize:(DBFILEREQUESTSUpdateFileRequestDeadline *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBFILEREQUESTSUpdateFileRequestDeadline *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isNoUpdate]) {
     jsonDict[@".tag"] = @"no_update";
   } else if ([valueObj isUpdate]) {
     if (valueObj.update) {
-      jsonDict = [[DBFILEREQUESTSFileRequestDeadlineSerializer serialize:valueObj.update] mutableCopy];
+      [jsonDict addEntriesFromDictionary:[DBFILEREQUESTSFileRequestDeadlineSerializer serialize:valueObj.update]];
     }
     jsonDict[@".tag"] = @"update";
   } else if ([valueObj isOther]) {
@@ -2452,10 +4241,10 @@
     jsonDict[@".tag"] = @"other";
   }
 
-  return [jsonDict count] > 0 ? jsonDict : nil;
+  return jsonDict;
 }
 
-+ (DBFILEREQUESTSUpdateFileRequestDeadline *)deserialize:(NSDictionary *)valueDict {
++ (DBFILEREQUESTSUpdateFileRequestDeadline *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"no_update"]) {
@@ -2609,17 +4398,17 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBFILEREQUESTSUpdateFileRequestErrorSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBFILEREQUESTSUpdateFileRequestErrorSerializer deserialize:dict];
 }
 
-#pragma mark - Description method
+#pragma mark - Debug Description method
 
-- (NSString *)description {
+- (NSString *)debugDescription {
   return [[DBFILEREQUESTSUpdateFileRequestErrorSerializer serialize:self] description];
 }
 
@@ -2640,20 +4429,28 @@
   switch (_tag) {
   case DBFILEREQUESTSUpdateFileRequestErrorDisabledForTeam:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBFILEREQUESTSUpdateFileRequestErrorOther:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBFILEREQUESTSUpdateFileRequestErrorNotFound:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBFILEREQUESTSUpdateFileRequestErrorNotAFolder:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBFILEREQUESTSUpdateFileRequestErrorAppLacksAccess:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBFILEREQUESTSUpdateFileRequestErrorNoPermission:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBFILEREQUESTSUpdateFileRequestErrorEmailUnverified:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBFILEREQUESTSUpdateFileRequestErrorValidationError:
     result = prime * result + [[self tagName] hash];
+    break;
   }
 
   return prime * result;
@@ -2705,7 +4502,7 @@
 
 @implementation DBFILEREQUESTSUpdateFileRequestErrorSerializer
 
-+ (NSDictionary *)serialize:(DBFILEREQUESTSUpdateFileRequestError *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBFILEREQUESTSUpdateFileRequestError *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isDisabledForTeam]) {
@@ -2728,10 +4525,10 @@
     jsonDict[@".tag"] = @"other";
   }
 
-  return [jsonDict count] > 0 ? jsonDict : nil;
+  return jsonDict;
 }
 
-+ (DBFILEREQUESTSUpdateFileRequestError *)deserialize:(NSDictionary *)valueDict {
++ (DBFILEREQUESTSUpdateFileRequestError *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"disabled_for_team"]) {

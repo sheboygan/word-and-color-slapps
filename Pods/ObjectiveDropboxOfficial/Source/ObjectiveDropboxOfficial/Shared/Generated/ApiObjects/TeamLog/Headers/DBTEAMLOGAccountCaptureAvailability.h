@@ -28,12 +28,12 @@ NS_ASSUME_NONNULL_BEGIN
 /// The `DBTEAMLOGAccountCaptureAvailabilityTag` enum type represents the
 /// possible tag states with which the `DBTEAMLOGAccountCaptureAvailability`
 /// union can exist.
-typedef NS_ENUM(NSInteger, DBTEAMLOGAccountCaptureAvailabilityTag) {
-  /// (no description).
-  DBTEAMLOGAccountCaptureAvailabilityUnavailable,
-
+typedef NS_CLOSED_ENUM(NSInteger, DBTEAMLOGAccountCaptureAvailabilityTag) {
   /// (no description).
   DBTEAMLOGAccountCaptureAvailabilityAvailable,
+
+  /// (no description).
+  DBTEAMLOGAccountCaptureAvailabilityUnavailable,
 
   /// (no description).
   DBTEAMLOGAccountCaptureAvailabilityOther,
@@ -46,18 +46,18 @@ typedef NS_ENUM(NSInteger, DBTEAMLOGAccountCaptureAvailabilityTag) {
 #pragma mark - Constructors
 
 ///
-/// Initializes union class with tag state of "unavailable".
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithUnavailable;
-
-///
 /// Initializes union class with tag state of "available".
 ///
 /// @return An initialized instance.
 ///
 - (instancetype)initWithAvailable;
+
+///
+/// Initializes union class with tag state of "unavailable".
+///
+/// @return An initialized instance.
+///
+- (instancetype)initWithUnavailable;
 
 ///
 /// Initializes union class with tag state of "other".
@@ -71,18 +71,18 @@ typedef NS_ENUM(NSInteger, DBTEAMLOGAccountCaptureAvailabilityTag) {
 #pragma mark - Tag state methods
 
 ///
-/// Retrieves whether the union's current tag state has value "unavailable".
-///
-/// @return Whether the union's current tag state has value "unavailable".
-///
-- (BOOL)isUnavailable;
-
-///
 /// Retrieves whether the union's current tag state has value "available".
 ///
 /// @return Whether the union's current tag state has value "available".
 ///
 - (BOOL)isAvailable;
+
+///
+/// Retrieves whether the union's current tag state has value "unavailable".
+///
+/// @return Whether the union's current tag state has value "unavailable".
+///
+- (BOOL)isUnavailable;
 
 ///
 /// Retrieves whether the union's current tag state has value "other".
@@ -116,7 +116,7 @@ typedef NS_ENUM(NSInteger, DBTEAMLOGAccountCaptureAvailabilityTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBTEAMLOGAccountCaptureAvailability` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBTEAMLOGAccountCaptureAvailability *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBTEAMLOGAccountCaptureAvailability *)instance;
 
 ///
 /// Deserializes `DBTEAMLOGAccountCaptureAvailability` instances.
@@ -127,7 +127,7 @@ typedef NS_ENUM(NSInteger, DBTEAMLOGAccountCaptureAvailabilityTag) {
 /// @return An instantiation of the `DBTEAMLOGAccountCaptureAvailability`
 /// object.
 ///
-+ (DBTEAMLOGAccountCaptureAvailability *)deserialize:(NSDictionary *)dict;
++ (DBTEAMLOGAccountCaptureAvailability *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

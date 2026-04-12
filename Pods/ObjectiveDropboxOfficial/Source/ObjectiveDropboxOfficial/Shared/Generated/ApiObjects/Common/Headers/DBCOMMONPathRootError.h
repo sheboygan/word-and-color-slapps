@@ -28,9 +28,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// The `DBCOMMONPathRootErrorTag` enum type represents the possible tag states
 /// with which the `DBCOMMONPathRootError` union can exist.
-typedef NS_ENUM(NSInteger, DBCOMMONPathRootErrorTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBCOMMONPathRootErrorTag) {
   /// The root namespace id in Dropbox-API-Path-Root header is not valid. The
-  /// value of this error is use's latest root info.
+  /// value of this error is the user's latest root info.
   DBCOMMONPathRootErrorInvalidRoot,
 
   /// You don't have permission to access the namespace id in
@@ -46,7 +46,7 @@ typedef NS_ENUM(NSInteger, DBCOMMONPathRootErrorTag) {
 @property (nonatomic, readonly) DBCOMMONPathRootErrorTag tag;
 
 /// The root namespace id in Dropbox-API-Path-Root header is not valid. The
-/// value of this error is use's latest root info. @note Ensure the
+/// value of this error is the user's latest root info. @note Ensure the
 /// `isInvalidRoot` method returns true before accessing, otherwise a runtime
 /// exception will be raised.
 @property (nonatomic, readonly) DBCOMMONRootInfo *invalidRoot;
@@ -57,11 +57,11 @@ typedef NS_ENUM(NSInteger, DBCOMMONPathRootErrorTag) {
 /// Initializes union class with tag state of "invalid_root".
 ///
 /// Description of the "invalid_root" tag state: The root namespace id in
-/// Dropbox-API-Path-Root header is not valid. The value of this error is use's
-/// latest root info.
+/// Dropbox-API-Path-Root header is not valid. The value of this error is the
+/// user's latest root info.
 ///
 /// @param invalidRoot The root namespace id in Dropbox-API-Path-Root header is
-/// not valid. The value of this error is use's latest root info.
+/// not valid. The value of this error is the user's latest root info.
 ///
 /// @return An initialized instance.
 ///
@@ -136,7 +136,7 @@ typedef NS_ENUM(NSInteger, DBCOMMONPathRootErrorTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBCOMMONPathRootError` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBCOMMONPathRootError *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBCOMMONPathRootError *)instance;
 
 ///
 /// Deserializes `DBCOMMONPathRootError` instances.
@@ -146,7 +146,7 @@ typedef NS_ENUM(NSInteger, DBCOMMONPathRootErrorTag) {
 ///
 /// @return An instantiation of the `DBCOMMONPathRootError` object.
 ///
-+ (DBCOMMONPathRootError *)deserialize:(NSDictionary *)dict;
++ (DBCOMMONPathRootError *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

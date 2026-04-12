@@ -29,7 +29,8 @@ NS_ASSUME_NONNULL_BEGIN
 /// A unique identifier for the file or folder.
 @property (nonatomic, readonly, copy) NSString *path;
 
-/// The property groups which are to be added to a Dropbox file.
+/// The property groups which are to be added to a Dropbox file. No two groups
+/// in the input should  refer to the same template.
 @property (nonatomic, readonly) NSArray<DBFILEPROPERTIESPropertyGroup *> *propertyGroups;
 
 #pragma mark - Constructors
@@ -39,7 +40,7 @@ NS_ASSUME_NONNULL_BEGIN
 ///
 /// @param path A unique identifier for the file or folder.
 /// @param propertyGroups The property groups which are to be added to a Dropbox
-/// file.
+/// file. No two groups in the input should  refer to the same template.
 ///
 /// @return An initialized instance.
 ///
@@ -65,7 +66,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// @return A json-compatible dictionary representation of the
 /// `DBFILEPROPERTIESAddPropertiesArg` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBFILEPROPERTIESAddPropertiesArg *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBFILEPROPERTIESAddPropertiesArg *)instance;
 
 ///
 /// Deserializes `DBFILEPROPERTIESAddPropertiesArg` instances.
@@ -75,7 +76,7 @@ NS_ASSUME_NONNULL_BEGIN
 ///
 /// @return An instantiation of the `DBFILEPROPERTIESAddPropertiesArg` object.
 ///
-+ (DBFILEPROPERTIESAddPropertiesArg *)deserialize:(NSDictionary *)dict;
++ (DBFILEPROPERTIESAddPropertiesArg *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

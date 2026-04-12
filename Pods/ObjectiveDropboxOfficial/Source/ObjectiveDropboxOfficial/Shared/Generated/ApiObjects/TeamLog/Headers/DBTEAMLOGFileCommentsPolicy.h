@@ -29,7 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// The `DBTEAMLOGFileCommentsPolicyTag` enum type represents the possible tag
 /// states with which the `DBTEAMLOGFileCommentsPolicy` union can exist.
-typedef NS_ENUM(NSInteger, DBTEAMLOGFileCommentsPolicyTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBTEAMLOGFileCommentsPolicyTag) {
   /// (no description).
   DBTEAMLOGFileCommentsPolicyDisabled,
 
@@ -116,7 +116,7 @@ typedef NS_ENUM(NSInteger, DBTEAMLOGFileCommentsPolicyTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBTEAMLOGFileCommentsPolicy` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBTEAMLOGFileCommentsPolicy *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBTEAMLOGFileCommentsPolicy *)instance;
 
 ///
 /// Deserializes `DBTEAMLOGFileCommentsPolicy` instances.
@@ -126,7 +126,7 @@ typedef NS_ENUM(NSInteger, DBTEAMLOGFileCommentsPolicyTag) {
 ///
 /// @return An instantiation of the `DBTEAMLOGFileCommentsPolicy` object.
 ///
-+ (DBTEAMLOGFileCommentsPolicy *)deserialize:(NSDictionary *)dict;
++ (DBTEAMLOGFileCommentsPolicy *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

@@ -1,20 +1,24 @@
 PODS:
-  - Google-Mobile-Ads-SDK (7.29.0)
-  - ObjectiveDropboxOfficial (3.4.0)
+  - Google-Mobile-Ads-SDK (11.13.0):
+    - GoogleUserMessagingPlatform (>= 1.1)
+  - GoogleUserMessagingPlatform (3.1.0)
+  - ObjectiveDropboxOfficial (7.4.2)
 
 DEPENDENCIES:
-  - Google-Mobile-Ads-SDK
+  - Google-Mobile-Ads-SDK (~> 11.0)
   - ObjectiveDropboxOfficial
 
 SPEC REPOS:
   trunk:
     - Google-Mobile-Ads-SDK
+    - GoogleUserMessagingPlatform
     - ObjectiveDropboxOfficial
 
 SPEC CHECKSUMS:
-  Google-Mobile-Ads-SDK: 375bbb821b3df2106c37b74f6b0a97576ddc5f6b
-  ObjectiveDropboxOfficial: 250ce53218773ba687201614ad6de03b8cb14de6
+  Google-Mobile-Ads-SDK: 14f57f2dc33532a24db288897e26494640810407
+  GoogleUserMessagingPlatform: befe603da6501006420c206222acd449bba45a9c
+  ObjectiveDropboxOfficial: 1645cbc5a542831173425b00ed6929d5a07d0a95
 
-PODFILE CHECKSUM: bf1a38133db4448e3a37c58057e0d2e833f841cb
+PODFILE CHECKSUM: d10d24165105d9c29c5025e0a1f4c6231e3d2720
 
-COCOAPODS: 1.10.1
+COCOAPODS: 1.16.2

@@ -29,7 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// The `DBSHARINGMemberActionTag` enum type represents the possible tag states
 /// with which the `DBSHARINGMemberAction` union can exist.
-typedef NS_ENUM(NSInteger, DBSHARINGMemberActionTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBSHARINGMemberActionTag) {
   /// Allow the member to keep a copy of the folder when removing.
   DBSHARINGMemberActionLeaveACopy,
 
@@ -203,7 +203,7 @@ typedef NS_ENUM(NSInteger, DBSHARINGMemberActionTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBSHARINGMemberAction` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBSHARINGMemberAction *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBSHARINGMemberAction *)instance;
 
 ///
 /// Deserializes `DBSHARINGMemberAction` instances.
@@ -213,7 +213,7 @@ typedef NS_ENUM(NSInteger, DBSHARINGMemberActionTag) {
 ///
 /// @return An instantiation of the `DBSHARINGMemberAction` object.
 ///
-+ (DBSHARINGMemberAction *)deserialize:(NSDictionary *)dict;
++ (DBSHARINGMemberAction *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

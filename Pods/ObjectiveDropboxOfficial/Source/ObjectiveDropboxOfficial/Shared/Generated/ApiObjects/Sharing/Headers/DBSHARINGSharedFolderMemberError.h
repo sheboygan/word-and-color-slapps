@@ -29,7 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// The `DBSHARINGSharedFolderMemberErrorTag` enum type represents the possible
 /// tag states with which the `DBSHARINGSharedFolderMemberError` union can
 /// exist.
-typedef NS_ENUM(NSInteger, DBSHARINGSharedFolderMemberErrorTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBSHARINGSharedFolderMemberErrorTag) {
   /// The target dropbox_id is invalid.
   DBSHARINGSharedFolderMemberErrorInvalidDropboxId,
 
@@ -158,7 +158,7 @@ typedef NS_ENUM(NSInteger, DBSHARINGSharedFolderMemberErrorTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBSHARINGSharedFolderMemberError` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBSHARINGSharedFolderMemberError *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBSHARINGSharedFolderMemberError *)instance;
 
 ///
 /// Deserializes `DBSHARINGSharedFolderMemberError` instances.
@@ -168,7 +168,7 @@ typedef NS_ENUM(NSInteger, DBSHARINGSharedFolderMemberErrorTag) {
 ///
 /// @return An instantiation of the `DBSHARINGSharedFolderMemberError` object.
 ///
-+ (DBSHARINGSharedFolderMemberError *)deserialize:(NSDictionary *)dict;
++ (DBSHARINGSharedFolderMemberError *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

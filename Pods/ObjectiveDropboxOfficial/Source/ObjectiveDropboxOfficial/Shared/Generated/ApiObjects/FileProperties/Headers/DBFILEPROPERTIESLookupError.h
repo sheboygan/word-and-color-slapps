@@ -27,7 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// The `DBFILEPROPERTIESLookupErrorTag` enum type represents the possible tag
 /// states with which the `DBFILEPROPERTIESLookupError` union can exist.
-typedef NS_ENUM(NSInteger, DBFILEPROPERTIESLookupErrorTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBFILEPROPERTIESLookupErrorTag) {
   /// (no description).
   DBFILEPROPERTIESLookupErrorMalformedPath,
 
@@ -42,8 +42,8 @@ typedef NS_ENUM(NSInteger, DBFILEPROPERTIESLookupErrorTag) {
   /// isn't a folder.
   DBFILEPROPERTIESLookupErrorNotFolder,
 
-  /// The file cannot be transferred because the content is restricted.  For
-  /// example, sometimes there are legal restrictions due to copyright claims.
+  /// The file cannot be transferred because the content is restricted. For
+  /// example, we might restrict a file due to legal requirements.
   DBFILEPROPERTIESLookupErrorRestrictedContent,
 
   /// (no description).
@@ -103,8 +103,8 @@ typedef NS_ENUM(NSInteger, DBFILEPROPERTIESLookupErrorTag) {
 /// Initializes union class with tag state of "restricted_content".
 ///
 /// Description of the "restricted_content" tag state: The file cannot be
-/// transferred because the content is restricted.  For example, sometimes there
-/// are legal restrictions due to copyright claims.
+/// transferred because the content is restricted. For example, we might
+/// restrict a file due to legal requirements.
 ///
 /// @return An initialized instance.
 ///
@@ -192,7 +192,7 @@ typedef NS_ENUM(NSInteger, DBFILEPROPERTIESLookupErrorTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBFILEPROPERTIESLookupError` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBFILEPROPERTIESLookupError *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBFILEPROPERTIESLookupError *)instance;
 
 ///
 /// Deserializes `DBFILEPROPERTIESLookupError` instances.
@@ -202,7 +202,7 @@ typedef NS_ENUM(NSInteger, DBFILEPROPERTIESLookupErrorTag) {
 ///
 /// @return An instantiation of the `DBFILEPROPERTIESLookupError` object.
 ///
-+ (DBFILEPROPERTIESLookupError *)deserialize:(NSDictionary *)dict;
++ (DBFILEPROPERTIESLookupError *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

@@ -31,7 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// The `DBTEAMLOGWebSessionsIdleLengthPolicyTag` enum type represents the
 /// possible tag states with which the `DBTEAMLOGWebSessionsIdleLengthPolicy`
 /// union can exist.
-typedef NS_ENUM(NSInteger, DBTEAMLOGWebSessionsIdleLengthPolicyTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBTEAMLOGWebSessionsIdleLengthPolicyTag) {
   /// Defined idle session length.
   DBTEAMLOGWebSessionsIdleLengthPolicyDefined,
 
@@ -133,7 +133,7 @@ typedef NS_ENUM(NSInteger, DBTEAMLOGWebSessionsIdleLengthPolicyTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBTEAMLOGWebSessionsIdleLengthPolicy` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBTEAMLOGWebSessionsIdleLengthPolicy *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBTEAMLOGWebSessionsIdleLengthPolicy *)instance;
 
 ///
 /// Deserializes `DBTEAMLOGWebSessionsIdleLengthPolicy` instances.
@@ -144,7 +144,7 @@ typedef NS_ENUM(NSInteger, DBTEAMLOGWebSessionsIdleLengthPolicyTag) {
 /// @return An instantiation of the `DBTEAMLOGWebSessionsIdleLengthPolicy`
 /// object.
 ///
-+ (DBTEAMLOGWebSessionsIdleLengthPolicy *)deserialize:(NSDictionary *)dict;
++ (DBTEAMLOGWebSessionsIdleLengthPolicy *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

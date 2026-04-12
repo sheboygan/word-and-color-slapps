@@ -17,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 ///
 /// The `PaperDocEditCommentDetails` struct.
 ///
-/// Edited a Paper doc comment.
+/// Edited Paper doc comment.
 ///
 /// This class implements the `DBSerializable` protocol (serialize and
 /// deserialize instance methods), which is required for all Obj-C SDK API route
@@ -30,7 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// Event unique identifier.
 @property (nonatomic, readonly, copy) NSString *eventUuid;
 
-/// Comment text. Might be missing due to historical data gap.
+/// Comment text.
 @property (nonatomic, readonly, copy, nullable) NSString *commentText;
 
 #pragma mark - Constructors
@@ -39,8 +39,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// Full constructor for the struct (exposes all instance variables).
 ///
 /// @param eventUuid Event unique identifier.
-/// @param commentText Comment text. Might be missing due to historical data
-/// gap.
+/// @param commentText Comment text.
 ///
 /// @return An initialized instance.
 ///
@@ -76,7 +75,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// @return A json-compatible dictionary representation of the
 /// `DBTEAMLOGPaperDocEditCommentDetails` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBTEAMLOGPaperDocEditCommentDetails *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBTEAMLOGPaperDocEditCommentDetails *)instance;
 
 ///
 /// Deserializes `DBTEAMLOGPaperDocEditCommentDetails` instances.
@@ -87,7 +86,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// @return An instantiation of the `DBTEAMLOGPaperDocEditCommentDetails`
 /// object.
 ///
-+ (DBTEAMLOGPaperDocEditCommentDetails *)deserialize:(NSDictionary *)dict;
++ (DBTEAMLOGPaperDocEditCommentDetails *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

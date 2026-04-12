@@ -29,7 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// The `DBTEAMExcludedUsersUpdateErrorTag` enum type represents the possible
 /// tag states with which the `DBTEAMExcludedUsersUpdateError` union can exist.
-typedef NS_ENUM(NSInteger, DBTEAMExcludedUsersUpdateErrorTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBTEAMExcludedUsersUpdateErrorTag) {
   /// At least one of the users is not part of your team.
   DBTEAMExcludedUsersUpdateErrorUsersNotInTeam,
 
@@ -124,7 +124,7 @@ typedef NS_ENUM(NSInteger, DBTEAMExcludedUsersUpdateErrorTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBTEAMExcludedUsersUpdateError` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBTEAMExcludedUsersUpdateError *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBTEAMExcludedUsersUpdateError *)instance;
 
 ///
 /// Deserializes `DBTEAMExcludedUsersUpdateError` instances.
@@ -134,7 +134,7 @@ typedef NS_ENUM(NSInteger, DBTEAMExcludedUsersUpdateErrorTag) {
 ///
 /// @return An instantiation of the `DBTEAMExcludedUsersUpdateError` object.
 ///
-+ (DBTEAMExcludedUsersUpdateError *)deserialize:(NSDictionary *)dict;
++ (DBTEAMExcludedUsersUpdateError *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

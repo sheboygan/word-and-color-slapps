@@ -39,11 +39,15 @@ NS_ASSUME_NONNULL_BEGIN
 /// folder.
 @property (nonatomic, readonly, copy, nullable) NSString *destination;
 
-/// The new deadline for the file request.
+/// The new deadline for the file request. Deadlines can only be set by
+/// Professional and Business accounts.
 @property (nonatomic, readonly) DBFILEREQUESTSUpdateFileRequestDeadline *deadline;
 
 /// Whether to set this file request as open or closed.
 @property (nonatomic, readonly, nullable) NSNumber *open;
+
+/// The description of the file request.
+@property (nonatomic, readonly, copy, nullable) NSString *description_;
 
 #pragma mark - Constructors
 
@@ -55,8 +59,10 @@ NS_ASSUME_NONNULL_BEGIN
 /// @param destination The new path of the folder in the Dropbox where uploaded
 /// files will be sent. For apps with the app folder permission, this will be
 /// relative to the app folder.
-/// @param deadline The new deadline for the file request.
+/// @param deadline The new deadline for the file request. Deadlines can only be
+/// set by Professional and Business accounts.
 /// @param open Whether to set this file request as open or closed.
+/// @param description_ The description of the file request.
 ///
 /// @return An initialized instance.
 ///
@@ -64,7 +70,8 @@ NS_ASSUME_NONNULL_BEGIN
                       title:(nullable NSString *)title
                 destination:(nullable NSString *)destination
                    deadline:(nullable DBFILEREQUESTSUpdateFileRequestDeadline *)deadline
-                       open:(nullable NSNumber *)open;
+                       open:(nullable NSNumber *)open
+               description_:(nullable NSString *)description_;
 
 ///
 /// Convenience constructor (exposes only non-nullable instance variables with
@@ -96,7 +103,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// @return A json-compatible dictionary representation of the
 /// `DBFILEREQUESTSUpdateFileRequestArgs` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBFILEREQUESTSUpdateFileRequestArgs *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBFILEREQUESTSUpdateFileRequestArgs *)instance;
 
 ///
 /// Deserializes `DBFILEREQUESTSUpdateFileRequestArgs` instances.
@@ -107,7 +114,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// @return An instantiation of the `DBFILEREQUESTSUpdateFileRequestArgs`
 /// object.
 ///
-+ (DBFILEREQUESTSUpdateFileRequestArgs *)deserialize:(NSDictionary *)dict;
++ (DBFILEREQUESTSUpdateFileRequestArgs *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

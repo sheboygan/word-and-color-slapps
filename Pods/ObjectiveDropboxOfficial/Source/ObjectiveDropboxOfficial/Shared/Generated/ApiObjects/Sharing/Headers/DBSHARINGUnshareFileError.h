@@ -31,7 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// The `DBSHARINGUnshareFileErrorTag` enum type represents the possible tag
 /// states with which the `DBSHARINGUnshareFileError` union can exist.
-typedef NS_ENUM(NSInteger, DBSHARINGUnshareFileErrorTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBSHARINGUnshareFileErrorTag) {
   /// (no description).
   DBSHARINGUnshareFileErrorUserError,
 
@@ -136,7 +136,7 @@ typedef NS_ENUM(NSInteger, DBSHARINGUnshareFileErrorTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBSHARINGUnshareFileError` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBSHARINGUnshareFileError *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBSHARINGUnshareFileError *)instance;
 
 ///
 /// Deserializes `DBSHARINGUnshareFileError` instances.
@@ -146,7 +146,7 @@ typedef NS_ENUM(NSInteger, DBSHARINGUnshareFileErrorTag) {
 ///
 /// @return An instantiation of the `DBSHARINGUnshareFileError` object.
 ///
-+ (DBSHARINGUnshareFileError *)deserialize:(NSDictionary *)dict;
++ (DBSHARINGUnshareFileError *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

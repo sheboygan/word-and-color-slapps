@@ -27,7 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// The `DBAUTHTokenFromOAuth1ErrorTag` enum type represents the possible tag
 /// states with which the `DBAUTHTokenFromOAuth1Error` union can exist.
-typedef NS_ENUM(NSInteger, DBAUTHTokenFromOAuth1ErrorTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBAUTHTokenFromOAuth1ErrorTag) {
   /// Part or all of the OAuth 1.0 access token info is invalid.
   DBAUTHTokenFromOAuth1ErrorInvalidOauth1TokenInfo,
 
@@ -123,7 +123,7 @@ typedef NS_ENUM(NSInteger, DBAUTHTokenFromOAuth1ErrorTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBAUTHTokenFromOAuth1Error` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBAUTHTokenFromOAuth1Error *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBAUTHTokenFromOAuth1Error *)instance;
 
 ///
 /// Deserializes `DBAUTHTokenFromOAuth1Error` instances.
@@ -133,7 +133,7 @@ typedef NS_ENUM(NSInteger, DBAUTHTokenFromOAuth1ErrorTag) {
 ///
 /// @return An instantiation of the `DBAUTHTokenFromOAuth1Error` object.
 ///
-+ (DBAUTHTokenFromOAuth1Error *)deserialize:(NSDictionary *)dict;
++ (DBAUTHTokenFromOAuth1Error *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

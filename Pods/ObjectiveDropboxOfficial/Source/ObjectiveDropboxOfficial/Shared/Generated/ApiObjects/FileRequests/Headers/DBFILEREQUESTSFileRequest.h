@@ -56,6 +56,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// The number of files this file request has received.
 @property (nonatomic, readonly) NSNumber *fileCount;
 
+/// A description of the file request.
+@property (nonatomic, readonly, copy, nullable) NSString *description_;
+
 #pragma mark - Constructors
 
 ///
@@ -74,6 +77,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// folder.
 /// @param deadline The deadline for this file request. Only set if the request
 /// has a deadline.
+/// @param description_ A description of the file request.
 ///
 /// @return An initialized instance.
 ///
@@ -84,7 +88,8 @@ NS_ASSUME_NONNULL_BEGIN
                      isOpen:(NSNumber *)isOpen
                   fileCount:(NSNumber *)fileCount
                 destination:(nullable NSString *)destination
-                   deadline:(nullable DBFILEREQUESTSFileRequestDeadline *)deadline;
+                   deadline:(nullable DBFILEREQUESTSFileRequestDeadline *)deadline
+               description_:(nullable NSString *)description_;
 
 ///
 /// Convenience constructor (exposes only non-nullable instance variables with
@@ -126,7 +131,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// @return A json-compatible dictionary representation of the
 /// `DBFILEREQUESTSFileRequest` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBFILEREQUESTSFileRequest *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBFILEREQUESTSFileRequest *)instance;
 
 ///
 /// Deserializes `DBFILEREQUESTSFileRequest` instances.
@@ -136,7 +141,7 @@ NS_ASSUME_NONNULL_BEGIN
 ///
 /// @return An instantiation of the `DBFILEREQUESTSFileRequest` object.
 ///
-+ (DBFILEREQUESTSFileRequest *)deserialize:(NSDictionary *)dict;
++ (DBFILEREQUESTSFileRequest *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

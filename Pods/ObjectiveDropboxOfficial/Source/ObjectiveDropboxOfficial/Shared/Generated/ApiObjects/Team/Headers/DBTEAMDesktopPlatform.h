@@ -27,7 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// The `DBTEAMDesktopPlatformTag` enum type represents the possible tag states
 /// with which the `DBTEAMDesktopPlatform` union can exist.
-typedef NS_ENUM(NSInteger, DBTEAMDesktopPlatformTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBTEAMDesktopPlatformTag) {
   /// Official Windows Dropbox desktop client.
   DBTEAMDesktopPlatformWindows,
 
@@ -138,7 +138,7 @@ typedef NS_ENUM(NSInteger, DBTEAMDesktopPlatformTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBTEAMDesktopPlatform` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBTEAMDesktopPlatform *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBTEAMDesktopPlatform *)instance;
 
 ///
 /// Deserializes `DBTEAMDesktopPlatform` instances.
@@ -148,7 +148,7 @@ typedef NS_ENUM(NSInteger, DBTEAMDesktopPlatformTag) {
 ///
 /// @return An instantiation of the `DBTEAMDesktopPlatform` object.
 ///
-+ (DBTEAMDesktopPlatform *)deserialize:(NSDictionary *)dict;
++ (DBTEAMDesktopPlatform *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

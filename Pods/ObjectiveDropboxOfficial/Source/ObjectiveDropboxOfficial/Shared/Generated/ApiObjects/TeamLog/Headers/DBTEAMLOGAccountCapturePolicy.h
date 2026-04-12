@@ -27,7 +27,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// The `DBTEAMLOGAccountCapturePolicyTag` enum type represents the possible tag
 /// states with which the `DBTEAMLOGAccountCapturePolicy` union can exist.
-typedef NS_ENUM(NSInteger, DBTEAMLOGAccountCapturePolicyTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBTEAMLOGAccountCapturePolicyTag) {
+  /// (no description).
+  DBTEAMLOGAccountCapturePolicyAllUsers,
+
   /// (no description).
   DBTEAMLOGAccountCapturePolicyDisabled,
 
@@ -35,7 +38,7 @@ typedef NS_ENUM(NSInteger, DBTEAMLOGAccountCapturePolicyTag) {
   DBTEAMLOGAccountCapturePolicyInvitedUsers,
 
   /// (no description).
-  DBTEAMLOGAccountCapturePolicyAllUsers,
+  DBTEAMLOGAccountCapturePolicyPreventPersonalCreation,
 
   /// (no description).
   DBTEAMLOGAccountCapturePolicyOther,
@@ -46,6 +49,13 @@ typedef NS_ENUM(NSInteger, DBTEAMLOGAccountCapturePolicyTag) {
 @property (nonatomic, readonly) DBTEAMLOGAccountCapturePolicyTag tag;
 
 #pragma mark - Constructors
+
+///
+/// Initializes union class with tag state of "all_users".
+///
+/// @return An initialized instance.
+///
+- (instancetype)initWithAllUsers;
 
 ///
 /// Initializes union class with tag state of "disabled".
@@ -62,11 +72,11 @@ typedef NS_ENUM(NSInteger, DBTEAMLOGAccountCapturePolicyTag) {
 - (instancetype)initWithInvitedUsers;
 
 ///
-/// Initializes union class with tag state of "all_users".
+/// Initializes union class with tag state of "prevent_personal_creation".
 ///
 /// @return An initialized instance.
 ///
-- (instancetype)initWithAllUsers;
+- (instancetype)initWithPreventPersonalCreation;
 
 ///
 /// Initializes union class with tag state of "other".
@@ -78,6 +88,13 @@ typedef NS_ENUM(NSInteger, DBTEAMLOGAccountCapturePolicyTag) {
 - (instancetype)init NS_UNAVAILABLE;
 
 #pragma mark - Tag state methods
+
+///
+/// Retrieves whether the union's current tag state has value "all_users".
+///
+/// @return Whether the union's current tag state has value "all_users".
+///
+- (BOOL)isAllUsers;
 
 ///
 /// Retrieves whether the union's current tag state has value "disabled".
@@ -94,11 +111,13 @@ typedef NS_ENUM(NSInteger, DBTEAMLOGAccountCapturePolicyTag) {
 - (BOOL)isInvitedUsers;
 
 ///
-/// Retrieves whether the union's current tag state has value "all_users".
+/// Retrieves whether the union's current tag state has value
+/// "prevent_personal_creation".
 ///
-/// @return Whether the union's current tag state has value "all_users".
+/// @return Whether the union's current tag state has value
+/// "prevent_personal_creation".
 ///
-- (BOOL)isAllUsers;
+- (BOOL)isPreventPersonalCreation;
 
 ///
 /// Retrieves whether the union's current tag state has value "other".
@@ -132,7 +151,7 @@ typedef NS_ENUM(NSInteger, DBTEAMLOGAccountCapturePolicyTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBTEAMLOGAccountCapturePolicy` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBTEAMLOGAccountCapturePolicy *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBTEAMLOGAccountCapturePolicy *)instance;
 
 ///
 /// Deserializes `DBTEAMLOGAccountCapturePolicy` instances.
@@ -142,7 +161,7 @@ typedef NS_ENUM(NSInteger, DBTEAMLOGAccountCapturePolicyTag) {
 ///
 /// @return An instantiation of the `DBTEAMLOGAccountCapturePolicy` object.
 ///
-+ (DBTEAMLOGAccountCapturePolicy *)deserialize:(NSDictionary *)dict;
++ (DBTEAMLOGAccountCapturePolicy *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

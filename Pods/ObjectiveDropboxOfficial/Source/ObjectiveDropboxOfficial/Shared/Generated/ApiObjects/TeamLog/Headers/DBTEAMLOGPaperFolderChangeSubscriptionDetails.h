@@ -17,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 ///
 /// The `PaperFolderChangeSubscriptionDetails` struct.
 ///
-/// Followed or unfollowed a Paper folder.
+/// Followed/unfollowed Paper folder.
 ///
 /// This class implements the `DBSerializable` protocol (serialize and
 /// deserialize instance methods), which is required for all Obj-C SDK API route
@@ -85,7 +85,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// @return A json-compatible dictionary representation of the
 /// `DBTEAMLOGPaperFolderChangeSubscriptionDetails` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBTEAMLOGPaperFolderChangeSubscriptionDetails *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBTEAMLOGPaperFolderChangeSubscriptionDetails *)instance;
 
 ///
 /// Deserializes `DBTEAMLOGPaperFolderChangeSubscriptionDetails` instances.
@@ -96,7 +96,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// @return An instantiation of the
 /// `DBTEAMLOGPaperFolderChangeSubscriptionDetails` object.
 ///
-+ (DBTEAMLOGPaperFolderChangeSubscriptionDetails *)deserialize:(NSDictionary *)dict;
++ (DBTEAMLOGPaperFolderChangeSubscriptionDetails *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

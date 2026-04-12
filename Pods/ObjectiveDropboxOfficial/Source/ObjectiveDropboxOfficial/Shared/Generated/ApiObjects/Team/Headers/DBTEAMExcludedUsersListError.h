@@ -29,7 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// The `DBTEAMExcludedUsersListErrorTag` enum type represents the possible tag
 /// states with which the `DBTEAMExcludedUsersListError` union can exist.
-typedef NS_ENUM(NSInteger, DBTEAMExcludedUsersListErrorTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBTEAMExcludedUsersListErrorTag) {
   /// An error occurred.
   DBTEAMExcludedUsersListErrorListError,
 
@@ -102,7 +102,7 @@ typedef NS_ENUM(NSInteger, DBTEAMExcludedUsersListErrorTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBTEAMExcludedUsersListError` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBTEAMExcludedUsersListError *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBTEAMExcludedUsersListError *)instance;
 
 ///
 /// Deserializes `DBTEAMExcludedUsersListError` instances.
@@ -112,7 +112,7 @@ typedef NS_ENUM(NSInteger, DBTEAMExcludedUsersListErrorTag) {
 ///
 /// @return An instantiation of the `DBTEAMExcludedUsersListError` object.
 ///
-+ (DBTEAMExcludedUsersListError *)deserialize:(NSDictionary *)dict;
++ (DBTEAMExcludedUsersListError *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

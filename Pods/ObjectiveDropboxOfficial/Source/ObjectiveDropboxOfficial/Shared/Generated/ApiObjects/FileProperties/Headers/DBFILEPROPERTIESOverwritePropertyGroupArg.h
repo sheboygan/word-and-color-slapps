@@ -29,7 +29,8 @@ NS_ASSUME_NONNULL_BEGIN
 /// A unique identifier for the file or folder.
 @property (nonatomic, readonly, copy) NSString *path;
 
-/// The property groups "snapshot" updates to force apply.
+/// The property groups "snapshot" updates to force apply. No two groups in the
+/// input should  refer to the same template.
 @property (nonatomic, readonly) NSArray<DBFILEPROPERTIESPropertyGroup *> *propertyGroups;
 
 #pragma mark - Constructors
@@ -39,6 +40,7 @@ NS_ASSUME_NONNULL_BEGIN
 ///
 /// @param path A unique identifier for the file or folder.
 /// @param propertyGroups The property groups "snapshot" updates to force apply.
+/// No two groups in the input should  refer to the same template.
 ///
 /// @return An initialized instance.
 ///
@@ -64,7 +66,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// @return A json-compatible dictionary representation of the
 /// `DBFILEPROPERTIESOverwritePropertyGroupArg` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBFILEPROPERTIESOverwritePropertyGroupArg *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBFILEPROPERTIESOverwritePropertyGroupArg *)instance;
 
 ///
 /// Deserializes `DBFILEPROPERTIESOverwritePropertyGroupArg` instances.
@@ -75,7 +77,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// @return An instantiation of the `DBFILEPROPERTIESOverwritePropertyGroupArg`
 /// object.
 ///
-+ (DBFILEPROPERTIESOverwritePropertyGroupArg *)deserialize:(NSDictionary *)dict;
++ (DBFILEPROPERTIESOverwritePropertyGroupArg *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

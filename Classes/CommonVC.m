@@ -30,14 +30,21 @@
     if (![SharedObjects objects].isPro || [SharedObjects objects].isColorSlapps)
     {
         [self initGoogleAds];
-    
+
         if ([self isKindOfClass: [SettingsVC class]] && arc4random()%2 == 1)
         {
-            self.interstitial = [[GADInterstitial alloc] initWithAdUnitID: [self interstitialId]];
-            self.interstitial.delegate = self;
-            GADRequest* request = [GADRequest request];
-            [self.interstitial loadRequest: request];
             loadingAd = YES;
+            [GADInterstitialAd loadWithAdUnitID:[self interstitialId]
+                                        request:[GADRequest request]
+                              completionHandler:^(GADInterstitialAd * _Nullable interstitialAd, NSError * _Nullable error) {
+                self->loadingAd = NO;
+                if (error) {
+                    return;
+                }
+                self.interstitial = interstitialAd;
+                self.interstitial.fullScreenContentDelegate = self;
+                [self.interstitial presentFromRootViewController:self];
+            }];
         }
     }
 }
@@ -70,20 +77,19 @@
 
 - (void) initGoogleAds
 {
-    self.bannerAdMob = [[GADBannerView alloc] initWithAdSize: kGADAdSizeSmartBannerLandscape];
+    GADAdSize adSize = GADCurrentOrientationAnchoredAdaptiveBannerAdSizeWithWidth(self.view.frame.size.width);
+    self.bannerAdMob = [[GADBannerView alloc] initWithAdSize:adSize];
     self.bannerAdMob.adUnitID = [self bottomBannerId];
     self.bannerAdMob.delegate = self;
     self.bannerAdMob.rootViewController = self;
-    
+
     GADRequest* request = [GADRequest request];
-    request.testDevices = @[@"a72c7feaa9e53d279ec3533efdb48197"];
-    
     [self.bannerAdMob loadRequest: request];
 }
 
 #pragma mark - GoogleAdMob banners delegate
 
-- (void)adViewDidReceiveAd:(GADBannerView *)view
+- (void)bannerViewDidReceiveAd:(GADBannerView *)view
 {
     UIView* fullscreen = self.view;
 
@@ -110,7 +116,7 @@
     
 }
 
-- (void)adView:(GADBannerView *)view didFailToReceiveAdWithError:(GADRequestError *)error
+- (void)bannerView:(GADBannerView *)bannerView didFailToReceiveAdWithError:(NSError *)error
 {
     [UIView animateWithDuration: 0.4 animations:^{
         CGRect r = topContainer.frame;
@@ -118,18 +124,6 @@
         topContainer.frame = r;
     }];
     [self.bannerAdMob removeFromSuperview];
-}
-
-
--(void)interstitial:(GADInterstitial *)ad didFailToReceiveAdWithError:(GADRequestError *)error
-{
-    loadingAd = NO;
-}
-
--(void)interstitialDidReceiveAd:(GADInterstitial *)ad
-{
-    loadingAd = NO;
-    [self.interstitial presentFromRootViewController:self];
 }
 
 -(BOOL)prefersStatusBarHidden

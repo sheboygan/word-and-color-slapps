@@ -28,7 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// The `DBFILESThumbnailErrorTag` enum type represents the possible tag states
 /// with which the `DBFILESThumbnailError` union can exist.
-typedef NS_ENUM(NSInteger, DBFILESThumbnailErrorTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBFILESThumbnailErrorTag) {
   /// An error occurs when downloading metadata for the image.
   DBFILESThumbnailErrorPath,
 
@@ -158,7 +158,7 @@ typedef NS_ENUM(NSInteger, DBFILESThumbnailErrorTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBFILESThumbnailError` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBFILESThumbnailError *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBFILESThumbnailError *)instance;
 
 ///
 /// Deserializes `DBFILESThumbnailError` instances.
@@ -168,7 +168,7 @@ typedef NS_ENUM(NSInteger, DBFILESThumbnailErrorTag) {
 ///
 /// @return An instantiation of the `DBFILESThumbnailError` object.
 ///
-+ (DBFILESThumbnailError *)deserialize:(NSDictionary *)dict;
++ (DBFILESThumbnailError *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

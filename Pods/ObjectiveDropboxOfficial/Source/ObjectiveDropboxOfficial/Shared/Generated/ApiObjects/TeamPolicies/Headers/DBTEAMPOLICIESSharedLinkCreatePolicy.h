@@ -31,7 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// The `DBTEAMPOLICIESSharedLinkCreatePolicyTag` enum type represents the
 /// possible tag states with which the `DBTEAMPOLICIESSharedLinkCreatePolicy`
 /// union can exist.
-typedef NS_ENUM(NSInteger, DBTEAMPOLICIESSharedLinkCreatePolicyTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBTEAMPOLICIESSharedLinkCreatePolicyTag) {
   /// By default, anyone can access newly created shared links. No login will
   /// be required to access the shared links unless overridden.
   DBTEAMPOLICIESSharedLinkCreatePolicyDefaultPublic,
@@ -44,6 +44,10 @@ typedef NS_ENUM(NSInteger, DBTEAMPOLICIESSharedLinkCreatePolicyTag) {
   /// Only members of the same team can access all shared links. Login will be
   /// required to access all shared links.
   DBTEAMPOLICIESSharedLinkCreatePolicyTeamOnly,
+
+  /// Only people invited can access newly created links. Login will be
+  /// required to access the shared links unless overridden.
+  DBTEAMPOLICIESSharedLinkCreatePolicyDefaultNoOne,
 
   /// (no description).
   DBTEAMPOLICIESSharedLinkCreatePolicyOther,
@@ -88,6 +92,17 @@ typedef NS_ENUM(NSInteger, DBTEAMPOLICIESSharedLinkCreatePolicyTag) {
 - (instancetype)initWithTeamOnly;
 
 ///
+/// Initializes union class with tag state of "default_no_one".
+///
+/// Description of the "default_no_one" tag state: Only people invited can
+/// access newly created links. Login will be required to access the shared
+/// links unless overridden.
+///
+/// @return An initialized instance.
+///
+- (instancetype)initWithDefaultNoOne;
+
+///
 /// Initializes union class with tag state of "other".
 ///
 /// @return An initialized instance.
@@ -119,6 +134,13 @@ typedef NS_ENUM(NSInteger, DBTEAMPOLICIESSharedLinkCreatePolicyTag) {
 /// @return Whether the union's current tag state has value "team_only".
 ///
 - (BOOL)isTeamOnly;
+
+///
+/// Retrieves whether the union's current tag state has value "default_no_one".
+///
+/// @return Whether the union's current tag state has value "default_no_one".
+///
+- (BOOL)isDefaultNoOne;
 
 ///
 /// Retrieves whether the union's current tag state has value "other".
@@ -153,7 +175,7 @@ typedef NS_ENUM(NSInteger, DBTEAMPOLICIESSharedLinkCreatePolicyTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBTEAMPOLICIESSharedLinkCreatePolicy` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBTEAMPOLICIESSharedLinkCreatePolicy *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBTEAMPOLICIESSharedLinkCreatePolicy *)instance;
 
 ///
 /// Deserializes `DBTEAMPOLICIESSharedLinkCreatePolicy` instances.
@@ -164,7 +186,7 @@ typedef NS_ENUM(NSInteger, DBTEAMPOLICIESSharedLinkCreatePolicyTag) {
 /// @return An instantiation of the `DBTEAMPOLICIESSharedLinkCreatePolicy`
 /// object.
 ///
-+ (DBTEAMPOLICIESSharedLinkCreatePolicy *)deserialize:(NSDictionary *)dict;
++ (DBTEAMPOLICIESSharedLinkCreatePolicy *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

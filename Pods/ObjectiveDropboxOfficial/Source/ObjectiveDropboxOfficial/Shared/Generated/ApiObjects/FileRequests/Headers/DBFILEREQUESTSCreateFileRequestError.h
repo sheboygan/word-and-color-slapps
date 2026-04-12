@@ -30,7 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// The `DBFILEREQUESTSCreateFileRequestErrorTag` enum type represents the
 /// possible tag states with which the `DBFILEREQUESTSCreateFileRequestError`
 /// union can exist.
-typedef NS_ENUM(NSInteger, DBFILEREQUESTSCreateFileRequestErrorTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBFILEREQUESTSCreateFileRequestErrorTag) {
   /// This user's Dropbox Business team doesn't allow file requests.
   DBFILEREQUESTSCreateFileRequestErrorDisabledForTeam,
 
@@ -63,7 +63,7 @@ typedef NS_ENUM(NSInteger, DBFILEREQUESTSCreateFileRequestErrorTag) {
   DBFILEREQUESTSCreateFileRequestErrorInvalidLocation,
 
   /// The user has reached the rate limit for creating file requests. The
-  /// limit is currently 100 file requests per day.
+  /// limit is currently 4000 file requests total.
   DBFILEREQUESTSCreateFileRequestErrorRateLimit,
 
 };
@@ -168,8 +168,8 @@ typedef NS_ENUM(NSInteger, DBFILEREQUESTSCreateFileRequestErrorTag) {
 /// Initializes union class with tag state of "rate_limit".
 ///
 /// Description of the "rate_limit" tag state: The user has reached the rate
-/// limit for creating file requests. The limit is currently 100 file requests
-/// per day.
+/// limit for creating file requests. The limit is currently 4000 file requests
+/// total.
 ///
 /// @return An initialized instance.
 ///
@@ -280,7 +280,7 @@ typedef NS_ENUM(NSInteger, DBFILEREQUESTSCreateFileRequestErrorTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBFILEREQUESTSCreateFileRequestError` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBFILEREQUESTSCreateFileRequestError *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBFILEREQUESTSCreateFileRequestError *)instance;
 
 ///
 /// Deserializes `DBFILEREQUESTSCreateFileRequestError` instances.
@@ -291,7 +291,7 @@ typedef NS_ENUM(NSInteger, DBFILEREQUESTSCreateFileRequestErrorTag) {
 /// @return An instantiation of the `DBFILEREQUESTSCreateFileRequestError`
 /// object.
 ///
-+ (DBFILEREQUESTSCreateFileRequestError *)deserialize:(NSDictionary *)dict;
++ (DBFILEREQUESTSCreateFileRequestError *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

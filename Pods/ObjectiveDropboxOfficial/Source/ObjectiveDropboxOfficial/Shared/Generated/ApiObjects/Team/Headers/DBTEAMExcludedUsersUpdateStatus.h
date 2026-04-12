@@ -29,7 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// The `DBTEAMExcludedUsersUpdateStatusTag` enum type represents the possible
 /// tag states with which the `DBTEAMExcludedUsersUpdateStatus` union can exist.
-typedef NS_ENUM(NSInteger, DBTEAMExcludedUsersUpdateStatusTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBTEAMExcludedUsersUpdateStatusTag) {
   /// Update successful.
   DBTEAMExcludedUsersUpdateStatusSuccess,
 
@@ -102,7 +102,7 @@ typedef NS_ENUM(NSInteger, DBTEAMExcludedUsersUpdateStatusTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBTEAMExcludedUsersUpdateStatus` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBTEAMExcludedUsersUpdateStatus *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBTEAMExcludedUsersUpdateStatus *)instance;
 
 ///
 /// Deserializes `DBTEAMExcludedUsersUpdateStatus` instances.
@@ -112,7 +112,7 @@ typedef NS_ENUM(NSInteger, DBTEAMExcludedUsersUpdateStatusTag) {
 ///
 /// @return An instantiation of the `DBTEAMExcludedUsersUpdateStatus` object.
 ///
-+ (DBTEAMExcludedUsersUpdateStatus *)deserialize:(NSDictionary *)dict;
++ (DBTEAMExcludedUsersUpdateStatus *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

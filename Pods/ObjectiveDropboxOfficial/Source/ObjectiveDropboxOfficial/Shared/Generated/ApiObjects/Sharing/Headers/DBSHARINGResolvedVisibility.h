@@ -32,7 +32,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// The `DBSHARINGResolvedVisibilityTag` enum type represents the possible tag
 /// states with which the `DBSHARINGResolvedVisibility` union can exist.
-typedef NS_ENUM(NSInteger, DBSHARINGResolvedVisibilityTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBSHARINGResolvedVisibilityTag) {
   /// Anyone who has received the link can access it. No login required.
   DBSHARINGResolvedVisibilityPublic,
 
@@ -50,6 +50,15 @@ typedef NS_ENUM(NSInteger, DBSHARINGResolvedVisibilityTag) {
   /// Only members of the shared folder containing the linked file can access
   /// the link. Login is required.
   DBSHARINGResolvedVisibilitySharedFolderOnly,
+
+  /// The link merely points the user to the content, and does not grant any
+  /// additional rights. Existing members of the content who use this link can
+  /// only access the content with their pre-existing access rights. Either on
+  /// the file directly, or inherited from a parent folder.
+  DBSHARINGResolvedVisibilityNoOne,
+
+  /// Only the current user can view this link.
+  DBSHARINGResolvedVisibilityOnlyYou,
 
   /// (no description).
   DBSHARINGResolvedVisibilityOther,
@@ -114,6 +123,29 @@ typedef NS_ENUM(NSInteger, DBSHARINGResolvedVisibilityTag) {
 - (instancetype)initWithSharedFolderOnly;
 
 ///
+/// Initializes union class with tag state of "no_one".
+///
+/// Description of the "no_one" tag state: The link merely points the user to
+/// the content, and does not grant any additional rights. Existing members of
+/// the content who use this link can only access the content with their
+/// pre-existing access rights. Either on the file directly, or inherited from a
+/// parent folder.
+///
+/// @return An initialized instance.
+///
+- (instancetype)initWithNoOne;
+
+///
+/// Initializes union class with tag state of "only_you".
+///
+/// Description of the "only_you" tag state: Only the current user can view this
+/// link.
+///
+/// @return An initialized instance.
+///
+- (instancetype)initWithOnlyYou;
+
+///
 /// Initializes union class with tag state of "other".
 ///
 /// @return An initialized instance.
@@ -163,6 +195,20 @@ typedef NS_ENUM(NSInteger, DBSHARINGResolvedVisibilityTag) {
 - (BOOL)isSharedFolderOnly;
 
 ///
+/// Retrieves whether the union's current tag state has value "no_one".
+///
+/// @return Whether the union's current tag state has value "no_one".
+///
+- (BOOL)isNoOne;
+
+///
+/// Retrieves whether the union's current tag state has value "only_you".
+///
+/// @return Whether the union's current tag state has value "only_you".
+///
+- (BOOL)isOnlyYou;
+
+///
 /// Retrieves whether the union's current tag state has value "other".
 ///
 /// @return Whether the union's current tag state has value "other".
@@ -193,7 +239,7 @@ typedef NS_ENUM(NSInteger, DBSHARINGResolvedVisibilityTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBSHARINGResolvedVisibility` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBSHARINGResolvedVisibility *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBSHARINGResolvedVisibility *)instance;
 
 ///
 /// Deserializes `DBSHARINGResolvedVisibility` instances.
@@ -203,7 +249,7 @@ typedef NS_ENUM(NSInteger, DBSHARINGResolvedVisibilityTag) {
 ///
 /// @return An instantiation of the `DBSHARINGResolvedVisibility` object.
 ///
-+ (DBSHARINGResolvedVisibility *)deserialize:(NSDictionary *)dict;
++ (DBSHARINGResolvedVisibility *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

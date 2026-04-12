@@ -28,7 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// The `DBFILESSaveUrlResultTag` enum type represents the possible tag states
 /// with which the `DBFILESSaveUrlResult` union can exist.
-typedef NS_ENUM(NSInteger, DBFILESSaveUrlResultTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBFILESSaveUrlResultTag) {
   /// This response indicates that the processing is asynchronous. The string
   /// is an id that can be used to obtain the status of the asynchronous job.
   DBFILESSaveUrlResultAsyncJobId,
@@ -129,7 +129,7 @@ typedef NS_ENUM(NSInteger, DBFILESSaveUrlResultTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBFILESSaveUrlResult` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBFILESSaveUrlResult *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBFILESSaveUrlResult *)instance;
 
 ///
 /// Deserializes `DBFILESSaveUrlResult` instances.
@@ -139,7 +139,7 @@ typedef NS_ENUM(NSInteger, DBFILESSaveUrlResultTag) {
 ///
 /// @return An instantiation of the `DBFILESSaveUrlResult` object.
 ///
-+ (DBFILESSaveUrlResult *)deserialize:(NSDictionary *)dict;
++ (DBFILESSaveUrlResult *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

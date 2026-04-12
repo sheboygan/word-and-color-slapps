@@ -30,7 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// The `DBSHARINGPendingUploadModeTag` enum type represents the possible tag
 /// states with which the `DBSHARINGPendingUploadMode` union can exist.
-typedef NS_ENUM(NSInteger, DBSHARINGPendingUploadModeTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBSHARINGPendingUploadModeTag) {
   /// Assume pending uploads are files.
   DBSHARINGPendingUploadModeFile,
 
@@ -104,7 +104,7 @@ typedef NS_ENUM(NSInteger, DBSHARINGPendingUploadModeTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBSHARINGPendingUploadMode` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBSHARINGPendingUploadMode *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBSHARINGPendingUploadMode *)instance;
 
 ///
 /// Deserializes `DBSHARINGPendingUploadMode` instances.
@@ -114,7 +114,7 @@ typedef NS_ENUM(NSInteger, DBSHARINGPendingUploadModeTag) {
 ///
 /// @return An instantiation of the `DBSHARINGPendingUploadMode` object.
 ///
-+ (DBSHARINGPendingUploadMode *)deserialize:(NSDictionary *)dict;
++ (DBSHARINGPendingUploadMode *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

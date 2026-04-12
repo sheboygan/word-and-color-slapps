@@ -28,11 +28,13 @@ NS_ASSUME_NONNULL_BEGIN
 /// The `DBSHARINGSharedLinkAccessFailureReasonTag` enum type represents the
 /// possible tag states with which the `DBSHARINGSharedLinkAccessFailureReason`
 /// union can exist.
-typedef NS_ENUM(NSInteger, DBSHARINGSharedLinkAccessFailureReasonTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBSHARINGSharedLinkAccessFailureReasonTag) {
   /// User is not logged in.
   DBSHARINGSharedLinkAccessFailureReasonLoginRequired,
 
-  /// User's email is not verified.
+  /// This user's email address is not verified. This functionality is only
+  /// available on accounts with a verified email address. Users can verify
+  /// their email address here https://www.dropbox.com/help/317.
   DBSHARINGSharedLinkAccessFailureReasonEmailVerifyRequired,
 
   /// The link is password protected.
@@ -66,8 +68,10 @@ typedef NS_ENUM(NSInteger, DBSHARINGSharedLinkAccessFailureReasonTag) {
 ///
 /// Initializes union class with tag state of "email_verify_required".
 ///
-/// Description of the "email_verify_required" tag state: User's email is not
-/// verified.
+/// Description of the "email_verify_required" tag state: This user's email
+/// address is not verified. This functionality is only available on accounts
+/// with a verified email address. Users can verify their email address here
+/// https://www.dropbox.com/help/317.
 ///
 /// @return An initialized instance.
 ///
@@ -185,7 +189,7 @@ typedef NS_ENUM(NSInteger, DBSHARINGSharedLinkAccessFailureReasonTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBSHARINGSharedLinkAccessFailureReason` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBSHARINGSharedLinkAccessFailureReason *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBSHARINGSharedLinkAccessFailureReason *)instance;
 
 ///
 /// Deserializes `DBSHARINGSharedLinkAccessFailureReason` instances.
@@ -196,7 +200,7 @@ typedef NS_ENUM(NSInteger, DBSHARINGSharedLinkAccessFailureReasonTag) {
 /// @return An instantiation of the `DBSHARINGSharedLinkAccessFailureReason`
 /// object.
 ///
-+ (DBSHARINGSharedLinkAccessFailureReason *)deserialize:(NSDictionary *)dict;
++ (DBSHARINGSharedLinkAccessFailureReason *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

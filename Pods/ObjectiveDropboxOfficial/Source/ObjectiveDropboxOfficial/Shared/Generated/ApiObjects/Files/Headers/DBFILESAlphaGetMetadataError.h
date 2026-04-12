@@ -29,7 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// The `DBFILESAlphaGetMetadataErrorTag` enum type represents the possible tag
 /// states with which the `DBFILESAlphaGetMetadataError` union can exist.
-typedef NS_ENUM(NSInteger, DBFILESAlphaGetMetadataErrorTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBFILESAlphaGetMetadataErrorTag) {
   /// (no description).
   DBFILESAlphaGetMetadataErrorPath,
 
@@ -119,7 +119,7 @@ typedef NS_ENUM(NSInteger, DBFILESAlphaGetMetadataErrorTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBFILESAlphaGetMetadataError` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBFILESAlphaGetMetadataError *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBFILESAlphaGetMetadataError *)instance;
 
 ///
 /// Deserializes `DBFILESAlphaGetMetadataError` instances.
@@ -129,7 +129,7 @@ typedef NS_ENUM(NSInteger, DBFILESAlphaGetMetadataErrorTag) {
 ///
 /// @return An instantiation of the `DBFILESAlphaGetMetadataError` object.
 ///
-+ (DBFILESAlphaGetMetadataError *)deserialize:(NSDictionary *)dict;
++ (DBFILESAlphaGetMetadataError *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

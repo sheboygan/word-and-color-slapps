@@ -27,7 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// The `DBUSERSGetAccountErrorTag` enum type represents the possible tag states
 /// with which the `DBUSERSGetAccountError` union can exist.
-typedef NS_ENUM(NSInteger, DBUSERSGetAccountErrorTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBUSERSGetAccountErrorTag) {
   /// The specified `accountId` in `DBUSERSGetAccountArg` does not exist.
   DBUSERSGetAccountErrorNoAccount,
 
@@ -100,7 +100,7 @@ typedef NS_ENUM(NSInteger, DBUSERSGetAccountErrorTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBUSERSGetAccountError` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBUSERSGetAccountError *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBUSERSGetAccountError *)instance;
 
 ///
 /// Deserializes `DBUSERSGetAccountError` instances.
@@ -110,7 +110,7 @@ typedef NS_ENUM(NSInteger, DBUSERSGetAccountErrorTag) {
 ///
 /// @return An instantiation of the `DBUSERSGetAccountError` object.
 ///
-+ (DBUSERSGetAccountError *)deserialize:(NSDictionary *)dict;
++ (DBUSERSGetAccountError *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

@@ -27,7 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// The `DBFILESSearchModeTag` enum type represents the possible tag states with
 /// which the `DBFILESSearchMode` union can exist.
-typedef NS_ENUM(NSInteger, DBFILESSearchModeTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBFILESSearchModeTag) {
   /// Search file and folder names.
   DBFILESSearchModeFilename,
 
@@ -125,7 +125,7 @@ typedef NS_ENUM(NSInteger, DBFILESSearchModeTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBFILESSearchMode` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBFILESSearchMode *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBFILESSearchMode *)instance;
 
 ///
 /// Deserializes `DBFILESSearchMode` instances.
@@ -135,7 +135,7 @@ typedef NS_ENUM(NSInteger, DBFILESSearchModeTag) {
 ///
 /// @return An instantiation of the `DBFILESSearchMode` object.
 ///
-+ (DBFILESSearchMode *)deserialize:(NSDictionary *)dict;
++ (DBFILESSearchMode *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

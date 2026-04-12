@@ -17,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 ///
 /// The `PaperContentRemoveFromFolderDetails` struct.
 ///
-/// Removed Paper doc or folder from a folder.
+/// Removed Paper doc/folder from folder.
 ///
 /// This class implements the `DBSerializable` protocol (serialize and
 /// deserialize instance methods), which is required for all Obj-C SDK API route
@@ -30,10 +30,30 @@ NS_ASSUME_NONNULL_BEGIN
 /// Event unique identifier.
 @property (nonatomic, readonly, copy) NSString *eventUuid;
 
+/// Target asset position in the Assets list.
+@property (nonatomic, readonly, nullable) NSNumber *targetAssetIndex;
+
+/// Parent asset position in the Assets list.
+@property (nonatomic, readonly, nullable) NSNumber *parentAssetIndex;
+
 #pragma mark - Constructors
 
 ///
 /// Full constructor for the struct (exposes all instance variables).
+///
+/// @param eventUuid Event unique identifier.
+/// @param targetAssetIndex Target asset position in the Assets list.
+/// @param parentAssetIndex Parent asset position in the Assets list.
+///
+/// @return An initialized instance.
+///
+- (instancetype)initWithEventUuid:(NSString *)eventUuid
+                 targetAssetIndex:(nullable NSNumber *)targetAssetIndex
+                 parentAssetIndex:(nullable NSNumber *)parentAssetIndex;
+
+///
+/// Convenience constructor (exposes only non-nullable instance variables with
+/// no default value).
 ///
 /// @param eventUuid Event unique identifier.
 ///
@@ -62,7 +82,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// @return A json-compatible dictionary representation of the
 /// `DBTEAMLOGPaperContentRemoveFromFolderDetails` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBTEAMLOGPaperContentRemoveFromFolderDetails *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBTEAMLOGPaperContentRemoveFromFolderDetails *)instance;
 
 ///
 /// Deserializes `DBTEAMLOGPaperContentRemoveFromFolderDetails` instances.
@@ -73,7 +93,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// @return An instantiation of the
 /// `DBTEAMLOGPaperContentRemoveFromFolderDetails` object.
 ///
-+ (DBTEAMLOGPaperContentRemoveFromFolderDetails *)deserialize:(NSDictionary *)dict;
++ (DBTEAMLOGPaperContentRemoveFromFolderDetails *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

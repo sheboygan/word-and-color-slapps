@@ -31,11 +31,14 @@ NS_ASSUME_NONNULL_BEGIN
 /// Path relative to event context.
 @property (nonatomic, readonly) DBTEAMLOGPathLogInfo *path;
 
-/// Display name. Might be missing due to historical data gap.
+/// Display name.
 @property (nonatomic, readonly, copy, nullable) NSString *displayName;
 
-/// Unique ID. Might be missing due to historical data gap.
+/// Unique ID.
 @property (nonatomic, readonly, copy, nullable) NSString *fileId;
+
+/// File or folder size in bytes.
+@property (nonatomic, readonly, nullable) NSNumber *fileSize;
 
 #pragma mark - Constructors
 
@@ -43,15 +46,16 @@ NS_ASSUME_NONNULL_BEGIN
 /// Full constructor for the struct (exposes all instance variables).
 ///
 /// @param path Path relative to event context.
-/// @param displayName Display name. Might be missing due to historical data
-/// gap.
-/// @param fileId Unique ID. Might be missing due to historical data gap.
+/// @param displayName Display name.
+/// @param fileId Unique ID.
+/// @param fileSize File or folder size in bytes.
 ///
 /// @return An initialized instance.
 ///
 - (instancetype)initWithPath:(DBTEAMLOGPathLogInfo *)path
                  displayName:(nullable NSString *)displayName
-                      fileId:(nullable NSString *)fileId;
+                      fileId:(nullable NSString *)fileId
+                    fileSize:(nullable NSNumber *)fileSize;
 
 ///
 /// Convenience constructor (exposes only non-nullable instance variables with
@@ -83,7 +87,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// @return A json-compatible dictionary representation of the
 /// `DBTEAMLOGFileOrFolderLogInfo` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBTEAMLOGFileOrFolderLogInfo *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBTEAMLOGFileOrFolderLogInfo *)instance;
 
 ///
 /// Deserializes `DBTEAMLOGFileOrFolderLogInfo` instances.
@@ -93,7 +97,7 @@ NS_ASSUME_NONNULL_BEGIN
 ///
 /// @return An instantiation of the `DBTEAMLOGFileOrFolderLogInfo` object.
 ///
-+ (DBTEAMLOGFileOrFolderLogInfo *)deserialize:(NSDictionary *)dict;
++ (DBTEAMLOGFileOrFolderLogInfo *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

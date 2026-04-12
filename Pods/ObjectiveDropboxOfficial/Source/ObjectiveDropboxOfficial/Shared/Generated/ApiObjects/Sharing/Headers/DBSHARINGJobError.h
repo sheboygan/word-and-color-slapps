@@ -33,7 +33,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// The `DBSHARINGJobErrorTag` enum type represents the possible tag states with
 /// which the `DBSHARINGJobError` union can exist.
-typedef NS_ENUM(NSInteger, DBSHARINGJobErrorTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBSHARINGJobErrorTag) {
   /// Error occurred while performing `unshareFolder` action.
   DBSHARINGJobErrorUnshareFolderError,
 
@@ -189,7 +189,7 @@ typedef NS_ENUM(NSInteger, DBSHARINGJobErrorTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBSHARINGJobError` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBSHARINGJobError *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBSHARINGJobError *)instance;
 
 ///
 /// Deserializes `DBSHARINGJobError` instances.
@@ -199,7 +199,7 @@ typedef NS_ENUM(NSInteger, DBSHARINGJobErrorTag) {
 ///
 /// @return An instantiation of the `DBSHARINGJobError` object.
 ///
-+ (DBSHARINGJobError *)deserialize:(NSDictionary *)dict;
++ (DBSHARINGJobError *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

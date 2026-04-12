@@ -31,7 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// The `DBSHARINGListFileMembersErrorTag` enum type represents the possible tag
 /// states with which the `DBSHARINGListFileMembersError` union can exist.
-typedef NS_ENUM(NSInteger, DBSHARINGListFileMembersErrorTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBSHARINGListFileMembersErrorTag) {
   /// (no description).
   DBSHARINGListFileMembersErrorUserError,
 
@@ -137,7 +137,7 @@ typedef NS_ENUM(NSInteger, DBSHARINGListFileMembersErrorTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBSHARINGListFileMembersError` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBSHARINGListFileMembersError *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBSHARINGListFileMembersError *)instance;
 
 ///
 /// Deserializes `DBSHARINGListFileMembersError` instances.
@@ -147,7 +147,7 @@ typedef NS_ENUM(NSInteger, DBSHARINGListFileMembersErrorTag) {
 ///
 /// @return An instantiation of the `DBSHARINGListFileMembersError` object.
 ///
-+ (DBSHARINGListFileMembersError *)deserialize:(NSDictionary *)dict;
++ (DBSHARINGListFileMembersError *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

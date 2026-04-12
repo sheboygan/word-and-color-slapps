@@ -9,6 +9,7 @@
 #import "DBSerializableProtocol.h"
 
 @class DBFILESUploadSessionStartArg;
+@class DBFILESUploadSessionType;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -26,8 +27,18 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Instance fields
 
 /// If true, the current session will be closed, at which point you won't be
-/// able to call `uploadSessionAppendV2` anymore with the current session.
+/// able to call `uploadSessionAppend` anymore with the current session.
 @property (nonatomic, readonly) NSNumber *close;
+
+/// Type of upload session you want to start. If not specified, default is
+/// `sequential` in `DBFILESUploadSessionType`.
+@property (nonatomic, readonly, nullable) DBFILESUploadSessionType *sessionType;
+
+/// A hash of the file content uploaded in this call. If provided and the
+/// uploaded content does not match this hash, an error will be returned. For
+/// more information see our Content hash
+/// https://www.dropbox.com/developers/reference/content-hash page.
+@property (nonatomic, readonly, copy, nullable) NSString *contentHash;
 
 #pragma mark - Constructors
 
@@ -35,12 +46,20 @@ NS_ASSUME_NONNULL_BEGIN
 /// Full constructor for the struct (exposes all instance variables).
 ///
 /// @param close If true, the current session will be closed, at which point you
-/// won't be able to call `uploadSessionAppendV2` anymore with the current
+/// won't be able to call `uploadSessionAppend` anymore with the current
 /// session.
+/// @param sessionType Type of upload session you want to start. If not
+/// specified, default is `sequential` in `DBFILESUploadSessionType`.
+/// @param contentHash A hash of the file content uploaded in this call. If
+/// provided and the uploaded content does not match this hash, an error will be
+/// returned. For more information see our Content hash
+/// https://www.dropbox.com/developers/reference/content-hash page.
 ///
 /// @return An initialized instance.
 ///
-- (instancetype)initWithClose:(nullable NSNumber *)close;
+- (instancetype)initWithClose:(nullable NSNumber *)close
+                  sessionType:(nullable DBFILESUploadSessionType *)sessionType
+                  contentHash:(nullable NSString *)contentHash;
 
 ///
 /// Convenience constructor (exposes only non-nullable instance variables with
@@ -71,7 +90,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// @return A json-compatible dictionary representation of the
 /// `DBFILESUploadSessionStartArg` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBFILESUploadSessionStartArg *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBFILESUploadSessionStartArg *)instance;
 
 ///
 /// Deserializes `DBFILESUploadSessionStartArg` instances.
@@ -81,7 +100,7 @@ NS_ASSUME_NONNULL_BEGIN
 ///
 /// @return An instantiation of the `DBFILESUploadSessionStartArg` object.
 ///
-+ (DBFILESUploadSessionStartArg *)deserialize:(NSDictionary *)dict;
++ (DBFILESUploadSessionStartArg *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

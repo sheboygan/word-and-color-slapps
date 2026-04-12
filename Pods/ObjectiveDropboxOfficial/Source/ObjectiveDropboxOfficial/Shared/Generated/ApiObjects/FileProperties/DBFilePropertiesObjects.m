@@ -38,17 +38,17 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBFILEPROPERTIESAddPropertiesArgSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBFILEPROPERTIESAddPropertiesArgSerializer deserialize:dict];
 }
 
-#pragma mark - Description method
+#pragma mark - Debug Description method
 
-- (NSString *)description {
+- (NSString *)debugDescription {
   return [[DBFILEPROPERTIESAddPropertiesArgSerializer serialize:self] description];
 }
 
@@ -103,7 +103,7 @@
 
 @implementation DBFILEPROPERTIESAddPropertiesArgSerializer
 
-+ (NSDictionary *)serialize:(DBFILEPROPERTIESAddPropertiesArg *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBFILEPROPERTIESAddPropertiesArg *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"path"] = valueObj.path;
@@ -112,10 +112,10 @@
                                                       return [DBFILEPROPERTIESPropertyGroupSerializer serialize:elem0];
                                                     }];
 
-  return [jsonDict count] > 0 ? jsonDict : nil;
+  return jsonDict;
 }
 
-+ (DBFILEPROPERTIESAddPropertiesArg *)deserialize:(NSDictionary *)valueDict {
++ (DBFILEPROPERTIESAddPropertiesArg *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *path = valueDict[@"path"];
   NSArray<DBFILEPROPERTIESPropertyGroup *> *propertyGroups =
       [DBArraySerializer deserialize:valueDict[@"property_groups"]
@@ -205,17 +205,17 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBFILEPROPERTIESTemplateErrorSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBFILEPROPERTIESTemplateErrorSerializer deserialize:dict];
 }
 
-#pragma mark - Description method
+#pragma mark - Debug Description method
 
-- (NSString *)description {
+- (NSString *)debugDescription {
   return [[DBFILEPROPERTIESTemplateErrorSerializer serialize:self] description];
 }
 
@@ -236,10 +236,13 @@
   switch (_tag) {
   case DBFILEPROPERTIESTemplateErrorTemplateNotFound:
     result = prime * result + [self.templateNotFound hash];
+    break;
   case DBFILEPROPERTIESTemplateErrorRestrictedContent:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBFILEPROPERTIESTemplateErrorOther:
     result = prime * result + [[self tagName] hash];
+    break;
   }
 
   return prime * result;
@@ -281,7 +284,7 @@
 
 @implementation DBFILEPROPERTIESTemplateErrorSerializer
 
-+ (NSDictionary *)serialize:(DBFILEPROPERTIESTemplateError *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBFILEPROPERTIESTemplateError *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isTemplateNotFound]) {
@@ -295,10 +298,10 @@
     jsonDict[@".tag"] = @"other";
   }
 
-  return [jsonDict count] > 0 ? jsonDict : nil;
+  return jsonDict;
 }
 
-+ (DBFILEPROPERTIESTemplateError *)deserialize:(NSDictionary *)valueDict {
++ (DBFILEPROPERTIESTemplateError *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"template_not_found"]) {
@@ -432,17 +435,17 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBFILEPROPERTIESPropertiesErrorSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBFILEPROPERTIESPropertiesErrorSerializer deserialize:dict];
 }
 
-#pragma mark - Description method
+#pragma mark - Debug Description method
 
-- (NSString *)description {
+- (NSString *)debugDescription {
   return [[DBFILEPROPERTIESPropertiesErrorSerializer serialize:self] description];
 }
 
@@ -463,14 +466,19 @@
   switch (_tag) {
   case DBFILEPROPERTIESPropertiesErrorTemplateNotFound:
     result = prime * result + [self.templateNotFound hash];
+    break;
   case DBFILEPROPERTIESPropertiesErrorRestrictedContent:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBFILEPROPERTIESPropertiesErrorOther:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBFILEPROPERTIESPropertiesErrorPath:
     result = prime * result + [self.path hash];
+    break;
   case DBFILEPROPERTIESPropertiesErrorUnsupportedFolder:
     result = prime * result + [[self tagName] hash];
+    break;
   }
 
   return prime * result;
@@ -516,7 +524,7 @@
 
 @implementation DBFILEPROPERTIESPropertiesErrorSerializer
 
-+ (NSDictionary *)serialize:(DBFILEPROPERTIESPropertiesError *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBFILEPROPERTIESPropertiesError *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isTemplateNotFound]) {
@@ -535,10 +543,10 @@
     jsonDict[@".tag"] = @"other";
   }
 
-  return [jsonDict count] > 0 ? jsonDict : nil;
+  return jsonDict;
 }
 
-+ (DBFILEPROPERTIESPropertiesError *)deserialize:(NSDictionary *)valueDict {
++ (DBFILEPROPERTIESPropertiesError *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"template_not_found"]) {
@@ -633,6 +641,14 @@
   return self;
 }
 
+- (instancetype)initWithDuplicatePropertyGroups {
+  self = [super init];
+  if (self) {
+    _tag = DBFILEPROPERTIESInvalidPropertyGroupErrorDuplicatePropertyGroups;
+  }
+  return self;
+}
+
 #pragma mark - Instance field accessors
 
 - (NSString *)templateNotFound {
@@ -683,6 +699,10 @@
   return _tag == DBFILEPROPERTIESInvalidPropertyGroupErrorDoesNotFitTemplate;
 }
 
+- (BOOL)isDuplicatePropertyGroups {
+  return _tag == DBFILEPROPERTIESInvalidPropertyGroupErrorDuplicatePropertyGroups;
+}
+
 - (NSString *)tagName {
   switch (_tag) {
   case DBFILEPROPERTIESInvalidPropertyGroupErrorTemplateNotFound:
@@ -699,6 +719,8 @@
     return @"DBFILEPROPERTIESInvalidPropertyGroupErrorPropertyFieldTooLarge";
   case DBFILEPROPERTIESInvalidPropertyGroupErrorDoesNotFitTemplate:
     return @"DBFILEPROPERTIESInvalidPropertyGroupErrorDoesNotFitTemplate";
+  case DBFILEPROPERTIESInvalidPropertyGroupErrorDuplicatePropertyGroups:
+    return @"DBFILEPROPERTIESInvalidPropertyGroupErrorDuplicatePropertyGroups";
   }
 
   @throw([NSException exceptionWithName:@"InvalidTag" reason:@"Tag has an unknown value." userInfo:nil]);
@@ -706,17 +728,17 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBFILEPROPERTIESInvalidPropertyGroupErrorSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBFILEPROPERTIESInvalidPropertyGroupErrorSerializer deserialize:dict];
 }
 
-#pragma mark - Description method
+#pragma mark - Debug Description method
 
-- (NSString *)description {
+- (NSString *)debugDescription {
   return [[DBFILEPROPERTIESInvalidPropertyGroupErrorSerializer serialize:self] description];
 }
 
@@ -737,18 +759,28 @@
   switch (_tag) {
   case DBFILEPROPERTIESInvalidPropertyGroupErrorTemplateNotFound:
     result = prime * result + [self.templateNotFound hash];
+    break;
   case DBFILEPROPERTIESInvalidPropertyGroupErrorRestrictedContent:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBFILEPROPERTIESInvalidPropertyGroupErrorOther:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBFILEPROPERTIESInvalidPropertyGroupErrorPath:
     result = prime * result + [self.path hash];
+    break;
   case DBFILEPROPERTIESInvalidPropertyGroupErrorUnsupportedFolder:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBFILEPROPERTIESInvalidPropertyGroupErrorPropertyFieldTooLarge:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBFILEPROPERTIESInvalidPropertyGroupErrorDoesNotFitTemplate:
     result = prime * result + [[self tagName] hash];
+    break;
+  case DBFILEPROPERTIESInvalidPropertyGroupErrorDuplicatePropertyGroups:
+    result = prime * result + [[self tagName] hash];
+    break;
   }
 
   return prime * result;
@@ -788,6 +820,8 @@
     return [[self tagName] isEqual:[anInvalidPropertyGroupError tagName]];
   case DBFILEPROPERTIESInvalidPropertyGroupErrorDoesNotFitTemplate:
     return [[self tagName] isEqual:[anInvalidPropertyGroupError tagName]];
+  case DBFILEPROPERTIESInvalidPropertyGroupErrorDuplicatePropertyGroups:
+    return [[self tagName] isEqual:[anInvalidPropertyGroupError tagName]];
   }
   return YES;
 }
@@ -798,7 +832,7 @@
 
 @implementation DBFILEPROPERTIESInvalidPropertyGroupErrorSerializer
 
-+ (NSDictionary *)serialize:(DBFILEPROPERTIESInvalidPropertyGroupError *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBFILEPROPERTIESInvalidPropertyGroupError *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isTemplateNotFound]) {
@@ -817,14 +851,16 @@
     jsonDict[@".tag"] = @"property_field_too_large";
   } else if ([valueObj isDoesNotFitTemplate]) {
     jsonDict[@".tag"] = @"does_not_fit_template";
+  } else if ([valueObj isDuplicatePropertyGroups]) {
+    jsonDict[@".tag"] = @"duplicate_property_groups";
   } else {
     jsonDict[@".tag"] = @"other";
   }
 
-  return [jsonDict count] > 0 ? jsonDict : nil;
+  return jsonDict;
 }
 
-+ (DBFILEPROPERTIESInvalidPropertyGroupError *)deserialize:(NSDictionary *)valueDict {
++ (DBFILEPROPERTIESInvalidPropertyGroupError *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"template_not_found"]) {
@@ -843,6 +879,8 @@
     return [[DBFILEPROPERTIESInvalidPropertyGroupError alloc] initWithPropertyFieldTooLarge];
   } else if ([tag isEqualToString:@"does_not_fit_template"]) {
     return [[DBFILEPROPERTIESInvalidPropertyGroupError alloc] initWithDoesNotFitTemplate];
+  } else if ([tag isEqualToString:@"duplicate_property_groups"]) {
+    return [[DBFILEPROPERTIESInvalidPropertyGroupError alloc] initWithDuplicatePropertyGroups];
   } else {
     return [[DBFILEPROPERTIESInvalidPropertyGroupError alloc] initWithOther];
   }
@@ -923,6 +961,14 @@
   return self;
 }
 
+- (instancetype)initWithDuplicatePropertyGroups {
+  self = [super init];
+  if (self) {
+    _tag = DBFILEPROPERTIESAddPropertiesErrorDuplicatePropertyGroups;
+  }
+  return self;
+}
+
 - (instancetype)initWithPropertyGroupAlreadyExists {
   self = [super init];
   if (self) {
@@ -980,6 +1026,10 @@
   return _tag == DBFILEPROPERTIESAddPropertiesErrorDoesNotFitTemplate;
 }
 
+- (BOOL)isDuplicatePropertyGroups {
+  return _tag == DBFILEPROPERTIESAddPropertiesErrorDuplicatePropertyGroups;
+}
+
 - (BOOL)isPropertyGroupAlreadyExists {
   return _tag == DBFILEPROPERTIESAddPropertiesErrorPropertyGroupAlreadyExists;
 }
@@ -1000,6 +1050,8 @@
     return @"DBFILEPROPERTIESAddPropertiesErrorPropertyFieldTooLarge";
   case DBFILEPROPERTIESAddPropertiesErrorDoesNotFitTemplate:
     return @"DBFILEPROPERTIESAddPropertiesErrorDoesNotFitTemplate";
+  case DBFILEPROPERTIESAddPropertiesErrorDuplicatePropertyGroups:
+    return @"DBFILEPROPERTIESAddPropertiesErrorDuplicatePropertyGroups";
   case DBFILEPROPERTIESAddPropertiesErrorPropertyGroupAlreadyExists:
     return @"DBFILEPROPERTIESAddPropertiesErrorPropertyGroupAlreadyExists";
   }
@@ -1009,17 +1061,17 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBFILEPROPERTIESAddPropertiesErrorSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBFILEPROPERTIESAddPropertiesErrorSerializer deserialize:dict];
 }
 
-#pragma mark - Description method
+#pragma mark - Debug Description method
 
-- (NSString *)description {
+- (NSString *)debugDescription {
   return [[DBFILEPROPERTIESAddPropertiesErrorSerializer serialize:self] description];
 }
 
@@ -1040,20 +1092,31 @@
   switch (_tag) {
   case DBFILEPROPERTIESAddPropertiesErrorTemplateNotFound:
     result = prime * result + [self.templateNotFound hash];
+    break;
   case DBFILEPROPERTIESAddPropertiesErrorRestrictedContent:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBFILEPROPERTIESAddPropertiesErrorOther:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBFILEPROPERTIESAddPropertiesErrorPath:
     result = prime * result + [self.path hash];
+    break;
   case DBFILEPROPERTIESAddPropertiesErrorUnsupportedFolder:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBFILEPROPERTIESAddPropertiesErrorPropertyFieldTooLarge:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBFILEPROPERTIESAddPropertiesErrorDoesNotFitTemplate:
     result = prime * result + [[self tagName] hash];
+    break;
+  case DBFILEPROPERTIESAddPropertiesErrorDuplicatePropertyGroups:
+    result = prime * result + [[self tagName] hash];
+    break;
   case DBFILEPROPERTIESAddPropertiesErrorPropertyGroupAlreadyExists:
     result = prime * result + [[self tagName] hash];
+    break;
   }
 
   return prime * result;
@@ -1093,6 +1156,8 @@
     return [[self tagName] isEqual:[anAddPropertiesError tagName]];
   case DBFILEPROPERTIESAddPropertiesErrorDoesNotFitTemplate:
     return [[self tagName] isEqual:[anAddPropertiesError tagName]];
+  case DBFILEPROPERTIESAddPropertiesErrorDuplicatePropertyGroups:
+    return [[self tagName] isEqual:[anAddPropertiesError tagName]];
   case DBFILEPROPERTIESAddPropertiesErrorPropertyGroupAlreadyExists:
     return [[self tagName] isEqual:[anAddPropertiesError tagName]];
   }
@@ -1105,7 +1170,7 @@
 
 @implementation DBFILEPROPERTIESAddPropertiesErrorSerializer
 
-+ (NSDictionary *)serialize:(DBFILEPROPERTIESAddPropertiesError *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBFILEPROPERTIESAddPropertiesError *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isTemplateNotFound]) {
@@ -1124,16 +1189,18 @@
     jsonDict[@".tag"] = @"property_field_too_large";
   } else if ([valueObj isDoesNotFitTemplate]) {
     jsonDict[@".tag"] = @"does_not_fit_template";
+  } else if ([valueObj isDuplicatePropertyGroups]) {
+    jsonDict[@".tag"] = @"duplicate_property_groups";
   } else if ([valueObj isPropertyGroupAlreadyExists]) {
     jsonDict[@".tag"] = @"property_group_already_exists";
   } else {
     jsonDict[@".tag"] = @"other";
   }
 
-  return [jsonDict count] > 0 ? jsonDict : nil;
+  return jsonDict;
 }
 
-+ (DBFILEPROPERTIESAddPropertiesError *)deserialize:(NSDictionary *)valueDict {
++ (DBFILEPROPERTIESAddPropertiesError *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"template_not_found"]) {
@@ -1152,6 +1219,8 @@
     return [[DBFILEPROPERTIESAddPropertiesError alloc] initWithPropertyFieldTooLarge];
   } else if ([tag isEqualToString:@"does_not_fit_template"]) {
     return [[DBFILEPROPERTIESAddPropertiesError alloc] initWithDoesNotFitTemplate];
+  } else if ([tag isEqualToString:@"duplicate_property_groups"]) {
+    return [[DBFILEPROPERTIESAddPropertiesError alloc] initWithDuplicatePropertyGroups];
   } else if ([tag isEqualToString:@"property_group_already_exists"]) {
     return [[DBFILEPROPERTIESAddPropertiesError alloc] initWithPropertyGroupAlreadyExists];
   } else {
@@ -1193,17 +1262,17 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBFILEPROPERTIESPropertyGroupTemplateSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBFILEPROPERTIESPropertyGroupTemplateSerializer deserialize:dict];
 }
 
-#pragma mark - Description method
+#pragma mark - Debug Description method
 
-- (NSString *)description {
+- (NSString *)debugDescription {
   return [[DBFILEPROPERTIESPropertyGroupTemplateSerializer serialize:self] description];
 }
 
@@ -1262,7 +1331,7 @@
 
 @implementation DBFILEPROPERTIESPropertyGroupTemplateSerializer
 
-+ (NSDictionary *)serialize:(DBFILEPROPERTIESPropertyGroupTemplate *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBFILEPROPERTIESPropertyGroupTemplate *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"name"] = valueObj.name;
@@ -1272,10 +1341,10 @@
                                              return [DBFILEPROPERTIESPropertyFieldTemplateSerializer serialize:elem0];
                                            }];
 
-  return [jsonDict count] > 0 ? jsonDict : nil;
+  return jsonDict;
 }
 
-+ (DBFILEPROPERTIESPropertyGroupTemplate *)deserialize:(NSDictionary *)valueDict {
++ (DBFILEPROPERTIESPropertyGroupTemplate *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *name = valueDict[@"name"];
   NSString *description_ = valueDict[@"description"];
   NSArray<DBFILEPROPERTIESPropertyFieldTemplate *> *fields =
@@ -1319,17 +1388,17 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBFILEPROPERTIESAddTemplateArgSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBFILEPROPERTIESAddTemplateArgSerializer deserialize:dict];
 }
 
-#pragma mark - Description method
+#pragma mark - Debug Description method
 
-- (NSString *)description {
+- (NSString *)debugDescription {
   return [[DBFILEPROPERTIESAddTemplateArgSerializer serialize:self] description];
 }
 
@@ -1388,7 +1457,7 @@
 
 @implementation DBFILEPROPERTIESAddTemplateArgSerializer
 
-+ (NSDictionary *)serialize:(DBFILEPROPERTIESAddTemplateArg *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBFILEPROPERTIESAddTemplateArg *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"name"] = valueObj.name;
@@ -1398,10 +1467,10 @@
                                              return [DBFILEPROPERTIESPropertyFieldTemplateSerializer serialize:elem0];
                                            }];
 
-  return [jsonDict count] > 0 ? jsonDict : nil;
+  return jsonDict;
 }
 
-+ (DBFILEPROPERTIESAddTemplateArg *)deserialize:(NSDictionary *)valueDict {
++ (DBFILEPROPERTIESAddTemplateArg *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *name = valueDict[@"name"];
   NSString *description_ = valueDict[@"description"];
   NSArray<DBFILEPROPERTIESPropertyFieldTemplate *> *fields =
@@ -1426,8 +1495,8 @@
 #pragma mark - Constructors
 
 - (instancetype)initWithTemplateId:(NSString *)templateId {
-  [DBStoneValidators
-   nonnullValidator:[DBStoneValidators stringValidator:@(1) maxLength:nil pattern:@"(/|ptid:).*"]](templateId);
+  [DBStoneValidators nonnullValidator:[DBStoneValidators stringValidator:@(1) maxLength:nil
+                                                                 pattern:@"(/|ptid:).*"]](templateId);
 
   self = [super init];
   if (self) {
@@ -1438,17 +1507,17 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBFILEPROPERTIESAddTemplateResultSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBFILEPROPERTIESAddTemplateResultSerializer deserialize:dict];
 }
 
-#pragma mark - Description method
+#pragma mark - Debug Description method
 
-- (NSString *)description {
+- (NSString *)debugDescription {
   return [[DBFILEPROPERTIESAddTemplateResultSerializer serialize:self] description];
 }
 
@@ -1499,15 +1568,15 @@
 
 @implementation DBFILEPROPERTIESAddTemplateResultSerializer
 
-+ (NSDictionary *)serialize:(DBFILEPROPERTIESAddTemplateResult *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBFILEPROPERTIESAddTemplateResult *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"template_id"] = valueObj.templateId;
 
-  return [jsonDict count] > 0 ? jsonDict : nil;
+  return jsonDict;
 }
 
-+ (DBFILEPROPERTIESAddTemplateResult *)deserialize:(NSDictionary *)valueDict {
++ (DBFILEPROPERTIESAddTemplateResult *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *templateId = valueDict[@"template_id"];
 
   return [[DBFILEPROPERTIESAddTemplateResult alloc] initWithTemplateId:templateId];
@@ -1526,8 +1595,8 @@
 #pragma mark - Constructors
 
 - (instancetype)initWithTemplateId:(NSString *)templateId {
-  [DBStoneValidators
-   nonnullValidator:[DBStoneValidators stringValidator:@(1) maxLength:nil pattern:@"(/|ptid:).*"]](templateId);
+  [DBStoneValidators nonnullValidator:[DBStoneValidators stringValidator:@(1) maxLength:nil
+                                                                 pattern:@"(/|ptid:).*"]](templateId);
 
   self = [super init];
   if (self) {
@@ -1538,17 +1607,17 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBFILEPROPERTIESGetTemplateArgSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBFILEPROPERTIESGetTemplateArgSerializer deserialize:dict];
 }
 
-#pragma mark - Description method
+#pragma mark - Debug Description method
 
-- (NSString *)description {
+- (NSString *)debugDescription {
   return [[DBFILEPROPERTIESGetTemplateArgSerializer serialize:self] description];
 }
 
@@ -1599,15 +1668,15 @@
 
 @implementation DBFILEPROPERTIESGetTemplateArgSerializer
 
-+ (NSDictionary *)serialize:(DBFILEPROPERTIESGetTemplateArg *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBFILEPROPERTIESGetTemplateArg *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"template_id"] = valueObj.templateId;
 
-  return [jsonDict count] > 0 ? jsonDict : nil;
+  return jsonDict;
 }
 
-+ (DBFILEPROPERTIESGetTemplateArg *)deserialize:(NSDictionary *)valueDict {
++ (DBFILEPROPERTIESGetTemplateArg *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *templateId = valueDict[@"template_id"];
 
   return [[DBFILEPROPERTIESGetTemplateArg alloc] initWithTemplateId:templateId];
@@ -1645,17 +1714,17 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBFILEPROPERTIESGetTemplateResultSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBFILEPROPERTIESGetTemplateResultSerializer deserialize:dict];
 }
 
-#pragma mark - Description method
+#pragma mark - Debug Description method
 
-- (NSString *)description {
+- (NSString *)debugDescription {
   return [[DBFILEPROPERTIESGetTemplateResultSerializer serialize:self] description];
 }
 
@@ -1714,7 +1783,7 @@
 
 @implementation DBFILEPROPERTIESGetTemplateResultSerializer
 
-+ (NSDictionary *)serialize:(DBFILEPROPERTIESGetTemplateResult *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBFILEPROPERTIESGetTemplateResult *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"name"] = valueObj.name;
@@ -1724,10 +1793,10 @@
                                              return [DBFILEPROPERTIESPropertyFieldTemplateSerializer serialize:elem0];
                                            }];
 
-  return [jsonDict count] > 0 ? jsonDict : nil;
+  return jsonDict;
 }
 
-+ (DBFILEPROPERTIESGetTemplateResult *)deserialize:(NSDictionary *)valueDict {
++ (DBFILEPROPERTIESGetTemplateResult *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *name = valueDict[@"name"];
   NSString *description_ = valueDict[@"description"];
   NSArray<DBFILEPROPERTIESPropertyFieldTemplate *> *fields =
@@ -1771,17 +1840,17 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBFILEPROPERTIESListTemplateResultSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBFILEPROPERTIESListTemplateResultSerializer deserialize:dict];
 }
 
-#pragma mark - Description method
+#pragma mark - Debug Description method
 
-- (NSString *)description {
+- (NSString *)debugDescription {
   return [[DBFILEPROPERTIESListTemplateResultSerializer serialize:self] description];
 }
 
@@ -1832,7 +1901,7 @@
 
 @implementation DBFILEPROPERTIESListTemplateResultSerializer
 
-+ (NSDictionary *)serialize:(DBFILEPROPERTIESListTemplateResult *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBFILEPROPERTIESListTemplateResult *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"template_ids"] = [DBArraySerializer serialize:valueObj.templateIds
@@ -1840,10 +1909,10 @@
                                                    return elem0;
                                                  }];
 
-  return [jsonDict count] > 0 ? jsonDict : nil;
+  return jsonDict;
 }
 
-+ (DBFILEPROPERTIESListTemplateResult *)deserialize:(NSDictionary *)valueDict {
++ (DBFILEPROPERTIESListTemplateResult *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSArray<NSString *> *templateIds = [DBArraySerializer deserialize:valueDict[@"template_ids"]
                                                           withBlock:^id(id elem0) {
                                                             return elem0;
@@ -1905,17 +1974,17 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBFILEPROPERTIESLogicalOperatorSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBFILEPROPERTIESLogicalOperatorSerializer deserialize:dict];
 }
 
-#pragma mark - Description method
+#pragma mark - Debug Description method
 
-- (NSString *)description {
+- (NSString *)debugDescription {
   return [[DBFILEPROPERTIESLogicalOperatorSerializer serialize:self] description];
 }
 
@@ -1936,8 +2005,10 @@
   switch (_tag) {
   case DBFILEPROPERTIESLogicalOperatorOrOperator:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBFILEPROPERTIESLogicalOperatorOther:
     result = prime * result + [[self tagName] hash];
+    break;
   }
 
   return prime * result;
@@ -1977,7 +2048,7 @@
 
 @implementation DBFILEPROPERTIESLogicalOperatorSerializer
 
-+ (NSDictionary *)serialize:(DBFILEPROPERTIESLogicalOperator *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBFILEPROPERTIESLogicalOperator *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isOrOperator]) {
@@ -1988,10 +2059,10 @@
     jsonDict[@".tag"] = @"other";
   }
 
-  return [jsonDict count] > 0 ? jsonDict : nil;
+  return jsonDict;
 }
 
-+ (DBFILEPROPERTIESLogicalOperator *)deserialize:(NSDictionary *)valueDict {
++ (DBFILEPROPERTIESLogicalOperator *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"or_operator"]) {
@@ -2056,17 +2127,17 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBFILEPROPERTIESLookUpPropertiesErrorSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBFILEPROPERTIESLookUpPropertiesErrorSerializer deserialize:dict];
 }
 
-#pragma mark - Description method
+#pragma mark - Debug Description method
 
-- (NSString *)description {
+- (NSString *)debugDescription {
   return [[DBFILEPROPERTIESLookUpPropertiesErrorSerializer serialize:self] description];
 }
 
@@ -2087,8 +2158,10 @@
   switch (_tag) {
   case DBFILEPROPERTIESLookUpPropertiesErrorPropertyGroupNotFound:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBFILEPROPERTIESLookUpPropertiesErrorOther:
     result = prime * result + [[self tagName] hash];
+    break;
   }
 
   return prime * result;
@@ -2128,7 +2201,7 @@
 
 @implementation DBFILEPROPERTIESLookUpPropertiesErrorSerializer
 
-+ (NSDictionary *)serialize:(DBFILEPROPERTIESLookUpPropertiesError *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBFILEPROPERTIESLookUpPropertiesError *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isPropertyGroupNotFound]) {
@@ -2139,10 +2212,10 @@
     jsonDict[@".tag"] = @"other";
   }
 
-  return [jsonDict count] > 0 ? jsonDict : nil;
+  return jsonDict;
 }
 
-+ (DBFILEPROPERTIESLookUpPropertiesError *)deserialize:(NSDictionary *)valueDict {
++ (DBFILEPROPERTIESLookUpPropertiesError *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"property_group_not_found"]) {
@@ -2274,17 +2347,17 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBFILEPROPERTIESLookupErrorSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBFILEPROPERTIESLookupErrorSerializer deserialize:dict];
 }
 
-#pragma mark - Description method
+#pragma mark - Debug Description method
 
-- (NSString *)description {
+- (NSString *)debugDescription {
   return [[DBFILEPROPERTIESLookupErrorSerializer serialize:self] description];
 }
 
@@ -2305,16 +2378,22 @@
   switch (_tag) {
   case DBFILEPROPERTIESLookupErrorMalformedPath:
     result = prime * result + [self.malformedPath hash];
+    break;
   case DBFILEPROPERTIESLookupErrorNotFound:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBFILEPROPERTIESLookupErrorNotFile:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBFILEPROPERTIESLookupErrorNotFolder:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBFILEPROPERTIESLookupErrorRestrictedContent:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBFILEPROPERTIESLookupErrorOther:
     result = prime * result + [[self tagName] hash];
+    break;
   }
 
   return prime * result;
@@ -2362,7 +2441,7 @@
 
 @implementation DBFILEPROPERTIESLookupErrorSerializer
 
-+ (NSDictionary *)serialize:(DBFILEPROPERTIESLookupError *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBFILEPROPERTIESLookupError *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isMalformedPath]) {
@@ -2382,10 +2461,10 @@
     jsonDict[@".tag"] = @"other";
   }
 
-  return [jsonDict count] > 0 ? jsonDict : nil;
+  return jsonDict;
 }
 
-+ (DBFILEPROPERTIESLookupError *)deserialize:(NSDictionary *)valueDict {
++ (DBFILEPROPERTIESLookupError *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"malformed_path"]) {
@@ -2542,17 +2621,17 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBFILEPROPERTIESModifyTemplateErrorSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBFILEPROPERTIESModifyTemplateErrorSerializer deserialize:dict];
 }
 
-#pragma mark - Description method
+#pragma mark - Debug Description method
 
-- (NSString *)description {
+- (NSString *)debugDescription {
   return [[DBFILEPROPERTIESModifyTemplateErrorSerializer serialize:self] description];
 }
 
@@ -2573,18 +2652,25 @@
   switch (_tag) {
   case DBFILEPROPERTIESModifyTemplateErrorTemplateNotFound:
     result = prime * result + [self.templateNotFound hash];
+    break;
   case DBFILEPROPERTIESModifyTemplateErrorRestrictedContent:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBFILEPROPERTIESModifyTemplateErrorOther:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBFILEPROPERTIESModifyTemplateErrorConflictingPropertyNames:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBFILEPROPERTIESModifyTemplateErrorTooManyProperties:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBFILEPROPERTIESModifyTemplateErrorTooManyTemplates:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBFILEPROPERTIESModifyTemplateErrorTemplateAttributeTooLarge:
     result = prime * result + [[self tagName] hash];
+    break;
   }
 
   return prime * result;
@@ -2634,7 +2720,7 @@
 
 @implementation DBFILEPROPERTIESModifyTemplateErrorSerializer
 
-+ (NSDictionary *)serialize:(DBFILEPROPERTIESModifyTemplateError *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBFILEPROPERTIESModifyTemplateError *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isTemplateNotFound]) {
@@ -2656,10 +2742,10 @@
     jsonDict[@".tag"] = @"other";
   }
 
-  return [jsonDict count] > 0 ? jsonDict : nil;
+  return jsonDict;
 }
 
-+ (DBFILEPROPERTIESModifyTemplateError *)deserialize:(NSDictionary *)valueDict {
++ (DBFILEPROPERTIESModifyTemplateError *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"template_not_found"]) {
@@ -2716,17 +2802,17 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBFILEPROPERTIESOverwritePropertyGroupArgSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBFILEPROPERTIESOverwritePropertyGroupArgSerializer deserialize:dict];
 }
 
-#pragma mark - Description method
+#pragma mark - Debug Description method
 
-- (NSString *)description {
+- (NSString *)debugDescription {
   return [[DBFILEPROPERTIESOverwritePropertyGroupArgSerializer serialize:self] description];
 }
 
@@ -2781,7 +2867,7 @@
 
 @implementation DBFILEPROPERTIESOverwritePropertyGroupArgSerializer
 
-+ (NSDictionary *)serialize:(DBFILEPROPERTIESOverwritePropertyGroupArg *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBFILEPROPERTIESOverwritePropertyGroupArg *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"path"] = valueObj.path;
@@ -2790,10 +2876,10 @@
                                                       return [DBFILEPROPERTIESPropertyGroupSerializer serialize:elem0];
                                                     }];
 
-  return [jsonDict count] > 0 ? jsonDict : nil;
+  return jsonDict;
 }
 
-+ (DBFILEPROPERTIESOverwritePropertyGroupArg *)deserialize:(NSDictionary *)valueDict {
++ (DBFILEPROPERTIESOverwritePropertyGroupArg *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *path = valueDict[@"path"];
   NSArray<DBFILEPROPERTIESPropertyGroup *> *propertyGroups =
       [DBArraySerializer deserialize:valueDict[@"property_groups"]
@@ -2839,17 +2925,17 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBFILEPROPERTIESPropertiesSearchArgSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBFILEPROPERTIESPropertiesSearchArgSerializer deserialize:dict];
 }
 
-#pragma mark - Description method
+#pragma mark - Debug Description method
 
-- (NSString *)description {
+- (NSString *)debugDescription {
   return [[DBFILEPROPERTIESPropertiesSearchArgSerializer serialize:self] description];
 }
 
@@ -2904,7 +2990,7 @@
 
 @implementation DBFILEPROPERTIESPropertiesSearchArgSerializer
 
-+ (NSDictionary *)serialize:(DBFILEPROPERTIESPropertiesSearchArg *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBFILEPROPERTIESPropertiesSearchArg *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"queries"] = [DBArraySerializer serialize:valueObj.queries
@@ -2913,10 +2999,10 @@
                                             }];
   jsonDict[@"template_filter"] = [DBFILEPROPERTIESTemplateFilterSerializer serialize:valueObj.templateFilter];
 
-  return [jsonDict count] > 0 ? jsonDict : nil;
+  return jsonDict;
 }
 
-+ (DBFILEPROPERTIESPropertiesSearchArg *)deserialize:(NSDictionary *)valueDict {
++ (DBFILEPROPERTIESPropertiesSearchArg *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSArray<DBFILEPROPERTIESPropertiesSearchQuery *> *queries =
       [DBArraySerializer deserialize:valueDict[@"queries"]
                            withBlock:^id(id elem0) {
@@ -2954,17 +3040,17 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBFILEPROPERTIESPropertiesSearchContinueArgSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBFILEPROPERTIESPropertiesSearchContinueArgSerializer deserialize:dict];
 }
 
-#pragma mark - Description method
+#pragma mark - Debug Description method
 
-- (NSString *)description {
+- (NSString *)debugDescription {
   return [[DBFILEPROPERTIESPropertiesSearchContinueArgSerializer serialize:self] description];
 }
 
@@ -3016,15 +3102,15 @@
 
 @implementation DBFILEPROPERTIESPropertiesSearchContinueArgSerializer
 
-+ (NSDictionary *)serialize:(DBFILEPROPERTIESPropertiesSearchContinueArg *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBFILEPROPERTIESPropertiesSearchContinueArg *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"cursor"] = valueObj.cursor;
 
-  return [jsonDict count] > 0 ? jsonDict : nil;
+  return jsonDict;
 }
 
-+ (DBFILEPROPERTIESPropertiesSearchContinueArg *)deserialize:(NSDictionary *)valueDict {
++ (DBFILEPROPERTIESPropertiesSearchContinueArg *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *cursor = valueDict[@"cursor"];
 
   return [[DBFILEPROPERTIESPropertiesSearchContinueArg alloc] initWithCursor:cursor];
@@ -3083,17 +3169,17 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBFILEPROPERTIESPropertiesSearchContinueErrorSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBFILEPROPERTIESPropertiesSearchContinueErrorSerializer deserialize:dict];
 }
 
-#pragma mark - Description method
+#pragma mark - Debug Description method
 
-- (NSString *)description {
+- (NSString *)debugDescription {
   return [[DBFILEPROPERTIESPropertiesSearchContinueErrorSerializer serialize:self] description];
 }
 
@@ -3114,8 +3200,10 @@
   switch (_tag) {
   case DBFILEPROPERTIESPropertiesSearchContinueErrorReset:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBFILEPROPERTIESPropertiesSearchContinueErrorOther:
     result = prime * result + [[self tagName] hash];
+    break;
   }
 
   return prime * result;
@@ -3156,7 +3244,7 @@
 
 @implementation DBFILEPROPERTIESPropertiesSearchContinueErrorSerializer
 
-+ (NSDictionary *)serialize:(DBFILEPROPERTIESPropertiesSearchContinueError *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBFILEPROPERTIESPropertiesSearchContinueError *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isReset]) {
@@ -3167,10 +3255,10 @@
     jsonDict[@".tag"] = @"other";
   }
 
-  return [jsonDict count] > 0 ? jsonDict : nil;
+  return jsonDict;
 }
 
-+ (DBFILEPROPERTIESPropertiesSearchContinueError *)deserialize:(NSDictionary *)valueDict {
++ (DBFILEPROPERTIESPropertiesSearchContinueError *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"reset"]) {
@@ -3248,17 +3336,17 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBFILEPROPERTIESPropertiesSearchErrorSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBFILEPROPERTIESPropertiesSearchErrorSerializer deserialize:dict];
 }
 
-#pragma mark - Description method
+#pragma mark - Debug Description method
 
-- (NSString *)description {
+- (NSString *)debugDescription {
   return [[DBFILEPROPERTIESPropertiesSearchErrorSerializer serialize:self] description];
 }
 
@@ -3279,8 +3367,10 @@
   switch (_tag) {
   case DBFILEPROPERTIESPropertiesSearchErrorPropertyGroupLookup:
     result = prime * result + [self.propertyGroupLookup hash];
+    break;
   case DBFILEPROPERTIESPropertiesSearchErrorOther:
     result = prime * result + [[self tagName] hash];
+    break;
   }
 
   return prime * result;
@@ -3320,7 +3410,7 @@
 
 @implementation DBFILEPROPERTIESPropertiesSearchErrorSerializer
 
-+ (NSDictionary *)serialize:(DBFILEPROPERTIESPropertiesSearchError *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBFILEPROPERTIESPropertiesSearchError *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isPropertyGroupLookup]) {
@@ -3333,10 +3423,10 @@
     jsonDict[@".tag"] = @"other";
   }
 
-  return [jsonDict count] > 0 ? jsonDict : nil;
+  return jsonDict;
 }
 
-+ (DBFILEPROPERTIESPropertiesSearchError *)deserialize:(NSDictionary *)valueDict {
++ (DBFILEPROPERTIESPropertiesSearchError *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"property_group_lookup"]) {
@@ -3387,17 +3477,17 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBFILEPROPERTIESPropertiesSearchMatchSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBFILEPROPERTIESPropertiesSearchMatchSerializer deserialize:dict];
 }
 
-#pragma mark - Description method
+#pragma mark - Debug Description method
 
-- (NSString *)description {
+- (NSString *)debugDescription {
   return [[DBFILEPROPERTIESPropertiesSearchMatchSerializer serialize:self] description];
 }
 
@@ -3460,7 +3550,7 @@
 
 @implementation DBFILEPROPERTIESPropertiesSearchMatchSerializer
 
-+ (NSDictionary *)serialize:(DBFILEPROPERTIESPropertiesSearchMatch *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBFILEPROPERTIESPropertiesSearchMatch *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"id"] = valueObj.id_;
@@ -3471,10 +3561,10 @@
                                                       return [DBFILEPROPERTIESPropertyGroupSerializer serialize:elem0];
                                                     }];
 
-  return [jsonDict count] > 0 ? jsonDict : nil;
+  return jsonDict;
 }
 
-+ (DBFILEPROPERTIESPropertiesSearchMatch *)deserialize:(NSDictionary *)valueDict {
++ (DBFILEPROPERTIESPropertiesSearchMatch *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *id_ = valueDict[@"id"];
   NSString *path = valueDict[@"path"];
   NSNumber *isDeleted = valueDict[@"is_deleted"];
@@ -3555,17 +3645,17 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBFILEPROPERTIESPropertiesSearchModeSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBFILEPROPERTIESPropertiesSearchModeSerializer deserialize:dict];
 }
 
-#pragma mark - Description method
+#pragma mark - Debug Description method
 
-- (NSString *)description {
+- (NSString *)debugDescription {
   return [[DBFILEPROPERTIESPropertiesSearchModeSerializer serialize:self] description];
 }
 
@@ -3586,8 +3676,10 @@
   switch (_tag) {
   case DBFILEPROPERTIESPropertiesSearchModeFieldName:
     result = prime * result + [self.fieldName hash];
+    break;
   case DBFILEPROPERTIESPropertiesSearchModeOther:
     result = prime * result + [[self tagName] hash];
+    break;
   }
 
   return prime * result;
@@ -3627,7 +3719,7 @@
 
 @implementation DBFILEPROPERTIESPropertiesSearchModeSerializer
 
-+ (NSDictionary *)serialize:(DBFILEPROPERTIESPropertiesSearchMode *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBFILEPROPERTIESPropertiesSearchMode *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isFieldName]) {
@@ -3639,10 +3731,10 @@
     jsonDict[@".tag"] = @"other";
   }
 
-  return [jsonDict count] > 0 ? jsonDict : nil;
+  return jsonDict;
 }
 
-+ (DBFILEPROPERTIESPropertiesSearchMode *)deserialize:(NSDictionary *)valueDict {
++ (DBFILEPROPERTIESPropertiesSearchMode *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"field_name"]) {
@@ -3690,17 +3782,17 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBFILEPROPERTIESPropertiesSearchQuerySerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBFILEPROPERTIESPropertiesSearchQuerySerializer deserialize:dict];
 }
 
-#pragma mark - Description method
+#pragma mark - Debug Description method
 
-- (NSString *)description {
+- (NSString *)debugDescription {
   return [[DBFILEPROPERTIESPropertiesSearchQuerySerializer serialize:self] description];
 }
 
@@ -3759,17 +3851,17 @@
 
 @implementation DBFILEPROPERTIESPropertiesSearchQuerySerializer
 
-+ (NSDictionary *)serialize:(DBFILEPROPERTIESPropertiesSearchQuery *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBFILEPROPERTIESPropertiesSearchQuery *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"query"] = valueObj.query;
   jsonDict[@"mode"] = [DBFILEPROPERTIESPropertiesSearchModeSerializer serialize:valueObj.mode];
   jsonDict[@"logical_operator"] = [DBFILEPROPERTIESLogicalOperatorSerializer serialize:valueObj.logicalOperator];
 
-  return [jsonDict count] > 0 ? jsonDict : nil;
+  return jsonDict;
 }
 
-+ (DBFILEPROPERTIESPropertiesSearchQuery *)deserialize:(NSDictionary *)valueDict {
++ (DBFILEPROPERTIESPropertiesSearchQuery *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *query = valueDict[@"query"];
   DBFILEPROPERTIESPropertiesSearchMode *mode =
       [DBFILEPROPERTIESPropertiesSearchModeSerializer deserialize:valueDict[@"mode"]];
@@ -3815,17 +3907,17 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBFILEPROPERTIESPropertiesSearchResultSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBFILEPROPERTIESPropertiesSearchResultSerializer deserialize:dict];
 }
 
-#pragma mark - Description method
+#pragma mark - Debug Description method
 
-- (NSString *)description {
+- (NSString *)debugDescription {
   return [[DBFILEPROPERTIESPropertiesSearchResultSerializer serialize:self] description];
 }
 
@@ -3884,7 +3976,7 @@
 
 @implementation DBFILEPROPERTIESPropertiesSearchResultSerializer
 
-+ (NSDictionary *)serialize:(DBFILEPROPERTIESPropertiesSearchResult *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBFILEPROPERTIESPropertiesSearchResult *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"matches"] = [DBArraySerializer serialize:valueObj.matches
@@ -3895,10 +3987,10 @@
     jsonDict[@"cursor"] = valueObj.cursor;
   }
 
-  return [jsonDict count] > 0 ? jsonDict : nil;
+  return jsonDict;
 }
 
-+ (DBFILEPROPERTIESPropertiesSearchResult *)deserialize:(NSDictionary *)valueDict {
++ (DBFILEPROPERTIESPropertiesSearchResult *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSArray<DBFILEPROPERTIESPropertiesSearchMatch *> *matches =
       [DBArraySerializer deserialize:valueDict[@"matches"]
                            withBlock:^id(id elem0) {
@@ -3935,17 +4027,17 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBFILEPROPERTIESPropertyFieldSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBFILEPROPERTIESPropertyFieldSerializer deserialize:dict];
 }
 
-#pragma mark - Description method
+#pragma mark - Debug Description method
 
-- (NSString *)description {
+- (NSString *)debugDescription {
   return [[DBFILEPROPERTIESPropertyFieldSerializer serialize:self] description];
 }
 
@@ -4000,16 +4092,16 @@
 
 @implementation DBFILEPROPERTIESPropertyFieldSerializer
 
-+ (NSDictionary *)serialize:(DBFILEPROPERTIESPropertyField *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBFILEPROPERTIESPropertyField *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"name"] = valueObj.name;
   jsonDict[@"value"] = valueObj.value;
 
-  return [jsonDict count] > 0 ? jsonDict : nil;
+  return jsonDict;
 }
 
-+ (DBFILEPROPERTIESPropertyField *)deserialize:(NSDictionary *)valueDict {
++ (DBFILEPROPERTIESPropertyField *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *name = valueDict[@"name"];
   NSString *value = valueDict[@"value"];
 
@@ -4047,17 +4139,17 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBFILEPROPERTIESPropertyFieldTemplateSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBFILEPROPERTIESPropertyFieldTemplateSerializer deserialize:dict];
 }
 
-#pragma mark - Description method
+#pragma mark - Debug Description method
 
-- (NSString *)description {
+- (NSString *)debugDescription {
   return [[DBFILEPROPERTIESPropertyFieldTemplateSerializer serialize:self] description];
 }
 
@@ -4116,17 +4208,17 @@
 
 @implementation DBFILEPROPERTIESPropertyFieldTemplateSerializer
 
-+ (NSDictionary *)serialize:(DBFILEPROPERTIESPropertyFieldTemplate *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBFILEPROPERTIESPropertyFieldTemplate *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"name"] = valueObj.name;
   jsonDict[@"description"] = valueObj.description_;
   jsonDict[@"type"] = [DBFILEPROPERTIESPropertyTypeSerializer serialize:valueObj.type];
 
-  return [jsonDict count] > 0 ? jsonDict : nil;
+  return jsonDict;
 }
 
-+ (DBFILEPROPERTIESPropertyFieldTemplate *)deserialize:(NSDictionary *)valueDict {
++ (DBFILEPROPERTIESPropertyFieldTemplate *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *name = valueDict[@"name"];
   NSString *description_ = valueDict[@"description"];
   DBFILEPROPERTIESPropertyType *type = [DBFILEPROPERTIESPropertyTypeSerializer deserialize:valueDict[@"type"]];
@@ -4148,8 +4240,8 @@
 #pragma mark - Constructors
 
 - (instancetype)initWithTemplateId:(NSString *)templateId fields:(NSArray<DBFILEPROPERTIESPropertyField *> *)fields {
-  [DBStoneValidators
-   nonnullValidator:[DBStoneValidators stringValidator:@(1) maxLength:nil pattern:@"(/|ptid:).*"]](templateId);
+  [DBStoneValidators nonnullValidator:[DBStoneValidators stringValidator:@(1) maxLength:nil
+                                                                 pattern:@"(/|ptid:).*"]](templateId);
   [DBStoneValidators
    nonnullValidator:[DBStoneValidators arrayValidator:nil
                                              maxItems:nil
@@ -4165,17 +4257,17 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBFILEPROPERTIESPropertyGroupSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBFILEPROPERTIESPropertyGroupSerializer deserialize:dict];
 }
 
-#pragma mark - Description method
+#pragma mark - Debug Description method
 
-- (NSString *)description {
+- (NSString *)debugDescription {
   return [[DBFILEPROPERTIESPropertyGroupSerializer serialize:self] description];
 }
 
@@ -4230,7 +4322,7 @@
 
 @implementation DBFILEPROPERTIESPropertyGroupSerializer
 
-+ (NSDictionary *)serialize:(DBFILEPROPERTIESPropertyGroup *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBFILEPROPERTIESPropertyGroup *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"template_id"] = valueObj.templateId;
@@ -4239,10 +4331,10 @@
                                              return [DBFILEPROPERTIESPropertyFieldSerializer serialize:elem0];
                                            }];
 
-  return [jsonDict count] > 0 ? jsonDict : nil;
+  return jsonDict;
 }
 
-+ (DBFILEPROPERTIESPropertyGroup *)deserialize:(NSDictionary *)valueDict {
++ (DBFILEPROPERTIESPropertyGroup *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *templateId = valueDict[@"template_id"];
   NSArray<DBFILEPROPERTIESPropertyField *> *fields =
       [DBArraySerializer deserialize:valueDict[@"fields"]
@@ -4269,8 +4361,8 @@
 - (instancetype)initWithTemplateId:(NSString *)templateId
                  addOrUpdateFields:(NSArray<DBFILEPROPERTIESPropertyField *> *)addOrUpdateFields
                       removeFields:(NSArray<NSString *> *)removeFields {
-  [DBStoneValidators
-   nonnullValidator:[DBStoneValidators stringValidator:@(1) maxLength:nil pattern:@"(/|ptid:).*"]](templateId);
+  [DBStoneValidators nonnullValidator:[DBStoneValidators stringValidator:@(1) maxLength:nil
+                                                                 pattern:@"(/|ptid:).*"]](templateId);
   [DBStoneValidators
    nullableValidator:[DBStoneValidators arrayValidator:nil
                                               maxItems:nil
@@ -4295,17 +4387,17 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBFILEPROPERTIESPropertyGroupUpdateSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBFILEPROPERTIESPropertyGroupUpdateSerializer deserialize:dict];
 }
 
-#pragma mark - Description method
+#pragma mark - Debug Description method
 
-- (NSString *)description {
+- (NSString *)debugDescription {
   return [[DBFILEPROPERTIESPropertyGroupUpdateSerializer serialize:self] description];
 }
 
@@ -4372,7 +4464,7 @@
 
 @implementation DBFILEPROPERTIESPropertyGroupUpdateSerializer
 
-+ (NSDictionary *)serialize:(DBFILEPROPERTIESPropertyGroupUpdate *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBFILEPROPERTIESPropertyGroupUpdate *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"template_id"] = valueObj.templateId;
@@ -4390,10 +4482,10 @@
                                                     }];
   }
 
-  return [jsonDict count] > 0 ? jsonDict : nil;
+  return jsonDict;
 }
 
-+ (DBFILEPROPERTIESPropertyGroupUpdate *)deserialize:(NSDictionary *)valueDict {
++ (DBFILEPROPERTIESPropertyGroupUpdate *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *templateId = valueDict[@"template_id"];
   NSArray<DBFILEPROPERTIESPropertyField *> *addOrUpdateFields =
       valueDict[@"add_or_update_fields"]
@@ -4467,17 +4559,17 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBFILEPROPERTIESPropertyTypeSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBFILEPROPERTIESPropertyTypeSerializer deserialize:dict];
 }
 
-#pragma mark - Description method
+#pragma mark - Debug Description method
 
-- (NSString *)description {
+- (NSString *)debugDescription {
   return [[DBFILEPROPERTIESPropertyTypeSerializer serialize:self] description];
 }
 
@@ -4498,8 +4590,10 @@
   switch (_tag) {
   case DBFILEPROPERTIESPropertyTypeString:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBFILEPROPERTIESPropertyTypeOther:
     result = prime * result + [[self tagName] hash];
+    break;
   }
 
   return prime * result;
@@ -4539,7 +4633,7 @@
 
 @implementation DBFILEPROPERTIESPropertyTypeSerializer
 
-+ (NSDictionary *)serialize:(DBFILEPROPERTIESPropertyType *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBFILEPROPERTIESPropertyType *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isString]) {
@@ -4550,10 +4644,10 @@
     jsonDict[@".tag"] = @"other";
   }
 
-  return [jsonDict count] > 0 ? jsonDict : nil;
+  return jsonDict;
 }
 
-+ (DBFILEPROPERTIESPropertyType *)deserialize:(NSDictionary *)valueDict {
++ (DBFILEPROPERTIESPropertyType *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"string"]) {
@@ -4602,17 +4696,17 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBFILEPROPERTIESRemovePropertiesArgSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBFILEPROPERTIESRemovePropertiesArgSerializer deserialize:dict];
 }
 
-#pragma mark - Description method
+#pragma mark - Debug Description method
 
-- (NSString *)description {
+- (NSString *)debugDescription {
   return [[DBFILEPROPERTIESRemovePropertiesArgSerializer serialize:self] description];
 }
 
@@ -4667,7 +4761,7 @@
 
 @implementation DBFILEPROPERTIESRemovePropertiesArgSerializer
 
-+ (NSDictionary *)serialize:(DBFILEPROPERTIESRemovePropertiesArg *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBFILEPROPERTIESRemovePropertiesArg *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"path"] = valueObj.path;
@@ -4676,10 +4770,10 @@
                                                             return elem0;
                                                           }];
 
-  return [jsonDict count] > 0 ? jsonDict : nil;
+  return jsonDict;
 }
 
-+ (DBFILEPROPERTIESRemovePropertiesArg *)deserialize:(NSDictionary *)valueDict {
++ (DBFILEPROPERTIESRemovePropertiesArg *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *path = valueDict[@"path"];
   NSArray<NSString *> *propertyTemplateIds = [DBArraySerializer deserialize:valueDict[@"property_template_ids"]
                                                                   withBlock:^id(id elem0) {
@@ -4834,17 +4928,17 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBFILEPROPERTIESRemovePropertiesErrorSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBFILEPROPERTIESRemovePropertiesErrorSerializer deserialize:dict];
 }
 
-#pragma mark - Description method
+#pragma mark - Debug Description method
 
-- (NSString *)description {
+- (NSString *)debugDescription {
   return [[DBFILEPROPERTIESRemovePropertiesErrorSerializer serialize:self] description];
 }
 
@@ -4865,16 +4959,22 @@
   switch (_tag) {
   case DBFILEPROPERTIESRemovePropertiesErrorTemplateNotFound:
     result = prime * result + [self.templateNotFound hash];
+    break;
   case DBFILEPROPERTIESRemovePropertiesErrorRestrictedContent:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBFILEPROPERTIESRemovePropertiesErrorOther:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBFILEPROPERTIESRemovePropertiesErrorPath:
     result = prime * result + [self.path hash];
+    break;
   case DBFILEPROPERTIESRemovePropertiesErrorUnsupportedFolder:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBFILEPROPERTIESRemovePropertiesErrorPropertyGroupLookup:
     result = prime * result + [self.propertyGroupLookup hash];
+    break;
   }
 
   return prime * result;
@@ -4922,7 +5022,7 @@
 
 @implementation DBFILEPROPERTIESRemovePropertiesErrorSerializer
 
-+ (NSDictionary *)serialize:(DBFILEPROPERTIESRemovePropertiesError *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBFILEPROPERTIESRemovePropertiesError *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isTemplateNotFound]) {
@@ -4945,10 +5045,10 @@
     jsonDict[@".tag"] = @"other";
   }
 
-  return [jsonDict count] > 0 ? jsonDict : nil;
+  return jsonDict;
 }
 
-+ (DBFILEPROPERTIESRemovePropertiesError *)deserialize:(NSDictionary *)valueDict {
++ (DBFILEPROPERTIESRemovePropertiesError *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"template_not_found"]) {
@@ -4985,8 +5085,8 @@
 #pragma mark - Constructors
 
 - (instancetype)initWithTemplateId:(NSString *)templateId {
-  [DBStoneValidators
-   nonnullValidator:[DBStoneValidators stringValidator:@(1) maxLength:nil pattern:@"(/|ptid:).*"]](templateId);
+  [DBStoneValidators nonnullValidator:[DBStoneValidators stringValidator:@(1) maxLength:nil
+                                                                 pattern:@"(/|ptid:).*"]](templateId);
 
   self = [super init];
   if (self) {
@@ -4997,17 +5097,17 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBFILEPROPERTIESRemoveTemplateArgSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBFILEPROPERTIESRemoveTemplateArgSerializer deserialize:dict];
 }
 
-#pragma mark - Description method
+#pragma mark - Debug Description method
 
-- (NSString *)description {
+- (NSString *)debugDescription {
   return [[DBFILEPROPERTIESRemoveTemplateArgSerializer serialize:self] description];
 }
 
@@ -5058,15 +5158,15 @@
 
 @implementation DBFILEPROPERTIESRemoveTemplateArgSerializer
 
-+ (NSDictionary *)serialize:(DBFILEPROPERTIESRemoveTemplateArg *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBFILEPROPERTIESRemoveTemplateArg *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"template_id"] = valueObj.templateId;
 
-  return [jsonDict count] > 0 ? jsonDict : nil;
+  return jsonDict;
 }
 
-+ (DBFILEPROPERTIESRemoveTemplateArg *)deserialize:(NSDictionary *)valueDict {
++ (DBFILEPROPERTIESRemoveTemplateArg *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *templateId = valueDict[@"template_id"];
 
   return [[DBFILEPROPERTIESRemoveTemplateArg alloc] initWithTemplateId:templateId];
@@ -5137,17 +5237,17 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBFILEPROPERTIESTemplateFilterBaseSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBFILEPROPERTIESTemplateFilterBaseSerializer deserialize:dict];
 }
 
-#pragma mark - Description method
+#pragma mark - Debug Description method
 
-- (NSString *)description {
+- (NSString *)debugDescription {
   return [[DBFILEPROPERTIESTemplateFilterBaseSerializer serialize:self] description];
 }
 
@@ -5168,8 +5268,10 @@
   switch (_tag) {
   case DBFILEPROPERTIESTemplateFilterBaseFilterSome:
     result = prime * result + [self.filterSome hash];
+    break;
   case DBFILEPROPERTIESTemplateFilterBaseOther:
     result = prime * result + [[self tagName] hash];
+    break;
   }
 
   return prime * result;
@@ -5209,7 +5311,7 @@
 
 @implementation DBFILEPROPERTIESTemplateFilterBaseSerializer
 
-+ (NSDictionary *)serialize:(DBFILEPROPERTIESTemplateFilterBase *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBFILEPROPERTIESTemplateFilterBase *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isFilterSome]) {
@@ -5224,10 +5326,10 @@
     jsonDict[@".tag"] = @"other";
   }
 
-  return [jsonDict count] > 0 ? jsonDict : nil;
+  return jsonDict;
 }
 
-+ (DBFILEPROPERTIESTemplateFilterBase *)deserialize:(NSDictionary *)valueDict {
++ (DBFILEPROPERTIESTemplateFilterBase *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"filter_some"]) {
@@ -5322,17 +5424,17 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBFILEPROPERTIESTemplateFilterSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBFILEPROPERTIESTemplateFilterSerializer deserialize:dict];
 }
 
-#pragma mark - Description method
+#pragma mark - Debug Description method
 
-- (NSString *)description {
+- (NSString *)debugDescription {
   return [[DBFILEPROPERTIESTemplateFilterSerializer serialize:self] description];
 }
 
@@ -5353,10 +5455,13 @@
   switch (_tag) {
   case DBFILEPROPERTIESTemplateFilterFilterSome:
     result = prime * result + [self.filterSome hash];
+    break;
   case DBFILEPROPERTIESTemplateFilterOther:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBFILEPROPERTIESTemplateFilterFilterNone:
     result = prime * result + [[self tagName] hash];
+    break;
   }
 
   return prime * result;
@@ -5398,7 +5503,7 @@
 
 @implementation DBFILEPROPERTIESTemplateFilterSerializer
 
-+ (NSDictionary *)serialize:(DBFILEPROPERTIESTemplateFilter *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBFILEPROPERTIESTemplateFilter *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isFilterSome]) {
@@ -5415,10 +5520,10 @@
     jsonDict[@".tag"] = @"other";
   }
 
-  return [jsonDict count] > 0 ? jsonDict : nil;
+  return jsonDict;
 }
 
-+ (DBFILEPROPERTIESTemplateFilter *)deserialize:(NSDictionary *)valueDict {
++ (DBFILEPROPERTIESTemplateFilter *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"filter_some"]) {
@@ -5503,17 +5608,17 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBFILEPROPERTIESTemplateOwnerTypeSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBFILEPROPERTIESTemplateOwnerTypeSerializer deserialize:dict];
 }
 
-#pragma mark - Description method
+#pragma mark - Debug Description method
 
-- (NSString *)description {
+- (NSString *)debugDescription {
   return [[DBFILEPROPERTIESTemplateOwnerTypeSerializer serialize:self] description];
 }
 
@@ -5534,10 +5639,13 @@
   switch (_tag) {
   case DBFILEPROPERTIESTemplateOwnerTypeUser:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBFILEPROPERTIESTemplateOwnerTypeTeam:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBFILEPROPERTIESTemplateOwnerTypeOther:
     result = prime * result + [[self tagName] hash];
+    break;
   }
 
   return prime * result;
@@ -5579,7 +5687,7 @@
 
 @implementation DBFILEPROPERTIESTemplateOwnerTypeSerializer
 
-+ (NSDictionary *)serialize:(DBFILEPROPERTIESTemplateOwnerType *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBFILEPROPERTIESTemplateOwnerType *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isUser]) {
@@ -5592,10 +5700,10 @@
     jsonDict[@".tag"] = @"other";
   }
 
-  return [jsonDict count] > 0 ? jsonDict : nil;
+  return jsonDict;
 }
 
-+ (DBFILEPROPERTIESTemplateOwnerType *)deserialize:(NSDictionary *)valueDict {
++ (DBFILEPROPERTIESTemplateOwnerType *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"user"]) {
@@ -5643,17 +5751,17 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBFILEPROPERTIESUpdatePropertiesArgSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBFILEPROPERTIESUpdatePropertiesArgSerializer deserialize:dict];
 }
 
-#pragma mark - Description method
+#pragma mark - Debug Description method
 
-- (NSString *)description {
+- (NSString *)debugDescription {
   return [[DBFILEPROPERTIESUpdatePropertiesArgSerializer serialize:self] description];
 }
 
@@ -5708,7 +5816,7 @@
 
 @implementation DBFILEPROPERTIESUpdatePropertiesArgSerializer
 
-+ (NSDictionary *)serialize:(DBFILEPROPERTIESUpdatePropertiesArg *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBFILEPROPERTIESUpdatePropertiesArg *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"path"] = valueObj.path;
@@ -5718,10 +5826,10 @@
                            return [DBFILEPROPERTIESPropertyGroupUpdateSerializer serialize:elem0];
                          }];
 
-  return [jsonDict count] > 0 ? jsonDict : nil;
+  return jsonDict;
 }
 
-+ (DBFILEPROPERTIESUpdatePropertiesArg *)deserialize:(NSDictionary *)valueDict {
++ (DBFILEPROPERTIESUpdatePropertiesArg *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *path = valueDict[@"path"];
   NSArray<DBFILEPROPERTIESPropertyGroupUpdate *> *updatePropertyGroups =
       [DBArraySerializer deserialize:valueDict[@"update_property_groups"]
@@ -5809,6 +5917,14 @@
   return self;
 }
 
+- (instancetype)initWithDuplicatePropertyGroups {
+  self = [super init];
+  if (self) {
+    _tag = DBFILEPROPERTIESUpdatePropertiesErrorDuplicatePropertyGroups;
+  }
+  return self;
+}
+
 - (instancetype)initWithPropertyGroupLookup:(DBFILEPROPERTIESLookUpPropertiesError *)propertyGroupLookup {
   self = [super init];
   if (self) {
@@ -5876,6 +5992,10 @@
   return _tag == DBFILEPROPERTIESUpdatePropertiesErrorDoesNotFitTemplate;
 }
 
+- (BOOL)isDuplicatePropertyGroups {
+  return _tag == DBFILEPROPERTIESUpdatePropertiesErrorDuplicatePropertyGroups;
+}
+
 - (BOOL)isPropertyGroupLookup {
   return _tag == DBFILEPROPERTIESUpdatePropertiesErrorPropertyGroupLookup;
 }
@@ -5896,6 +6016,8 @@
     return @"DBFILEPROPERTIESUpdatePropertiesErrorPropertyFieldTooLarge";
   case DBFILEPROPERTIESUpdatePropertiesErrorDoesNotFitTemplate:
     return @"DBFILEPROPERTIESUpdatePropertiesErrorDoesNotFitTemplate";
+  case DBFILEPROPERTIESUpdatePropertiesErrorDuplicatePropertyGroups:
+    return @"DBFILEPROPERTIESUpdatePropertiesErrorDuplicatePropertyGroups";
   case DBFILEPROPERTIESUpdatePropertiesErrorPropertyGroupLookup:
     return @"DBFILEPROPERTIESUpdatePropertiesErrorPropertyGroupLookup";
   }
@@ -5905,17 +6027,17 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBFILEPROPERTIESUpdatePropertiesErrorSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBFILEPROPERTIESUpdatePropertiesErrorSerializer deserialize:dict];
 }
 
-#pragma mark - Description method
+#pragma mark - Debug Description method
 
-- (NSString *)description {
+- (NSString *)debugDescription {
   return [[DBFILEPROPERTIESUpdatePropertiesErrorSerializer serialize:self] description];
 }
 
@@ -5936,20 +6058,31 @@
   switch (_tag) {
   case DBFILEPROPERTIESUpdatePropertiesErrorTemplateNotFound:
     result = prime * result + [self.templateNotFound hash];
+    break;
   case DBFILEPROPERTIESUpdatePropertiesErrorRestrictedContent:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBFILEPROPERTIESUpdatePropertiesErrorOther:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBFILEPROPERTIESUpdatePropertiesErrorPath:
     result = prime * result + [self.path hash];
+    break;
   case DBFILEPROPERTIESUpdatePropertiesErrorUnsupportedFolder:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBFILEPROPERTIESUpdatePropertiesErrorPropertyFieldTooLarge:
     result = prime * result + [[self tagName] hash];
+    break;
   case DBFILEPROPERTIESUpdatePropertiesErrorDoesNotFitTemplate:
     result = prime * result + [[self tagName] hash];
+    break;
+  case DBFILEPROPERTIESUpdatePropertiesErrorDuplicatePropertyGroups:
+    result = prime * result + [[self tagName] hash];
+    break;
   case DBFILEPROPERTIESUpdatePropertiesErrorPropertyGroupLookup:
     result = prime * result + [self.propertyGroupLookup hash];
+    break;
   }
 
   return prime * result;
@@ -5989,6 +6122,8 @@
     return [[self tagName] isEqual:[anUpdatePropertiesError tagName]];
   case DBFILEPROPERTIESUpdatePropertiesErrorDoesNotFitTemplate:
     return [[self tagName] isEqual:[anUpdatePropertiesError tagName]];
+  case DBFILEPROPERTIESUpdatePropertiesErrorDuplicatePropertyGroups:
+    return [[self tagName] isEqual:[anUpdatePropertiesError tagName]];
   case DBFILEPROPERTIESUpdatePropertiesErrorPropertyGroupLookup:
     return [self.propertyGroupLookup isEqual:anUpdatePropertiesError.propertyGroupLookup];
   }
@@ -6001,7 +6136,7 @@
 
 @implementation DBFILEPROPERTIESUpdatePropertiesErrorSerializer
 
-+ (NSDictionary *)serialize:(DBFILEPROPERTIESUpdatePropertiesError *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBFILEPROPERTIESUpdatePropertiesError *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   if ([valueObj isTemplateNotFound]) {
@@ -6020,6 +6155,8 @@
     jsonDict[@".tag"] = @"property_field_too_large";
   } else if ([valueObj isDoesNotFitTemplate]) {
     jsonDict[@".tag"] = @"does_not_fit_template";
+  } else if ([valueObj isDuplicatePropertyGroups]) {
+    jsonDict[@".tag"] = @"duplicate_property_groups";
   } else if ([valueObj isPropertyGroupLookup]) {
     jsonDict[@"property_group_lookup"] =
         [[DBFILEPROPERTIESLookUpPropertiesErrorSerializer serialize:valueObj.propertyGroupLookup] mutableCopy];
@@ -6028,10 +6165,10 @@
     jsonDict[@".tag"] = @"other";
   }
 
-  return [jsonDict count] > 0 ? jsonDict : nil;
+  return jsonDict;
 }
 
-+ (DBFILEPROPERTIESUpdatePropertiesError *)deserialize:(NSDictionary *)valueDict {
++ (DBFILEPROPERTIESUpdatePropertiesError *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *tag = valueDict[@".tag"];
 
   if ([tag isEqualToString:@"template_not_found"]) {
@@ -6050,6 +6187,8 @@
     return [[DBFILEPROPERTIESUpdatePropertiesError alloc] initWithPropertyFieldTooLarge];
   } else if ([tag isEqualToString:@"does_not_fit_template"]) {
     return [[DBFILEPROPERTIESUpdatePropertiesError alloc] initWithDoesNotFitTemplate];
+  } else if ([tag isEqualToString:@"duplicate_property_groups"]) {
+    return [[DBFILEPROPERTIESUpdatePropertiesError alloc] initWithDuplicatePropertyGroups];
   } else if ([tag isEqualToString:@"property_group_lookup"]) {
     DBFILEPROPERTIESLookUpPropertiesError *propertyGroupLookup =
         [DBFILEPROPERTIESLookUpPropertiesErrorSerializer deserialize:valueDict[@"property_group_lookup"]];
@@ -6076,8 +6215,8 @@
                               name:(NSString *)name
                       description_:(NSString *)description_
                          addFields:(NSArray<DBFILEPROPERTIESPropertyFieldTemplate *> *)addFields {
-  [DBStoneValidators
-   nonnullValidator:[DBStoneValidators stringValidator:@(1) maxLength:nil pattern:@"(/|ptid:).*"]](templateId);
+  [DBStoneValidators nonnullValidator:[DBStoneValidators stringValidator:@(1) maxLength:nil
+                                                                 pattern:@"(/|ptid:).*"]](templateId);
   [DBStoneValidators
    nullableValidator:[DBStoneValidators arrayValidator:nil
                                               maxItems:nil
@@ -6099,17 +6238,17 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBFILEPROPERTIESUpdateTemplateArgSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBFILEPROPERTIESUpdateTemplateArgSerializer deserialize:dict];
 }
 
-#pragma mark - Description method
+#pragma mark - Debug Description method
 
-- (NSString *)description {
+- (NSString *)debugDescription {
   return [[DBFILEPROPERTIESUpdateTemplateArgSerializer serialize:self] description];
 }
 
@@ -6184,7 +6323,7 @@
 
 @implementation DBFILEPROPERTIESUpdateTemplateArgSerializer
 
-+ (NSDictionary *)serialize:(DBFILEPROPERTIESUpdateTemplateArg *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBFILEPROPERTIESUpdateTemplateArg *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"template_id"] = valueObj.templateId;
@@ -6202,10 +6341,10 @@
                            }];
   }
 
-  return [jsonDict count] > 0 ? jsonDict : nil;
+  return jsonDict;
 }
 
-+ (DBFILEPROPERTIESUpdateTemplateArg *)deserialize:(NSDictionary *)valueDict {
++ (DBFILEPROPERTIESUpdateTemplateArg *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *templateId = valueDict[@"template_id"];
   NSString *name = valueDict[@"name"] ?: nil;
   NSString *description_ = valueDict[@"description"] ?: nil;
@@ -6236,8 +6375,8 @@
 #pragma mark - Constructors
 
 - (instancetype)initWithTemplateId:(NSString *)templateId {
-  [DBStoneValidators
-   nonnullValidator:[DBStoneValidators stringValidator:@(1) maxLength:nil pattern:@"(/|ptid:).*"]](templateId);
+  [DBStoneValidators nonnullValidator:[DBStoneValidators stringValidator:@(1) maxLength:nil
+                                                                 pattern:@"(/|ptid:).*"]](templateId);
 
   self = [super init];
   if (self) {
@@ -6248,17 +6387,17 @@
 
 #pragma mark - Serialization methods
 
-+ (nullable NSDictionary *)serialize:(id)instance {
++ (nullable NSDictionary<NSString *, id> *)serialize:(id)instance {
   return [DBFILEPROPERTIESUpdateTemplateResultSerializer serialize:instance];
 }
 
-+ (id)deserialize:(NSDictionary *)dict {
++ (id)deserialize:(NSDictionary<NSString *, id> *)dict {
   return [DBFILEPROPERTIESUpdateTemplateResultSerializer deserialize:dict];
 }
 
-#pragma mark - Description method
+#pragma mark - Debug Description method
 
-- (NSString *)description {
+- (NSString *)debugDescription {
   return [[DBFILEPROPERTIESUpdateTemplateResultSerializer serialize:self] description];
 }
 
@@ -6309,15 +6448,15 @@
 
 @implementation DBFILEPROPERTIESUpdateTemplateResultSerializer
 
-+ (NSDictionary *)serialize:(DBFILEPROPERTIESUpdateTemplateResult *)valueObj {
++ (NSDictionary<NSString *, id> *)serialize:(DBFILEPROPERTIESUpdateTemplateResult *)valueObj {
   NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
 
   jsonDict[@"template_id"] = valueObj.templateId;
 
-  return [jsonDict count] > 0 ? jsonDict : nil;
+  return jsonDict;
 }
 
-+ (DBFILEPROPERTIESUpdateTemplateResult *)deserialize:(NSDictionary *)valueDict {
++ (DBFILEPROPERTIESUpdateTemplateResult *)deserialize:(NSDictionary<NSString *, id> *)valueDict {
   NSString *templateId = valueDict[@"template_id"];
 
   return [[DBFILEPROPERTIESUpdateTemplateResult alloc] initWithTemplateId:templateId];

@@ -28,7 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// The `DBTEAMTeamFolderInvalidStatusErrorTag` enum type represents the
 /// possible tag states with which the `DBTEAMTeamFolderInvalidStatusError`
 /// union can exist.
-typedef NS_ENUM(NSInteger, DBTEAMTeamFolderInvalidStatusErrorTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBTEAMTeamFolderInvalidStatusErrorTag) {
   /// The folder is active and the operation did not succeed.
   DBTEAMTeamFolderInvalidStatusErrorActive,
 
@@ -144,7 +144,7 @@ typedef NS_ENUM(NSInteger, DBTEAMTeamFolderInvalidStatusErrorTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBTEAMTeamFolderInvalidStatusError` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBTEAMTeamFolderInvalidStatusError *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBTEAMTeamFolderInvalidStatusError *)instance;
 
 ///
 /// Deserializes `DBTEAMTeamFolderInvalidStatusError` instances.
@@ -154,7 +154,7 @@ typedef NS_ENUM(NSInteger, DBTEAMTeamFolderInvalidStatusErrorTag) {
 ///
 /// @return An instantiation of the `DBTEAMTeamFolderInvalidStatusError` object.
 ///
-+ (DBTEAMTeamFolderInvalidStatusError *)deserialize:(NSDictionary *)dict;
++ (DBTEAMTeamFolderInvalidStatusError *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

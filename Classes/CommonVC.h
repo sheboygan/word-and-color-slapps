@@ -10,7 +10,7 @@
 #import "GameAppDelegate.h"
 @import GoogleMobileAds;
 
-@interface CommonVC : UIViewController <GADInterstitialDelegate, GADBannerViewDelegate>
+@interface CommonVC : UIViewController <GADFullScreenContentDelegate, GADBannerViewDelegate>
 {
     GameAppDelegate* appDelegate;
     IBOutlet UITableView *tbView;
@@ -18,7 +18,7 @@
 }
 
 @property (nonatomic, retain) GADBannerView* bannerAdMob;
-@property (strong) GADInterstitial* interstitial;
+@property (strong) GADInterstitialAd* interstitial;
 
 -(void)ShowAlertMessage:(NSString *)Message AlertTitle:(NSString *)title;
 -(IBAction)back: (id)sender;

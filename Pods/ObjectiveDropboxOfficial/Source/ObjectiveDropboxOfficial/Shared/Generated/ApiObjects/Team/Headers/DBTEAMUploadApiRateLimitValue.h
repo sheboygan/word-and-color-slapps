@@ -29,7 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// The `DBTEAMUploadApiRateLimitValueTag` enum type represents the possible tag
 /// states with which the `DBTEAMUploadApiRateLimitValue` union can exist.
-typedef NS_ENUM(NSInteger, DBTEAMUploadApiRateLimitValueTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBTEAMUploadApiRateLimitValueTag) {
   /// This team has unlimited upload API quota. So far both server version
   /// account and legacy  account type have unlimited monthly upload api
   /// quota.
@@ -136,7 +136,7 @@ typedef NS_ENUM(NSInteger, DBTEAMUploadApiRateLimitValueTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBTEAMUploadApiRateLimitValue` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBTEAMUploadApiRateLimitValue *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBTEAMUploadApiRateLimitValue *)instance;
 
 ///
 /// Deserializes `DBTEAMUploadApiRateLimitValue` instances.
@@ -146,7 +146,7 @@ typedef NS_ENUM(NSInteger, DBTEAMUploadApiRateLimitValueTag) {
 ///
 /// @return An instantiation of the `DBTEAMUploadApiRateLimitValue` object.
 ///
-+ (DBTEAMUploadApiRateLimitValue *)deserialize:(NSDictionary *)dict;
++ (DBTEAMUploadApiRateLimitValue *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

@@ -28,7 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// The `DBFILESGetCopyReferenceErrorTag` enum type represents the possible tag
 /// states with which the `DBFILESGetCopyReferenceError` union can exist.
-typedef NS_ENUM(NSInteger, DBFILESGetCopyReferenceErrorTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBFILESGetCopyReferenceErrorTag) {
   /// (no description).
   DBFILESGetCopyReferenceErrorPath,
 
@@ -108,7 +108,7 @@ typedef NS_ENUM(NSInteger, DBFILESGetCopyReferenceErrorTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBFILESGetCopyReferenceError` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBFILESGetCopyReferenceError *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBFILESGetCopyReferenceError *)instance;
 
 ///
 /// Deserializes `DBFILESGetCopyReferenceError` instances.
@@ -118,7 +118,7 @@ typedef NS_ENUM(NSInteger, DBFILESGetCopyReferenceErrorTag) {
 ///
 /// @return An instantiation of the `DBFILESGetCopyReferenceError` object.
 ///
-+ (DBFILESGetCopyReferenceError *)deserialize:(NSDictionary *)dict;
++ (DBFILESGetCopyReferenceError *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

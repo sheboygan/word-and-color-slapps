@@ -30,7 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// The `DBFILEREQUESTSGeneralFileRequestsErrorTag` enum type represents the
 /// possible tag states with which the `DBFILEREQUESTSGeneralFileRequestsError`
 /// union can exist.
-typedef NS_ENUM(NSInteger, DBFILEREQUESTSGeneralFileRequestsErrorTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBFILEREQUESTSGeneralFileRequestsErrorTag) {
   /// This user's Dropbox Business team doesn't allow file requests.
   DBFILEREQUESTSGeneralFileRequestsErrorDisabledForTeam,
 
@@ -106,7 +106,7 @@ typedef NS_ENUM(NSInteger, DBFILEREQUESTSGeneralFileRequestsErrorTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBFILEREQUESTSGeneralFileRequestsError` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBFILEREQUESTSGeneralFileRequestsError *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBFILEREQUESTSGeneralFileRequestsError *)instance;
 
 ///
 /// Deserializes `DBFILEREQUESTSGeneralFileRequestsError` instances.
@@ -117,7 +117,7 @@ typedef NS_ENUM(NSInteger, DBFILEREQUESTSGeneralFileRequestsErrorTag) {
 /// @return An instantiation of the `DBFILEREQUESTSGeneralFileRequestsError`
 /// object.
 ///
-+ (DBFILEREQUESTSGeneralFileRequestsError *)deserialize:(NSDictionary *)dict;
++ (DBFILEREQUESTSGeneralFileRequestsError *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

@@ -9,6 +9,8 @@
 #import "DBSerializableProtocol.h"
 
 @class DBFILESLookupError;
+@class DBFILESMoveIntoFamilyError;
+@class DBFILESMoveIntoVaultError;
 @class DBFILESRelocationBatchError;
 @class DBFILESWriteError;
 
@@ -29,7 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// The `DBFILESRelocationBatchErrorTag` enum type represents the possible tag
 /// states with which the `DBFILESRelocationBatchError` union can exist.
-typedef NS_ENUM(NSInteger, DBFILESRelocationBatchErrorTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBFILESRelocationBatchErrorTag) {
   /// (no description).
   DBFILESRelocationBatchErrorFromLookup,
 
@@ -64,6 +66,22 @@ typedef NS_ENUM(NSInteger, DBFILESRelocationBatchErrorTag) {
   /// The current user does not have enough space to move or copy the files.
   DBFILESRelocationBatchErrorInsufficientQuota,
 
+  /// Something went wrong with the job on Dropbox's end. You'll need to
+  /// verify that the action you were taking succeeded, and if not, try again.
+  /// This should happen very rarely.
+  DBFILESRelocationBatchErrorInternalError,
+
+  /// Can't move the shared folder to the given destination.
+  DBFILESRelocationBatchErrorCantMoveSharedFolder,
+
+  /// Some content cannot be moved into Vault under certain circumstances, see
+  /// detailed error.
+  DBFILESRelocationBatchErrorCantMoveIntoVault,
+
+  /// Some content cannot be moved into the Family Room folder under certain
+  /// circumstances, see detailed error.
+  DBFILESRelocationBatchErrorCantMoveIntoFamily,
+
   /// (no description).
   DBFILESRelocationBatchErrorOther,
 
@@ -87,6 +105,17 @@ typedef NS_ENUM(NSInteger, DBFILESRelocationBatchErrorTag) {
 /// (no description). @note Ensure the `isTo` method returns true before
 /// accessing, otherwise a runtime exception will be raised.
 @property (nonatomic, readonly) DBFILESWriteError *to;
+
+/// Some content cannot be moved into Vault under certain circumstances, see
+/// detailed error. @note Ensure the `isCantMoveIntoVault` method returns true
+/// before accessing, otherwise a runtime exception will be raised.
+@property (nonatomic, readonly) DBFILESMoveIntoVaultError *cantMoveIntoVault;
+
+/// Some content cannot be moved into the Family Room folder under certain
+/// circumstances, see detailed error. @note Ensure the `isCantMoveIntoFamily`
+/// method returns true before accessing, otherwise a runtime exception will be
+/// raised.
+@property (nonatomic, readonly) DBFILESMoveIntoFamilyError *cantMoveIntoFamily;
 
 #pragma mark - Constructors
 
@@ -188,6 +217,54 @@ typedef NS_ENUM(NSInteger, DBFILESRelocationBatchErrorTag) {
 /// @return An initialized instance.
 ///
 - (instancetype)initWithInsufficientQuota;
+
+///
+/// Initializes union class with tag state of "internal_error".
+///
+/// Description of the "internal_error" tag state: Something went wrong with the
+/// job on Dropbox's end. You'll need to verify that the action you were taking
+/// succeeded, and if not, try again. This should happen very rarely.
+///
+/// @return An initialized instance.
+///
+- (instancetype)initWithInternalError;
+
+///
+/// Initializes union class with tag state of "cant_move_shared_folder".
+///
+/// Description of the "cant_move_shared_folder" tag state: Can't move the
+/// shared folder to the given destination.
+///
+/// @return An initialized instance.
+///
+- (instancetype)initWithCantMoveSharedFolder;
+
+///
+/// Initializes union class with tag state of "cant_move_into_vault".
+///
+/// Description of the "cant_move_into_vault" tag state: Some content cannot be
+/// moved into Vault under certain circumstances, see detailed error.
+///
+/// @param cantMoveIntoVault Some content cannot be moved into Vault under
+/// certain circumstances, see detailed error.
+///
+/// @return An initialized instance.
+///
+- (instancetype)initWithCantMoveIntoVault:(DBFILESMoveIntoVaultError *)cantMoveIntoVault;
+
+///
+/// Initializes union class with tag state of "cant_move_into_family".
+///
+/// Description of the "cant_move_into_family" tag state: Some content cannot be
+/// moved into the Family Room folder under certain circumstances, see detailed
+/// error.
+///
+/// @param cantMoveIntoFamily Some content cannot be moved into the Family Room
+/// folder under certain circumstances, see detailed error.
+///
+/// @return An initialized instance.
+///
+- (instancetype)initWithCantMoveIntoFamily:(DBFILESMoveIntoFamilyError *)cantMoveIntoFamily;
 
 ///
 /// Initializes union class with tag state of "other".
@@ -302,6 +379,46 @@ typedef NS_ENUM(NSInteger, DBFILESRelocationBatchErrorTag) {
 - (BOOL)isInsufficientQuota;
 
 ///
+/// Retrieves whether the union's current tag state has value "internal_error".
+///
+/// @return Whether the union's current tag state has value "internal_error".
+///
+- (BOOL)isInternalError;
+
+///
+/// Retrieves whether the union's current tag state has value
+/// "cant_move_shared_folder".
+///
+/// @return Whether the union's current tag state has value
+/// "cant_move_shared_folder".
+///
+- (BOOL)isCantMoveSharedFolder;
+
+///
+/// Retrieves whether the union's current tag state has value
+/// "cant_move_into_vault".
+///
+/// @note Call this method and ensure it returns true before accessing the
+/// `cantMoveIntoVault` property, otherwise a runtime exception will be thrown.
+///
+/// @return Whether the union's current tag state has value
+/// "cant_move_into_vault".
+///
+- (BOOL)isCantMoveIntoVault;
+
+///
+/// Retrieves whether the union's current tag state has value
+/// "cant_move_into_family".
+///
+/// @note Call this method and ensure it returns true before accessing the
+/// `cantMoveIntoFamily` property, otherwise a runtime exception will be thrown.
+///
+/// @return Whether the union's current tag state has value
+/// "cant_move_into_family".
+///
+- (BOOL)isCantMoveIntoFamily;
+
+///
 /// Retrieves whether the union's current tag state has value "other".
 ///
 /// @return Whether the union's current tag state has value "other".
@@ -341,7 +458,7 @@ typedef NS_ENUM(NSInteger, DBFILESRelocationBatchErrorTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBFILESRelocationBatchError` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBFILESRelocationBatchError *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBFILESRelocationBatchError *)instance;
 
 ///
 /// Deserializes `DBFILESRelocationBatchError` instances.
@@ -351,7 +468,7 @@ typedef NS_ENUM(NSInteger, DBFILESRelocationBatchErrorTag) {
 ///
 /// @return An instantiation of the `DBFILESRelocationBatchError` object.
 ///
-+ (DBFILESRelocationBatchError *)deserialize:(NSDictionary *)dict;
++ (DBFILESRelocationBatchError *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

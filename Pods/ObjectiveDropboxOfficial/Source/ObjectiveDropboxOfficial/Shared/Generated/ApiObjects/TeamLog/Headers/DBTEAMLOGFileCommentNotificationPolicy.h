@@ -30,7 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// The `DBTEAMLOGFileCommentNotificationPolicyTag` enum type represents the
 /// possible tag states with which the `DBTEAMLOGFileCommentNotificationPolicy`
 /// union can exist.
-typedef NS_ENUM(NSInteger, DBTEAMLOGFileCommentNotificationPolicyTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBTEAMLOGFileCommentNotificationPolicyTag) {
   /// (no description).
   DBTEAMLOGFileCommentNotificationPolicyDisabled,
 
@@ -119,7 +119,7 @@ typedef NS_ENUM(NSInteger, DBTEAMLOGFileCommentNotificationPolicyTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBTEAMLOGFileCommentNotificationPolicy` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBTEAMLOGFileCommentNotificationPolicy *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBTEAMLOGFileCommentNotificationPolicy *)instance;
 
 ///
 /// Deserializes `DBTEAMLOGFileCommentNotificationPolicy` instances.
@@ -130,7 +130,7 @@ typedef NS_ENUM(NSInteger, DBTEAMLOGFileCommentNotificationPolicyTag) {
 /// @return An instantiation of the `DBTEAMLOGFileCommentNotificationPolicy`
 /// object.
 ///
-+ (DBTEAMLOGFileCommentNotificationPolicy *)deserialize:(NSDictionary *)dict;
++ (DBTEAMLOGFileCommentNotificationPolicy *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

@@ -49,17 +49,18 @@
     if (![SharedObjects objects].isPro) {
         return NO;
     }
-    DBOAuthResult *authResult = [DBClientsManager handleRedirectURL:url];
-    if (authResult != nil) {
-        if ([authResult isSuccess]) {
-            NSLog(@"Success! User is logged into Dropbox.");
-            [self openDropboxBrowser];
-        } else if ([authResult isCancel]) {
-            NSLog(@"Authorization flow was manually canceled by user!");
-        } else if ([authResult isError]) {
-            NSLog(@"Error: %@", authResult);
+    [DBClientsManager handleRedirectURL:url completion:^(DBOAuthResult * _Nullable authResult) {
+        if (authResult != nil) {
+            if ([authResult isSuccess]) {
+                NSLog(@"Success! User is logged into Dropbox.");
+                [self openDropboxBrowser];
+            } else if ([authResult isCancel]) {
+                NSLog(@"Authorization flow was manually canceled by user!");
+            } else if ([authResult isError]) {
+                NSLog(@"Error: %@", authResult);
+            }
         }
-    }
+    }];
     return NO;
 }
 

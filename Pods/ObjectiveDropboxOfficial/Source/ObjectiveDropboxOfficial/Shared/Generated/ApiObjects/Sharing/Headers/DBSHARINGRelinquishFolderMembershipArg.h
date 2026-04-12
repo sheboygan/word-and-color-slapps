@@ -28,7 +28,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// The ID for the shared folder.
 @property (nonatomic, readonly, copy) NSString *sharedFolderId;
 
-/// Keep a copy of the folder's contents upon relinquishing membership.
+/// Keep a copy of the folder's contents upon relinquishing membership. This
+/// must be set to false when the folder is within a team folder or another
+/// shared folder.
 @property (nonatomic, readonly) NSNumber *leaveACopy;
 
 #pragma mark - Constructors
@@ -38,7 +40,8 @@ NS_ASSUME_NONNULL_BEGIN
 ///
 /// @param sharedFolderId The ID for the shared folder.
 /// @param leaveACopy Keep a copy of the folder's contents upon relinquishing
-/// membership.
+/// membership. This must be set to false when the folder is within a team
+/// folder or another shared folder.
 ///
 /// @return An initialized instance.
 ///
@@ -74,7 +77,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// @return A json-compatible dictionary representation of the
 /// `DBSHARINGRelinquishFolderMembershipArg` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBSHARINGRelinquishFolderMembershipArg *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBSHARINGRelinquishFolderMembershipArg *)instance;
 
 ///
 /// Deserializes `DBSHARINGRelinquishFolderMembershipArg` instances.
@@ -85,7 +88,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// @return An instantiation of the `DBSHARINGRelinquishFolderMembershipArg`
 /// object.
 ///
-+ (DBSHARINGRelinquishFolderMembershipArg *)deserialize:(NSDictionary *)dict;
++ (DBSHARINGRelinquishFolderMembershipArg *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

@@ -36,13 +36,16 @@ NS_ASSUME_NONNULL_BEGIN
 /// folder.
 @property (nonatomic, readonly, copy) NSString *destination;
 
-/// The deadline for the file request. Deadlines can only be set by Pro and
-/// Business accounts.
+/// The deadline for the file request. Deadlines can only be set by Professional
+/// and Business accounts.
 @property (nonatomic, readonly, nullable) DBFILEREQUESTSFileRequestDeadline *deadline;
 
 /// Whether or not the file request should be open. If the file request is
 /// closed, it will not accept any file submissions, but it can be opened later.
 @property (nonatomic, readonly) NSNumber *open;
+
+/// A description of the file request.
+@property (nonatomic, readonly, copy, nullable) NSString *description_;
 
 #pragma mark - Constructors
 
@@ -54,17 +57,19 @@ NS_ASSUME_NONNULL_BEGIN
 /// files will be sent. For apps with the app folder permission, this will be
 /// relative to the app folder.
 /// @param deadline The deadline for the file request. Deadlines can only be set
-/// by Pro and Business accounts.
+/// by Professional and Business accounts.
 /// @param open Whether or not the file request should be open. If the file
 /// request is closed, it will not accept any file submissions, but it can be
 /// opened later.
+/// @param description_ A description of the file request.
 ///
 /// @return An initialized instance.
 ///
 - (instancetype)initWithTitle:(NSString *)title
                   destination:(NSString *)destination
                      deadline:(nullable DBFILEREQUESTSFileRequestDeadline *)deadline
-                         open:(nullable NSNumber *)open;
+                         open:(nullable NSNumber *)open
+                 description_:(nullable NSString *)description_;
 
 ///
 /// Convenience constructor (exposes only non-nullable instance variables with
@@ -99,7 +104,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// @return A json-compatible dictionary representation of the
 /// `DBFILEREQUESTSCreateFileRequestArgs` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBFILEREQUESTSCreateFileRequestArgs *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBFILEREQUESTSCreateFileRequestArgs *)instance;
 
 ///
 /// Deserializes `DBFILEREQUESTSCreateFileRequestArgs` instances.
@@ -110,7 +115,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// @return An instantiation of the `DBFILEREQUESTSCreateFileRequestArgs`
 /// object.
 ///
-+ (DBFILEREQUESTSCreateFileRequestArgs *)deserialize:(NSDictionary *)dict;
++ (DBFILEREQUESTSCreateFileRequestArgs *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

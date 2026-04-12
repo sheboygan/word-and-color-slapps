@@ -28,7 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// The `DBTEAMTeamFolderArchiveLaunchTag` enum type represents the possible tag
 /// states with which the `DBTEAMTeamFolderArchiveLaunch` union can exist.
-typedef NS_ENUM(NSInteger, DBTEAMTeamFolderArchiveLaunchTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBTEAMTeamFolderArchiveLaunchTag) {
   /// This response indicates that the processing is asynchronous. The string
   /// is an id that can be used to obtain the status of the asynchronous job.
   DBTEAMTeamFolderArchiveLaunchAsyncJobId,
@@ -126,7 +126,7 @@ typedef NS_ENUM(NSInteger, DBTEAMTeamFolderArchiveLaunchTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBTEAMTeamFolderArchiveLaunch` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBTEAMTeamFolderArchiveLaunch *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBTEAMTeamFolderArchiveLaunch *)instance;
 
 ///
 /// Deserializes `DBTEAMTeamFolderArchiveLaunch` instances.
@@ -136,7 +136,7 @@ typedef NS_ENUM(NSInteger, DBTEAMTeamFolderArchiveLaunchTag) {
 ///
 /// @return An instantiation of the `DBTEAMTeamFolderArchiveLaunch` object.
 ///
-+ (DBTEAMTeamFolderArchiveLaunch *)deserialize:(NSDictionary *)dict;
++ (DBTEAMTeamFolderArchiveLaunch *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

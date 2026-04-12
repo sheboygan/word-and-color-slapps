@@ -27,7 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// The `DBTEAMListMemberDevicesErrorTag` enum type represents the possible tag
 /// states with which the `DBTEAMListMemberDevicesError` union can exist.
-typedef NS_ENUM(NSInteger, DBTEAMListMemberDevicesErrorTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBTEAMListMemberDevicesErrorTag) {
   /// Member not found.
   DBTEAMListMemberDevicesErrorMemberNotFound,
 
@@ -101,7 +101,7 @@ typedef NS_ENUM(NSInteger, DBTEAMListMemberDevicesErrorTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBTEAMListMemberDevicesError` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBTEAMListMemberDevicesError *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBTEAMListMemberDevicesError *)instance;
 
 ///
 /// Deserializes `DBTEAMListMemberDevicesError` instances.
@@ -111,7 +111,7 @@ typedef NS_ENUM(NSInteger, DBTEAMListMemberDevicesErrorTag) {
 ///
 /// @return An instantiation of the `DBTEAMListMemberDevicesError` object.
 ///
-+ (DBTEAMListMemberDevicesError *)deserialize:(NSDictionary *)dict;
++ (DBTEAMListMemberDevicesError *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

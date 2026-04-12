@@ -27,7 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// The `DBTEAMGroupsPollErrorTag` enum type represents the possible tag states
 /// with which the `DBTEAMGroupsPollError` union can exist.
-typedef NS_ENUM(NSInteger, DBTEAMGroupsPollErrorTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBTEAMGroupsPollErrorTag) {
   /// The job ID is invalid.
   DBTEAMGroupsPollErrorInvalidAsyncJobId,
 
@@ -144,7 +144,7 @@ typedef NS_ENUM(NSInteger, DBTEAMGroupsPollErrorTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBTEAMGroupsPollError` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBTEAMGroupsPollError *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBTEAMGroupsPollError *)instance;
 
 ///
 /// Deserializes `DBTEAMGroupsPollError` instances.
@@ -154,7 +154,7 @@ typedef NS_ENUM(NSInteger, DBTEAMGroupsPollErrorTag) {
 ///
 /// @return An instantiation of the `DBTEAMGroupsPollError` object.
 ///
-+ (DBTEAMGroupsPollError *)deserialize:(NSDictionary *)dict;
++ (DBTEAMGroupsPollError *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

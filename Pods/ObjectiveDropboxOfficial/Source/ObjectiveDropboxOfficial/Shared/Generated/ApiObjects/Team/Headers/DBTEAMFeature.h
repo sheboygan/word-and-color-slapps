@@ -17,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 ///
 /// The `Feature` union.
 ///
-/// A set of features that Dropbox for Business account support.
+/// A set of features that a Dropbox Business account may support.
 ///
 /// This class implements the `DBSerializable` protocol (serialize and
 /// deserialize instance methods), which is required for all Obj-C SDK API route
@@ -29,15 +29,18 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// The `DBTEAMFeatureTag` enum type represents the possible tag states with
 /// which the `DBTEAMFeature` union can exist.
-typedef NS_ENUM(NSInteger, DBTEAMFeatureTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBTEAMFeatureTag) {
   /// The number of upload API calls allowed per month.
   DBTEAMFeatureUploadApiRateLimit,
 
-  /// Does this team have a have a company shared dropbox.
+  /// Does this team have a shared team root.
   DBTEAMFeatureHasTeamSharedDropbox,
 
   /// Does this team have file events.
   DBTEAMFeatureHasTeamFileEvents,
+
+  /// Does this team have team selective sync enabled.
+  DBTEAMFeatureHasTeamSelectiveSync,
 
   /// (no description).
   DBTEAMFeatureOther,
@@ -63,7 +66,7 @@ typedef NS_ENUM(NSInteger, DBTEAMFeatureTag) {
 /// Initializes union class with tag state of "has_team_shared_dropbox".
 ///
 /// Description of the "has_team_shared_dropbox" tag state: Does this team have
-/// a have a company shared dropbox.
+/// a shared team root.
 ///
 /// @return An initialized instance.
 ///
@@ -78,6 +81,16 @@ typedef NS_ENUM(NSInteger, DBTEAMFeatureTag) {
 /// @return An initialized instance.
 ///
 - (instancetype)initWithHasTeamFileEvents;
+
+///
+/// Initializes union class with tag state of "has_team_selective_sync".
+///
+/// Description of the "has_team_selective_sync" tag state: Does this team have
+/// team selective sync enabled.
+///
+/// @return An initialized instance.
+///
+- (instancetype)initWithHasTeamSelectiveSync;
 
 ///
 /// Initializes union class with tag state of "other".
@@ -118,6 +131,15 @@ typedef NS_ENUM(NSInteger, DBTEAMFeatureTag) {
 - (BOOL)isHasTeamFileEvents;
 
 ///
+/// Retrieves whether the union's current tag state has value
+/// "has_team_selective_sync".
+///
+/// @return Whether the union's current tag state has value
+/// "has_team_selective_sync".
+///
+- (BOOL)isHasTeamSelectiveSync;
+
+///
 /// Retrieves whether the union's current tag state has value "other".
 ///
 /// @return Whether the union's current tag state has value "other".
@@ -148,7 +170,7 @@ typedef NS_ENUM(NSInteger, DBTEAMFeatureTag) {
 /// @return A json-compatible dictionary representation of the `DBTEAMFeature`
 /// API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBTEAMFeature *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBTEAMFeature *)instance;
 
 ///
 /// Deserializes `DBTEAMFeature` instances.
@@ -158,7 +180,7 @@ typedef NS_ENUM(NSInteger, DBTEAMFeatureTag) {
 ///
 /// @return An instantiation of the `DBTEAMFeature` object.
 ///
-+ (DBTEAMFeature *)deserialize:(NSDictionary *)dict;
++ (DBTEAMFeature *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

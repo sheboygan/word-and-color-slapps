@@ -17,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 ///
 /// The `SsoChangeLogoutUrlDetails` struct.
 ///
-/// Changed the sign-out URL for SSO.
+/// Changed sign-out URL for SSO.
 ///
 /// This class implements the `DBSerializable` protocol (serialize and
 /// deserialize instance methods), which is required for all Obj-C SDK API route
@@ -31,7 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// gap.
 @property (nonatomic, readonly, copy, nullable) NSString *previousValue;
 
-/// New single sign-on logout URL. Might be missing due to historical data gap.
+/// New single sign-on logout URL.
 @property (nonatomic, readonly, copy, nullable) NSString *dNewValue;
 
 #pragma mark - Constructors
@@ -41,8 +41,7 @@ NS_ASSUME_NONNULL_BEGIN
 ///
 /// @param previousValue Previous single sign-on logout URL. Might be missing
 /// due to historical data gap.
-/// @param dNewValue New single sign-on logout URL. Might be missing due to
-/// historical data gap.
+/// @param dNewValue New single sign-on logout URL.
 ///
 /// @return An initialized instance.
 ///
@@ -77,7 +76,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// @return A json-compatible dictionary representation of the
 /// `DBTEAMLOGSsoChangeLogoutUrlDetails` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBTEAMLOGSsoChangeLogoutUrlDetails *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBTEAMLOGSsoChangeLogoutUrlDetails *)instance;
 
 ///
 /// Deserializes `DBTEAMLOGSsoChangeLogoutUrlDetails` instances.
@@ -87,7 +86,7 @@ NS_ASSUME_NONNULL_BEGIN
 ///
 /// @return An instantiation of the `DBTEAMLOGSsoChangeLogoutUrlDetails` object.
 ///
-+ (DBTEAMLOGSsoChangeLogoutUrlDetails *)deserialize:(NSDictionary *)dict;
++ (DBTEAMLOGSsoChangeLogoutUrlDetails *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

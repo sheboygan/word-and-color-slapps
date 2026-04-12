@@ -27,12 +27,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// The `DBTEAMLOGDeviceApprovalsPolicyTag` enum type represents the possible
 /// tag states with which the `DBTEAMLOGDeviceApprovalsPolicy` union can exist.
-typedef NS_ENUM(NSInteger, DBTEAMLOGDeviceApprovalsPolicyTag) {
-  /// (no description).
-  DBTEAMLOGDeviceApprovalsPolicyUnlimited,
-
+typedef NS_CLOSED_ENUM(NSInteger, DBTEAMLOGDeviceApprovalsPolicyTag) {
   /// (no description).
   DBTEAMLOGDeviceApprovalsPolicyLimited,
+
+  /// (no description).
+  DBTEAMLOGDeviceApprovalsPolicyUnlimited,
 
   /// (no description).
   DBTEAMLOGDeviceApprovalsPolicyOther,
@@ -45,18 +45,18 @@ typedef NS_ENUM(NSInteger, DBTEAMLOGDeviceApprovalsPolicyTag) {
 #pragma mark - Constructors
 
 ///
-/// Initializes union class with tag state of "unlimited".
-///
-/// @return An initialized instance.
-///
-- (instancetype)initWithUnlimited;
-
-///
 /// Initializes union class with tag state of "limited".
 ///
 /// @return An initialized instance.
 ///
 - (instancetype)initWithLimited;
+
+///
+/// Initializes union class with tag state of "unlimited".
+///
+/// @return An initialized instance.
+///
+- (instancetype)initWithUnlimited;
 
 ///
 /// Initializes union class with tag state of "other".
@@ -70,18 +70,18 @@ typedef NS_ENUM(NSInteger, DBTEAMLOGDeviceApprovalsPolicyTag) {
 #pragma mark - Tag state methods
 
 ///
-/// Retrieves whether the union's current tag state has value "unlimited".
-///
-/// @return Whether the union's current tag state has value "unlimited".
-///
-- (BOOL)isUnlimited;
-
-///
 /// Retrieves whether the union's current tag state has value "limited".
 ///
 /// @return Whether the union's current tag state has value "limited".
 ///
 - (BOOL)isLimited;
+
+///
+/// Retrieves whether the union's current tag state has value "unlimited".
+///
+/// @return Whether the union's current tag state has value "unlimited".
+///
+- (BOOL)isUnlimited;
 
 ///
 /// Retrieves whether the union's current tag state has value "other".
@@ -115,7 +115,7 @@ typedef NS_ENUM(NSInteger, DBTEAMLOGDeviceApprovalsPolicyTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBTEAMLOGDeviceApprovalsPolicy` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBTEAMLOGDeviceApprovalsPolicy *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBTEAMLOGDeviceApprovalsPolicy *)instance;
 
 ///
 /// Deserializes `DBTEAMLOGDeviceApprovalsPolicy` instances.
@@ -125,7 +125,7 @@ typedef NS_ENUM(NSInteger, DBTEAMLOGDeviceApprovalsPolicyTag) {
 ///
 /// @return An instantiation of the `DBTEAMLOGDeviceApprovalsPolicy` object.
 ///
-+ (DBTEAMLOGDeviceApprovalsPolicy *)deserialize:(NSDictionary *)dict;
++ (DBTEAMLOGDeviceApprovalsPolicy *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 

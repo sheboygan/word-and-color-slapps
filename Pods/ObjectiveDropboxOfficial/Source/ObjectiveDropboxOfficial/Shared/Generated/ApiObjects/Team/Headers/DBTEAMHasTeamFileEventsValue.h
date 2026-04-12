@@ -29,7 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// The `DBTEAMHasTeamFileEventsValueTag` enum type represents the possible tag
 /// states with which the `DBTEAMHasTeamFileEventsValue` union can exist.
-typedef NS_ENUM(NSInteger, DBTEAMHasTeamFileEventsValueTag) {
+typedef NS_CLOSED_ENUM(NSInteger, DBTEAMHasTeamFileEventsValueTag) {
   /// Does this team have file events.
   DBTEAMHasTeamFileEventsValueEnabled,
 
@@ -111,7 +111,7 @@ typedef NS_ENUM(NSInteger, DBTEAMHasTeamFileEventsValueTag) {
 /// @return A json-compatible dictionary representation of the
 /// `DBTEAMHasTeamFileEventsValue` API object.
 ///
-+ (nullable NSDictionary *)serialize:(DBTEAMHasTeamFileEventsValue *)instance;
++ (nullable NSDictionary<NSString *, id> *)serialize:(DBTEAMHasTeamFileEventsValue *)instance;
 
 ///
 /// Deserializes `DBTEAMHasTeamFileEventsValue` instances.
@@ -121,7 +121,7 @@ typedef NS_ENUM(NSInteger, DBTEAMHasTeamFileEventsValueTag) {
 ///
 /// @return An instantiation of the `DBTEAMHasTeamFileEventsValue` object.
 ///
-+ (DBTEAMHasTeamFileEventsValue *)deserialize:(NSDictionary *)dict;
++ (DBTEAMHasTeamFileEventsValue *)deserialize:(NSDictionary<NSString *, id> *)dict;
 
 @end
 
