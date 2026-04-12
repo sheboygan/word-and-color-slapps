@@ -9,8 +9,7 @@
 #import "GameAppDelegate.h"
 #import "MainMenuVC.h"
 #import "DropboxBrowserViewController.h"
-#import <Fabric/Fabric.h>
-#import <Crashlytics/Crashlytics.h>
+
 
 @implementation GameAppDelegate
 @synthesize window, navController;
@@ -24,8 +23,6 @@
 #pragma mark Application lifecycle
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {    
-    [Fabric with:@[[Crashlytics class]]];
-    
     if (![SharedObjects objects].isColorSlapps)
     {
         AVAudioSession *audioSession = [AVAudioSession sharedInstance];

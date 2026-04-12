@@ -9,8 +9,6 @@ target 'Color Slapps' do
   # Pods for Color Slapps
     pod 'ObjectiveDropboxOfficial'
     pod 'Google-Mobile-Ads-SDK'
-    pod 'Fabric'
-    pod 'Crashlytics'
 end
 
 target 'Game' do
@@ -20,8 +18,6 @@ target 'Game' do
   # Pods for Game
     pod 'ObjectiveDropboxOfficial'
     pod 'Google-Mobile-Ads-SDK'
-    pod 'Fabric'
-    pod 'Crashlytics'
 
 end
 
@@ -32,7 +28,5 @@ target 'Lite' do
   # Pods for Lite
     pod 'ObjectiveDropboxOfficial'
     pod 'Google-Mobile-Ads-SDK'
-    pod 'Fabric'
-    pod 'Crashlytics'
 
 end
