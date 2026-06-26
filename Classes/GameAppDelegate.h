@@ -11,6 +11,7 @@
 #import "CustomNavigationController.h"
 #import "SharedObjects.h"
 #import <ObjectiveDropboxOfficial/ObjectiveDropboxOfficial.h>
+@import GoogleMobileAds;
 
 @class MainMenuVC;
 

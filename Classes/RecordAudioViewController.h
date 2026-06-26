@@ -19,52 +19,50 @@
 
 
 
-@interface RecordAudioViewController : CommonVC<UIPopoverControllerDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,AVAudioRecorderDelegate,AVAudioPlayerDelegate, ImageFinderProtocol> {
+@interface RecordAudioViewController : CommonVC<UIPopoverPresentationControllerDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,AVAudioRecorderDelegate,AVAudioPlayerDelegate, ImageFinderProtocol> {
 	id<RecordAudioViewControllerDelegate> __weak delegate;
-	
+
 	IBOutlet UIImageView *image;
 	UIImagePickerController *imgPicker;
 	NSMutableDictionary *recordSetting;
 	NSString *recorderFilePath;
 	AVAudioRecorder *recorder;
 	AVAudioPlayer *audioPlayer;
-	
+
 	UIProgressView *upv;
 	NSTimer *timer;
 	UITextField *texts;
 	UILabel *labels;
-	
+
 	UISwitch *switchs;
-	
+
 	BOOL image_yes;
 	BOOL sound_yes;
 	BOOL letter_yes;
 	BOOL b_change;
-	
+
 	BOOL newSound;
-	
+
 	NSData *_sound;
 	NSInteger *_soundLen;
 	NSString *_titles;
-	
+
 	NSInteger _id;
 	NSInteger _category;
 	NSInteger hide;
-	
+
 	BOOL proess_status;
 	float ms;
 	IBOutlet UIButton *camera;
 	IBOutlet UIButton *btstop;
 	IBOutlet UIButton *btPlay;
 	IBOutlet UIButton *btRecord;
-	UIPopoverController *popoverController;
 	CategoryBean *categoryBean;
 	IBOutlet UIButton *btCamera;
 }
 
 @property (weak) id<RecordAudioViewControllerDelegate> delegate;
 @property (nonatomic, strong) UIImagePickerController *imgPicker;
-@property (nonatomic, strong) UIPopoverController *popoverController;
 @property (nonatomic, strong) IBOutlet UIProgressView *upv;
 @property (nonatomic, strong) IBOutlet UITextField *texts;
 @property (nonatomic, strong) IBOutlet UILabel *labels;

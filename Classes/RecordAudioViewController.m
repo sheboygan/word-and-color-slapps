@@ -22,7 +22,6 @@
 @synthesize switchs;
 @synthesize camera;
 @synthesize _category;
-@synthesize popoverController;
 @synthesize delegate;
 
 -(BOOL)isExistsFile:(NSString *)filepath{
@@ -176,9 +175,7 @@
 	}
 	
 	self.imgPicker.delegate = self;
-	UIPopoverController *popover = [[UIPopoverController alloc] initWithContentViewController:imgPicker];
-	self.popoverController = popover;          
-	popoverController.delegate = self;
+	self.imgPicker.modalPresentationStyle = UIModalPresentationPopover;
 
 	[self getcategoryBeanFromDb:_id];
 
@@ -525,10 +522,12 @@
 	}
 		
 	
-    [popoverController presentPopoverFromRect:CGRectMake(180, 620, 290, 48)
-									   inView:self.view
-					 permittedArrowDirections:UIPopoverArrowDirectionDown
-									 animated:YES];
+    self.imgPicker.modalPresentationStyle = UIModalPresentationPopover;
+    [self presentViewController:self.imgPicker animated:YES completion:nil];
+    UIPopoverPresentationController *popPC = self.imgPicker.popoverPresentationController;
+    popPC.sourceView = self.view;
+    popPC.sourceRect = CGRectMake(180, 620, 290, 48);
+    popPC.permittedArrowDirections = UIPopoverArrowDirectionDown;
 }
 
 - (void)imageFinderDidSelectImage:(UIImage *)newImage
@@ -537,8 +536,7 @@
 }
 
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
-    [popoverController dismissPopoverAnimated:YES];
-	[[picker parentViewController] dismissViewControllerAnimated: YES completion: nil];
+    [self dismissViewControllerAnimated:YES completion:nil];
     b_change = YES;
 	UIImage *selectedImage = info[UIImagePickerControllerEditedImage]; 	
 	if (!selectedImage)

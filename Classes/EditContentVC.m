@@ -200,8 +200,8 @@
 	}
 	recordAudioViewController.delegate = self;
 	recordAudioViewController._category = cateID;
-    
-    
+    recordAudioViewController.modalPresentationStyle = UIModalPresentationFullScreen;
+
     [self presentViewController: recordAudioViewController animated: YES completion: nil];
 }
 
@@ -256,6 +256,7 @@
 		recordAudioViewController.delegate = self;
 		recordAudioViewController._id = 0;
 		recordAudioViewController._category = cateID;
+        recordAudioViewController.modalPresentationStyle = UIModalPresentationFullScreen;
         [self presentViewController: recordAudioViewController animated: NO completion: nil];
 	}
 	

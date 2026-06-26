@@ -9,6 +9,8 @@
 #import "GameAppDelegate.h"
 #import "MainMenuVC.h"
 #import "DropboxBrowserViewController.h"
+@import AppTrackingTransparency;
+@import UserMessagingPlatform;
 
 
 @implementation GameAppDelegate
@@ -22,26 +24,59 @@
 #pragma mark -
 #pragma mark Application lifecycle
 
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {    
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     if (![SharedObjects objects].isColorSlapps)
     {
         AVAudioSession *audioSession = [AVAudioSession sharedInstance];
         [audioSession setCategory:AVAudioSessionCategoryPlayAndRecord error:nil];
         [audioSession setActive:YES error:nil];
     }
-    
-    if ([SharedObjects objects].isPro)
+
+    if ([SharedObjects objects].isPro && ![SharedObjects objects].isColorSlapps)
     {
         [self initDropboxSession];
     }
 
 	[self createEditableCopyOfDatabaseIfNeeded];
-	
+
     window.rootViewController = navController;
 	navController.navigationBar.hidden = YES;
 	[window makeKeyAndVisible];
 
+    if (![SharedObjects objects].isPro || [SharedObjects objects].isColorSlapps)
+    {
+        [self requestAdConsent];
+    }
+
 	return YES;
+}
+
+- (void)requestAdConsent {
+    UMPRequestParameters *parameters = [[UMPRequestParameters alloc] init];
+    parameters.tagForUnderAgeOfConsent = NO;
+
+    __weak GameAppDelegate *weakSelf = self;
+    [UMPConsentInformation.sharedInstance requestConsentInfoUpdateWithParameters:parameters
+        completionHandler:^(NSError * _Nullable error) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (error) {
+                    [weakSelf requestTrackingAndStartAds];
+                    return;
+                }
+                [UMPConsentForm loadAndPresentIfRequiredFromViewController:weakSelf.window.rootViewController
+                    completionHandler:^(NSError * _Nullable formError) {
+                        [weakSelf requestTrackingAndStartAds];
+                    }];
+            });
+        }];
+}
+
+- (void)requestTrackingAndStartAds {
+    [ATTrackingManager requestTrackingAuthorizationWithCompletionHandler:^(ATTrackingManagerAuthorizationStatus status) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [[GADMobileAds sharedInstance] startWithCompletionHandler:nil];
+        });
+    }];
 }
 
 - (BOOL)application:(UIApplication *)app openURL:(NSURL *)url

@@ -5269,7 +5269,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		29B97314FDCFA39411CA2CEA = {
+		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
 				8A64FA902040823D00ECFAD1 /* Word SLapPs.entitlements */,
@@ -7187,7 +7187,7 @@
 				es,
 				en,
 			);
-			mainGroup = 29B97314FDCFA39411CA2CEA;
+			mainGroup = 29B97314FDCFA39411CA2CEA /* CustomTemplate */;
 			productRefGroup = 19C28FACFE9D520D11CA2CBB /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -10797,7 +10797,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Fabric/run\" b3f937450bc5957012a6fe0f60834fd02e429ff3 e1ec163c357fd69cf86255a8d3c6d2b0ccf93e863a4fe3f53473b7d107c94fb1\n";
+			shellScript = "# Fabric/Crashlytics is deprecated - skipping dSYM upload\n   exit 0\n";
 		};
 		8A519D2920404C2700227184 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -10810,7 +10810,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Fabric/run\" b3f937450bc5957012a6fe0f60834fd02e429ff3 e1ec163c357fd69cf86255a8d3c6d2b0ccf93e863a4fe3f53473b7d107c94fb1\n";
+			shellScript = "# Fabric/Crashlytics is deprecated - skipping dSYM upload\n   exit 0\n";
 		};
 		8A64FA8F2040770D00ECFAD1 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -11653,7 +11653,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = B6TAVKA596;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/Help\"",
@@ -11689,7 +11689,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = B6TAVKA596;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/Help\"",
@@ -11725,7 +11725,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = YES;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = B6TAVKA596;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/Help\"",
@@ -11887,7 +11887,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Distribution;
 		};
@@ -11952,7 +11952,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Debug;
 		};
@@ -11990,7 +11990,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Release;
 		};
